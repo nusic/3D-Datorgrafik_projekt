@@ -1,5 +1,19 @@
-3D-Datorgrafik_projekt
+3D-Datorgrafik_projekt 
 ======================
-Tim vill vara med
 
-Projekt i kursen TNM061
+
+Kompilera
+---------
+Gå till projektroten (mappen där "Makefil" ligger) och skriv följande rad i terminal/kommandotolken för respektive OS:
+
+#### Mac
+
+	make; ./Program -config data/sgct_config/single.xml
+
+#### Linus
+
+	Kommer snart
+
+#### Windows
+
+	Kommer snart
