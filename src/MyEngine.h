@@ -26,8 +26,6 @@ private:
 	bool _isMaster;
 	int _testVar;
 	MySound *_sound;
-
-	GLuint vertexbuffer;
 };
 
 #endif

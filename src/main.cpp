@@ -5,8 +5,6 @@
 #include "sgct.h"
 #include "MyEngine.h"
 
-#include <glm/glm.hpp>
-
 #ifdef _TEST_
 	int runUnitTests(int argc, char **argv);
 #endif
