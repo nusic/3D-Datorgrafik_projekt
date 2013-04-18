@@ -12,7 +12,7 @@ Gå till projekt-roten (mappen där "Makefile" ligger) och skriv följande rad i
 
 #### Linux
 
-	Kommer snart
+	Kommer senare
 
 #### Windows
 
