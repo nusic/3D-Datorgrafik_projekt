@@ -8,7 +8,7 @@ Gå till projekt-roten (mappen där "Makefile" ligger) och skriv följande rad i
 
 #### Mac
 
-	make; ./Program -config data/sgct_config/single.xml
+	rm Program; make; ./Program -config data/sgct_config/single.xml
 
 #### Linux
 
