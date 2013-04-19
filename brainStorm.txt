@@ -6,6 +6,7 @@ vars:
 	theta, phi
 	Model "mainModel"
 
+
 methods:
 	drawObject(VP_Matrix){
 		mainModel->drawModel(VP_Matrix);
@@ -19,6 +20,7 @@ DynamicObject : GameObject
 vars:
 	dx, dy, speed
 	dTheta, dPhi, turnSpeed
+
 
 methods:
 //dt är tiden sedan senaste uppdateringen
@@ -39,10 +41,11 @@ vars:
 	modelMatrix
 	modelMesh
 	vector<Model>
+	GLUint shaderProgramID		(?)
 
 methods:
 	drawModel(MVP_Matrix){
-		Matrix thisMVP = modelMatrix * MVP_Matrix
+		Matrix currentMVP = modelMatrix * MVP_Matrix	(ordining ?)
 		...
 	}
 
