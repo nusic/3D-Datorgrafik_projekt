@@ -4,19 +4,26 @@ public:
 	bool methodName(int arg);
 
 private:
-	int bar;
+	int* bar;
 	static double StaticVar;
 	const bool CONST_VAR;
 };
 
-bool ClassName::methodName(int arg)
-{	
-	//comment 
+bool ClassName::methodName(int arg){
+	code code code;
+
+	//comment above code
 	return arg < ClassName::STATIC_VAR;
 }
 
-void function_name()
-{
-	do stuff;
+int function_name(){
+	if(condition){
+		do stuff;
+		and some more;
+	}
+	else 
+		do other stuff;
+	
+	return (foo == bar) ? 3 : 4;
 }
 
