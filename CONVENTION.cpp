@@ -1,5 +1,5 @@
 
-ClassName{
+class ClassName{
 public:
 	bool methodName(int arg);
 
@@ -7,7 +7,7 @@ private:
 	int bar;
 	static double StaticVar;
 	const bool CONST_VAR;
-}
+};
 
 bool ClassName::methodName(int arg)
 {	
