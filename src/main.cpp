@@ -1,5 +1,7 @@
 #include "sgct.h"
 #include "Model.h"
+#include "ModelMesh.h"
+#include <iostream>
 
 sgct::Engine* gEngine;
 
@@ -22,6 +24,7 @@ void myInitOGLFun();
  
 
 int main(int argc, char* argv[]){
+
 	gEngine = new sgct::Engine(argc, argv);
 
 	//Bind the draw function, and the initOGL function
@@ -32,6 +35,9 @@ int main(int argc, char* argv[]){
 		delete gEngine;
 		return EXIT_FAILURE;
 	}
+
+	//Testing to create a ModelMesh of Suzanne
+	ModelMesh m("data/meshes/suzanne.obj");
 
 	// Main loop
 	gEngine->render();

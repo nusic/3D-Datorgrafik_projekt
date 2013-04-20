@@ -1,6 +1,6 @@
 #include "Model.h"
 
-Model::Model(glm::mat4 M, ModelMesh* _mesh): 
+Model::Model(ModelMesh* _mesh, glm::mat4 M): 
 modelMatrix(M), mesh(_mesh) {
 	std::cout << "created Model" << std::endl;
 }
