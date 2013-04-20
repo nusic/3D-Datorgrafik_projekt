@@ -1,4 +1,3 @@
-#include <glm/glm.hpp>
 #include <vector>
 #include <iostream>
 
@@ -11,7 +10,7 @@
 
 class Model{
 public:
-	Model(glm::mat4 M, ModelMesh mesh);
+	Model(glm::mat4 M = glm::mat4(1.0), ModelMesh mesh = NULL);
 
 	void drawModel(glm::mat4 MVP) const;
 

@@ -3,7 +3,7 @@
 
 class ModelMesh{
 public:
-	//Lets dol like cppguy
+	//Lets do like cppguy
 
 };
 

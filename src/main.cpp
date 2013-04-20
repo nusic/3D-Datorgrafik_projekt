@@ -1,4 +1,5 @@
 #include "sgct.h"
+#include "Model.h"
 
 sgct::Engine* gEngine;
 
@@ -8,6 +9,7 @@ void myDrawFun();
  
 int main( int argc, char* argv[] )
 {
+	//Model m;
 	gEngine = new sgct::Engine( argc, argv );
 
 	if( !gEngine->init() )
