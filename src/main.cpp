@@ -23,6 +23,9 @@ void myDrawFun();
 void myInitOGLFun();
 
 
+Model* model;
+
+
 int main(int argc, char* argv[]){
 
 	gEngine = new sgct::Engine(argc, argv);
@@ -38,6 +41,9 @@ int main(int argc, char* argv[]){
 
 	//Testing to create a ModelMesh of Suzanne
 	ModelMesh m("data/meshes/suzanne.obj");
+	glm::mat4 M;
+
+	model = new Model(&m, M);
 
 	// Main loop
 	gEngine->render();
@@ -66,6 +72,14 @@ void myInitOGLFun(){
 }
 
 void myDrawFun(){
+
+	glm::mat4 MVP;
+
+
+	model->drawModel(MVP);
+
+	/*
+
 	//Use the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
 
@@ -88,4 +102,6 @@ void myDrawFun(){
 	glDisableVertexAttribArray(0);
 
 	sgct::ShaderManager::Instance()->unBindShader();
+
+	*/
 }

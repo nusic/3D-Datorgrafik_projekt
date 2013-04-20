@@ -95,15 +95,15 @@ bool ModelMesh::loadOBJ(const char * path){
 }
 
 void ModelMesh::generateGLBuffers(){
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glGenBuffers(1, &vertexbufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferID);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
-	glGenBuffers(1, &uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	glGenBuffers(1, &uvbufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbufferID);
 	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
-	glGenBuffers(1, &normalbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glGenBuffers(1, &normalbufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbufferID);
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 }
