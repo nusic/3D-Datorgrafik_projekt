@@ -10,7 +10,7 @@ sgct::Engine* gEngine;
 GLuint vertexPosition_modelspaceID;
 
 //Vertex data
-static const GLfloat g_vertex_buffer_data[] = { 
+static const GLfloat g_vertex_buffer_data[] = {
 	-1.0f, -1.0f, 0.0f,
 	 1.0f, -1.0f, 0.0f,
 	 0.0f,  1.0f, 0.0f,
@@ -21,7 +21,7 @@ GLuint vertexbuffer;
 
 void myDrawFun();
 void myInitOGLFun();
- 
+
 
 int main(int argc, char* argv[]){
 
@@ -41,10 +41,10 @@ int main(int argc, char* argv[]){
 
 	// Main loop
 	gEngine->render();
- 
+
 	// Clean up
 	delete gEngine;
- 
+
 	// Exit program
 	exit(EXIT_SUCCESS);
 }
@@ -83,7 +83,7 @@ void myDrawFun(){
 
 	// Draw the triangle!
 	// 3 indices starting at 0 -> 1 triangle
-	glDrawArrays(GL_TRIANGLES, 0, 3); 
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glDisableVertexAttribArray(0);
 

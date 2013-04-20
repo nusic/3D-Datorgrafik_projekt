@@ -34,3 +34,6 @@ all:
 
 run:
 	./Program -config data/sgct_config/single.xml
+	
+run-windows:
+	3D_projekt.exe -config "data/sgct_config/single.xml"
