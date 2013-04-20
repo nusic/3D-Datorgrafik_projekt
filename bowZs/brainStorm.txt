@@ -1,0 +1,64 @@
+
+GameObject
+==========
+vars:
+	x,y
+	theta, phi
+	Model "mainModel"
+
+
+methods:
+	drawObject(VP_Matrix){
+		mainModel->drawModel(VP_Matrix);
+	}
+
+
+
+
+DynamicObject : GameObject
+==========================
+vars:
+	dx, dy, speed
+	dTheta, dPhi, turnSpeed
+
+
+methods:
+//dt är tiden sedan senaste uppdateringen
+	move(dt, direction)	
+	rotate(dt, angle)
+	turnLeft(dt)
+	turnRight(dt)
+
+
+
+
+
+
+
+Model
+=====
+vars:
+	modelMatrix
+	modelMesh
+	vector<Model>
+	GLUint shaderProgramID		(?)
+
+methods:
+	drawModel(MVP_Matrix){
+		Matrix currentMVP = modelMatrix * MVP_Matrix	(ordining ?)
+		...
+	}
+
+
+
+
+
+Mesh
+====
+vars:
+	trivialt vi gör bara som cppguy
+
+methods:
+	load("path/to/file")
+
+
