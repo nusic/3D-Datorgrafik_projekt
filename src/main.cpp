@@ -39,15 +39,6 @@ int main(int argc, char* argv[]){
 		return EXIT_FAILURE;
 	}
 
-
-	//Testing to create a ModelMesh of Suzanne
-	ModelMesh m("data/meshes/suzanne.obj");
-	glm::mat4 M;
-
-	Model* model = new Model(&m, M);
-	gameEngine->scene.push_back(*model);
-
-
 	// Main loop
 	gEngine->render();
 
@@ -62,6 +53,7 @@ void myInitOGLFun(){
 
 	gameEngine->initOGL();
 
+/*
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
@@ -75,6 +67,7 @@ void myInitOGLFun(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 	sgct::ShaderManager::Instance()->unBindShader();
+	*/
 }
 
 void myDrawFun(){
