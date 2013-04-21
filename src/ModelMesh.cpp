@@ -1,4 +1,5 @@
 #include "ModelMesh.h"
+#include <iostream>
 
 ModelMesh::ModelMesh(const char* path){ 
 	if(loadOBJ(path)){
@@ -6,6 +7,12 @@ ModelMesh::ModelMesh(const char* path){
 		generateGLBuffers();
 		printf("Mesh successfully loaded!\n");
 	}
+
+	for (int i = 0; i < normals.size(); ++i)
+	{
+		std::cout << normals[i].y << std::endl;
+	}
+
 }
 
 bool ModelMesh::loadOBJ(const char * path){
