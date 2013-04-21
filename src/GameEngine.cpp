@@ -32,15 +32,12 @@ void GameEngine::initOGL(){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-	Model* model = new Model(new ModelMesh("data/meshes/suzanne.obj"), *(new glm::mat4));
-	scene.push_back(*model);
-
-
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
 
+	Model* model = new Model(new ModelMesh("data/meshes/suzanne.obj"), *(new glm::mat4), "SimpleColor");
+	scene.push_back(*model);
 	
 
 	sgct::ShaderManager::Instance()->unBindShader();
