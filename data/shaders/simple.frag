@@ -5,6 +5,7 @@ varying vec3 fragmentColor;
 
 void main()
 {
-	// Output color = red 
+	// Output color = red
+	//gl_FragColor = vec4(1,0,0,1); 
 	gl_FragColor = vec4(fragmentColor,1);
 }

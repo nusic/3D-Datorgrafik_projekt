@@ -2,8 +2,11 @@
 #include "Model.h"
 #include "ModelMesh.h"
 #include <iostream>
+#include "GameEngine.h"
 
 sgct::Engine* gEngine;
+
+GameEngine* gameEngine;
 
 //Using globals here just to test
 //The handle for the vertex-positions
@@ -22,13 +25,10 @@ GLuint vertexbuffer;
 void myDrawFun();
 void myInitOGLFun();
 
-
-Model* model;
-
-
 int main(int argc, char* argv[]){
 
 	gEngine = new sgct::Engine(argc, argv);
+	gameEngine = new GameEngine();
 
 	//Bind the draw function, and the initOGL function
 	gEngine->setDrawFunction(myDrawFun);
@@ -39,11 +39,14 @@ int main(int argc, char* argv[]){
 		return EXIT_FAILURE;
 	}
 
+
 	//Testing to create a ModelMesh of Suzanne
 	ModelMesh m("data/meshes/suzanne.obj");
 	glm::mat4 M;
 
-	model = new Model(&m, M);
+	Model* model = new Model(&m, M);
+	gameEngine->scene.push_back(*model);
+
 
 	// Main loop
 	gEngine->render();
@@ -56,6 +59,9 @@ int main(int argc, char* argv[]){
 }
 
 void myInitOGLFun(){
+
+	gameEngine->initOGL();
+
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
@@ -73,13 +79,9 @@ void myInitOGLFun(){
 
 void myDrawFun(){
 
-	glm::mat4 MVP;
-
-
-	model->drawModel(MVP);
-
+	gameEngine->drawScene();
+	
 	/*
-
 	//Use the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
 
@@ -104,4 +106,7 @@ void myDrawFun(){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	*/
+
+
+	
 }
