@@ -11,19 +11,26 @@
 
 class Model{
 public:
-	Model(ModelMesh* _mesh = NULL, glm::mat4 M = glm::mat4(1.0));
+	Model(ModelMesh* _mesh = NULL, 
+		  glm::mat4 M = glm::mat4(1.0), 
+		  std::string _shaderName = "std_shader");
 
 	void drawModel(glm::mat4 MVP) const;
+
+	void setShader(std::string _shaderName);
+	void setModelMatrix(glm::mat4 _modelMatrix);
+
+
+
+private:
 
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;
 	ModelMesh* mesh;
 	std::string shaderName;
-
-	//std::vector<Model> children;
-
+	
 	//Handles for mesh
-	GLuint vertexPosShaderID;
+	GLuint vertexShaderID;
 	GLuint normalShaderID;
 	GLuint UVShaderID;
 
@@ -31,8 +38,10 @@ public:
 	GLuint modelMatrixID;
 
 	//GLuint textureShaderID;
-
 	GLuint matrixShaderID;
+
+
+	//std::vector<Model> children;
 };
 
 

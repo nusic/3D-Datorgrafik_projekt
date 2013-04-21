@@ -1,23 +1,39 @@
 #include "Model.h"
 
-Model::Model(ModelMesh* _mesh, glm::mat4 M): 
-modelMatrix(M), mesh(_mesh) {
+Model::Model(ModelMesh* _mesh, glm::mat4 M, std::string _shaderName){
+	mesh = _mesh;
+	setModelMatrix(M);
+	setShader(_shaderName);
+
 	std::cout << "created Model" << std::endl;
+}
+
+void Model::setShader(std::string _shaderName){
+
+}
+	
+void Model::setModelMatrix(glm::mat4 _modelMatrix){
 
 }
 
-float angle = 0.0f;
+
 
 void Model::drawModel(glm::mat4 MVP) const{
 	//Use the shader
 	//sgct::ShaderManager::Instance()->bindShader(shaderName);
 
+	//----------ERIK JOBBAR HÄR OCH NEDÅT ----------
+
+
 	//glm::mat thisMVP = MVP * modelMatrix;
 
+
+	//----------ERIK JOBBAR HÄR OCH UPPÅT ----------
+
+	
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(0);
 
-	glRotatef(angle++, 0.0f, 1.0f, 0.0f);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexbufferID);
 	glVertexAttribPointer(
