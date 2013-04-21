@@ -3,19 +3,22 @@
 Model::Model(ModelMesh* _mesh, glm::mat4 M): 
 modelMatrix(M), mesh(_mesh) {
 	std::cout << "created Model" << std::endl;
+
 }
 
-void Model::setShader(std::string s){
-	shaderName = s;
-}
-
+float angle = 0.0f;
 
 void Model::drawModel(glm::mat4 MVP) const{
 	//Use the shader
 	//sgct::ShaderManager::Instance()->bindShader(shaderName);
 
+	//glm::mat thisMVP = MVP * modelMatrix;
+
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(0);
+
+	glRotatef(angle++, 0.0f, 1.0f, 0.0f);
+
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexbufferID);
 	glVertexAttribPointer(
 		0, // The attribute we want to configure (vertexPosShaderID)
