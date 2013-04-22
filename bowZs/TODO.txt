@@ -8,6 +8,13 @@ Saker man kan jobba med
 * modellera karaktärer
 	i vilket program som helst, men exportera som 
 	".obj".
+
+	Blender:
+		-Modellera vad fan du vill.
+		-Merge ihop alla objekt till ett och samma: "a" för att markera allt (i object mode). Ctrl j för att mergea ihop braket.
+		-Skapa uv-koordinater: I edit mode; Klicka unwrap, UV-unwrap, smart UV-project eller motsvarande. (Detaljer för skapande av lämplig UV-map kommer)
+		-Exportera som obj: Markera Apply Modifiers, Include Normals, Include UVs, Trialgulate Faces, Objects as OBJ Objects.
+
 * modellera miljö
 * design av klasshierarki.
 	t ex få in ett lager med kamera som sköter
