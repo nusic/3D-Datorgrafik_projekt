@@ -12,7 +12,7 @@ Scene::~Scene(){
 }
 
 void Scene::initScene(){
-	GameObject suzanne(0, 1, 1);
+	GameObject suzanne(0, 3, 1);
 	GameObject child1(2, 1, 0.5);
 	GameObject child2(-2, 1, 0.5);
 	suzanne.children.push_back(child1);

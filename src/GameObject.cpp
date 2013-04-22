@@ -4,6 +4,7 @@ GameObject::GameObject(double _x, double _y, float _s):
 Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleColor") {
 	setPosition(_x, _y);
 	setSize(_s);
+	setDirection(0.0f, 0.0f);
 	updateMatrix();
 }
 
@@ -53,6 +54,6 @@ void GameObject::updateMatrix(){
 
 	//The Z-value needs to be calculated (mapped value)
 
-	modelMatrix = glm::translate(SR, glm::vec3(x, y, 0.0f));
+	modelMatrix = glm::translate(SR, glm::vec3(x, 0.0f, -y));
 }
 
