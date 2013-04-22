@@ -9,7 +9,7 @@ Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleColor") 
 }
 
 GameObject::~GameObject(){
-	
+
 };
 
 
