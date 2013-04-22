@@ -1,7 +1,10 @@
 # depslib dependency file v1.0
-1366478231 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
+1366616216 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
 	"sgct.h"
 	"Model.h"
+	"ModelMesh.h"
+	<iostream>
+	"GameEngine.h"
 
 1355257462 c:\program files\sgct\sgct_1.0.0_x86\include\sgct.h
 	<windows.h>
@@ -917,17 +920,29 @@
 
 1354652708 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctdome.h
 
-1366476303 c:\users\martin\git\3d-datorgrafik_projekt\src\model.h
+1366616216 c:\users\martin\git\3d-datorgrafik_projekt\src\model.h
 	<vector>
 	<iostream>
+	<string>
 	"ModelMesh.h"
 	"sgct.h"
 
-1366476303 c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.h
+1366616216 c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.h
+	<vector>
+	<string>
+	<stdio.h>
+	<cstring>
+	<glm/glm.hpp>
+	<sgct.h>
 
-1366476303 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
+1366616216 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
 
-1366476303 source:c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.cpp
+1366616216 source:c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.cpp
 	"ModelMesh.h"
+	<iostream>
+
+1366616216 c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.h
+	<vector>
+	"Model.h"
 
