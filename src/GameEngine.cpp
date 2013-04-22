@@ -12,7 +12,7 @@ float angle2 = 0.0f;
 void GameEngine::draw(){
 	angle2 += 1.0f;
 
-	float d = 3.0f;
+	float d = 10.0f;
 	glm::vec3 position(d, d, d);
 	glm::vec3 direction(-1.0f, -1.0f, -1.0f);
 	glm::vec3 up(0.0f, 1.0f, 0.0f);
