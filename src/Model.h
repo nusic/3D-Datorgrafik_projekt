@@ -1,14 +1,17 @@
-#include <vector>
-#include <iostream>
-#include <string>
-
-#include "ModelMesh.h"
-#include "sgct.h"
 
 //#define NDEBUG
 
 #ifndef MODEL_H
 #define MODEL_H
+
+#include <vector>
+#include <iostream>
+#include <string>
+#include <cassert>
+
+#include "ModelMesh.h"
+#include "sgct.h"
+
 
 class Model{
 public:
@@ -23,10 +26,14 @@ public:
 
 
 
-private:
-
+protected:
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;
+
+	std::vector<Model> children;
+
+private:
+	
 	ModelMesh* mesh;
 	std::string shaderName;
 	
@@ -42,7 +49,7 @@ private:
 	GLuint matrixShaderID;
 
 
-	//std::vector<Model> children;
+	
 };
 
 

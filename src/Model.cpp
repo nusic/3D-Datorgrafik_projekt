@@ -1,7 +1,5 @@
 
 #include "Model.h"
-#include <cassert>
-
 
 
 Model::Model(ModelMesh* _mesh, glm::mat4 M, std::string _shaderName){
@@ -53,9 +51,8 @@ void Model::drawModel(glm::mat4 MVP) const{
 	//parents MVP matris med vår egen model-matrix. På så sätt vet vi hur vi ska 
 	//rita ut oss. Resultatet, "thisMVP", skickar vi vidare till våra children
 	//för att de ska veta dess position i världen.
-	glm::mat4 E(1.0f);
-	glm::vec3 axis(0.0f, 1.0f, 0.0f);
-	glm::mat4 thisMVP = MVP * modelMatrix * glm::rotate(E, angle++, axis);;
+	
+	glm::mat4 thisMVP = MVP * modelMatrix;
 
 	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
 	

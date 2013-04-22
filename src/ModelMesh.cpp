@@ -1,5 +1,5 @@
 #include "ModelMesh.h"
-#include <iostream>
+
 
 ModelMesh::ModelMesh(const char* path){ 
 	if(loadOBJ(path)){

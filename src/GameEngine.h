@@ -3,6 +3,8 @@
 
 #include <vector>
 #include "Model.h"
+#include "GameObject.h"
+
 
 class GameEngine{
 public:
@@ -16,7 +18,7 @@ public:
 	void decode();
 
 
-	std::vector<Model> scene;
+	std::vector<GameObject> scene;
 };
 
 #endif

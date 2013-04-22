@@ -9,11 +9,15 @@ GameEngine::~GameEngine(){
 
 }
 
+double y = 0.0;
 void GameEngine::drawScene(){
-
+	y += 0.001;
 	for (int i = 0; i < scene.size(); ++i){
-		glm::mat4 MVP;
-		scene[i].drawModel(MVP);
+		scene[i].setPosition(0, y);
+		scene[i].setDirection(1000.0f*y, 0.0f);
+		scene[i].updateMatrix();
+		glm::mat4 VP;
+		scene[i].drawModel(VP);
 	}
 
 }
@@ -38,10 +42,13 @@ void GameEngine::initOGL(){
 		std::cout << "ERROR: unable to bind shader!" << std::endl;
 
 	glm::mat4 E(1.0f);
-	glm::mat4 trans = glm::translate(E, glm::vec3(0.0f, 0.0f, 1.0f));
+	float s = 0.3f;
+	glm::mat4 scale = glm::scale(E, glm::vec3(s,s,s));
+	glm::mat4 trans = glm::translate(scale, glm::vec3(0.0f, 0.0f, 1.0f));
+	
 
-	Model* model = new Model(new ModelMesh("data/meshes/suzanne.obj"), trans, "SimpleColor");
-	scene.push_back(*model);
+	GameObject* object = new GameObject(0.5,0.1,0.5);
+	scene.push_back(*object);
 	
 
 	sgct::ShaderManager::Instance()->unBindShader();
