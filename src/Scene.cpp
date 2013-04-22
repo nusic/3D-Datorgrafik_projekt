@@ -2,7 +2,7 @@
 
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/testScene.obj"), glm::mat4(1.0f), "SimpleColor"){
+Model(new ModelMesh("data/meshes/bullen.obj"), glm::mat4(1.0f), "SimpleColor"){
 	std::cout << "*** CREATED SCENE ***" << std::endl;
 
 }
