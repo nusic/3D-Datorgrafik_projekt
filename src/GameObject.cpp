@@ -1,16 +1,14 @@
 #include "GameObject.h"
 
 GameObject::GameObject(double _x, double _y, float _s):
-Model(	new ModelMesh("data/meshes/suzanne.obj"), 
-		glm::mat4(1.0f), 
-		"SimpleColor") {
+Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleColor") {
 	setPosition(_x, _y);
 	setSize(_s);
 	updateMatrix();
 }
 
 GameObject::~GameObject(){
-
+	
 };
 
 

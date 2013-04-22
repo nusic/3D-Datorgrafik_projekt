@@ -17,9 +17,7 @@ class Model{
 public:
 	Model(ModelMesh* _mesh = NULL, 
 		  glm::mat4 M = glm::mat4(1.0), 
-		  std::string _shaderName = "std_shader");
-
-	void drawModel(glm::mat4 MVP) const;
+		  std::string _shaderName = "SimpleColor");
 
 	void setShader(std::string _shaderName);
 	void setModelMatrix(glm::mat4 _modelMatrix);
@@ -27,9 +25,11 @@ public:
 
 
 protected:
+	
+	void drawModel(glm::mat4 MVP) const;
+
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;
-
 	std::vector<Model> children;
 
 private:

@@ -2,7 +2,9 @@
 #define GAMEENGINE_H
 
 #include <vector>
-#include "Model.h"
+
+#include "sgct.h"
+#include "Scene.h"
 #include "GameObject.h"
 
 
@@ -11,14 +13,14 @@ public:
 	GameEngine();
 	~GameEngine();
 
-	void drawScene();
+	void draw();
 	void preSync();
 	void initOGL();
 	void encode();
 	void decode();
 
 
-	std::vector<GameObject> scene;
+	Scene * scene;
 };
 
 #endif

@@ -4,6 +4,8 @@
 
 Model::Model(ModelMesh* _mesh, glm::mat4 M, std::string _shaderName){
 	mesh = _mesh;
+	if(!mesh)
+		std::cout << "WARNING: MODEL WITH NULL MESH CREATED!!!!!" << std::endl;
 	setShader(_shaderName);
 	setModelMatrix(M);
 
@@ -37,8 +39,7 @@ float angle = 0.0f;
 
 void Model::drawModel(glm::mat4 MVP) const{
 	//Use the shader
-	
-	
+	std::cout << "draw MODEL 1" << std::endl;
 
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
@@ -59,12 +60,14 @@ void Model::drawModel(glm::mat4 MVP) const{
 
 	//----------ERIK JOBBAR HÄR OCH UPPÅT ----------
 
-	
+	std::cout << "draw MODEL 2" << std::endl;
 
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(0);
+	std::cout << "draw MODEL 2.1" << std::endl;
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexbufferID);
+	std::cout << "draw MODEL 2.2" << std::endl;
 	glVertexAttribPointer(
 		vertexShaderID, // The attribute we want to configure (vertexShaderID)
 		3,                  // size
@@ -73,7 +76,7 @@ void Model::drawModel(glm::mat4 MVP) const{
 		0,                  // stride
 		(void*)0            // array buffer offset
 	);
-
+std::cout << "draw MODEL 3" << std::endl;
 	//Attribute the normal buffer
 	glEnableVertexAttribArray(1);
 
@@ -86,16 +89,19 @@ void Model::drawModel(glm::mat4 MVP) const{
 		0,                  // stride
 		(void*)0            // array buffer offset
 	);
-
+std::cout << "draw MODEL 4" << std::endl;
 	// Draw the triangles!
 	// 3 indices starting at 0 -> 1 triangle
 	glDrawArrays(GL_TRIANGLES, 0, mesh->normals.size());
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	std::cout << "draw MODEL 5" << std::endl;
 
 	sgct::ShaderManager::Instance()->unBindShader();
-
-	//for alla children: child.drawModel(thisMVP);
-
+std::cout << "draw MODEL 6" << std::endl;
+	for(int i = 0; i<children.size(); ++i){
+		children[i].drawModel(thisMVP);
+	}
+	std::cout << "draw MODEL 7" << std::endl;
 }

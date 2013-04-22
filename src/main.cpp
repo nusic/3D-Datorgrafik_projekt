@@ -34,6 +34,7 @@ int main(int argc, char* argv[]){
 	gEngine->setDrawFunction(myDrawFun);
 	gEngine->setInitOGLFunction(myInitOGLFun);
 
+
 	if(!gEngine->init()){
 		delete gEngine;
 		return EXIT_FAILURE;
@@ -72,7 +73,7 @@ void myInitOGLFun(){
 
 void myDrawFun(){
 
-	gameEngine->drawScene();
+	gameEngine->draw();
 	
 	/*
 	//Use the shader "SimpleColor"

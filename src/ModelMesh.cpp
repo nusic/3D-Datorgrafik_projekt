@@ -7,7 +7,6 @@ ModelMesh::ModelMesh(const char* path){
 		generateGLBuffers();
 		printf("Mesh successfully loaded!\n");
 	}
-
 }
 
 bool ModelMesh::loadOBJ(const char * path){
