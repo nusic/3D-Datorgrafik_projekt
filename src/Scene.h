@@ -16,6 +16,8 @@ public:
 	void initScene();
 	void drawScene(glm::mat4 ViewPerspectiveMatrix);
 
+	void addGenerations(Model& mother, int n);
+
 private:
 
 };

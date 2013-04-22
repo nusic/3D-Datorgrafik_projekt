@@ -54,6 +54,6 @@ void GameObject::updateMatrix(){
 
 	//The Z-value needs to be calculated (mapped value)
 
-	modelMatrix = glm::translate(SR, glm::vec3(x, 0.0f, -y));
+	modelMatrix = glm::translate(SR, glm::vec3(x, 1.0f, -y));
 }
 
