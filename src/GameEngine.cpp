@@ -9,9 +9,11 @@ GameEngine::~GameEngine(){
 }
 
 float angle2 = 0.0f;
+float da = 0.8f;
 void GameEngine::draw(){
     //player->updatePlayerOrientation();
-	angle2 += 0.2f;
+	angle2 += da;
+	da *= 0.997f;
 
 	float d = 10.0f;
 	glm::vec3 position(d, 1.5f*d, d);
