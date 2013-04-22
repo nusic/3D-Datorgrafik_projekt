@@ -1,4 +1,8 @@
+
 #include "Model.h"
+#include <cassert>
+
+
 
 Model::Model(ModelMesh* _mesh, glm::mat4 M, std::string _shaderName){
 	mesh = _mesh;
@@ -31,10 +35,14 @@ void Model::setModelMatrix(glm::mat4 _modelMatrix){
 }
 
 
+float angle = 0.0f;
 
 void Model::drawModel(glm::mat4 MVP) const{
 	//Use the shader
-	//sgct::ShaderManager::Instance()->bindShader(shaderName);
+	
+	
+
+	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
 	//----------ERIK JOBBAR HÄR OCH NEDÅT ----------
 
@@ -45,13 +53,16 @@ void Model::drawModel(glm::mat4 MVP) const{
 	//parents MVP matris med vår egen model-matrix. På så sätt vet vi hur vi ska 
 	//rita ut oss. Resultatet, "thisMVP", skickar vi vidare till våra children
 	//för att de ska veta dess position i världen.
-	glm::mat4 thisMVP = MVP * modelMatrix;
+	glm::mat4 E(1.0f);
+	glm::vec3 axis(0.0f, 1.0f, 0.0f);
+	glm::mat4 thisMVP = MVP * modelMatrix * glm::rotate(E, angle++, axis);;
+
 	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
 	
 
 	//----------ERIK JOBBAR HÄR OCH UPPÅT ----------
 
-	sgct::ShaderManager::Instance()->bindShader(shaderName);
+	
 
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(0);
@@ -87,5 +98,7 @@ void Model::drawModel(glm::mat4 MVP) const{
 	glDisableVertexAttribArray(1);
 
 	sgct::ShaderManager::Instance()->unBindShader();
+
+	//for alla children: child.drawModel(thisMVP);
 
 }
