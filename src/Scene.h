@@ -9,10 +9,8 @@
 
 class Scene : public Model{
 public:
-	Scene(ModelMesh* _mesh = NULL, 
-		  glm::mat4 M = glm::mat4(1.0), 
-		  std::string _shaderName = "SimpleColor");
-	
+	Scene();
+
 	~Scene();
 
 	void initScene();
