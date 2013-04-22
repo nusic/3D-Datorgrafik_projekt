@@ -5,6 +5,7 @@
 
 #include "sgct.h"
 #include "Scene.h"
+#include "Camera.h"
 #include "GameObject.h"
 
 
@@ -21,6 +22,7 @@ public:
 
 
 	Scene * scene;
+	Camera * camera;
 };
 
 #endif
