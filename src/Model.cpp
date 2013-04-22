@@ -22,7 +22,6 @@ void Model::setShader(std::string _shaderName){
 	vertexShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexPosition");
 	normalShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexNormal");
 	UVShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("UV");
-	
 	//The handle for the MVP-matrix
 	matrixShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 
@@ -37,9 +36,10 @@ void Model::setModelMatrix(glm::mat4 _modelMatrix){
 
 float angle = 0.0f;
 
-void Model::drawModel(glm::mat4 MVP) const{
+void Model::drawModel(glm::mat4 MVP){
 	//Use the shader
 
+	
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
 	//----------ERIK JOBBAR HÄR OCH NEDÅT ----------
@@ -61,7 +61,7 @@ void Model::drawModel(glm::mat4 MVP) const{
 
 
 	//Attribute the vertices buffer
-	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(vertexShaderID);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexbufferID);
 	glVertexAttribPointer(
@@ -74,7 +74,7 @@ void Model::drawModel(glm::mat4 MVP) const{
 	);
 
 	//Attribute the normal buffer
-	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(normalShaderID);
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->normalbufferID);
 	glVertexAttribPointer(
@@ -90,8 +90,8 @@ void Model::drawModel(glm::mat4 MVP) const{
 	// 3 indices starting at 0 -> 1 triangle
 	glDrawArrays(GL_TRIANGLES, 0, mesh->normals.size());
 
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(vertexShaderID);
+	glDisableVertexAttribArray(normalShaderID);
 
 	sgct::ShaderManager::Instance()->unBindShader();
 

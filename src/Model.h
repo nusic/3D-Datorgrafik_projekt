@@ -22,11 +22,11 @@ public:
 	void setShader(std::string _shaderName);
 	void setModelMatrix(glm::mat4 _modelMatrix);
 
-
+	friend class Scene;
 
 protected:
 	
-	void drawModel(glm::mat4 MVP) const;
+	void drawModel(glm::mat4 MVP) ;
 
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;

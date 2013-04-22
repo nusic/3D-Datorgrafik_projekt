@@ -10,7 +10,7 @@ void main()
 	// Output color = red
 	//gl_FragColor = vec4(1,0,0,1);
 
-	vec3 lightDirection = vec3(1, -1, -1);
+	vec3 lightDirection = vec3(1, 1, -1);
 
 	vec3 n = normalize(normal);
 	vec3 l = normalize(lightDirection);

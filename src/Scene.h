@@ -14,7 +14,7 @@ public:
 	~Scene();
 
 	void initScene();
-	void drawScene(glm::mat4 ViewPerspectiveMatrix) const;
+	void drawScene(glm::mat4 ViewPerspectiveMatrix);
 
 private:
 
