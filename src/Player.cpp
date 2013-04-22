@@ -2,11 +2,9 @@
 #include <new>
 
 Player::Player(){
-    std::cout << "Player konstrukeorf CHECKPOINT 1" << std::endl;
     controller = new Controller();
     if(!controller)
         std::cout << "JÄVLAR VAD FEL DET BLEV" << std::endl;
-    std::cout << "Player konstrukeorf CHECKPOINT 2" << std::endl;
 }
 
 Player::~Player(){

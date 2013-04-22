@@ -3,14 +3,12 @@
 #include <iostream>
 
 Controller::Controller(){
-std::cout << "conyrretolrer kons trrukoet CHECKPOINT 1" << std::endl;
     joystickPresent = GL_FALSE;
     numberOfAxes = 0;
     numberOfButtons = 0;
 
     controllerLoader();
     inputLoader();
-std::cout << "conyrretolrer kons trrukoet CHECKPOINT 2" << std::endl;
 }
 
 Controller::~Controller(){
@@ -22,7 +20,6 @@ Controller::~Controller(){
 }
 
 void Controller::controllerLoader(){
-std::cout << "CONTROLLER LOADER CHECKPOINT 1" << std::endl;
     joystickPresent = sgct::Engine::getJoystickParam( GLFW_JOYSTICK_1, GLFW_PRESENT );
 	if( joystickPresent == GL_TRUE )
 	{

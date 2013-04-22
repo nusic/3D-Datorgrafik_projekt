@@ -10,7 +10,7 @@ GameEngine::~GameEngine(){
 
 float angle2 = 0.0f;
 void GameEngine::draw(){
-    player->updatePlayerOrientation();
+    //player->updatePlayerOrientation();
 	angle2 += 1.0f;
 
 	float d = 3.0f;
@@ -30,8 +30,7 @@ void GameEngine::draw(){
 
 
 	scene->drawScene(Projection * View2);
-	player->drawModel(Projection * View2);
-	//std::cout << player->x << std::endl;
+	//player->drawModel(Projection * View2);
 }
 
 void GameEngine::preSync(){
@@ -56,7 +55,7 @@ void GameEngine::initOGL(){
 	scene = new Scene();
 	scene->initScene();
 	sgct::ShaderManager::Instance()->unBindShader();
-    player = new Player;
+    //player = new Player;
 
 }
 
