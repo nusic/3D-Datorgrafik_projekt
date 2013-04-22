@@ -1,7 +1,12 @@
 #include "sgct.h"
 #include "Model.h"
+#include "ModelMesh.h"
+#include <iostream>
+#include "GameEngine.h"
 
 sgct::Engine* gEngine;
+
+GameEngine* gameEngine;
 
 //Using globals here just to test
 //The handle for the vertex-positions
@@ -20,9 +25,10 @@ GLuint vertexbuffer;
 void myDrawFun();
 void myInitOGLFun();
 
-
 int main(int argc, char* argv[]){
+
 	gEngine = new sgct::Engine(argc, argv);
+	gameEngine = new GameEngine();
 
 	//Bind the draw function, and the initOGL function
 	gEngine->setDrawFunction(myDrawFun);
@@ -44,6 +50,10 @@ int main(int argc, char* argv[]){
 }
 
 void myInitOGLFun(){
+
+	gameEngine->initOGL();
+
+/*
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
@@ -57,9 +67,14 @@ void myInitOGLFun(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 	sgct::ShaderManager::Instance()->unBindShader();
+	*/
 }
 
 void myDrawFun(){
+
+	gameEngine->drawScene();
+	
+	/*
 	//Use the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
 
@@ -82,4 +97,9 @@ void myDrawFun(){
 	glDisableVertexAttribArray(0);
 
 	sgct::ShaderManager::Instance()->unBindShader();
+
+	*/
+
+
+	
 }

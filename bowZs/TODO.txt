@@ -1,11 +1,13 @@
 Saker man kan jobba med		
 =======================
 
-* inläsning av objekt	(kolla assimp)
+* inläsning av objekt	(kolla assimp)					KLAR 20/4
+* binda shaders i SGCT (se jonas strandstedt:s SGCT)	KLAR 21/4
+* implementera drawMetoden i model.cpp					På G
+* allmän shaderprogrammering							På G
 * modellera karaktärer
-* implementera drawMetoden i model.cpp
-* binda shaders i SGCT (se jonas strandstedt:s SGCT)
-* allmän shaderprogrammering
+	i vilket program som helst, men exportera som 
+	".obj".
 * modellera miljö
 * design av klasshierarki.
 	t ex få in ett lager med kamera som sköter
