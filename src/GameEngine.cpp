@@ -34,9 +34,13 @@ void GameEngine::initOGL(){
 
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
-	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
+	if(!sgct::ShaderManager::Instance()->bindShader("SimpleColor"))
+		std::cout << "ERROR: unable to bind shader!" << std::endl;
 
-	Model* model = new Model(new ModelMesh("data/meshes/suzanne.obj"), *(new glm::mat4), "SimpleColor");
+	glm::mat4 E(1.0f);
+	glm::mat4 trans = glm::translate(E, glm::vec3(0.0f, 0.0f, 1.0f));
+
+	Model* model = new Model(new ModelMesh("data/meshes/suzanne.obj"), trans, "SimpleColor");
 	scene.push_back(*model);
 	
 

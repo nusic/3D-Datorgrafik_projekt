@@ -5,6 +5,7 @@
 #include "ModelMesh.h"
 #include "sgct.h"
 
+//#define NDEBUG
 
 #ifndef MODEL_H
 #define MODEL_H
