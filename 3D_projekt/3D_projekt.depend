@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1366654149 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
+1366734064 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
 	"sgct.h"
 	"Model.h"
 	"ModelMesh.h"
@@ -951,10 +951,10 @@
 	"GameObject.h"
 	"Player.h"
 
-1366657569 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
+1366737378 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
-1366653458 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
+1366722565 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
 	"sgct.h"
 	"Model.h"
 	"GameObject.h"
@@ -968,20 +968,20 @@
 1366653458 source:c:\users\martin\git\3d-datorgrafik_projekt\src\camera.cpp
 	"Camera.h"
 
-1366657871 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.cpp
+1366738285 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
-1366656551 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
+1366735567 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
-1366656698 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
+1366722565 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
 	"Controller.h"
 	"sgct.h"
 	<iostream>
 
 1366642980 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
 
-1366658105 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
+1366737035 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 	<new>
 
