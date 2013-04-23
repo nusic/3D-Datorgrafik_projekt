@@ -20,12 +20,12 @@ void Scene::initScene(){
 	children.push_back(suzanne);
 
 
-	GameObject anne(0, 2, 4.0f);
-	anne.setDirection(180.0f, 0.0f);
-	anne.updateMatrix();
+//	GameObject anne(0, 2, 4.0f);
+//	anne.setDirection(180.0f, 0.0f);
+//	anne.updateMatrix();
 
-	addGenerations(anne, 3);
-	children.push_back(anne);
+//	addGenerations(anne, 5);
+//	children.push_back(anne);
 }
 
 void Scene::addGenerations(Model& mother, int n){

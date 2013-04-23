@@ -6,7 +6,7 @@
 
 class GameObject : public Model{
 public:
-	GameObject(double x = 0, double y = 0, float size = 1.0f);
+	GameObject(double x = 0, double y = 0, float size = 1.0f, float _phi = 0);
 	~GameObject();
 
 	void setPosition(double x, double y);
