@@ -45,14 +45,17 @@ void GameEngine::initOGL(){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	sgct::TextureManager::Instance()->loadTexure("SimpleTexture", "data/textures/texture1.png", true);
+
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 	if(!sgct::ShaderManager::Instance()->bindShader("SimpleColor"))
 		std::cout << "ERROR: unable to bind shader!" << std::endl;
-	
+
 	scene = new Scene();
 	scene->initScene();
 	sgct::ShaderManager::Instance()->unBindShader();
+
 
 }
 

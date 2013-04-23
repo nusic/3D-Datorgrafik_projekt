@@ -16,10 +16,12 @@
 class Model{
 public:
 	Model(ModelMesh* _mesh = NULL, 
-		  glm::mat4 M = glm::mat4(1.0), 
+		  glm::mat4 M = glm::mat4(1.0),
+		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
 
 	void setShader(std::string _shaderName);
+	void setTexture(std::string _textureName);
 	void setModelMatrix(glm::mat4 _modelMatrix);
 
 	friend class Scene;
@@ -37,19 +39,17 @@ private:
 	ModelMesh* mesh;
 	std::string shaderName;
 	
-	//Handles for mesh
+	//Handles for the shader
 	GLuint vertexShaderID;
 	GLuint normalShaderID;
-	GLuint UVShaderID;
+	GLuint uvShaderID;
 
-	//Handle for matrix
-	GLuint modelMatrixID;
-
-	//GLuint textureShaderID;
+	GLuint textureShaderID;
 	GLuint matrixShaderID;
 
-
-	
+	//Handle for matrix and texture
+	GLuint modelMatrixID;
+	GLuint textureID;	
 };
 
 

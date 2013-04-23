@@ -3,12 +3,18 @@
 //Input: Interpolated values from the vertex shader
 varying vec3 fragmentColor;
 varying vec3 normal;
+varying vec2 UV;
 
+uniform sampler2D textureSampler;
 
 void main()
 {
 	// Output color = red
 	//gl_FragColor = vec4(1,0,0,1);
+
+	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
+	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
+	vec3 materialSpecularColor = vec3(0.3,0.3,0.3);
 
 	vec3 lightDirection = vec3(1, 1, -1);
 
@@ -17,10 +23,6 @@ void main()
 
 	float cosTheta = clamp(dot(-n, l), 0, 1);
 
-	vec3 localColor = vec3(0.5, 0.7, 0.7) + fragmentColor * 0.3;
-	vec3 ambientColor = vec3(0.1, 0.1, 0.1);
 
-
-
-	gl_FragColor = vec4(localColor, 1) * cosTheta + vec4(ambientColor, 1);
+	gl_FragColor = vec4(materialDiffuseColor, 1) * cosTheta + vec4(materialAmbientColor, 1);
 }
