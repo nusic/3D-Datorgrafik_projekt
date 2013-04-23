@@ -25,17 +25,18 @@ public:
 	void setModelMatrix(glm::mat4 _modelMatrix);
 
 	friend class Scene;
+    void drawModel(glm::mat4 MVP);
 
 protected:
-	
-	void drawModel(glm::mat4 MVP) ;
+
+
 
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;
 	std::vector<Model> children;
 
 private:
-	
+
 	ModelMesh* mesh;
 	std::string shaderName;
 	
@@ -50,6 +51,7 @@ private:
 	//Handle for matrix and texture
 	GLuint modelMatrixID;
 	GLuint textureID;	
+
 };
 
 

@@ -1,4 +1,5 @@
 #include "ModelMesh.h"
+#include <iostream>
 
 
 ModelMesh::ModelMesh(const char* path){ 
@@ -96,6 +97,7 @@ bool ModelMesh::loadOBJ(const char * path){
 }
 
 void ModelMesh::generateGLBuffers(){
+
 	glGenBuffers(1, &vertexbufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbufferID);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);

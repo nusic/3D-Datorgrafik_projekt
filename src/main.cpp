@@ -3,6 +3,7 @@
 #include "ModelMesh.h"
 #include <iostream>
 #include "GameEngine.h"
+#include "Player.h"
 
 sgct::Engine* gEngine;
 
@@ -40,9 +41,11 @@ int main(int argc, char* argv[]){
 		return EXIT_FAILURE;
 	}
 
+
+
 	// Main loop
 	gEngine->render();
-
+    //delete gameEngine->player;
 	// Clean up
 	delete gEngine;
 
@@ -74,7 +77,7 @@ void myInitOGLFun(){
 void myDrawFun(){
 
 	gameEngine->draw();
-	
+
 	/*
 	//Use the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->bindShader("SimpleColor");
@@ -102,5 +105,5 @@ void myDrawFun(){
 	*/
 
 
-	
+
 }

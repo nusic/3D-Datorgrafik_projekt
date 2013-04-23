@@ -50,12 +50,8 @@ void Model::setModelMatrix(glm::mat4 _modelMatrix){
 float angle = 0.0f;
 
 void Model::drawModel(glm::mat4 MVP){
-	//Use the shader
-
-	
+	//Use the shader	
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
-
-	//----------ERIK JOBBAR HÄR OCH NEDÅT ----------
 
 	//En modells position i världen beror på vart dess "parent" befann sig.
 	//Tänk på hur stegu snackaded om scengrafer. Model-matrisen talar om
@@ -67,16 +63,15 @@ void Model::drawModel(glm::mat4 MVP){
 	
 	glm::mat4 thisMVP = MVP * modelMatrix;
 
+	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
+
+
 	// Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	// Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureShaderID, 0);
 
-	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
-	
-
-	//----------ERIK JOBBAR HÄR OCH UPPÅT ----------
 
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(vertexShaderID);
@@ -96,7 +91,7 @@ void Model::drawModel(glm::mat4 MVP){
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->uvbufferID);
 	glVertexAttribPointer(
-		uvShaderID, // The attribute we want to configure (normalShaderID)
+		uvShaderID, // The attribute we want to configure (uvShaderID)
 		2,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -118,8 +113,7 @@ void Model::drawModel(glm::mat4 MVP){
 	);
 
 	// Draw the triangles!
-	// 3 indices starting at 0 -> 1 triangle
-	glDrawArrays(GL_TRIANGLES, 0, mesh->normals.size());
+	glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
 
 	glDisableVertexAttribArray(vertexShaderID);
 	glDisableVertexAttribArray(uvShaderID);

@@ -9,11 +9,14 @@ GameEngine::~GameEngine(){
 }
 
 float angle2 = 0.0f;
+float da = 0.8f;
 void GameEngine::draw(){
-	angle2 += 1.0f;
+    //player->updatePlayerOrientation();
+	angle2 += da;
+	da *= 0.997f;
 
-	float d = 3.0f;
-	glm::vec3 position(d, d, d);
+	float d = 10.0f;
+	glm::vec3 position(d, 1.5f*d, d);
 	glm::vec3 direction(-1.0f, -1.0f, -1.0f);
 	glm::vec3 up(0.0f, 1.0f, 0.0f);
 
@@ -29,6 +32,7 @@ void GameEngine::draw(){
 
 
 	scene->drawScene(Projection * View2);
+	//player->drawModel(Projection * View2);
 }
 
 void GameEngine::preSync(){
@@ -55,6 +59,7 @@ void GameEngine::initOGL(){
 	scene = new Scene();
 	scene->initScene();
 	sgct::ShaderManager::Instance()->unBindShader();
+    //player = new Player;
 
 
 }
