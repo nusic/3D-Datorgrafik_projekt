@@ -35,6 +35,7 @@ void GameObject::setSize(float _xs, float _ys, float _zs){
 
 void GameObject::updateMatrix(){
 	glm::mat4 E(1.0f);
+	
 	glm::mat4 S = glm::scale(E, glm::vec3(xs, ys, zs));
 /*
 	//Calc rotationg axis
