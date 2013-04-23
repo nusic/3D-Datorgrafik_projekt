@@ -26,7 +26,17 @@ void DynamicGameObject::incrementPosition(double _dx, double _dy){
 	y += _dy;
 }
 
+void DynamicGameObject::incrementPosition(){
+	x += dx;
+	y += dy;
+}
+
 void DynamicGameObject::incrementAngleVel(float _dPhi, float _dTheta){
 	phi += _dPhi;
 	theta += _dTheta;
+}
+
+void DynamicGameObject::incrementAngleVel(){
+	phi += dPhi;
+	theta += dTheta;
 }

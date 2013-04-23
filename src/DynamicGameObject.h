@@ -6,14 +6,16 @@
 class DynamicGameObject : public GameObject{
 
 public:
-	DynamicGameObject(double _x = 0, double _y = 0, float _s = 0);
+	DynamicGameObject(double _x = 0, double _y = 0, float _s = 0, float _phi = 0);
 	~DynamicGameObject();
 
 	void setVelocity(double _dx, double _dy);
 	void setAngleVel(float _dPhi, float dTheta);
 
-	void incrementPosition(double _dx = dx, double _dy = dy);
-	void incrementAngleVel(float _dPhi = dPhi, float _dTheta = dTheta);
+	void incrementPosition();
+	void incrementPosition(double _dx, double _dy);
+	void incrementAngleVel();
+	void incrementAngleVel(float _dPhi, float _dTheta);
 
 
 protected:
