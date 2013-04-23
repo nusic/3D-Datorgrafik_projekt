@@ -2,9 +2,9 @@
 #define PLAYER_H
 
 #include "Controller.h"
-#include "GameObject.h"
+#include "DynamicGameObject.h"
 
-class Player : public GameObject{
+class Player : public DynamicGameObject{
 public:
     Player();
     ~Player();

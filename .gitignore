@@ -1,4 +1,5 @@
 Program
+*.o
 3D_projekt.exe
 .DS_Store
 .DS_Store?
