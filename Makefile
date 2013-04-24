@@ -10,7 +10,7 @@
 
 #Here we can add all out .cpp files we want to compile. 
 #Seperate with space, " ".
-SOURCES=src/main.cpp
+#SOURCES=src/main.cpp
 
 #???
 #OBJECTS=$(SOURCES:.cpp=.o)
