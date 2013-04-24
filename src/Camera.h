@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "sgtc.h"
+#include "sgct.h"
 
 class Camera{
 public:
