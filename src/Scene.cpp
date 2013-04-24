@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-
+#include "player.h"
 Scene::Scene():
 Model(new ModelMesh("data/meshes/testScene.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor"){
 	std::cout << "*** CREATED SCENE ***" << std::endl;
@@ -18,7 +18,6 @@ void Scene::initScene(){
 	suzanne.children.push_back(child1);
 	suzanne.children.push_back(child2);
 	children.push_back(suzanne);
-
 
 //	GameObject anne(0, 2, 4.0f);
 //	anne.setDirection(180.0f, 0.0f);

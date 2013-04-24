@@ -18,7 +18,7 @@ void DynamicGameObject::setVelocity(double _dx, double _dy){
 
 void DynamicGameObject::setAngleVel(float _dPhi, float _dTheta){
 	dPhi = _dPhi;
-	dTheta = _dTheta;	
+	dTheta = _dTheta;
 }
 
 void DynamicGameObject::incrementPosition(double _dx, double _dy){

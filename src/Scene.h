@@ -6,7 +6,6 @@
 #include "GameObject.h"
 
 
-
 class Scene : public Model{
 public:
 	Scene();

@@ -8,11 +8,11 @@ Controller::Controller(){
     numberOfButtons = 0;
 
     controllerLoader();
-    inputLoader();
+    if(joystickPresent)
+        inputLoader();
 }
 
 Controller::~Controller(){
-
     if( numberOfAxes > 0 )
 		delete [] axes;
 	if( numberOfButtons > 0 )
@@ -21,8 +21,7 @@ Controller::~Controller(){
 
 void Controller::controllerLoader(){
     joystickPresent = sgct::Engine::getJoystickParam( GLFW_JOYSTICK_1, GLFW_PRESENT );
-	if( joystickPresent == GL_TRUE )
-	{
+	if(joystickPresent == GL_TRUE){
 		sgct::MessageHandler::Instance()->print("Joystick 1 is present.\n");
 
 		numberOfAxes = sgct::Engine::getJoystickParam( GLFW_JOYSTICK_1, GLFW_AXES );
@@ -32,27 +31,41 @@ void Controller::controllerLoader(){
 			numberOfAxes,
 			numberOfButtons);
 
-		if( numberOfAxes > 0 )
+		if(numberOfAxes > 0)
 			axes = new float[numberOfAxes];
 
-		if( numberOfButtons > 0 )
+		if(numberOfButtons > 0)
 			buttons = new unsigned char[numberOfButtons];
+	}
+    else{
+        axes = NULL;
+        buttons = NULL;
 	}
 }
 
 void Controller::inputLoader(){
-    if( joystickPresent == GL_TRUE ){
+    if(joystickPresent == GL_TRUE){
 		sgct::Engine::getJoystickAxes( GLFW_JOYSTICK_1, axes, numberOfAxes );
 		sgct::Engine::getJoystickButtons( GLFW_JOYSTICK_1, buttons, numberOfButtons );
-        /*for(int i=0; i<numberOfAxes; i++)
-            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
-        for(int i=0; i<numberOfButtons; i++)
-            sgct::MessageHandler::Instance()->print("%d ", buttons[i]);
-        sgct::MessageHandler::Instance()->print("\r");
-        */
+//        for(int i=0; i<numberOfAxes; i++)
+//            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
+//        for(int i=0; i<numberOfButtons; i++)
+//            sgct::MessageHandler::Instance()->print("%d ", buttons[i]);
+//        sgct::MessageHandler::Instance()->print("\r");
+
 	}
 }
 
-double Controller::getAxes(int axis_index){
+double Controller::getAxisValue(int axis_index){
     return (double)axes[axis_index];
+}
+
+bool Controller::validateLeftStickValues(){
+    if(joystickPresent == GL_TRUE){
+        if(axes[0] < 0.2f && axes[0] > -0.2f && axes[1] < 0.2f && axes[1] > -0.2f){
+            return false;
+        }
+        return true;
+    }
+    return false;
 }

@@ -8,31 +8,11 @@ GameEngine::~GameEngine(){
 
 }
 
-//float angle2 = 0.0f;
-//float da = 0.8f;
 void GameEngine::draw(){
-//    player->updatePlayerOrientation();
-//	angle2 += da;
-//	da *= 0.997f;
-
-	float d = 10.0f;
-	glm::vec3 position(d, 1.5f*d, 0);
-	glm::vec3 direction(-1.0f, -1.5f, 0.0f);
-	glm::vec3 up(0.0f, 1.0f, 0.0f);
-
-	glm::mat4 View = glm::lookAt(
-		position,           // Camera is here
-		position+direction, // and looks here : at the same position, plus "direction"
-		up                  // Head is up (set to 0,-1,0 to look upside-down)
-						   );
-
-	glm::mat4 View2 = glm::rotate(View, 90.0f, up);
-
-	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
-
-
-	scene->drawScene(Projection * View2);
-//	player->drawModel(Projection * View2);
+    player->updatePlayerOrientation();
+	camera->incrementPosition();
+	scene->drawScene(camera->getViewPerspectiveMatrix());
+	player->drawModel(camera->getViewPerspectiveMatrix());
 }
 
 void GameEngine::preSync(){
@@ -59,7 +39,19 @@ void GameEngine::initOGL(){
 	scene = new Scene();
 	scene->initScene();
 	sgct::ShaderManager::Instance()->unBindShader();
-//    player = new Player;
+
+
+	camera = new Camera(-30, -5, 15);
+	camera->setLookAt(0, 0, 0);
+	camera->setVelocity(0.05, 0.02, -0.01);
+
+	//Uncomment the two lines below to get simple static front view
+	camera->setPosition(0, 15, 15);
+	camera->setVelocity(0, 0, 0);
+
+
+    player = new Player;
+    player->setPosition(0.0f, 0.0f);
 
 
 }

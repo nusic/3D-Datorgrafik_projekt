@@ -7,7 +7,8 @@ public:
     ~Controller();
     void controllerLoader();
     void inputLoader();
-    double getAxes(int axis_index);
+    double getAxisValue(int axis_index);
+    bool validateLeftStickValues();
 private:
     float* axes;
     unsigned char* buttons;
