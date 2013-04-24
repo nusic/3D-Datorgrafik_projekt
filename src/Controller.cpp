@@ -13,19 +13,19 @@ Controller::Controller(){
 }
 
 Controller::~Controller(){
-    if( numberOfAxes > 0 )
+    if(numberOfAxes > 0)
 		delete [] axes;
-	if( numberOfButtons > 0 )
+	if(numberOfButtons > 0)
 		delete [] buttons;
 }
 
 void Controller::controllerLoader(){
-    joystickPresent = sgct::Engine::getJoystickParam( GLFW_JOYSTICK_1, GLFW_PRESENT );
+    joystickPresent = sgct::Engine::getJoystickParam(GLFW_JOYSTICK_1, GLFW_PRESENT);
 	if(joystickPresent == GL_TRUE){
 		sgct::MessageHandler::Instance()->print("Joystick 1 is present.\n");
 
-		numberOfAxes = sgct::Engine::getJoystickParam( GLFW_JOYSTICK_1, GLFW_AXES );
-		numberOfButtons = sgct::Engine::getJoystickParam( GLFW_JOYSTICK_1, GLFW_BUTTONS );
+		numberOfAxes = sgct::Engine::getJoystickParam(GLFW_JOYSTICK_1, GLFW_AXES);
+		numberOfButtons = sgct::Engine::getJoystickParam(GLFW_JOYSTICK_1, GLFW_BUTTONS);
 
 		sgct::MessageHandler::Instance()->print("Number of axes %d\nNumber of buttons %d\n",
 			numberOfAxes,
@@ -45,8 +45,8 @@ void Controller::controllerLoader(){
 
 void Controller::inputLoader(){
     if(joystickPresent == GL_TRUE){
-		sgct::Engine::getJoystickAxes( GLFW_JOYSTICK_1, axes, numberOfAxes );
-		sgct::Engine::getJoystickButtons( GLFW_JOYSTICK_1, buttons, numberOfButtons );
+		sgct::Engine::getJoystickAxes(GLFW_JOYSTICK_1, axes, numberOfAxes);
+		sgct::Engine::getJoystickButtons(GLFW_JOYSTICK_1, buttons, numberOfButtons);
 //        for(int i=0; i<numberOfAxes; i++)
 //            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
 //        for(int i=0; i<numberOfButtons; i++)
