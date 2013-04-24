@@ -41,12 +41,24 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../src/Camera.cpp" />
+		<Unit filename="../src/Camera.h" />
+		<Unit filename="../src/Controller.cpp" />
+		<Unit filename="../src/Controller.h" />
+		<Unit filename="../src/DynamicGameObject.cpp" />
+		<Unit filename="../src/DynamicGameObject.h" />
 		<Unit filename="../src/GameEngine.cpp" />
 		<Unit filename="../src/GameEngine.h" />
+		<Unit filename="../src/GameObject.cpp" />
+		<Unit filename="../src/GameObject.h" />
 		<Unit filename="../src/Model.cpp" />
 		<Unit filename="../src/Model.h" />
 		<Unit filename="../src/ModelMesh.cpp" />
 		<Unit filename="../src/ModelMesh.h" />
+		<Unit filename="../src/Player.cpp" />
+		<Unit filename="../src/Player.h" />
+		<Unit filename="../src/Scene.cpp" />
+		<Unit filename="../src/Scene.h" />
 		<Unit filename="../src/main.cpp" />
 		<Extensions>
 			<code_completion />

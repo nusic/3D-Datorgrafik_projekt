@@ -1,14 +1,15 @@
 #include "GameObject.h"
 
-GameObject::GameObject(double _x, double _y, float _s):
-Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleColor") {
+GameObject::GameObject(double _x, double _y, float _s, float _phi):
+Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor") {
 	setPosition(_x, _y);
 	setSize(_s);
+	setDirection(_phi, 0.0f);
 	updateMatrix();
 }
 
 GameObject::~GameObject(){
-	
+
 };
 
 
@@ -33,8 +34,7 @@ void GameObject::setSize(float _xs, float _ys, float _zs){
 }
 
 void GameObject::updateMatrix(){
-	glm::mat4 E(1.0f);
-	glm::mat4 S = glm::scale(E, glm::vec3(xs, ys, zs));
+
 /*
 	//Calc rotationg axis
 	float sinPhi	= glm::sin(phi);
@@ -45,14 +45,12 @@ void GameObject::updateMatrix(){
 	glm::vec3 axis(	sinPhi * cosTheta,
 					sinPhi * sinTheta,
 					cosPhi			);
-
-	glm::mat4 SR = glm::rotate(S, axis);
 */
 
-	glm::mat4 SR = glm::rotate(S, phi, glm::vec3(0.0f, 1.0f, 0.0f));
-
-	//The Z-value needs to be calculated (mapped value)
-
-	modelMatrix = glm::translate(SR, glm::vec3(x, y, 0.0f));
+	//Obs, the order is reversed
+	glm::mat4 E(1.0f);
+    glm::mat4 T = glm::translate(E, glm::vec3(x, 1.0f, -y));
+    glm::mat4 ST = glm::rotate(T, phi, glm::vec3(0.0f, 1.0f, 0.0f));
+    modelMatrix = glm::scale(ST, glm::vec3(xs, ys, zs));
 }
 

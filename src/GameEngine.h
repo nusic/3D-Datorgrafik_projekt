@@ -7,7 +7,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "GameObject.h"
-
+#include "Player.h"
 
 class GameEngine{
 public:
@@ -23,6 +23,7 @@ public:
 
 	Scene * scene;
 	Camera * camera;
+	Player * player;
 };
 
 #endif
