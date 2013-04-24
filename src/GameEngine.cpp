@@ -29,6 +29,8 @@ void GameEngine::initOGL(){
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	sgct::TextureManager::Instance()->loadTexure("SimpleTexture", "data/textures/texture1.png", true);
+
 	//Creating the shader "SimpleColor"
 	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 	if(!sgct::ShaderManager::Instance()->bindShader("SimpleColor"))
@@ -50,6 +52,7 @@ void GameEngine::initOGL(){
 
     player = new Player;
     player->setPosition(0.0f, 0.0f);
+
 
 }
 
