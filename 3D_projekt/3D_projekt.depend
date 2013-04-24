@@ -937,7 +937,7 @@
 	<glm/glm.hpp>
 	<sgct.h>
 
-1366815378 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
+1366823407 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
 
 1366653458 source:c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.cpp
@@ -994,6 +994,6 @@
 1366816364 c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.h
 	"GameObject.h"
 
-1366814202 source:c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.cpp
+1366823130 source:c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.cpp
 	"DynamicGameObject.h"
 
