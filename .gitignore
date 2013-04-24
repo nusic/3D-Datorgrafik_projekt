@@ -1,7 +1,5 @@
 Program
 *.o
-*.layout
-*.depend
 3D_projekt.exe
 .DS_Store
 .DS_Store?
