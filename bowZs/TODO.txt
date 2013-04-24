@@ -2,22 +2,44 @@ Saker man kan jobba med
 =======================
 
 * inläsning av objekt	(kolla assimp)					KLAR 20/4
+
 * binda shaders i SGCT (se jonas strandstedt:s SGCT)	KLAR 21/4
-* implementera drawMetoden i model.cpp					På G
-* allmän shaderprogrammering							På G
+
+* implementera drawMetoden i model.cpp					KLAR 22/4
+
+* design av klasshierarki.								KLAR 23/4
+	t ex få in ett lager med kamera som sköter
+	VP-matisen innan den skickas vidare till 
+	Gameobjeken och blir MVP matris.
+
+* få in texturer så dom mappas rätt						På G
+
+* fixa så DynamicGameObject's z-position höjdmappas
+
+* kompilera snabbare på mac								På G
+
+* allmän shaderprogrammering
+	Få in en global ljuskälla
+	leka fram enkelt procedurellt vatten (?)
+
 * modellera karaktärer
 	i vilket program som helst, men exportera som 
 	".obj".
 
 	Blender:
 		-Modellera vad fan du vill.
-		-Merge ihop alla objekt till ett och samma: "a" för att markera allt (i object mode). Ctrl j för att mergea ihop braket.
-		-Skapa uv-koordinater: I edit mode; Klicka unwrap, UV-unwrap, smart UV-project eller motsvarande. (Detaljer för skapande av lämplig UV-map kommer)
-		-Exportera som obj: Markera Apply Modifiers, Include Normals, Include UVs, Trialgulate Faces, Objects as OBJ Objects.
+		-Merge ihop alla objekt till ett och samma: 
+			"a" för att markera allt (i object mode). 
+			Ctrl + j för att mergea ihop braket.
+		-Skapa uv-koordinater: 
+			I edit mode; Klicka unwrap, UV-unwrap, 
+			smart UV-project eller motsvarande. 
+			(Detaljer för skapande av lämplig UV-map kommer)
+		-Exportera som obj: Markera Apply Modifiers, 
+			Include Normals, Include UVs, Trialgulate Faces, 
+			Objects as OBJ Objects.
 
 * modellera miljö
-* design av klasshierarki.
-	t ex få in ett lager med kamera som sköter
-	VP-matisen innan den skickas vidare till 
-	Gameobjeken och blir MVP matris.
+
+
 
