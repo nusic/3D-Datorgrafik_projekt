@@ -46,7 +46,7 @@ private:
 	GLuint uvShaderID;
 
 	GLuint textureShaderID;
-	GLuint matrixShaderID;
+	//GLuint matrixShaderID;
 
 	//Handle for matrix and texture
 	GLuint modelMatrixID;

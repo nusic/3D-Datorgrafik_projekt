@@ -34,7 +34,7 @@ void Model::setShader(std::string _shaderName){
 	normalShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexNormal");
 	uvShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexUV");
 	//The handle for the MVP-matrix
-	//matrixShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
+	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 	//The handler for the texture sampler
 	textureShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("textureSampler");
 
@@ -43,7 +43,7 @@ void Model::setShader(std::string _shaderName){
 	
 void Model::setModelMatrix(glm::mat4 _modelMatrix){
 	modelMatrix = _modelMatrix;
-	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
+	//modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 }
 
 
@@ -71,7 +71,6 @@ void Model::drawModel(glm::mat4 MVP){
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	// Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureShaderID, 0);
-
 
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(vertexShaderID);
