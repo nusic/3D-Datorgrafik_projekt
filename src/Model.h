@@ -22,6 +22,8 @@ public:
 	void setShader(std::string _shaderName);
 	void setModelMatrix(glm::mat4 _modelMatrix);
 
+    bool hasMesh() const;
+
 	friend class Scene;
     void drawModel(glm::mat4 MVP);
 

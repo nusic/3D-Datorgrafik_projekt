@@ -6,7 +6,7 @@
 class DynamicGameObject : public GameObject{
 
 public:
-	DynamicGameObject(double _x = 0, double _y = 0, float _s = 0, float _phi = 0);
+	DynamicGameObject(double _x = 0, double _y = 0, float _s = 1, float _phi = 0);
 	~DynamicGameObject();
 
 	void setVelocity(double _dx, double _dy);

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1366734064 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
+1366812347 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
 	"sgct.h"
 	"Model.h"
 	"ModelMesh.h"
@@ -921,7 +921,7 @@
 
 1366653456 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctdome.h
 
-1366654930 c:\users\martin\git\3d-datorgrafik_projekt\src\model.h
+1366815423 c:\users\martin\git\3d-datorgrafik_projekt\src\model.h
 	<vector>
 	<iostream>
 	<string>
@@ -937,7 +937,7 @@
 	<glm/glm.hpp>
 	<sgct.h>
 
-1366653458 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
+1366815378 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
 
 1366653458 source:c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.cpp
@@ -951,41 +951,49 @@
 	"GameObject.h"
 	"Player.h"
 
-1366737378 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
+1366817389 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
-1366722565 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
+1366823076 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
 	"sgct.h"
 	"Model.h"
 	"GameObject.h"
 
-1366656643 c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.h
+1366742451 c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.h
 	"Model.h"
 	"sgct.h"
 
-1366653458 c:\users\martin\git\3d-datorgrafik_projekt\src\camera.h
+1366812133 c:\users\martin\git\3d-datorgrafik_projekt\src\camera.h
+	"sgct.h"
 
-1366653458 source:c:\users\martin\git\3d-datorgrafik_projekt\src\camera.cpp
+1366812133 source:c:\users\martin\git\3d-datorgrafik_projekt\src\camera.cpp
 	"Camera.h"
 
-1366738285 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.cpp
+1366743390 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
-1366735567 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
+1366816472 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
+	"player.h"
 
-1366722565 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
+1366820685 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
 	"Controller.h"
 	"sgct.h"
 	<iostream>
 
-1366642980 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
+1366820644 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
 
-1366737035 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
+1366820704 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 	<new>
 
-1366657000 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
+1366816896 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
 	"Controller.h"
+	"DynamicGameObject.h"
+
+1366816364 c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.h
 	"GameObject.h"
+
+1366814202 source:c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.cpp
+	"DynamicGameObject.h"
 

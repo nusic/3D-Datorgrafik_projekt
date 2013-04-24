@@ -44,7 +44,7 @@ int main(int argc, char* argv[]){
 
 	// Main loop
 	gEngine->render();
-//    delete gameEngine->player;
+    delete gameEngine->player;
 	// Clean up
 	delete gEngine;
 

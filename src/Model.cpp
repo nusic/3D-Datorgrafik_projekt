@@ -1,4 +1,3 @@
-
 #include "Model.h"
 
 
@@ -27,35 +26,38 @@ void Model::setShader(std::string _shaderName){
 
 	sgct::ShaderManager::Instance()->unBindShader();
 }
-	
+
 void Model::setModelMatrix(glm::mat4 _modelMatrix){
 	modelMatrix = _modelMatrix;
 	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 }
 
+bool Model::hasMesh() const{
+    return (mesh != NULL);
+}
 
 float angle = 0.0f;
 
 void Model::drawModel(glm::mat4 MVP){
 	//Use the shader
 
-	
+
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
 	//----------ERIK JOBBAR HÄR OCH NEDÅT ----------
 
 	//En modells position i världen beror på vart dess "parent" befann sig.
 	//Tänk på hur stegu snackaded om scengrafer. Model-matrisen talar om
-	//hur den här modellen befinner sig i för hållande till sin parent. 
-	//För att få denna modells position i världen multiplicerar vi med vår 
-	//parents MVP matris med vår egen model-matrix. På så sätt vet vi hur vi ska 
+	//hur den här modellen befinner sig i för hållande till sin parent.
+	//För att få denna modells position i världen multiplicerar vi med vår
+	//parents MVP matris med vår egen model-matrix. På så sätt vet vi hur vi ska
 	//rita ut oss. Resultatet, "thisMVP", skickar vi vidare till våra children
 	//för att de ska veta dess position i världen.
-	
+
 	glm::mat4 thisMVP = MVP * modelMatrix;
 
 	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
-	
+
 
 	//----------ERIK JOBBAR HÄR OCH UPPÅT ----------
 
