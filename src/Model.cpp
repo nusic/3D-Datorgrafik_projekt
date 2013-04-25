@@ -18,7 +18,7 @@ Model::Model(
 }
 
 void Model::setTexture(std::string _textureName){
-	if(!(textureID = sgct::TextureManager::Instance()->getTextureByName(_textureName)))
+	if(!(texture = sgct::TextureManager::Instance()->getTextureByName(_textureName)))
 		std::cout << "WARNING: setTexture: " << _textureName << " failed!!!!!" << std::endl;
 }
 
@@ -29,13 +29,13 @@ void Model::setShader(std::string _shaderName){
 	sgct::ShaderManager::Instance()->bindShader(shaderName);
 
 	//The handle for the vertex data
-	vertexShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexPosition");
-	normalShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexNormal");
-	uvShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexUV");
+	vertexPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexPosition");
+	vertexNormalID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexNormal");
+	vertexUVID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexUV");
 	//The handle for the MVP-matrix
 	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 	//The handler for the texture sampler
-	textureShaderID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("textureSampler");
+	textureID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("textureSampler");
 
 	sgct::ShaderManager::Instance()->unBindShader();
 }
@@ -70,16 +70,16 @@ void Model::drawModel(glm::mat4 MVP){
 
 	// Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	// Set our "textureSampler" sampler to user Texture Unit 0
-	glUniform1i(textureShaderID, 0);
+	glUniform1i(textureID, 0);
 
 	//Attribute the vertices buffer
-	glEnableVertexAttribArray(vertexShaderID);
+	glEnableVertexAttribArray(vertexPositionID);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexbufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glVertexAttribPointer(
-		vertexShaderID, // The attribute we want to configure (vertexShaderID)
+		vertexPositionID, // The attribute we want to configure (vertexShaderID)
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -88,11 +88,11 @@ void Model::drawModel(glm::mat4 MVP){
 	);
 
 	//Attribute the normal buffer
-	glEnableVertexAttribArray(uvShaderID);
+	glEnableVertexAttribArray(vertexUVID);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->uvbufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->uvBuffer);
 	glVertexAttribPointer(
-		uvShaderID, // The attribute we want to configure (uvShaderID)
+		vertexUVID, // The attribute we want to configure (uvShaderID)
 		2,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -101,11 +101,11 @@ void Model::drawModel(glm::mat4 MVP){
 	);
 
 	//Attribute the normal buffer
-	glEnableVertexAttribArray(normalShaderID);
+	glEnableVertexAttribArray(vertexNormalID);
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->normalbufferID);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->normalBuffer);
 	glVertexAttribPointer(
-		normalShaderID, // The attribute we want to configure (normalShaderID)
+		vertexNormalID, // The attribute we want to configure (normalShaderID)
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -116,9 +116,9 @@ void Model::drawModel(glm::mat4 MVP){
 	// Draw the triangles!
 	glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
 
-	glDisableVertexAttribArray(vertexShaderID);
-	glDisableVertexAttribArray(uvShaderID);
-	glDisableVertexAttribArray(normalShaderID);
+	glDisableVertexAttribArray(vertexPositionID);
+	glDisableVertexAttribArray(vertexUVID);
+	glDisableVertexAttribArray(vertexNormalID);
 
 	sgct::ShaderManager::Instance()->unBindShader();
 

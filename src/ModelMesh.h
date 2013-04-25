@@ -23,9 +23,9 @@ public:
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
 
-	GLuint vertexbufferID;
-	GLuint normalbufferID;
-	GLuint uvbufferID;
+	GLuint vertexBuffer;
+	GLuint normalBuffer;
+	GLuint uvBuffer;
 };
 
 #endif

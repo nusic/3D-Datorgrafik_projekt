@@ -43,16 +43,15 @@ private:
 	std::string shaderName;
 	
 	//Handles for the shader
-	GLuint vertexShaderID;
-	GLuint normalShaderID;
-	GLuint uvShaderID;
+	GLuint vertexPositionID;
+	GLuint vertexUVID;
+	GLuint vertexNormalID;
 
-	GLuint textureShaderID;
-	//GLuint matrixShaderID;
+	GLuint textureID;
+	GLuint modelMatrixID;
 
 	//Handle for matrix and texture
-	GLuint modelMatrixID;
-	GLuint textureID;	
+	GLuint texture;	
 
 };
 
