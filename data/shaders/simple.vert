@@ -11,7 +11,7 @@ uniform mat4 MVP;
 
 
 //Output that will go to the fragment shader. When it does it will be interpolated for each fragment.
-varying vec3 fragmentColor;
+varying vec3 position;
 varying vec3 normal;
 varying vec2 UV;
 
@@ -21,8 +21,7 @@ void main(){
 
 
 	//Output the color depending of the position of the vertex to make it a bit interesting
-	fragmentColor = vertexPosition;
-
+	position = vertexPosition;
 	normal = vertexNormal;
 	UV = vertexUV;
 }
