@@ -1,5 +1,4 @@
 #version 120
-
 //Input: Interpolated values from the vertex shader
 varying vec3 position;
 varying vec3 normal;
@@ -16,9 +15,13 @@ void main()
 	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.1,0.1,0.1);
 
-	vec3 lightDirection = vec3(1, 1, -1)-position;
+	
 
 	vec3 n = normalize(normal);
+
+	vec3 p = normalize(position);
+	vec3 lightDirection = n-1.5*p;
+
 	vec3 l = normalize(lightDirection);
 
 	float cosTheta = clamp(dot(-n, l), 0, 1);

@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
 
 	// Main loop
 	gEngine->render();
-    delete gameEngine->player;
+    delete gameEngine;
 
 	// Clean up
 	delete gEngine;

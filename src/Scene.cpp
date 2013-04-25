@@ -19,6 +19,11 @@ void Scene::initScene(){
 	suzanne.children.push_back(child2);
 	children.push_back(suzanne);
 
+	GameObject c1(3, -3, 1);
+	GameObject c2(-3, -3, 1);
+	children.push_back(c1);
+	children.push_back(c2);
+
 //	GameObject anne(0, 2, 4.0f);
 //	anne.setDirection(180.0f, 0.0f);
 //	anne.updateMatrix();
