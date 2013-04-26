@@ -6,15 +6,16 @@
 
 class LightSource{
 public:
-	LightSource();
+	LightSource(double _x, double _y, double _z);
 	~LightSource();
-
 
 private:
 	glm::vec3 position;
-	glm::vec3 direction;
 	glm::vec3 color;
+	glm::vec3 direction;
+	float spread;
 
+	bool directional;
 };
 
-#endif
+#endif;
