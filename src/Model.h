@@ -20,6 +20,8 @@ public:
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
 
+	~Model();
+
 	void setShader(std::string _shaderName);
 	void setTexture(std::string _textureName);
 	void setModelMatrix(glm::mat4 _modelMatrix);
@@ -30,8 +32,6 @@ public:
     void drawModel(glm::mat4 MVP);
 
 protected:
-
-
 
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;

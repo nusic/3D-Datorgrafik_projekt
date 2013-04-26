@@ -2,18 +2,19 @@
 
 
 
-DynamicGameObject::DynamicGameObject(double _x, double _y, float _s, float _phi):
-GameObject(_x, _y, _s, _phi){
-	setVelocity(0.0, 0.0);
+DynamicGameObject::DynamicGameObject(double x, double y, float s, float _phi):
+GameObject(x, y, s, _phi){
+	setVelocity(0.0, 0.0, 0.0);
 }
 
 DynamicGameObject::~DynamicGameObject(){
 
 }
 
-void DynamicGameObject::setVelocity(double _dx, double _dy){
-	dx = _dx;
-	dy = _dy;
+void DynamicGameObject::setVelocity(double dx, double dy, double dz){
+	velocity.x = dx;
+	velocity.y = dy;
+	velocity.z = dz;
 }
 
 void DynamicGameObject::setAngleVel(float _dPhi, float _dTheta){
@@ -21,14 +22,16 @@ void DynamicGameObject::setAngleVel(float _dPhi, float _dTheta){
 	dTheta = _dTheta;
 }
 
-void DynamicGameObject::incrementPosition(double _dx, double _dy){
-	x += _dx;
-	y += _dy;
+void DynamicGameObject::incrementPosition(double dx, double dy, double dz){
+	position.x += dx;
+	position.y += dy;
+	position.z += dy;
 }
 
 void DynamicGameObject::incrementPosition(){
-	x += dx;
-	y += dy;
+	position.x += velocity.x;
+	position.y += velocity.y;
+	position.z += velocity.y;
 }
 
 void DynamicGameObject::incrementAngleVel(float _dPhi, float _dTheta){

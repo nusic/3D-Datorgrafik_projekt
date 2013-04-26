@@ -17,6 +17,10 @@ Model::Model(
 	std::cout << "created Model" << std::endl;
 }
 
+Model::~Model(){
+	
+}
+
 void Model::setTexture(std::string _textureName){
 	if(!(texture = sgct::TextureManager::Instance()->getTextureByName(_textureName)))
 		std::cout << "WARNING: setTexture: " << _textureName << " failed!!!!!" << std::endl;
