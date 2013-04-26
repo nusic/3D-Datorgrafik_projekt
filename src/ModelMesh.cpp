@@ -10,6 +10,11 @@ ModelMesh::ModelMesh(const char* path){
 	}
 }
 
+ModelMesh::~ModelMesh(){
+	deleteGLBuffers();
+}
+
+
 bool ModelMesh::loadOBJ(const char * path){
 	printf("Loading OBJ file %s...\n", path);
 
@@ -109,4 +114,12 @@ void ModelMesh::generateGLBuffers(){
 	glGenBuffers(1, &normalBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+}
+
+void ModelMesh::deleteGLBuffers(){
+
+	glDeleteBuffers(1, &vertexBuffer);
+	glDeleteBuffers(1, &uvBuffer);
+	glDeleteBuffers(1, &normalBuffer);
+
 }
