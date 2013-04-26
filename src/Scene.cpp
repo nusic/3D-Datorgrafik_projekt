@@ -12,9 +12,9 @@ Scene::~Scene(){
 }
 
 void Scene::initScene(){
-	GameObject suzanne(0, 3, 1);
-	GameObject child1(2, 1, 0.5);
-	GameObject child2(-2, 1, 0.5);
+	GameObject suzanne(0, 3, 1, 1);
+	GameObject child1(2, 1, 1, 0.5);
+	GameObject child2(-2, 1, 1, 0.5);
 	suzanne.children.push_back(child1);
 	suzanne.children.push_back(child2);
 	children.push_back(suzanne);
@@ -35,8 +35,8 @@ void Scene::initScene(){
 void Scene::addGenerations(Model& mother, int n){
 	if(n<0)
 		return;
-	GameObject child1(2, 1, 0.5);
-	GameObject child2(-2, 1, 0.5);
+	GameObject child1(2, 1, 1, 0.5);
+	GameObject child2(-2, 1, 1, 0.5);
 	mother.children.push_back(child1);
 	mother.children.push_back(child2);
 

@@ -1,10 +1,10 @@
 #include "GameObject.h"
 
-GameObject::GameObject(double _x, double _y, float _s, float _phi):
+GameObject::GameObject(double x, double y, double z, float s, float phi):
 Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor") {
-	setPosition(_x, _y);
-	setScale(_s);
-	setDirection(_phi, 0.0f);
+	setPosition(x, y, z);
+	setScale(s);
+	setDirection(phi, 0.0f);
 	updateMatrix();
 }
 
@@ -51,7 +51,7 @@ void GameObject::updateMatrix(){
 	//Obs, the order is reversed
 	glm::mat4 E(1.0f);
     //glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.z, -position.y));
-    glm::mat4 T = glm::translate(E, position);
+    glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.z, -position.y));
     glm::mat4 ST = glm::rotate(T, phi, glm::vec3(0.0f, 1.0f, 0.0f));
     modelMatrix = glm::scale(ST, scale);
 }

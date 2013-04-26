@@ -53,8 +53,6 @@ bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
-float angle = 0.0f;
-
 void Model::drawModel(glm::mat4 MVP){
 
 	//Use the shader	

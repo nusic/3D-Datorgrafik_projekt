@@ -10,6 +10,7 @@
 #include <cassert>
 
 #include "ModelMesh.h"
+#include "LightSource.h"
 #include "sgct.h"
 
 

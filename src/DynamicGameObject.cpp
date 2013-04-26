@@ -1,7 +1,6 @@
 #include "DynamicGameObject.h"
 
 
-
 DynamicGameObject::DynamicGameObject(double x, double y, float s, float _phi):
 GameObject(x, y, s, _phi){
 	setVelocity(0.0, 0.0, 0.0);
