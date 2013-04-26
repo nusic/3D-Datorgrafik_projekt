@@ -13,10 +13,12 @@
 class ModelMesh{
 public:
 	ModelMesh(const char* path);
+	~ModelMesh();
 
 	bool loadOBJ(const char* path);
 
 	void generateGLBuffers();
+	void deleteGLBuffers();
 
 	
 	std::vector<glm::vec3> vertices;
