@@ -14,6 +14,7 @@
 #include "sgct.h"
 
 
+
 class Model{
 public:
 	Model(ModelMesh* _mesh = NULL, 
@@ -49,6 +50,8 @@ private:
 	GLuint vertexNormalID;
 
 	GLuint textureID;
+
+	GLuint MVPMatrixID;
 	GLuint modelMatrixID;
 
 	//Handle for matrix and texture

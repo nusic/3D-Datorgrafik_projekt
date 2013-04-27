@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "Scene.h"
 
 
 Model::Model(
@@ -37,7 +38,8 @@ void Model::setShader(std::string _shaderName){
 	vertexNormalID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexNormal");
 	vertexUVID = sgct::ShaderManager::Instance()->getShader(shaderName).getAttribLocation("vertexUV");
 	//The handle for the MVP-matrix
-	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
+	MVPMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
+	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("M");
 	//The handler for the texture sampler
 	textureID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("textureSampler");
 
@@ -46,12 +48,15 @@ void Model::setShader(std::string _shaderName){
 
 void Model::setModelMatrix(glm::mat4 _modelMatrix){
 	modelMatrix = _modelMatrix;
-	//modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
+	//MVPMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 }
 
 bool Model::hasMesh() const{
     return (mesh != NULL);
 }
+
+//Fulkod!!!!
+static float rotater = 0;
 
 void Model::drawModel(glm::mat4 MVP){
 
@@ -68,13 +73,36 @@ void Model::drawModel(glm::mat4 MVP){
 
 	glm::mat4 thisMVP = MVP * modelMatrix;
 
-	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
+	glUniformMatrix4fv(MVPMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
+	//MODELLMATRISEN NEDAN ÄR FEL FÖR ALLA OBJEKT SOM LIGGER SOM CHILDS TILL ANDRA!
+	//(Så länge dess parent inte ligger i position 0,0,0)
+	//DETTA MÅSTE FIXAS, TYP GENOM ATT LÅTA ETT CHILD VETA VAD DESS FÖRÄLDRARS MODELMATRIX
+	//ELLER ATT MAN SKICKAR IN EN MODELLMATRIS I DRAW SOM GÖR ATT MAN KAN FÅ DEN "TOTALA"
+	//MODELLMATRISEN FÖR VERJE CHILD GENOM ATT MULTIPLICERA MED DEN VARJE GÅNG.
+	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
 
 	// Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	// Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureID, 0);
+
+
+	//Fulkod för att testa!!!!
+	rotater = rotater + 0.005;
+	if (rotater > 2*3.14)
+		rotater = 0;
+	Scene::lightSources[0]->position.x = 3 * glm::cos(rotater);
+	Scene::lightSources[0]->position.z = 3 * glm::sin(-rotater);
+
+
+	//Lightsource 1
+	glUniform3f(
+		Scene::lightSources[0]->lightPositionID,
+		Scene::lightSources[0]->position.x,
+		Scene::lightSources[0]->position.y,
+		Scene::lightSources[0]->position.z);
+
 
 	//Attribute the vertices buffer
 	glEnableVertexAttribArray(vertexPositionID);
