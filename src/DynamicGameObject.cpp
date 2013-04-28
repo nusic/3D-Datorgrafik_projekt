@@ -2,7 +2,7 @@
 
 
 DynamicGameObject::DynamicGameObject(double x, double y, float s, float _phi):
-GameObject(x, y, s, _phi){
+GameObject(x, y, 0, s, _phi){
 	setVelocity(0.0, 0.0, 0.0);
 }
 

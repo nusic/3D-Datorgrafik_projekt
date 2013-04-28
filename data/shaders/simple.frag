@@ -7,9 +7,11 @@ varying vec2 UV;
 varying vec3 eyeDirection_cameraSpace;
 varying vec3 lightDirection_cameraSpace;
 
+varying float distanceToLight;
+
 
 uniform sampler2D textureSampler;
-uniform vec3 lightPosition_worldspace;
+//uniform vec3 lightPosition_worldspace;
 
 
 void main()
@@ -19,7 +21,7 @@ void main()
 	vec3 materialAmbientColor = vec3(0.1,0.1,0.1) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.3,0.3,0.3);
 
-	float distanceToLight = length(lightPosition_worldspace - position_worldSpace);
+	//float distanceToLight = length(lightPosition_worldspace - position_worldSpace);
 	
 
 	vec3 n = normalize(normal_cameraSpace);
@@ -34,5 +36,5 @@ void main()
 
 	gl_FragColor =
 		vec4(materialAmbientColor, 1) + //Ambient
-		vec4(materialDiffuseColor, 1) * 10 * cosTheta / (distanceToLight * distanceToLight); //Diffuse
+		vec4(materialDiffuseColor, 1) * 30 * cosTheta / (distanceToLight * distanceToLight); //Diffuse
 }

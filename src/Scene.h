@@ -5,6 +5,7 @@
 #include "Model.h"
 #include "GameObject.h"
 #include "LightSource.h"
+#include "Player.h"
 #include <vector>
 
 
@@ -20,6 +21,8 @@ public:
 	void addGenerations(Model& mother, int n);
 
 	static std::vector<LightSource*> lightSources;
+
+	Player* player;
 
 private:
 

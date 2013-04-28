@@ -23,7 +23,6 @@ public:
 
 	Scene * scene;
 	Camera * camera;
-	Player * player;
 };
 
 #endif
