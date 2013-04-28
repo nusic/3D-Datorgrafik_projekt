@@ -41,7 +41,7 @@ void Model::setShader(std::string _shaderName){
 	MVPMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("M");
 	viewMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("V");
-	modelViewMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("V");
+	modelViewMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MV");
 
 
 	//The handler for the texture sampler

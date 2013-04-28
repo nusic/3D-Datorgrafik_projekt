@@ -28,4 +28,6 @@ private:
 
 };
 
-#endif;
+//Pippi Långstrump
+
+#endif
