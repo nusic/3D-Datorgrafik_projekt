@@ -8,6 +8,8 @@ public:
 	Camera(double _x, double _y, double _z);
 	~Camera();
 
+	void bindVariables();
+
 	void setPosition(double _x, double _y, double _z);
 	void setVelocity(double _dx, double _dy, double _dz);
 	void setLookAt(double _x, double _y, double _z);
@@ -15,7 +17,8 @@ public:
 	void incrementPosition();
 	void incrementPosition(double _dx, double _dy, double _dz);
 
-	glm::mat4 getViewPerspectiveMatrix() const;
+	glm::mat4 getViewMatrix() const;
+	glm::mat4 getPerspectiveMatrix() const;
 
 private:
 

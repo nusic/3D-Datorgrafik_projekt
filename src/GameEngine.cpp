@@ -11,8 +11,8 @@ GameEngine::~GameEngine(){
 void GameEngine::draw(){
     player->updatePlayerOrientation();
 	camera->incrementPosition();
-	scene->drawScene(camera->getViewPerspectiveMatrix());
-	player->drawModel(camera->getViewPerspectiveMatrix());
+	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+	player->drawModel(camera->getPerspectiveMatrix(), camera->getViewMatrix(), glm::mat4());
 }
 
 void GameEngine::preSync(){
@@ -53,8 +53,8 @@ void GameEngine::initOGL(){
 	camera->setVelocity(0.05, 0.02, -0.01);
 
 	//Uncomment the two lines below to get simple static front view
-	//camera->setPosition(0, 15, 15);
-	//camera->setVelocity(0, 0, 0);
+	camera->setPosition(0, 15, 15);
+	camera->setVelocity(0, 0, 0);
 
     player = new Player;
     player->setPosition(0.0f, 0.0f);

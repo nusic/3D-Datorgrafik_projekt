@@ -40,6 +40,10 @@ void Model::setShader(std::string _shaderName){
 	//The handle for the MVP-matrix
 	MVPMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("MVP");
 	modelMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("M");
+	viewMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("V");
+	modelViewMatrixID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("V");
+
+
 	//The handler for the texture sampler
 	textureID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("textureSampler");
 
@@ -58,7 +62,7 @@ bool Model::hasMesh() const{
 //Fulkod!!!!
 static float rotater = 0;
 
-void Model::drawModel(glm::mat4 MVP){
+void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//Use the shader	
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
@@ -71,15 +75,15 @@ void Model::drawModel(glm::mat4 MVP){
 	//rita ut oss. Resultatet, "thisMVP", skickar vi vidare till våra children
 	//för att de ska veta dess position i världen.
 
-	glm::mat4 thisMVP = MVP * modelMatrix;
+	glm::mat4 thisMVP = P * V * M * modelMatrix;
+	glm::mat4 thisM = M * modelMatrix;
+	glm::mat4 MV = V * thisM;
 
 	glUniformMatrix4fv(MVPMatrixID, 1, GL_FALSE, &thisMVP[0][0]);
-	//MODELLMATRISEN NEDAN ÄR FEL FÖR ALLA OBJEKT SOM LIGGER SOM CHILDS TILL ANDRA!
-	//(Så länge dess parent inte ligger i position 0,0,0)
-	//DETTA MÅSTE FIXAS, TYP GENOM ATT LÅTA ETT CHILD VETA VAD DESS FÖRÄLDRARS MODELMATRIX
-	//ELLER ATT MAN SKICKAR IN EN MODELLMATRIS I DRAW SOM GÖR ATT MAN KAN FÅ DEN "TOTALA"
-	//MODELLMATRISEN FÖR VERJE CHILD GENOM ATT MULTIPLICERA MED DEN VARJE GÅNG.
-	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
+	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &thisM[0][0]);
+	glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, &V[0][0]);
+	glUniformMatrix4fv(modelViewMatrixID, 1, GL_FALSE, &MV[0][0]);
+
 
 	// Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
@@ -88,12 +92,14 @@ void Model::drawModel(glm::mat4 MVP){
 	glUniform1i(textureID, 0);
 
 
-	//Fulkod för att testa!!!!
-	rotater = rotater + 0.005;
+	//Fulkod för att testa att ljuskällan kan flytta på sig
+	//(rotater incremantas för övrigt mer då man ritar ut fler saker
+	//då den är static vilket gör det ännu fulare HEHAHÖ!)
+	rotater = rotater + 0.003;
 	if (rotater > 2*3.14)
 		rotater = 0;
-	Scene::lightSources[0]->position.x = 3 * glm::cos(rotater);
-	Scene::lightSources[0]->position.z = 3 * glm::sin(-rotater);
+	Scene::lightSources[0]->position.x = 7 * glm::cos(rotater);
+	Scene::lightSources[0]->position.z = 7 * glm::sin(-rotater);
 
 
 	//Lightsource 1
@@ -153,6 +159,6 @@ void Model::drawModel(glm::mat4 MVP){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	for(int i = 0; i<children.size(); ++i){
-		children[i].drawModel(thisMVP);
+		children[i].drawModel(P, V, thisM);
 	}
 }

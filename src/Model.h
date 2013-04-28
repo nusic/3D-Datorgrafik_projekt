@@ -31,7 +31,7 @@ public:
     bool hasMesh() const;
 
 	friend class Scene;
-    void drawModel(glm::mat4 MVP);
+    void drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 protected:
 
@@ -53,6 +53,8 @@ private:
 
 	GLuint MVPMatrixID;
 	GLuint modelMatrixID;
+	GLuint viewMatrixID;
+	GLuint modelViewMatrixID;
 
 	//Handle for matrix and texture
 	GLuint texture;	
