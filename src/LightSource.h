@@ -10,6 +10,12 @@ public:
 	~LightSource();
 	void bindVariables();
 
+	void setPosition(double _x, double _y, double _z);
+	void setColor(double _r, double _g, double _b);
+	void setDirection(double _x, double _y, double _z);
+	void setSpread(float _s);
+	void setDirectional(bool _d);
+
 	GLuint lightPositionID;
 	GLuint lightColorID;
 	GLuint lightDirectionID;
