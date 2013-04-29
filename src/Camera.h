@@ -8,6 +8,7 @@ public:
 	Camera(double _x, double _y, double _z);
 	~Camera();
 
+
 	void bindVariables();
 
 	void setPosition(double _x, double _y, double _z);
