@@ -10,7 +10,7 @@ attribute vec2 vertexUV;
 uniform mat4 MVP;
 uniform mat4 M;
 uniform mat4 V;
-uniform vec3 lightPosition_worldSpace;
+uniform vec3 lightPosition_worldSpace[1];
 
 
 //Output that will go to the fragment shader. 
@@ -30,12 +30,12 @@ void main(){
 
 	position_worldSpace = (M * vec4(vertexPosition, 1.0)).xyz;
 
-	distanceToLight = length(lightPosition_worldSpace - position_worldSpace);
+	distanceToLight = length(lightPosition_worldSpace[0] - position_worldSpace);
 
 	vec3 vertexPosition_cameraSpace = ( V * M * vec4(vertexPosition,1)).xyz;
 	eyeDirection_cameraSpace = vec3(0,0,0) - vertexPosition_cameraSpace;
 
-	vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace,1)).xyz;
+	vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[0],1)).xyz;
 	lightDirection_cameraSpace = lightPosition_cameraSpace + eyeDirection_cameraSpace;
 
 

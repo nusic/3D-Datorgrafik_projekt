@@ -7,11 +7,12 @@ Model(new ModelMesh("data/meshes/testScene.obj"), glm::mat4(1.0f), "SimpleTextur
 
 }
 
+std::vector<LightSource*> Scene::lightSources;
+
+
 Scene::~Scene(){
 
 }
-
-std::vector<LightSource*> Scene::lightSources;
 
 void Scene::initScene(){
 	
@@ -27,8 +28,7 @@ void Scene::initScene(){
 	//children.push_back(c1);
 	//children.push_back(c2);
 
-	LightSource* light1 = new LightSource(0,0,0,"SimpleColor");
-
+	LightSource* light1 = new LightSource;
 	Scene::lightSources.push_back(light1);
 
 	//GameObject anne(0, 2, 4.0f);

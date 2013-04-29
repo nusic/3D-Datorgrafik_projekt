@@ -91,23 +91,24 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	// Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureID, 0);
 
-
+	
 	//Fulkod för att testa att ljuskällan kan flytta på sig
 	//(rotater incremantas för övrigt mer då man ritar ut fler saker
 	//då den är static vilket gör det ännu fulare HEHAHÖ!)
-	rotater = rotater + 0.003;
+	
+	/*rotater = rotater + 0.003;
 	if (rotater > 2*3.14)
 		rotater = 0;
-	Scene::lightSources[0]->position.x = 7 * glm::cos(rotater);
-	Scene::lightSources[0]->position.z = 7 * glm::sin(-rotater);
-
+	LightSource::getPositionArray()[0].x = 7 * glm::cos(rotater);
+	LightSource::getPositionArray()[0].y = 7 * glm::sin(-rotater);
+*/
 
 	//Lightsource 1
-	glUniform3f(
-		Scene::lightSources[0]->lightPositionID,
-		Scene::lightSources[0]->position.x,
-		Scene::lightSources[0]->position.y,
-		Scene::lightSources[0]->position.z);
+	glUniform3fv(
+		LightSource::lightPositionID,
+		LightSource::getNumberOfLightSources(),
+		LightSource::getPositionArray());
+	
 
 
 	//Attribute the vertices buffer
