@@ -29,7 +29,7 @@ public:
 	static float* getColorArray();
 	static float* getDirectionArray();
 	static float* getSpreadArray();
-	static bool* getDirectionalArray();
+	static GLboolean* getDirectionalArray();
 
 	static unsigned short getNumberOfLightSources();
 
@@ -47,7 +47,7 @@ private:
 	static std::vector<glm::vec3> color;
 	static std::vector<glm::vec3> direction;
 	static std::vector<float> spread;
-	static std::vector<bool> directional;
+	static std::vector<GLboolean> directional;
 
 };
 

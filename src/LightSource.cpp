@@ -20,13 +20,17 @@ LightSource::LightSource(
 	bindVariables();
 }
 
+LightSource::~LightSource(){
+	//Ta bort en ljuskälla.
+}
+
 std::string LightSource::shaderName = "SimpleColor";
 
 std::vector<glm::vec3> LightSource::position;
 std::vector<glm::vec3> LightSource::color;
 std::vector<glm::vec3> LightSource::direction;
 std::vector<float> LightSource::spread;
-std::vector<bool> LightSource::directional;
+std::vector<GLboolean> LightSource::directional;
 
 GLuint LightSource::lightPositionID;
 GLuint LightSource::lightColorID;
@@ -71,25 +75,21 @@ float* LightSource::getDirectionArray(){
 float* LightSource::getSpreadArray(){
 	return &LightSource::spread[0];
 }
-/*
-bool* LightSource::getDirectionalArray(){
+
+GLboolean* LightSource::getDirectionalArray(){
 	return &LightSource::directional[0];
 }
-*/
+
 
 unsigned short LightSource::getNumberOfLightSources(){
 	return position.size();
 }
 
 void LightSource::bindVariables(){
-LightSource::lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
-LightSource::lightColorID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
-LightSource::lightDirectionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
-LightSource::lightSpreadID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
-LightSource::directionalID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
-}
-
-LightSource::~LightSource(){
-	
+	LightSource::lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
+	LightSource::lightColorID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
+	LightSource::lightDirectionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
+	LightSource::lightSpreadID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
+	LightSource::directionalID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
 }
 

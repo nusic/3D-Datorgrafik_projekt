@@ -19,10 +19,12 @@ varying vec3 position_worldSpace;
 varying vec2 UV;
 
 varying vec3 eyeDirection_cameraSpace;
-varying vec3 lightDirection_cameraSpace;
+varying vec3 lightDirection_cameraSpace[2];
+varying float distanceToLight[2];
+
 varying vec3 normal_cameraSpace;
 
-varying float distanceToLight;
+
 
 
 void main(){
@@ -35,9 +37,9 @@ void main(){
 
 	for (int i = 0; i < 2; ++i)
 	{
-		distanceToLight = length(lightPosition_worldSpace[1] - position_worldSpace);
-		vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[1],1)).xyz;
-		lightDirection_cameraSpace = lightPosition_cameraSpace + eyeDirection_cameraSpace;
+		distanceToLight[i] = length(lightPosition_worldSpace[i] - position_worldSpace);
+		vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
+		lightDirection_cameraSpace[i] = lightPosition_cameraSpace + eyeDirection_cameraSpace;
 	}
 
 
