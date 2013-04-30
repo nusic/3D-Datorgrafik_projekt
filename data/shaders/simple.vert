@@ -19,9 +19,9 @@ varying vec3 position_worldSpace;
 varying vec2 UV;
 
 varying vec3 eyeDirection_cameraSpace;
-varying vec3 lightDirection_cameraSpace;
 varying vec3 normal_cameraSpace;
 
+varying vec3 lightDirection_cameraSpace;
 varying float distanceToLight;
 
 
@@ -30,13 +30,18 @@ void main(){
 
 	position_worldSpace = (M * vec4(vertexPosition, 1.0)).xyz;
 
+
 	distanceToLight = length(lightPosition_worldSpace[0] - position_worldSpace);
+
+	vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[0],1)).xyz;
+	lightDirection_cameraSpace = lightPosition_cameraSpace + eyeDirection_cameraSpace;
+
+
 
 	vec3 vertexPosition_cameraSpace = ( V * M * vec4(vertexPosition,1)).xyz;
 	eyeDirection_cameraSpace = vec3(0,0,0) - vertexPosition_cameraSpace;
 
-	vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[0],1)).xyz;
-	lightDirection_cameraSpace = lightPosition_cameraSpace + eyeDirection_cameraSpace;
+
 
 
 	// Only correct if ModelMatrix does not scale the model ! Use its inverse transpose if not.

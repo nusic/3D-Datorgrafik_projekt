@@ -103,9 +103,15 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	LightSource::getPositionArray()[0].y = 7 * glm::sin(-rotater);
 */
 
+
+	float v[6] = {5,0,5,-5,0,-5};
+
+	GLuint lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
+
+
 	//Lightsource 1
 	glUniform3fv(
-		LightSource::lightPositionID,
+		lightPositionID,
 		LightSource::getNumberOfLightSources(),
 		LightSource::getPositionArray());
 	

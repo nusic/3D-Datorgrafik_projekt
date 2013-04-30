@@ -28,8 +28,12 @@ void Scene::initScene(){
 	//children.push_back(c1);
 	//children.push_back(c2);
 
-	LightSource* light1 = new LightSource;
+	LightSource* light1 = new LightSource(-5,0,-5);
+
+	LightSource* light2 = new LightSource(5,0,5);
+
 	Scene::lightSources.push_back(light1);
+	Scene::lightSources.push_back(light2);
 
 	//GameObject anne(0, 2, 4.0f);
 	//anne.setDirection(180.0f, 0.0f);

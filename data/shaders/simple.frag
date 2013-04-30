@@ -5,8 +5,8 @@ varying vec3 normal_cameraSpace;
 varying vec2 UV;
 
 varying vec3 eyeDirection_cameraSpace;
-varying vec3 lightDirection_cameraSpace;
 
+varying vec3 lightDirection_cameraSpace;
 varying float distanceToLight;
 
 
@@ -29,12 +29,15 @@ void main()
 	//vec3 p = normalize(position_worldSpace);
 	//vec3 lightDirection = vec3(1,1,1);//n-1.5*p;
 
-	vec3 l = normalize(lightDirection_cameraSpace);
+	vec4 finalColor = vec4(0,0,0,1);
 
+
+	vec3 l = normalize(lightDirection_cameraSpace);
 	float cosTheta = clamp(dot(n, l), 0, 1);
 
+	finalColor += vec4(materialAmbientColor, 1) + //Ambient
+	vec4(materialDiffuseColor, 1) * 30 * cosTheta / (distanceToLight * distanceToLight); //Diffuse
 
-	gl_FragColor =
-		vec4(materialAmbientColor, 1) + //Ambient
-		vec4(materialDiffuseColor, 1) * 30 * cosTheta / (distanceToLight * distanceToLight); //Diffuse
+	gl_FragColor = finalColor;
+		
 }

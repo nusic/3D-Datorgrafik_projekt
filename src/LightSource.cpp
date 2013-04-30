@@ -16,6 +16,8 @@ LightSource::LightSource(
 	index = LightSource::position.size() - 1;
 
 	shaderName = _shaderName;
+
+	bindVariables();
 }
 
 std::string LightSource::shaderName = "SimpleColor";
@@ -26,11 +28,11 @@ std::vector<glm::vec3> LightSource::direction;
 std::vector<float> LightSource::spread;
 std::vector<bool> LightSource::directional;
 
-GLuint LightSource::lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
-GLuint LightSource::lightColorID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
-GLuint LightSource::lightDirectionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
-GLuint LightSource::lightSpreadID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
-GLuint LightSource::directionalID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
+GLuint LightSource::lightPositionID;
+GLuint LightSource::lightColorID;
+GLuint LightSource::lightDirectionID;
+GLuint LightSource::lightSpreadID;
+GLuint LightSource::directionalID;
 
 
 void LightSource::setPosition(double _x, double _y, double _z){
@@ -79,6 +81,15 @@ unsigned short LightSource::getNumberOfLightSources(){
 	return position.size();
 }
 
+void LightSource::bindVariables(){
+LightSource::lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
+LightSource::lightColorID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
+LightSource::lightDirectionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
+LightSource::lightSpreadID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
+LightSource::directionalID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
+}
+
 LightSource::~LightSource(){
 	
 }
+
