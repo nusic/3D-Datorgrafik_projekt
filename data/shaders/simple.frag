@@ -35,9 +35,8 @@ void main()
 	vec3 l = normalize(lightDirection_cameraSpace);
 	float cosTheta = clamp(dot(n, l), 0, 1);
 
-	finalColor += vec4(materialAmbientColor, 1) + //Ambient
+	glFragColor =
+	vec4(materialAmbientColor, 1) + //Ambient
 	vec4(materialDiffuseColor, 1) * 30 * cosTheta / (distanceToLight * distanceToLight); //Diffuse
-
-	gl_FragColor = finalColor;
 		
 }
