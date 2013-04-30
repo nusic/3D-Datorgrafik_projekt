@@ -47,11 +47,11 @@ void Controller::inputLoader(){
     if(joystickPresent == GL_TRUE){
 		sgct::Engine::getJoystickAxes(GLFW_JOYSTICK_1, axes, numberOfAxes);
 		sgct::Engine::getJoystickButtons(GLFW_JOYSTICK_1, buttons, numberOfButtons);
-//        for(int i=0; i<numberOfAxes; i++)
-//            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
-//        for(int i=0; i<numberOfButtons; i++)
-//            sgct::MessageHandler::Instance()->print("%d ", buttons[i]);
-//        sgct::MessageHandler::Instance()->print("\r");
+        for(int i=0; i<numberOfAxes; i++)
+            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
+        for(int i=0; i<numberOfButtons; i++)
+            sgct::MessageHandler::Instance()->print("%d ", buttons[i]);
+        sgct::MessageHandler::Instance()->print("\r");
 
 	}
 }
@@ -62,7 +62,19 @@ double Controller::getAxisValue(int axis_index){
 
 bool Controller::validateLeftStickValues(){
     if(joystickPresent == GL_TRUE){
-        if(axes[0] < 0.2f && axes[0] > -0.2f && axes[1] < 0.2f && axes[1] > -0.2f){
+        if(axes[CONTROLLER_LEFT_X_AXIS] < 0.2f && axes[CONTROLLER_LEFT_X_AXIS] > -0.2f &&
+            axes[CONTROLLER_LEFT_Y_AXIS] < 0.2f && axes[CONTROLLER_LEFT_Y_AXIS] > -0.2f){
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool Controller::validateRightStickValues(){
+    if(joystickPresent == GL_TRUE){
+        if(axes[CONTROLLER_RIGHT_X_AXIS] < 0.2f && axes[CONTROLLER_RIGHT_X_AXIS] > -0.2f &&
+            axes[CONTROLLER_RIGHT_Y_AXIS] < 0.2f && axes[CONTROLLER_RIGHT_Y_AXIS] > -0.2f){
             return false;
         }
         return true;

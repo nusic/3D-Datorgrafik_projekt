@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(double x, double y, double z, float s, float phi):
-Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor") {
+Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleTexture2", "SimpleColor") {
 	setPosition(x, y, z);
 	setScale(s);
 	setDirection(phi, 0.0f);

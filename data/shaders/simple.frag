@@ -32,7 +32,7 @@ void main()
 {
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
-	vec3 materialAmbientColor = vec3(0.05,0.05,0.05) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.1,0.1,0.1) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
 	//float distanceToLight = length(lightPosition_worldspace - position_worldSpace);
@@ -69,7 +69,7 @@ void main()
 
 		finalFragColor +=
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * cosTheta / (distanceSquare); + //Diffuse
+			lightIntensity[i] * cosTheta / (distanceSquare) + //Diffuse
 
 			vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
 			lightIntensity[i] * pow(cosAlpha, 10) / (distanceSquare); //Specular

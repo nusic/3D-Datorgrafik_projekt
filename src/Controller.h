@@ -9,6 +9,19 @@ public:
     void inputLoader();
     double getAxisValue(int axis_index);
     bool validateLeftStickValues();
+    bool validateRightStickValues();
+    
+
+    static const int CONTROLLER_LEFT_X_AXIS = 0;
+    static const int CONTROLLER_LEFT_Y_AXIS = 1;
+#ifdef __APPLE__
+    static const int CONTROLLER_RIGHT_X_AXIS = 2;
+    static const int CONTROLLER_RIGHT_Y_AXIS = 3;
+#else
+    static const int CONTROLLER_RIGHT_X_AXIS = 3;
+    static const int CONTROLLER_RIGHT_Y_AXIS = 4;
+#endif
+
 private:
     float* axes;
     unsigned char* buttons;
