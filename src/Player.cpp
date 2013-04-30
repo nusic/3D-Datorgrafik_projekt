@@ -8,7 +8,8 @@ DynamicGameObject(){
 
 	lightSource->setDirection(10,2,10);
 	lightSource->setColor(0.9,0.8,0.7);
-	lightSource->setSpread(50);
+    lightSource->setIntensity(70);
+	lightSource->setSpread(10);
 
 }
 Player::~Player(){

@@ -2,7 +2,7 @@
 
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/testScene.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor"){
+Model(new ModelMesh("data/meshes/bumpy.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor"){
 	std::cout << "*** CREATED SCENE ***" << std::endl;
 
 }
@@ -17,16 +17,16 @@ Scene::~Scene(){
 void Scene::initScene(){
 	
 	GameObject suzanne(0, 2, 1, 1);
-	//GameObject child1(2, 1, 1, 0.5);
-	//GameObject child2(-2, 1, 1, 0.5);
-	//suzanne.children.push_back(child1);
-	//suzanne.children.push_back(child2);
+	GameObject child1(2, 1, 1, 0.5);
+	GameObject child2(-2, 1, 1, 0.5);
+	suzanne.children.push_back(child1);
+	suzanne.children.push_back(child2);
 	children.push_back(suzanne);
 	
-	//GameObject c1(3, -3, 1);
-	//GameObject c2(-3, -3, 1);
-	//children.push_back(c1);
-	//children.push_back(c2);
+	GameObject c1(3, -3, 1);
+	GameObject c2(-3, -3, 1);
+	children.push_back(c1);
+	children.push_back(c2);
 
 	/*
 	LightSource* light1 = new LightSource(-3,2,-3);
@@ -46,13 +46,14 @@ void Scene::initScene(){
 	Scene::lightSources.push_back(light2);
 	*/
 
-	//GameObject anne(0, 2, 4.0f);
-	//anne.setDirection(180.0f, 0.0f);
-	//anne.updateMatrix();
+	/*
+	GameObject anne(0, 4, 0);
+	anne.setDirection(0.0f, 0.0f);
+	anne.updateMatrix();
 
-	//addGenerations(anne, 5);
-	//children.push_back(anne);
-
+	addGenerations(anne, 5);
+	children.push_back(anne);
+	*/
 	player = new Player;
 	player->setPosition(0.0f, 0.0f);
 	children.push_back(*player);
