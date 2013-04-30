@@ -28,12 +28,20 @@ void Scene::initScene(){
 	//children.push_back(c1);
 	//children.push_back(c2);
 
-	LightSource* light1 = new LightSource(-5,0,-5);
+	LightSource* light1 = new LightSource(-5,1,-5);
+	LightSource* light2 = new LightSource(10,-1,5);
 
-	LightSource* light2 = new LightSource(5,0,5);
+	light1->setColor(1,0.5,0.5);
+	light1->setSpread(1);
+	light1->setDirection(-1,0,-1);
+	light1->setDirectional(false);
+	
+	light2->setDirection(10,2,10);
+	light2->setSpread(50);
 
 	Scene::lightSources.push_back(light1);
 	Scene::lightSources.push_back(light2);
+
 
 	//GameObject anne(0, 2, 4.0f);
 	//anne.setDirection(180.0f, 0.0f);
@@ -59,7 +67,15 @@ void Scene::addGenerations(Model& mother, int n){
 	addGenerations(mother.children[1], n-1);
 }
 
+//Fulkod
+static float rotator = 0;
+
 void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
+
+	//Fulkod
+	Scene::lightSources[1]->setPosition(5 * glm::cos(rotator), 1, 5 *  -glm::sin(rotator));
+	rotator = rotator + 0.02;
+
 	player->updatePlayerOrientation();
 	drawModel(P, V, glm::mat4());
 	//player->drawModel(P, V, glm::mat4(1.0f));

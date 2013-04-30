@@ -59,9 +59,6 @@ bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
-//Fulkod!!!!
-static float rotater = 0;
-
 void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//Use the shader	
@@ -91,30 +88,36 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	// Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureID, 0);
 
-	
-	//Fulkod för att testa att ljuskällan kan flytta på sig
-	//(rotater incremantas för övrigt mer då man ritar ut fler saker
-	//då den är static vilket gör det ännu fulare HEHAHÖ!)
-	
-	/*rotater = rotater + 0.003;
-	if (rotater > 2*3.14)
-		rotater = 0;
-	LightSource::getPositionArray()[0].x = 7 * glm::cos(rotater);
-	LightSource::getPositionArray()[0].y = 7 * glm::sin(-rotater);
-*/
 
-
-	float v[6] = {5,0,5,-5,0,-5};
-
-	GLuint lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
-
-
-	//Lightsource 1
+	int numOfLightSources = LightSource::getNumberOfLightSources();
+	//Lightsources data
+	glUniform1i(
+		LightSource::numberOfLightsID,
+		numOfLightSources);
 	glUniform3fv(
 		LightSource::lightPositionID,
-		LightSource::getNumberOfLightSources(),
+		numOfLightSources,
 		LightSource::getPositionArray());
-	
+	glUniform3fv(
+		LightSource::lightColorID,
+		numOfLightSources,
+		LightSource::getColorArray());
+	glUniform3fv(
+		LightSource::lightDirectionID,
+		numOfLightSources,
+		LightSource::getDirectionArray());
+	glUniform1fv(
+		LightSource::lightIntensityID,
+		numOfLightSources,
+		LightSource::getIntensityArray());
+	glUniform1fv(
+		LightSource::lightSpreadID,
+		numOfLightSources,
+		LightSource::getSpreadArray());
+	glUniform1iv(
+		LightSource::directionalID,
+		numOfLightSources,
+		LightSource::getDirectionalArray());
 
 
 	//Attribute the vertices buffer

@@ -19,6 +19,7 @@ public:
 	void setPosition(double _x, double _y, double _z);
 	void setColor(double _r, double _g, double _b);
 	void setDirection(double _x, double _y, double _z);
+	void setIntensity(float _i);
 	void setSpread(float _s);
 	void setDirectional(bool _d);
 
@@ -28,16 +29,19 @@ public:
 	static float* getPositionArray();
 	static float* getColorArray();
 	static float* getDirectionArray();
+	static float* getIntensityArray();
 	static float* getSpreadArray();
-	static GLboolean* getDirectionalArray();
+	static int* getDirectionalArray();
 
 	static unsigned short getNumberOfLightSources();
 
 	static GLuint lightPositionID;
 	static GLuint lightColorID;
 	static GLuint lightDirectionID;
+	static GLuint lightIntensityID;
 	static GLuint lightSpreadID;
 	static GLuint directionalID;
+	static GLuint numberOfLightsID;
 
 private:
 	unsigned short index;
@@ -46,8 +50,10 @@ private:
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> color;
 	static std::vector<glm::vec3> direction;
+	static std::vector<float> intensity;
 	static std::vector<float> spread;
-	static std::vector<GLboolean> directional;
+	static std::vector<int> directional;
+
 
 };
 
