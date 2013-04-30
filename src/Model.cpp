@@ -111,7 +111,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//Lightsource 1
 	glUniform3fv(
-		lightPositionID,
+		LightSource::lightPositionID,
 		LightSource::getNumberOfLightSources(),
 		LightSource::getPositionArray());
 	
