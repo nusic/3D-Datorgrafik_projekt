@@ -14,6 +14,9 @@ void myDrawFun();
 void myEncodeFun();
 void myDecodeFun();
 
+void keyCallback(int key, int action);
+void mouseButtonCallback(int button, int action);
+
 int main(int argc, char* argv[]){
 
 
@@ -23,11 +26,19 @@ int main(int argc, char* argv[]){
 	//Bind functions to our Game Engine
 	gEngine->setDrawFunction(myDrawFun);
 	gEngine->setInitOGLFunction(myInitOGLFun);
+	gEngine->setPreSyncFunction(myPreSyncFun);
+
+	gEngine->setKeyboardCallbackFunction(keyCallback);
+	gEngine->setMouseButtonCallbackFunction(mouseButtonCallback);
+
 
 	if(!gEngine->init()){
 		delete gEngine;
 		return EXIT_FAILURE;
 	}
+
+	sgct::SharedData::Instance()->setEncodeFunction(myEncodeFun);
+	sgct::SharedData::Instance()->setDecodeFunction(myDecodeFun);
 
 	// Main loop
 	gEngine->render();
@@ -58,4 +69,12 @@ void myEncodeFun(){
 
 void myDecodeFun(){
 	gameEngine->decode();
+}
+
+void keyCallback(int key, int action){
+
+}
+
+void mouseButtonCallback(int button, int action){
+
 }
