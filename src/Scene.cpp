@@ -66,6 +66,7 @@ void Scene::initScene(){
 void Scene::addPlayer(Player * p){
 	children.push_back(p);
 	players.push_back(p);
+
 }
 
 void Scene::addGenerations(Model* mother, int n){
