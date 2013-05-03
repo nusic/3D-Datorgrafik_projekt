@@ -169,6 +169,6 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	for(int i = 0; i<children.size(); ++i){
-		children[i].drawModel(P, V, thisM);
+		children[i]->drawModel(P, V, thisM);
 	}
 }

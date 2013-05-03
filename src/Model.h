@@ -37,7 +37,7 @@ protected:
 
 	//transformation matrix specifik for this model
 	glm::mat4 modelMatrix;
-	std::vector<Model> children;
+	std::vector<Model*> children;
 
 private:
 

@@ -18,7 +18,7 @@ public:
 	void initScene();
 	void drawScene(glm::mat4 P, glm::mat4 V);
 
-	void addGenerations(Model& mother, int n);
+	void addGenerations(Model* mother, int n);
 
 	static std::vector<LightSource*> lightSources;
 
