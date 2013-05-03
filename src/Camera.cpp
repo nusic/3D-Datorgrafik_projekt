@@ -50,12 +50,15 @@ void Camera::incrementPosition(double _dx, double _dy, double _dz){
 	position.z += _dz;
 }
 
-glm::mat4 Camera::getViewMatrix() const{
+void Camera::calcMatrices(){
+	viewMatrix = glm::lookAt(position, lookAt, up);
+	perspectiveMatrix = glm::perspective(fov, aspect, zNearClipping, zFarClipping);
+}
 
-	return glm::lookAt(position, lookAt, up);
+glm::mat4 Camera::getViewMatrix() const{
+	return viewMatrix;
 }
 
 glm::mat4 Camera::getPerspectiveMatrix() const{
-
-	return glm::perspective(fov, aspect, zNearClipping, zFarClipping);
+	return perspectiveMatrix;
 }

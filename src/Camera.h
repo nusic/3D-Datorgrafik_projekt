@@ -18,6 +18,8 @@ public:
 	void incrementPosition();
 	void incrementPosition(double _dx, double _dy, double _dz);
 
+	void calcMatrices();
+
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getPerspectiveMatrix() const;
 
@@ -32,6 +34,9 @@ private:
 	float aspect;
 	float zNearClipping;
 	float zFarClipping;
+
+	glm::mat4 viewMatrix;
+	glm::mat4 perspectiveMatrix;
 	
 };
 
