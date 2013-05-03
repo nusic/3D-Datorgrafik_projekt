@@ -12,6 +12,8 @@ uniform float lightIntensity[maxNumberOfLights];
 uniform float lightSpread[maxNumberOfLights];
 uniform int directional[maxNumberOfLights];
 
+uniform float currentTime;
+uniform float globalRandom;
 
 //Input: Interpolated values from the vertex shader
 varying vec3 position_worldSpace;
@@ -26,6 +28,10 @@ varying float distanceToLight[maxNumberOfLights];
 varying vec3 lightDirection_viewSpace[maxNumberOfLights];
 
 //uniform vec3 lightPosition_worldspace;
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
 
 
 void main()
@@ -77,6 +83,8 @@ void main()
 
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
 		float invDistSquare = 1/(distanceSquare);
+		if(i == 2)
+			invDistSquare *= globalRandom;//rand(vec2(currentTime, 2*currentTime));
 
 
 		finalFragColor +=

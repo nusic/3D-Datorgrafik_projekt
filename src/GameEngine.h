@@ -2,6 +2,7 @@
 #define GAMEENGINE_H
 
 #include <vector>
+#include <ctime>
 
 #include "sgct.h"
 #include "Scene.h"
@@ -26,6 +27,13 @@ public:
 
 	Scene * scene;
 	Camera * camera;
+
+	GLuint currentTimeId;
+	GLuint globalRandomId;
+
+	//Variables to share across cluster
+	double currentTime;
+	double globalRandom;
 };
 
 #endif

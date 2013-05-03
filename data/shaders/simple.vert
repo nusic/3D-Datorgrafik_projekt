@@ -10,6 +10,9 @@ uniform mat4 MVP;
 uniform mat4 M;
 uniform mat4 V;
 
+uniform float currentTime;
+uniform float globalRandom;
+
 //Light data
 uniform int numberOfLights;
 const int maxNumberOfLights = 3;

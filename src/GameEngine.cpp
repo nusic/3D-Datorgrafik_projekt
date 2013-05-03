@@ -9,10 +9,21 @@ GameEngine::~GameEngine(){
 }
 
 void GameEngine::draw(){
+	sgct::ShaderManager::Instance()->bindShader( "SimpleColor" );
+	glUniform1f(currentTimeId, static_cast<float>(currentTime));
+	glUniform1f(globalRandomId, static_cast<float>(globalRandom));
+	sgct::ShaderManager::Instance()->unBindShader();
+
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
 }
 
 void GameEngine::preSync(){
+	currentTime = sgct::Engine::getTime();
+
+	//gör så att vår stokastiska variabel "globalRandom" får en
+	//kankse lite roligare fördelningsfunktions mha en sinus.
+	//Ska likna brinnande eld var tanken dårå.
+	globalRandom = sin(0.3f+rand()/(float)RAND_MAX);
 
 	camera->incrementPosition();
 	camera->calcMatrices();
@@ -23,6 +34,7 @@ void GameEngine::preSync(){
 }
 
 void GameEngine::initOGL(){
+	srand((unsigned)time(0));
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -50,6 +62,11 @@ void GameEngine::initOGL(){
 	sgct::ShaderManager::Instance()->addShader(
 		"SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 
+	sgct::ShaderManager::Instance()->bindShader( "SimpleColor" );
+	currentTimeId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "currentTime" ); 
+	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" ); 
+	sgct::ShaderManager::Instance()->unBindShader();
+
 
 	scene = new Scene();
 	scene->initScene();
@@ -64,11 +81,11 @@ void GameEngine::initOGL(){
 }
 
 void GameEngine::encode(){
-
+	sgct::SharedData::Instance()->writeDouble(currentTime);
 }
 
 void GameEngine::decode(){
-
+	currentTime = sgct::SharedData::Instance()->readDouble();
 }
 
 void GameEngine::keyCallback(int key, int action){

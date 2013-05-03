@@ -44,7 +44,9 @@ int main(int argc, char* argv[]){
 	gEngine->render();
     delete gameEngine;
 
+
 	// Clean up
+	sgct::ShaderManager::Destroy();
 	delete gEngine;
 
 	// Exit program
