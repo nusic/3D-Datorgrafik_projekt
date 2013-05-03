@@ -5,18 +5,18 @@
 
 class Camera{
 public:
-	Camera(double _x, double _y, double _z);
+	Camera(double x, double y, double z);
 	~Camera();
 
 
 	void bindVariables();
 
-	void setPosition(double _x, double _y, double _z);
-	void setVelocity(double _dx, double _dy, double _dz);
-	void setLookAt(double _x, double _y, double _z);
+	void setPosition(double x, double y, double z);
+	void setVelocity(double dx, double dy, double dz);
+	void setLookAt(double x, double y, double z);
 
 	void incrementPosition();
-	void incrementPosition(double _dx, double _dy, double _dz);
+	void incrementPosition(double dx, double dy, double dz);
 
 	void calcMatrices();
 

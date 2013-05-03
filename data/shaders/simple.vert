@@ -20,9 +20,9 @@ uniform vec3 lightDirection_worldSpace[maxNumberOfLights];
 //When it does it will be interpolated for each fragment.
 varying vec3 position_worldSpace;
 varying vec2 UV;
-varying vec3 eyeDirection_cameraSpace;
+varying vec3 viewDirectionToVertex_viewSpace;
 
-varying vec3 lightDirection_cameraSpace[maxNumberOfLights];
+varying vec3 lightDirectionTo_cameraSpace[maxNumberOfLights];
 //The lightDirectionVector is the direction the light is pointing,
 //the lightDirection is the direction from the eye to the light.
 varying vec3 lightDirectionVector_cameraSpace[maxNumberOfLights];
@@ -40,7 +40,8 @@ void main(){
 
 
 	vec3 vertexPosition_cameraSpace = ( V * M * vec4(vertexPosition,1)).xyz;
-	eyeDirection_cameraSpace = vec3(0,0,0) - vertexPosition_cameraSpace;
+	//viewDirectionToVertex_viewspace is directed towards the camera
+	viewDirectionToVertex_viewSpace = vec3(0,0,0) - vertexPosition_cameraSpace;
 
 	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i)
 	{
@@ -48,7 +49,7 @@ void main(){
 
 		distanceToLight[i] = length(lightPosition_worldSpace[i] - position_worldSpace);
 		vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
-		lightDirection_cameraSpace[i] = lightPosition_cameraSpace + eyeDirection_cameraSpace;
+		lightDirectionTo_cameraSpace[i] = lightPosition_cameraSpace + viewDirectionToVertex_viewSpace;
 	}
 
 

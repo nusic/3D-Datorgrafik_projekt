@@ -51,7 +51,7 @@ void GameObject::updateMatrix(){
 	//Obs, the order is reversed
 	glm::mat4 E(1.0f);
     //glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.z, -position.y));
-    glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.z, -position.y));
+    glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.y, position.z));
     glm::mat4 ST = glm::rotate(T, phi, glm::vec3(0.0f, 1.0f, 0.0f));
     modelMatrix = glm::scale(ST, scale);
 }

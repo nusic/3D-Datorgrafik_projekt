@@ -1,7 +1,7 @@
 #include "Camera.h"
 
-Camera::Camera(double _x, double _y, double _z){
-	setPosition(_x, _y, _z);
+Camera::Camera(double x, double y, double z){
+	setPosition(x, y, z);
 	setVelocity(0.0, 0.0, 0.0);
 	setLookAt(0.0, 0.0, 0.0);
 
@@ -20,22 +20,22 @@ Camera::~Camera(){
 
 }
 
-void Camera::setPosition(double _x, double _y, double _z){
-	position.x = _x;
-	position.y = _y;
-	position.z = _z;
+void Camera::setPosition(double x, double y, double z){
+	position.x = x;
+	position.y = y;
+	position.z = z;
 }
 
-void Camera::setVelocity(double _dx, double _dy, double _dz){
-	velocity.x = _dx;
-	velocity.y = _dy;
-	velocity.z = _dz;
+void Camera::setVelocity(double dx, double dy, double dz){
+	velocity.x = dx;
+	velocity.y = dy;
+	velocity.z = dz;
 }
 
-void Camera::setLookAt(double _x, double _y, double _z){
-	lookAt.x = _x;
-	lookAt.y = _y;
-	lookAt.z = _z;
+void Camera::setLookAt(double x, double y, double z){
+	lookAt.x = x;
+	lookAt.y = y;
+	lookAt.z = z;
 }
 
 void Camera::incrementPosition(){
@@ -44,10 +44,10 @@ void Camera::incrementPosition(){
 	position.z += velocity.z;
 }
 
-void Camera::incrementPosition(double _dx, double _dy, double _dz){
-	position.x += _dx;
-	position.y += _dy;
-	position.z += _dz;
+void Camera::incrementPosition(double dx, double dy, double dz){
+	position.x += dx;
+	position.y += dy;
+	position.z += dz;
 }
 
 void Camera::calcMatrices(){

@@ -23,21 +23,22 @@ void Player::updatePlayerOrientation(){
 
         incrementPosition(
             0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS),
-            0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS));
+            0,
+            -0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS));
 
         setDirection(180.0f/3.14159f * (float) glm::atan(
             controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS),
             controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)) + 90, 0.0f);
         
-        lightSource->setPosition(position.x, position.z + 2, -position.y);
+        lightSource->setPosition(position.x, position.y + 2, position.z);
     }
     if (controller->validateRightStickValues()){
 
         glm::vec2 direction2d = glm::normalize(glm::vec2(
-            -controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS),
+            controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS),
             controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS)));
 
-        lightSource->setDirection(direction2d.x, 0.2, direction2d.y);
+        lightSource->setDirection(direction2d.x, -0.2, -direction2d.y);
     }
     
     updateMatrix();

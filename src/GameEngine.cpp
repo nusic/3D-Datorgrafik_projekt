@@ -13,6 +13,7 @@ void GameEngine::draw(){
 }
 
 void GameEngine::preSync(){
+
 	camera->incrementPosition();
 	camera->calcMatrices();
 
@@ -58,8 +59,8 @@ void GameEngine::initOGL(){
 	camera->setVelocity(0.05, 0.02, -0.01);
 
 	//Uncomment the two lines below to get simple static front view
-	//camera->setPosition(0, 15, 15);
-	//camera->setVelocity(0, 0, 0);
+	camera->setPosition(0, 15, 15);
+	camera->setVelocity(0, 0, 0);
 }
 
 void GameEngine::encode(){

@@ -18,10 +18,10 @@ varying vec3 position_worldSpace;
 varying vec3 normal_cameraSpace;
 varying vec2 UV;
 
-varying vec3 eyeDirection_cameraSpace;
+varying vec3 viewDirectionToVertex_viewSpace;
 
 //Light data
-varying vec3 lightDirection_cameraSpace[maxNumberOfLights];
+varying vec3 lightDirectionTo_cameraSpace[maxNumberOfLights];
 varying float distanceToLight[maxNumberOfLights];
 varying vec3 lightDirectionVector_cameraSpace[maxNumberOfLights];
 
@@ -39,33 +39,41 @@ void main()
 
 	vec3 n = normalize(normal_cameraSpace);
 	// Eye vector (towards the camera)
-	vec3 e = normalize(eyeDirection_cameraSpace);
+	vec3 e = normalize(viewDirectionToVertex_viewSpace);
 
 	//vec3 p = normalize(position_worldSpace);
 	//vec3 lightDirection = vec3(1,1,1);//n-1.5*p;
 
 	vec4 finalFragColor = vec4(materialAmbientColor, 1); //Ambient
 
+
+	float directionalIntensity;
+	float cosTheta;
+	vec3 l;
+	vec3 r;
+	float cosAlpha;
+	float cosPhi;
+	float distanceSquare;
 	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i){
 
-		vec3 l = normalize(lightDirection_cameraSpace[i]);
-		float cosTheta = clamp(dot(n, l), 0, 1);
+		l = normalize(lightDirectionTo_cameraSpace[i]);
+		cosTheta = clamp(dot(n, l), 0, 1);
 
 		// Direction in which the triangle reflects the light
-		vec3 r = reflect(-l,n);
-		float cosAlpha = clamp( dot( e,r ), 0,1 );
+		r = reflect(-l,n);
+		cosAlpha = clamp( dot( e,r ), 0,1 );
 
-		float directionalIntensity;
+		
 		if (directional[i] == 1){
 			vec3 ld = normalize(lightDirectionVector_cameraSpace[i]);
-			float cosPhi = clamp(dot(l, ld), 0, 1);
+			cosPhi = clamp(dot(-l, ld), 0, 1);
 
 			directionalIntensity = pow(cosPhi, lightSpread[i]);
 		}
 		else
 			directionalIntensity = 1;
 
-		float distanceSquare = distanceToLight[i] * distanceToLight[i];
+		distanceSquare = distanceToLight[i] * distanceToLight[i];
 
 		finalFragColor +=
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
