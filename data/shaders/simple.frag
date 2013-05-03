@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 16;
+const int maxNumberOfLights = 3;
 uniform vec3 lightColor[maxNumberOfLights];
 uniform float lightIntensity[maxNumberOfLights];
 uniform float lightSpread[maxNumberOfLights];
@@ -75,12 +75,16 @@ void main()
 
 		distanceSquare = distanceToLight[i] * distanceToLight[i];
 
+//		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
+		float invDistSquare = 1/(distanceSquare);
+
+
 		finalFragColor +=
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * cosTheta / (distanceSquare) + //Diffuse
+			lightIntensity[i] * cosTheta * (invDistSquare) + //Diffuse
 
 			vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * pow(cosAlpha, 10) / (distanceSquare); //Specular
+			lightIntensity[i] * pow(cosAlpha, 10) * (invDistSquare); //Specular
 	}
 
 	gl_FragColor = finalFragColor;

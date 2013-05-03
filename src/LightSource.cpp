@@ -1,5 +1,4 @@
 #include "LightSource.h"
-#include "sgct.h"
 
 LightSource::LightSource(
 	double _x,
@@ -91,7 +90,6 @@ float* LightSource::getSpreadArray(){
 int* LightSource::getDirectionalArray(){
 	return &LightSource::directional[0];
 }
-
 
 unsigned short LightSource::getNumberOfLightSources(){
 	return position.size();
