@@ -22,13 +22,13 @@ varying vec3 position_worldSpace;
 varying vec2 UV;
 varying vec3 viewDirectionToVertex_viewSpace;
 
-varying vec3 lightDirectionTo_cameraSpace[maxNumberOfLights];
-//The lightDirectionVector is the direction the light is pointing,
-//the lightDirection is the direction from the eye to the light.
-varying vec3 lightDirectionVector_cameraSpace[maxNumberOfLights];
+varying vec3 lightDirectionToVertex_viewSpace[maxNumberOfLights];
+//The lightDirection is the direction the light is pointing,
+//the lightDirectionToVertex is the direction from the light to the fragment.
+varying vec3 lightDirection_viewSpace[maxNumberOfLights];
 varying float distanceToLight[maxNumberOfLights];
 
-varying vec3 normal_cameraSpace;
+varying vec3 normal_viewSpace;
 
 
 
@@ -41,21 +41,21 @@ void main(){
 
 	vec3 vertexPosition_cameraSpace = ( V * M * vec4(vertexPosition,1)).xyz;
 	//viewDirectionToVertex_viewspace is directed towards the camera
-	viewDirectionToVertex_viewSpace = vec3(0,0,0) - vertexPosition_cameraSpace;
+	viewDirectionToVertex_viewSpace = vec3(0,0,0) + vertexPosition_cameraSpace;
 
 	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i)
 	{
-		lightDirectionVector_cameraSpace[i] = (V * vec4(lightDirection_worldSpace[i], 0)).xyz;
+		lightDirection_viewSpace[i] = (V * vec4(lightDirection_worldSpace[i], 0)).xyz;
 
 		distanceToLight[i] = length(lightPosition_worldSpace[i] - position_worldSpace);
 		vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
-		lightDirectionTo_cameraSpace[i] = lightPosition_cameraSpace + viewDirectionToVertex_viewSpace;
+		lightDirectionToVertex_viewSpace[i] = viewDirectionToVertex_viewSpace - lightPosition_cameraSpace;
 	}
 
 
 	// Only correct if ModelMatrix does not scale the model ! Use its inverse transpose if not.
 	// (Läre vi kanske göra?!)
-	normal_cameraSpace  = ( V * M * vec4(vertexNormal,0)).xyz;
+	normal_viewSpace  = ( V * M * vec4(vertexNormal,0)).xyz;
 	
 	//normal = vertexNormal;
 	UV = vertexUV;

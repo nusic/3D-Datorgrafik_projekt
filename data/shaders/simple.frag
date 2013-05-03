@@ -15,15 +15,15 @@ uniform int directional[maxNumberOfLights];
 
 //Input: Interpolated values from the vertex shader
 varying vec3 position_worldSpace;
-varying vec3 normal_cameraSpace;
+varying vec3 normal_viewSpace;
 varying vec2 UV;
 
 varying vec3 viewDirectionToVertex_viewSpace;
 
 //Light data
-varying vec3 lightDirectionTo_cameraSpace[maxNumberOfLights];
+varying vec3 lightDirectionToVertex_viewSpace[maxNumberOfLights];
 varying float distanceToLight[maxNumberOfLights];
-varying vec3 lightDirectionVector_cameraSpace[maxNumberOfLights];
+varying vec3 lightDirection_viewSpace[maxNumberOfLights];
 
 //uniform vec3 lightPosition_worldspace;
 
@@ -37,7 +37,7 @@ void main()
 
 	//float distanceToLight = length(lightPosition_worldspace - position_worldSpace);
 
-	vec3 n = normalize(normal_cameraSpace);
+	vec3 n = normalize(normal_viewSpace);
 	// Eye vector (towards the camera)
 	vec3 e = normalize(viewDirectionToVertex_viewSpace);
 
@@ -56,17 +56,17 @@ void main()
 	float distanceSquare;
 	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i){
 
-		l = normalize(lightDirectionTo_cameraSpace[i]);
-		cosTheta = clamp(dot(n, l), 0, 1);
+		l = normalize(lightDirectionToVertex_viewSpace[i]);
+		cosTheta = clamp(dot(-n, l), 0, 1);
 
 		// Direction in which the triangle reflects the light
-		r = reflect(-l,n);
-		cosAlpha = clamp( dot( e,r ), 0,1 );
+		r = reflect(l,n);
+		cosAlpha = clamp( dot( e,-r ), 0,1 );
 
 		
 		if (directional[i] == 1){
-			vec3 ld = normalize(lightDirectionVector_cameraSpace[i]);
-			cosPhi = clamp(dot(-l, ld), 0, 1);
+			vec3 ld = normalize(lightDirection_viewSpace[i]);
+			cosPhi = clamp(dot(l, ld), 0, 1);
 
 			directionalIntensity = pow(cosPhi, lightSpread[i]);
 		}
