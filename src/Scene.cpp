@@ -60,8 +60,6 @@ void Scene::initScene(){
 	player->setPosition(0.0f, 0.0f);
 	children.push_back(player);
 
-	GameObject* head = new GameObject(0,2,0);
-	player->children.push_back(head);
 }
 
 void Scene::addGenerations(Model* mother, int n){
