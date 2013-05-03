@@ -18,11 +18,14 @@ public:
 	void initScene();
 	void drawScene(glm::mat4 P, glm::mat4 V);
 
+	void addPlayer(Player * player);
+
 	void addGenerations(Model* mother, int n);
+
 
 	static std::vector<LightSource*> lightSources;
 
-	Player* player;
+	std::vector<Player*> players;
 
 private:
 

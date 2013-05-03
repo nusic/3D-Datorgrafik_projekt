@@ -15,6 +15,10 @@ void GameEngine::draw(){
 void GameEngine::preSync(){
 	camera->incrementPosition();
 	camera->calcMatrices();
+
+	for (int i = 0; i < scene->players.size(); ++i){
+		scene->players[i]->updatePlayerOrientation();
+	}
 }
 
 void GameEngine::initOGL(){

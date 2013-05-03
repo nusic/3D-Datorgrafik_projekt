@@ -56,12 +56,16 @@ void Scene::initScene(){
 
 
 
-	player = new Player;
-	player->setPosition(0.0f, 0.0f);
-	children.push_back(player);
-
+	Player * body = new Player;
+	body->setPosition(0.0f, 0.0f);
 	GameObject* head = new GameObject(0,2,0);
-	player->children.push_back(head);
+	body->children.push_back(head);
+	addPlayer(body);
+}
+
+void Scene::addPlayer(Player * p){
+	children.push_back(p);
+	players.push_back(p);
 }
 
 void Scene::addGenerations(Model* mother, int n){
@@ -78,8 +82,5 @@ void Scene::addGenerations(Model* mother, int n){
 
 
 void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
-
-	player->updatePlayerOrientation();
 	drawModel(P, V, glm::mat4());
-
 }
