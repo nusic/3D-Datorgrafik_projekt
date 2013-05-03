@@ -20,6 +20,9 @@ public:
 	void encode();
 	void decode();
 
+	void keyCallback(int key, int action);
+	void mouseButtonCallback(int key, int action);
+
 
 	Scene * scene;
 	Camera * camera;

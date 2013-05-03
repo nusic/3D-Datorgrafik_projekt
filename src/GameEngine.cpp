@@ -56,7 +56,6 @@ void GameEngine::initOGL(){
 	//Uncomment the two lines below to get simple static front view
 	camera->setPosition(0, 15, 15);
 	camera->setVelocity(0, 0, 0);
-
 }
 
 void GameEngine::encode(){
@@ -64,5 +63,13 @@ void GameEngine::encode(){
 }
 
 void GameEngine::decode(){
+
+}
+
+void GameEngine::keyCallback(int key, int action){
+
+}
+
+void GameEngine::mouseButtonCallback(int button, int action){
 
 }

@@ -56,7 +56,8 @@ void myInitOGLFun(){
 }
 
 void myPreSyncFun(){
-	gameEngine->preSync();
+	if(gEngine->isMaster())
+		gameEngine->preSync();
 }
 
 void myDrawFun(){
@@ -72,9 +73,11 @@ void myDecodeFun(){
 }
 
 void keyCallback(int key, int action){
-
+	if(gEngine->isMaster())
+		gameEngine->keyCallback(key, action);
 }
 
 void mouseButtonCallback(int button, int action){
-
+	if(gEngine->isMaster())
+		gameEngine->mouseButtonCallback(button, action);
 }
