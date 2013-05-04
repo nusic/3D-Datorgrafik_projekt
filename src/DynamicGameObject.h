@@ -12,9 +12,9 @@ public:
 	void setVelocity(double dx = 0, double dy = 0, double d = 0);
 	void setAngleVel(float _dPhi, float dTheta);
 
-	void incrementPosition();
-	void incrementPosition(double dx, double dy, double dz = 0);
-	void incrementPositionAndTurnTo(double dx, double dy, double dz);
+	void incrementPosition(float dt);
+	void incrementPosition(double dx, double dy, double dz, float dt);
+	void incrementPositionAndTurnTo(double dx, double dy, double dz, float dt);
 
 	void incrementAngleVel();
 	void incrementAngleVel(float _dPhi, float _dTheta);

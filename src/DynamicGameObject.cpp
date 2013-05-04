@@ -1,5 +1,6 @@
 #include "DynamicGameObject.h"
 
+const float FRAME_SPEED = 50;
 
 DynamicGameObject::DynamicGameObject(double x, double y, float s, float _phi):
 GameObject(x, y, 0, s, _phi){
@@ -21,22 +22,22 @@ void DynamicGameObject::setAngleVel(float _dPhi, float _dTheta){
 	dTheta = _dTheta;
 }
 
-void DynamicGameObject::incrementPosition(double dx, double dy, double dz){
-	position.x += dx;
-	position.y += dy;
-	position.z += dz;
+void DynamicGameObject::incrementPosition(double dx, double dy, double dz, float dt){
+	position.x += dx * dt * FRAME_SPEED;
+	position.y += dy * dt * FRAME_SPEED;
+	position.z += dz * dt * FRAME_SPEED;
 }
 
-void DynamicGameObject::incrementPosition(){
-	position.x += velocity.x;
-	position.y += velocity.y;
-	position.z += velocity.z;
+void DynamicGameObject::incrementPosition(float dt){
+	position.x += velocity.x * dt * FRAME_SPEED;
+	position.y += velocity.y * dt * FRAME_SPEED;
+	position.z += velocity.z * dt * FRAME_SPEED;
 }
 
-void DynamicGameObject::incrementPositionAndTurnTo(double dx, double dy, double dz){
-	position.x += dx;
-	position.y += dy;
-	position.z += dz;
+void DynamicGameObject::incrementPositionAndTurnTo(double dx, double dy, double dz, float dt){
+	position.x += dx * dt * FRAME_SPEED;
+	position.y += dy * dt * FRAME_SPEED;
+	position.z += dz * dt * FRAME_SPEED;
 
 	setDirection(180.0f/3.14159f * (float) glm::atan(dx,dz));
 }

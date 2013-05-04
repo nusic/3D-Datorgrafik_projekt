@@ -5,6 +5,7 @@ int Player::numberOfPlayers = 0;
 
 Player::Player():
 DynamicGameObject(){
+
     controller = new Controller(numberOfPlayers);
 
     head = new LightObject(0, 2, 0);
@@ -17,6 +18,7 @@ DynamicGameObject(){
     children.push_back(head);
 
     numberOfPlayers++;
+
 }
 
 Player::~Player(){
@@ -24,14 +26,14 @@ Player::~Player(){
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
 
-void Player::updatePlayerOrientation(){
+void Player::updatePlayerOrientation(float dt){
     controller->inputLoader();
     if(controller -> validateLeftStickValues()){
 
         incrementPositionAndTurnTo(
             0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS),
             0,
-            -0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS));
+            -0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS), dt);
 
         head->setPosition(position.x, position.y + 2, position.z);
     }

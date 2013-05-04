@@ -15,8 +15,8 @@ public:
 	void setVelocity(double dx, double dy, double dz);
 	void setLookAt(double x, double y, double z);
 
-	void incrementPosition();
-	void incrementPosition(double dx, double dy, double dz);
+	void incrementPosition(float dt);
+	void incrementPosition(double dx, double dy, double dz, float dt);
 
 	void calcMatrices();
 

@@ -16,7 +16,7 @@ public:
 	~GameEngine();
 
 	void draw();
-	void preSync();
+	void preSync(float dt);
 	void initOGL();
 	void encode();
 	void decode();

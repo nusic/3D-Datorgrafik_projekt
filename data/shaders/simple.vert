@@ -15,11 +15,11 @@ uniform float globalRandom;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 3;
+const int maxNumberOfLights = 4;
 uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
 uniform vec3 lightDirection_worldSpace[maxNumberOfLights];
 
-//Output that will go to the fragment shader. 
+//Output that will go to the fragment shader.
 //When it does it will be interpolated for each fragment.
 varying vec3 position_worldSpace;
 varying vec2 UV;
@@ -57,7 +57,7 @@ void main(){
 	// Only correct if ModelMatrix does not scale the model ! Use its inverse transpose if not.
 	// (Läre vi kanske göra?!)
 	normal_viewSpace  = ( V * M * vec4(vertexNormal,0)).xyz;
-	
+
 	//normal = vertexNormal;
 	UV = vertexUV;
 }

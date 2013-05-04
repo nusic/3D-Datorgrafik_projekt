@@ -57,7 +57,7 @@ void myPreSyncFun(){
 	sgct::MessageHandler::Instance()->print("\r");
 
 	if(gEngine->isMaster())
-		gameEngine->preSync();
+		gameEngine->preSync(gEngine->getDt());
 }
 
 void myDrawFun(){
