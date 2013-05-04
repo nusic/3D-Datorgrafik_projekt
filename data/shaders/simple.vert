@@ -15,7 +15,7 @@ uniform float globalRandom;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 3;
+const int maxNumberOfLights = 16;
 uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
 uniform vec3 lightDirection_worldSpace[maxNumberOfLights];
 
@@ -29,7 +29,6 @@ varying vec3 lightDirectionToVertex_viewSpace[maxNumberOfLights];
 //The lightDirection is the direction the light is pointing,
 //the lightDirectionToVertex is the direction from the light to the fragment.
 varying vec3 lightDirection_viewSpace[maxNumberOfLights];
-varying float distanceToLight[maxNumberOfLights];
 
 varying vec3 normal_viewSpace;
 
@@ -50,7 +49,6 @@ void main(){
 	{
 		lightDirection_viewSpace[i] = (V * vec4(lightDirection_worldSpace[i], 0)).xyz;
 
-		distanceToLight[i] = length(lightPosition_worldSpace[i] - position_worldSpace);
 		vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
 		lightDirectionToVertex_viewSpace[i] = viewDirectionToVertex_viewSpace - lightPosition_cameraSpace;
 	}

@@ -6,7 +6,8 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 3;
+const int maxNumberOfLights = 16;
+uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
 uniform vec3 lightColor[maxNumberOfLights];
 uniform float lightIntensity[maxNumberOfLights];
 uniform float lightSpread[maxNumberOfLights];
@@ -41,14 +42,9 @@ void main()
 	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
-	//float distanceToLight = length(lightPosition_worldspace - position_worldSpace);
-
 	vec3 n = normalize(normal_viewSpace);
-	// Eye vector (towards the camera)
+	// Eye vector (away from the camera)
 	vec3 e = normalize(viewDirectionToVertex_viewSpace);
-
-	//vec3 p = normalize(position_worldSpace);
-	//vec3 lightDirection = vec3(1,1,1);//n-1.5*p;
 
 	vec4 finalFragColor = vec4(materialAmbientColor, 1); //Ambient
 
@@ -59,6 +55,7 @@ void main()
 	vec3 r;
 	float cosAlpha;
 	float cosPhi;
+	float distanceToLight;
 	float distanceSquare;
 	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i){
 
@@ -78,8 +75,8 @@ void main()
 		}
 		else
 			directionalIntensity = 1;
-
-		distanceSquare = distanceToLight[i] * distanceToLight[i];
+		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
+		distanceSquare = distanceToLight * distanceToLight;
 
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
 		float invDistSquare = 1/(distanceSquare);
