@@ -37,8 +37,8 @@ void Controller::controllerLoader(){
 			buttons = new unsigned char[numberOfButtons];
 	}
     else{
-        axes = NULL;
-        buttons = NULL;
+        axes = new float[6]; //Maximum number of axes
+        buttons = new unsigned char[14]; //Maximum number of buttons
 	}
 }
 
@@ -71,7 +71,27 @@ bool Controller::validateLeftStickValues(){
         }
         return true;
     }
-    return false;
+    else{
+        if (glfwGetKey('W') == GLFW_PRESS){
+            axes[CONTROLLER_LEFT_Y_AXIS] = 1;
+        }
+        else if (glfwGetKey('S') == GLFW_PRESS){
+            axes[CONTROLLER_LEFT_Y_AXIS] = -1;
+        }
+        else
+            axes[CONTROLLER_LEFT_Y_AXIS] = 0;
+        
+        if (glfwGetKey('A') == GLFW_PRESS){
+            axes[CONTROLLER_LEFT_X_AXIS] = -1;
+        }
+        else if (glfwGetKey('D') == GLFW_PRESS){
+            axes[CONTROLLER_LEFT_X_AXIS] = 1;
+        }
+        else
+            axes[CONTROLLER_LEFT_X_AXIS] = 0;
+
+    }
+    return true;
 }
 
 bool Controller::validateRightStickValues(){
@@ -82,5 +102,25 @@ bool Controller::validateRightStickValues(){
         }
         return true;
     }
-    return false;
+    else{
+        if (glfwGetKey( GLFW_KEY_UP ) == GLFW_PRESS){
+            axes[CONTROLLER_RIGHT_Y_AXIS] = 1;
+        }
+        else if (glfwGetKey( GLFW_KEY_DOWN ) == GLFW_PRESS){
+            axes[CONTROLLER_RIGHT_Y_AXIS] = -1;
+        }
+        else
+            axes[CONTROLLER_RIGHT_Y_AXIS] = 0;
+
+        if (glfwGetKey( GLFW_KEY_LEFT ) == GLFW_PRESS){
+            axes[CONTROLLER_RIGHT_X_AXIS] = -1;
+        }
+        else if (glfwGetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS){
+            axes[CONTROLLER_RIGHT_X_AXIS] = 1;
+        }
+        else
+            axes[CONTROLLER_RIGHT_X_AXIS] = 0;
+
+    }
+    return true;
 }
