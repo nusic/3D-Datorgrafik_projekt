@@ -14,9 +14,6 @@ void myDrawFun();
 void myEncodeFun();
 void myDecodeFun();
 
-void keyCallback(int key, int action);
-void mouseButtonCallback(int button, int action);
-
 int main(int argc, char* argv[]){
 
 	gEngine = new sgct::Engine(argc, argv);
@@ -26,9 +23,6 @@ int main(int argc, char* argv[]){
 	gEngine->setDrawFunction(myDrawFun);
 	gEngine->setInitOGLFunction(myInitOGLFun);
 	gEngine->setPreSyncFunction(myPreSyncFun);
-
-	gEngine->setKeyboardCallbackFunction(keyCallback);
-	gEngine->setMouseButtonCallbackFunction(mouseButtonCallback);
 
 
 	if(!gEngine->init()){
@@ -76,14 +70,4 @@ void myEncodeFun(){
 
 void myDecodeFun(){
 	gameEngine->decode();
-}
-
-void keyCallback(int key, int action){
-	if(gEngine->isMaster())
-		gameEngine->keyCallback(key, action);
-}
-
-void mouseButtonCallback(int button, int action){
-	if(gEngine->isMaster())
-		gameEngine->mouseButtonCallback(button, action);
 }

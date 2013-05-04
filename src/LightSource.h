@@ -20,8 +20,6 @@ public:
 	void setDirectional(bool _d);
 
 
-	//Fruktansvärt fult med alla static. Kan man göra typ ett namespace eller nåt ist?
-
 	static float* getPositionArray();
 	static float* getColorArray();
 	static float* getDirectionArray();

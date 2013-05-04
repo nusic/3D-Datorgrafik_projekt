@@ -41,6 +41,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="../data/shaders/simple.frag" />
+		<Unit filename="../data/shaders/simple.vert" />
 		<Unit filename="../src/Camera.cpp" />
 		<Unit filename="../src/Camera.h" />
 		<Unit filename="../src/Controller.cpp" />
@@ -51,6 +53,8 @@
 		<Unit filename="../src/GameEngine.h" />
 		<Unit filename="../src/GameObject.cpp" />
 		<Unit filename="../src/GameObject.h" />
+		<Unit filename="../src/LightSource.cpp" />
+		<Unit filename="../src/LightSource.h" />
 		<Unit filename="../src/Model.cpp" />
 		<Unit filename="../src/Model.h" />
 		<Unit filename="../src/ModelMesh.cpp" />
