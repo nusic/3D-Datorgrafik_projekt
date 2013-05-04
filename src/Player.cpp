@@ -23,15 +23,11 @@ void Player::updatePlayerOrientation(){
         controller->inputLoader();
         if(controller -> validateLeftStickValues()){
 
-            incrementPosition(
+            incrementPositionAndTurnTo(
                 0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS),
                 0,
                 -0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS));
 
-            setDirection(180.0f/3.14159f * (float) glm::atan(
-                controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS),
-                controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)) + 90, 0.0f);
-            
             lightSource->setPosition(position.x, position.y + 2, position.z);
         }
         if (controller->validateRightStickValues()){
