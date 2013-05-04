@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+const float FRAME_SPEED = 50;
+
 Camera::Camera(double x, double y, double z){
 	setPosition(x, y, z);
 	setVelocity(0.0, 0.0, 0.0);
@@ -38,16 +40,16 @@ void Camera::setLookAt(double x, double y, double z){
 	lookAt.z = z;
 }
 
-void Camera::incrementPosition(){
-	position.x += velocity.x;
-	position.y += velocity.y;
-	position.z += velocity.z;
+void Camera::incrementPosition(float dt){
+	position.x += velocity.x * dt * FRAME_SPEED;
+	position.y += velocity.y * dt * FRAME_SPEED;
+	position.z += velocity.z * dt * FRAME_SPEED;
 }
 
-void Camera::incrementPosition(double dx, double dy, double dz){
-	position.x += dx;
-	position.y += dy;
-	position.z += dz;
+void Camera::incrementPosition(double dx, double dy, double dz, float dt){
+	position.x += dx * dt * FRAME_SPEED;
+	position.y += dy * dt * FRAME_SPEED;
+	position.z += dz * dt * FRAME_SPEED;
 }
 
 void Camera::calcMatrices(){

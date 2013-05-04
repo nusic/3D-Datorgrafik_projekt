@@ -8,7 +8,7 @@ class Player : public DynamicGameObject{
 public:
     Player();
     ~Player();
-    void updatePlayerOrientation();
+    void updatePlayerOrientation(float dt);
     static int numberOfPlayers;
 
 private:

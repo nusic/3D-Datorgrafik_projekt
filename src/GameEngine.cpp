@@ -17,7 +17,7 @@ void GameEngine::draw(){
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
 }
 
-void GameEngine::preSync(){
+void GameEngine::preSync(float dt){
 	currentTime = sgct::Engine::getTime();
 
 	//gör så att vår stokastiska variabel "globalRandom" får en
@@ -25,11 +25,11 @@ void GameEngine::preSync(){
 	//Ska likna brinnande eld var tanken dårå.
 	globalRandom = sin(0.3f+rand()/(float)RAND_MAX);
 
-	camera->incrementPosition();
+	camera->incrementPosition(dt);
 	camera->calcMatrices();
 
 	for (int i = 0; i < scene->players.size(); ++i){
-		scene->players[i]->updatePlayerOrientation();
+		scene->players[i]->updatePlayerOrientation(dt);
 	}
 }
 
