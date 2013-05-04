@@ -11,6 +11,9 @@ public:
 
 	void setPosition(double x, double y, double z = 0);
 	void setDirection(float phi = 0, float theta = 0);
+	void setDirection(double x, double y, double z, double parentPhi = 0);
+
+	void updateLightOrientation(glm::mat4 parentModelMatrix);
 
 
 	LightSource * light;

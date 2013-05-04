@@ -20,6 +20,9 @@ public:
 	void setSpread(float _s);
 	void setDirectional(bool _d);
 
+	glm::vec3 getPosition();
+	glm::vec3 getDirection();
+
 
 	static float* getPositionArray();
 	static float* getColorArray();
@@ -38,13 +41,16 @@ public:
 	static GLuint directionalID;
 	static GLuint numberOfLightsID;
 
+	static std::vector<glm::vec3> position;
+	static std::vector<glm::vec3> direction;
+
 private:
 	unsigned short index;
 	static std::string shaderName;
 
-	static std::vector<glm::vec3> position;
+	
 	static std::vector<glm::vec3> color;
-	static std::vector<glm::vec3> direction;
+	
 	static std::vector<float> intensity;
 	static std::vector<float> spread;
 	static std::vector<int> directional;

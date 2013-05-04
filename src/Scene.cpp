@@ -58,8 +58,8 @@ void Scene::initScene(){
 
 	Player * body = new Player;
 	body->setPosition(0.0f, 0.0f);
-	GameObject* head = new GameObject(0,2,0);
-	body->children.push_back(head);
+	//GameObject* head = new GameObject(0,2,0);
+	//body->children.push_back(head);
 	addPlayer(body);
 
 }

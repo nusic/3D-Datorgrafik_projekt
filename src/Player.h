@@ -3,16 +3,18 @@
 
 #include "Controller.h"
 #include "DynamicGameObject.h"
+#include "LightObject.h"
 
 class Player : public DynamicGameObject{
 public:
     Player();
     ~Player();
     void updatePlayerOrientation();
+
     static int numberOfPlayers;
 
 private:
-	LightSource* lightSource;
+	LightObject* head;
     Controller* controller;
 
 

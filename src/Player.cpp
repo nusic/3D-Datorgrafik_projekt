@@ -6,11 +6,16 @@ int Player::numberOfPlayers = 0;
 Player::Player():
 DynamicGameObject(){
     controller = new Controller(numberOfPlayers);
-	lightSource = new LightSource();
-	lightSource->setDirection(10,2,10);
-	lightSource->setColor(0.9,0.8,0.7);
-    lightSource->setIntensity(70);
-	lightSource->setSpread(10);
+
+    head = new LightObject(0, 2, 0);
+    head->light = new LightSource();
+	head->light->setDirection(10,2,10);
+	head->light->setColor(0.9,0.8,0.7);
+    head->light->setIntensity(70);
+	head->light->setSpread(10);
+
+    children.push_back(head);
+
     numberOfPlayers++;
 }
 
@@ -28,7 +33,7 @@ void Player::updatePlayerOrientation(){
             0,
             -0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS));
 
-        lightSource->setPosition(position.x, position.y + 2, position.z);
+        head->setPosition(position.x, position.y + 2, position.z);
     }
     if (controller->validateRightStickValues()){
 
@@ -36,8 +41,10 @@ void Player::updatePlayerOrientation(){
             controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS),
             controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS)));
 
-        lightSource->setDirection(direction2d.x, -0.2, -direction2d.y);
+        head->setDirection(direction2d.x, -0.2, -direction2d.y, phi);
     }
-
+    head->updateMatrix();
     updateMatrix();
+    //head->updateLightOrientation(modelMatrix);
+
 }

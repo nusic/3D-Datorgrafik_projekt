@@ -39,6 +39,14 @@ GLuint LightSource::directionalID;
 GLuint LightSource::numberOfLightsID;
 
 
+glm::vec3 LightSource::getPosition(){
+	return LightSource::position[index];
+}
+
+glm::vec3 LightSource::getDirection(){
+	return LightSource::direction[index];
+}
+
 void LightSource::setPosition(double x, double y, double z){
 	LightSource::position[index] = glm::vec3(x, y, z);
 }
