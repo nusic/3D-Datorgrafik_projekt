@@ -41,16 +41,16 @@ void main(){
 	position_worldSpace = (M * vec4(vertexPosition, 1.0)).xyz;
 
 
-	vec3 vertexPosition_cameraSpace = ( V * M * vec4(vertexPosition,1)).xyz;
+	vec3 vertexPosition_viewSpace = ( V * M * vec4(vertexPosition,1)).xyz;
 	//viewDirectionToVertex_viewspace is directed towards the camera
-	viewDirectionToVertex_viewSpace = vec3(0,0,0) + vertexPosition_cameraSpace;
+	viewDirectionToVertex_viewSpace = vec3(0,0,0) + vertexPosition_viewSpace;
 
 	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i)
 	{
 		lightDirection_viewSpace[i] = (V * vec4(lightDirection_worldSpace[i], 0)).xyz;
 
-		vec3 lightPosition_cameraSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
-		lightDirectionToVertex_viewSpace[i] = viewDirectionToVertex_viewSpace - lightPosition_cameraSpace;
+		vec3 lightPosition_viewSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
+		lightDirectionToVertex_viewSpace[i] = viewDirectionToVertex_viewSpace - lightPosition_viewSpace;
 	}
 
 
