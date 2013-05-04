@@ -14,6 +14,7 @@ public:
 
 	void incrementPosition();
 	void incrementPosition(double dx, double dy, double dz = 0);
+	void incrementPositionAndTurnTo(double dx, double dy, double dz);
 
 	void incrementAngleVel();
 	void incrementAngleVel(float _dPhi, float _dTheta);

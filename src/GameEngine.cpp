@@ -89,7 +89,16 @@ void GameEngine::decode(){
 }
 
 void GameEngine::keyCallback(int key, int action){
-
+	//UGLY, but handy for testing without controller
+	Player * p = scene->players[0];
+	if(p){
+		switch(key){
+			case 'W': p->arrowButtons[p->FORWARD] = (action == GLFW_PRESS); break;
+			case 'S': p->arrowButtons[p->BACKWARD] = (action == GLFW_PRESS);break;
+			case 'A': p->arrowButtons[p->LEFT] = (action == GLFW_PRESS); break;
+			case 'D': p->arrowButtons[p->RIGHT] = (action == GLFW_PRESS); break;
+		}
+	}
 }
 
 void GameEngine::mouseButtonCallback(int button, int action){

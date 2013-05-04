@@ -33,6 +33,14 @@ void DynamicGameObject::incrementPosition(){
 	position.z += velocity.z;
 }
 
+void DynamicGameObject::incrementPositionAndTurnTo(double dx, double dy, double dz){
+	position.x += dx;
+	position.y += dy;
+	position.z += dz;
+
+	setDirection(180.0f/3.14159f * (float) glm::atan(dx,dz));
+}
+
 void DynamicGameObject::incrementAngleVel(float _dPhi, float _dTheta){
 	phi += _dPhi;
 	theta += _dTheta;

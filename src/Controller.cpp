@@ -1,6 +1,5 @@
 #include "Controller.h"
-#include "sgct.h"
-#include <iostream>
+
 
 Controller::Controller(){
     joystickPresent = GL_FALSE;
@@ -41,6 +40,10 @@ void Controller::controllerLoader(){
         axes = NULL;
         buttons = NULL;
 	}
+}
+
+bool Controller::joystickIsPresent() const{
+    return joystickPresent == GL_TRUE;
 }
 
 void Controller::inputLoader(){

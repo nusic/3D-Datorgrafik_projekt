@@ -10,6 +10,9 @@ public:
     ~Player();
     void updatePlayerOrientation();
 
+    bool arrowButtons[4];
+    enum directions {FORWARD = 0, BACKWARD, LEFT, RIGHT};
+
 private:
 	LightSource* lightSource;
     Controller* controller;

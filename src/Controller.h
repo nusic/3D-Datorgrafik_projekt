@@ -1,6 +1,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include "sgct.h"
+#include <iostream>
+
 class Controller{
 public:
     Controller();
@@ -10,6 +13,8 @@ public:
     double getAxisValue(int axis_index);
     bool validateLeftStickValues();
     bool validateRightStickValues();
+
+    bool joystickIsPresent() const;
     
 
     static const int CONTROLLER_LEFT_X_AXIS = 0;
