@@ -103,24 +103,18 @@ bool Controller::validateRightStickValues(){
         return true;
     }
     else{
-        if (glfwGetKey( GLFW_KEY_UP ) == GLFW_PRESS){
-            axes[CONTROLLER_RIGHT_Y_AXIS] = 1;
-        }
-        else if (glfwGetKey( GLFW_KEY_DOWN ) == GLFW_PRESS){
-            axes[CONTROLLER_RIGHT_Y_AXIS] = -1;
-        }
-        else
-            axes[CONTROLLER_RIGHT_Y_AXIS] = 0;
+        int yInput = 0;
+        int xInput = 0;
 
-        if (glfwGetKey( GLFW_KEY_LEFT ) == GLFW_PRESS){
-            axes[CONTROLLER_RIGHT_X_AXIS] = -1;
+        if (glfwGetKey( GLFW_KEY_UP ) == GLFW_PRESS) yInput++;
+        if (glfwGetKey( GLFW_KEY_DOWN ) == GLFW_PRESS) yInput--;
+        if (glfwGetKey( GLFW_KEY_LEFT ) == GLFW_PRESS) xInput--;
+        if (glfwGetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS) xInput++;
+    
+        if(xInput || yInput){ 
+            axes[CONTROLLER_RIGHT_X_AXIS] = xInput;
+            axes[CONTROLLER_RIGHT_Y_AXIS] = yInput;
         }
-        else if (glfwGetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS){
-            axes[CONTROLLER_RIGHT_X_AXIS] = 1;
-        }
-        else
-            axes[CONTROLLER_RIGHT_X_AXIS] = 0;
-
     }
     return true;
 }
