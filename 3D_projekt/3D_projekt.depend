@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
+1367694001 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
 	<iostream>
 	"sgct.h"
 	"GameEngine.h"
@@ -943,7 +943,7 @@
 	"ModelMesh.h"
 	<iostream>
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.h
+1367694001 c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.h
 	<vector>
 	<ctime>
 	"sgct.h"
@@ -952,7 +952,7 @@
 	"GameObject.h"
 	"Player.h"
 
-1367690647 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
+1367694001 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
 1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
@@ -979,18 +979,18 @@
 1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
+1367694940 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
 	"Controller.h"
 
-1367693333 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
+1367694950 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
 	"sgct.h"
 	<iostream>
 
-1366820704 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
+1367694691 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 	<new>
 
-1367693792 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
+1367694120 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
 	"Controller.h"
 	"DynamicGameObject.h"
 
@@ -1000,9 +1000,10 @@
 1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.cpp
 	"DynamicGameObject.h"
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.h
+1367694001 c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.h
 	"sgct.h"
+	<iostream>
 
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.cpp
+1367694001 source:c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.cpp
 	"LightSource.h"
 

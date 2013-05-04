@@ -2,15 +2,12 @@
 #define LIGHTSOURCE_H 
 
 #include "sgct.h"
+#include <iostream>
 
 
 class LightSource{
 public:
-	LightSource(
-		double _x = 0,
-		double _y = 0,
-		double _z = 0,
-		std::string _shaderName = "SimpleColor");
+	LightSource(double x=0, double y=0, double z=0, std::string _shaderName = "SimpleColor");
 	~LightSource();
 
 	void bindVariables();
@@ -23,8 +20,6 @@ public:
 	void setSpread(float _s);
 	void setDirectional(bool _d);
 
-
-	//Fruktansvärt fult med alla static. Kan man göra typ ett namespace eller nåt ist?
 
 	static float* getPositionArray();
 	static float* getColorArray();

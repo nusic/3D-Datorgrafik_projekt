@@ -8,7 +8,7 @@ class Controller{
 public:
     Controller(int index);
     ~Controller();
-    void controllerLoader();
+    void controllerLoader(int index);
     void inputLoader();
     double getAxisValue(int axis_index);
     bool validateLeftStickValues();
