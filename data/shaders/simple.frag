@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 3;
+const int maxNumberOfLights = 4;
 uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
 uniform vec3 lightColor[maxNumberOfLights];
 uniform float lightIntensity[maxNumberOfLights];
@@ -38,7 +38,7 @@ void main()
 {
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
-	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.0,0.0,0.0) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
 	vec3 n = normalize(normal_viewSpace);
@@ -65,7 +65,7 @@ void main()
 		r = reflect(l,n);
 		cosAlpha = clamp( dot( e,-r ), 0,1 );
 
-		
+
 		if (directional[i] == 1){
 			vec3 ld = normalize(lightDirection_viewSpace[i]);
 			cosPhi = clamp(dot(l, ld), 0, 1);
@@ -92,5 +92,5 @@ void main()
 	}
 
 	gl_FragColor = finalFragColor;
-		
+
 }

@@ -8,7 +8,7 @@ class Controller{
 public:
     Controller(int index);
     ~Controller();
-    void controllerLoader(int index);
+    void controllerLoader();
     void inputLoader();
     double getAxisValue(int axis_index);
     bool validateLeftStickValues();
@@ -33,6 +33,7 @@ private:
     int numberOfAxes;
     int numberOfButtons;
     int joystickPresent;
+    int controllerIndex;
 };
 
 #endif // CONTROLLER_H

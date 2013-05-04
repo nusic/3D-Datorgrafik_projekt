@@ -14,7 +14,7 @@ public:
 private:
 	LightSource* lightSource;
     Controller* controller;
-
+    int playerIndex;
 
 };
 

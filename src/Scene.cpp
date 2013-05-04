@@ -29,20 +29,20 @@ void Scene::initScene(){
 	children.push_back(c2);
 
 
-	LightSource* light1 = new LightSource(-3,2,-3);
-	LightSource* light2 = new LightSource(10,1,5);
+//	LightSource* light1 = new LightSource(-3,2,-3);
+//	LightSource* light2 = new LightSource(10,1,5);
+//
+//	light1->setColor(0.7,0.9,0.8);
+//	light1->setDirectional(false);
+//	light1->setIntensity(5);
+//
+//	light2->setColor(0.9,0.6,0.6);
+//	light2->setDirectional(false);
+//	light2->setIntensity(5);
 
-	light1->setColor(0.7,0.9,0.8);
-	light1->setDirectional(false);
-	light1->setIntensity(5);
 
-	light2->setColor(0.9,0.6,0.6);
-	light2->setDirectional(false);
-	light2->setIntensity(5);
-
-
-	Scene::lightSources.push_back(light1);
-	Scene::lightSources.push_back(light2);
+//	Scene::lightSources.push_back(light1);
+//	Scene::lightSources.push_back(light2);
 
 
 	/*
@@ -55,12 +55,23 @@ void Scene::initScene(){
 	*/
 
 
-
 	Player * body = new Player;
-	body->setPosition(0.0f, 0.0f);
+	body->setPosition(5.0f, 0.0f);
 	GameObject* head = new GameObject(0,2,0);
 	body->children.push_back(head);
 	addPlayer(body);
+
+	Player * body2 = new Player;
+	body2->setPosition(0.0f, 0.0f);
+	GameObject* head2 = new GameObject(0,2,0);
+	body2->children.push_back(head2);
+	addPlayer(body2);
+
+	Player * body3 = new Player;
+	body3->setPosition(0.0f, 0.0f);
+	GameObject* head3 = new GameObject(0,2,0);
+	body3->children.push_back(head3);
+	addPlayer(body3);
 
 }
 

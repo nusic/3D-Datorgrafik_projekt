@@ -5,13 +5,14 @@ int Player::numberOfPlayers = 0;
 
 Player::Player():
 DynamicGameObject(){
-    controller = new Controller(numberOfPlayers);
+    numberOfPlayers++;
+    playerIndex = numberOfPlayers-1;
+    controller = new Controller(playerIndex);
 	lightSource = new LightSource();
 	lightSource->setDirection(10,2,10);
 	lightSource->setColor(0.9,0.8,0.7);
-    lightSource->setIntensity(70);
-	lightSource->setSpread(10);
-    numberOfPlayers++;
+    lightSource->setIntensity(100);
+	lightSource->setSpread(64);
 }
 
 Player::~Player(){

@@ -5,9 +5,9 @@ Controller::Controller(int index){
     joystickPresent = GL_FALSE;
     numberOfAxes = 0;
     numberOfButtons = 0;
+    controllerIndex = index;
 
-
-    controllerLoader(index);
+    controllerLoader();
     if(joystickPresent)
         inputLoader();
 }
@@ -19,13 +19,13 @@ Controller::~Controller(){
 		delete [] buttons;
 }
 
-void Controller::controllerLoader(int index){
-    joystickPresent = sgct::Engine::getJoystickParam(index, GLFW_PRESENT);
+void Controller::controllerLoader(){
+    joystickPresent = sgct::Engine::getJoystickParam(controllerIndex, GLFW_PRESENT);
 	if(joystickPresent == GL_TRUE){
 		sgct::MessageHandler::Instance()->print("Joystick 1 is present.\n");
 
-		numberOfAxes = sgct::Engine::getJoystickParam(GLFW_JOYSTICK_1, GLFW_AXES);
-		numberOfButtons = sgct::Engine::getJoystickParam(GLFW_JOYSTICK_1, GLFW_BUTTONS);
+		numberOfAxes = sgct::Engine::getJoystickParam(controllerIndex, GLFW_AXES);
+		numberOfButtons = sgct::Engine::getJoystickParam(controllerIndex, GLFW_BUTTONS);
 
 		sgct::MessageHandler::Instance()->print("Number of axes %d\nNumber of buttons %d\n",
 			numberOfAxes,
@@ -49,8 +49,8 @@ bool Controller::joystickIsPresent() const{
 
 void Controller::inputLoader(){
     if(joystickPresent == GL_TRUE){
-		sgct::Engine::getJoystickAxes(GLFW_JOYSTICK_1, axes, numberOfAxes);
-		sgct::Engine::getJoystickButtons(GLFW_JOYSTICK_1, buttons, numberOfButtons);
+		sgct::Engine::getJoystickAxes(controllerIndex, axes, numberOfAxes);
+		sgct::Engine::getJoystickButtons(controllerIndex, buttons, numberOfButtons);
         for(int i=0; i<numberOfAxes; i++)
             sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
         for(int i=0; i<numberOfButtons; i++)
@@ -111,8 +111,8 @@ bool Controller::validateRightStickValues(){
         if (glfwGetKey( GLFW_KEY_DOWN ) == GLFW_PRESS) yInput--;
         if (glfwGetKey( GLFW_KEY_LEFT ) == GLFW_PRESS) xInput--;
         if (glfwGetKey( GLFW_KEY_RIGHT ) == GLFW_PRESS) xInput++;
-    
-        if(xInput || yInput){ 
+
+        if(xInput || yInput){
             axes[CONTROLLER_RIGHT_X_AXIS] = xInput;
             axes[CONTROLLER_RIGHT_Y_AXIS] = yInput;
         }
