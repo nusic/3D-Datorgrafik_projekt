@@ -21,7 +21,8 @@ LightSource::LightSource(
 }
 
 LightSource::~LightSource(){
-	//Ta bort en ljuskälla.
+	std::cout << "NÄ MEN NU FÅR DU SKÄRPA DIG, TA INTE BORT EN LIGHTSOURCE!!" << std::endl <<
+		"NU BLIR DET MÖRKT RAGNAR!!" << std::endl;
 }
 
 std::string LightSource::shaderName = "SimpleColor";

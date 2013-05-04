@@ -2,6 +2,7 @@
 #define LIGHTSOURCE_H 
 
 #include "sgct.h"
+#include <iostream>
 
 
 class LightSource{
