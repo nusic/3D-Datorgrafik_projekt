@@ -49,8 +49,8 @@ void GameEngine::initOGL(){
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Backface culling
-	glEnable(GL_CULL_FACE);
-	
+//	glEnable(GL_CULL_FACE);
+
 
 	sgct::TextureManager::Instance()->loadTexure(
 		"SimpleTexture", "data/textures/texture1.png", true);
@@ -63,8 +63,8 @@ void GameEngine::initOGL(){
 		"SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 
 	assert(sgct::ShaderManager::Instance()->bindShader( "SimpleColor" ));
-	currentTimeId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "currentTime" ); 
-	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" ); 
+	currentTimeId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "currentTime" );
+	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" );
 	sgct::ShaderManager::Instance()->unBindShader();
 
 

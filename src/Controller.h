@@ -6,7 +6,7 @@
 
 class Controller{
 public:
-    Controller();
+    Controller(int index);
     ~Controller();
     void controllerLoader();
     void inputLoader();
@@ -15,7 +15,7 @@ public:
     bool validateRightStickValues();
 
     bool joystickIsPresent() const;
-    
+
 
     static const int CONTROLLER_LEFT_X_AXIS = 0;
     static const int CONTROLLER_LEFT_Y_AXIS = 1;

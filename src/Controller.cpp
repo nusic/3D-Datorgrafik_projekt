@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 
-Controller::Controller(){
+Controller::Controller(int index){
     joystickPresent = GL_FALSE;
     numberOfAxes = 0;
     numberOfButtons = 0;

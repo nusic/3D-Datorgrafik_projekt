@@ -1,23 +1,26 @@
 #include "Player.h"
 #include <new>
 
+int Player::numberOfPlayers = 0;
+
 Player::Player():
 DynamicGameObject(){
-    controller = new Controller();
+    controller = new Controller(numberOfPlayers);
 	lightSource = new LightSource();
     for(int i = 0; i<4; arrowButtons[i++] = false);
-    
 
 	lightSource->setDirection(10,2,10);
 	lightSource->setColor(0.9,0.8,0.7);
     lightSource->setIntensity(70);
 	lightSource->setSpread(10);
-
+    numberOfPlayers++;
 }
+
 Player::~Player(){
     delete controller;
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
+
 void Player::updatePlayerOrientation(){
     if(controller->joystickIsPresent()){
         controller->inputLoader();
@@ -40,7 +43,7 @@ void Player::updatePlayerOrientation(){
         }
     }
     else{
-        double dx = 0; 
+        double dx = 0;
         double dz = 0;
         double speed = 0.1;
         if(arrowButtons[FORWARD]) dz -= speed;
@@ -53,6 +56,6 @@ void Player::updatePlayerOrientation(){
         }
         incrementPositionAndTurnTo(dx, 0, dz);
     }
-    
+
     updateMatrix();
 }
