@@ -58,10 +58,6 @@ void myInitOGLFun(){
 }
 
 void myPreSyncFun(){
-	/*std::cout << "synctime = " << gEngine->getSyncTime() << std::endl;
-	std::cout << "drawtime = " << gEngine->getDrawTime() << std::endl;
-	std::cout << "frametime = " << gEngine->getDt() << std::endl;*/
-
 	sgct::MessageHandler::Instance()->print(
 		"synctime = %.5f  drawtime = %0.5f  frametime = %0.5f", 
 		gEngine->getSyncTime(), gEngine->getDrawTime(), gEngine->getDt() );
