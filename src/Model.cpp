@@ -89,35 +89,16 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	glUniform1i(textureID, 0);
 
 
-	int numOfLightSources = LightSource::getNumberOfLightSources();
 	//Lightsources data
-	glUniform1i(
-		LightSource::numberOfLightsID,
-		numOfLightSources);
-	glUniform3fv(
-		LightSource::lightPositionID,
-		numOfLightSources,
-		LightSource::getPositionArray());
-	glUniform3fv(
-		LightSource::lightColorID,
-		numOfLightSources,
-		LightSource::getColorArray());
-	glUniform3fv(
-		LightSource::lightDirectionID,
-		numOfLightSources,
-		LightSource::getDirectionArray());
-	glUniform1fv(
-		LightSource::lightIntensityID,
-		numOfLightSources,
-		LightSource::getIntensityArray());
-	glUniform1fv(
-		LightSource::lightSpreadID,
-		numOfLightSources,
-		LightSource::getSpreadArray());
-	glUniform1iv(
-		LightSource::directionalID,
-		numOfLightSources,
-		LightSource::getDirectionalArray());
+	int numOfLightSources = LightSource::getNumberOfLightSources();
+
+	glUniform1i(	LightSource::numberOfLightsID,	numOfLightSources);
+	glUniform3fv(	LightSource::lightPositionID,	numOfLightSources,LightSource::getPositionArray());
+	glUniform3fv(	LightSource::lightColorID,		numOfLightSources,LightSource::getColorArray());
+	glUniform3fv(	LightSource::lightDirectionID,	numOfLightSources,LightSource::getDirectionArray());
+	glUniform1fv(	LightSource::lightIntensityID,	numOfLightSources,LightSource::getIntensityArray());
+	glUniform1fv(	LightSource::lightSpreadID,		numOfLightSources,LightSource::getSpreadArray());
+	glUniform1iv(	LightSource::directionalID,		numOfLightSources,LightSource::getDirectionalArray());
 
 
 	//Attribute the vertices buffer

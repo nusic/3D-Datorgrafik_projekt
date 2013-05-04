@@ -62,7 +62,7 @@ void GameEngine::initOGL(){
 	sgct::ShaderManager::Instance()->addShader(
 		"SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
 
-	sgct::ShaderManager::Instance()->bindShader( "SimpleColor" );
+	assert(sgct::ShaderManager::Instance()->bindShader( "SimpleColor" ));
 	currentTimeId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "currentTime" ); 
 	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" ); 
 	sgct::ShaderManager::Instance()->unBindShader();

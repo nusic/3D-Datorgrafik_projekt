@@ -96,6 +96,7 @@ unsigned short LightSource::getNumberOfLightSources(){
 }
 
 void LightSource::bindVariables(){
+	sgct::ShaderManager::Instance()->bindShader( "SimpleColor" );
 	LightSource::lightPositionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
 	LightSource::lightColorID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
 	LightSource::lightDirectionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
@@ -103,5 +104,6 @@ void LightSource::bindVariables(){
 	LightSource::lightSpreadID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
 	LightSource::directionalID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
 	LightSource::numberOfLightsID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("numberOfLights");
+	sgct::ShaderManager::Instance()->unBindShader();
 }
 
