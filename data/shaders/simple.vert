@@ -15,7 +15,7 @@ uniform float globalRandom;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 16;
+const int maxNumberOfLights = 3;
 uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
 uniform vec3 lightDirection_worldSpace[maxNumberOfLights];
 
