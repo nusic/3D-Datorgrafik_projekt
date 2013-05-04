@@ -6,11 +6,7 @@
 
 class LightSource{
 public:
-	LightSource(
-		double _x = 0,
-		double _y = 0,
-		double _z = 0,
-		std::string _shaderName = "SimpleColor");
+	LightSource(double x=0, double y=0, double z=0, std::string _shaderName = "SimpleColor");
 	~LightSource();
 
 	void bindVariables();
