@@ -16,7 +16,6 @@ void myDecodeFun();
 
 int main(int argc, char* argv[]){
 
-
 	gEngine = new sgct::Engine(argc, argv);
 	gameEngine = new GameEngine();
 

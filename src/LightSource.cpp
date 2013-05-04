@@ -1,12 +1,8 @@
 #include "LightSource.h"
 
-LightSource::LightSource(
-	double _x,
-	double _y,
-	double _z,
-	std::string _shaderName){
+LightSource::LightSource(double x, double y, double z, std::string _shaderName){
 
-	LightSource::position.push_back(glm::vec3(_x, _y, _z));
+	LightSource::position.push_back(glm::vec3(x, y, z));
 	LightSource::color.push_back(glm::vec3(1,1,1));
 	LightSource::direction.push_back(glm::vec3(5,1,5));
 	LightSource::intensity.push_back(50);
@@ -43,28 +39,28 @@ GLuint LightSource::directionalID;
 GLuint LightSource::numberOfLightsID;
 
 
-void LightSource::setPosition(double _x, double _y, double _z){
-	LightSource::position[index] = glm::vec3(_x, _y, _z);
+void LightSource::setPosition(double x, double y, double z){
+	LightSource::position[index] = glm::vec3(x, y, z);
 }
 
-void LightSource::setColor(double _r, double _g, double _b){
-	LightSource::color[index] = glm::vec3(_r, _g, _b);
+void LightSource::setColor(double r, double g, double b){
+	LightSource::color[index] = glm::vec3(r, g, b);
 }
 
-void LightSource::setDirection(double _x, double _y, double _z){
-	LightSource::direction[index] = glm::vec3(_x, _y, _z);
+void LightSource::setDirection(double x, double y, double z){
+	LightSource::direction[index] = glm::vec3(x, y, z);
 }
 
-void LightSource::setIntensity(float _i){
-	LightSource::intensity[index] = _i;
+void LightSource::setIntensity(float i){
+	LightSource::intensity[index] = i;
 }
 
-void LightSource::setSpread(float _s){
-	LightSource::spread[index] = _s;
+void LightSource::setSpread(float s){
+	LightSource::spread[index] = s;
 }
 
-void LightSource::setDirectional(bool _d){
-	LightSource::directional[index] = _d;
+void LightSource::setDirectional(bool d){
+	LightSource::directional[index] = d;
 }
 
 
