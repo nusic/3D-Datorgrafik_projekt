@@ -1,17 +1,16 @@
 #version 120
 
 
-
 uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int maxNumberOfLights = 4;
-uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
-uniform vec3 lightColor[maxNumberOfLights];
-uniform float lightIntensity[maxNumberOfLights];
-uniform float lightSpread[maxNumberOfLights];
-uniform int directional[maxNumberOfLights];
+const int MAX_NUMBER_OF_LIGHTS = 4;
+uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
+uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
+uniform float lightIntensity[MAX_NUMBER_OF_LIGHTS];
+uniform float lightSpread[MAX_NUMBER_OF_LIGHTS];
+uniform int directional[MAX_NUMBER_OF_LIGHTS];
 
 uniform float currentTime;
 uniform float globalRandom;
@@ -24,14 +23,11 @@ varying vec2 UV;
 varying vec3 viewDirectionToVertex_viewSpace;
 
 //Light data
-varying vec3 lightDirectionToVertex_viewSpace[maxNumberOfLights];
-varying vec3 lightDirection_viewSpace[maxNumberOfLights];
+varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
+varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
 //uniform vec3 lightPosition_worldspace;
 
-float rand(vec2 co){
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
-}
 
 
 void main()
@@ -56,7 +52,9 @@ void main()
 	float cosPhi;
 	float distanceToLight;
 	float distanceSquare;
-	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i){
+	float invDistSquare;
+
+	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i){
 
 		l = normalize(lightDirectionToVertex_viewSpace[i]);
 		cosTheta = clamp(dot(-n, l), 0, 1);
@@ -66,21 +64,19 @@ void main()
 		cosAlpha = clamp( dot( e,-r ), 0,1 );
 
 
-		if (directional[i] == 1){
+		//if (directional[i] == 1){
 			vec3 ld = normalize(lightDirection_viewSpace[i]);
 			cosPhi = clamp(dot(l, ld), 0, 1);
 
 			directionalIntensity = pow(cosPhi, lightSpread[i]);
-		}
-		else
-			directionalIntensity = 1;
+		//}
+		//else
+		//	directionalIntensity = 1;
 		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
 		distanceSquare = distanceToLight * distanceToLight;
 
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
-		float invDistSquare = 1/(distanceSquare);
-		if(i == 2)
-			invDistSquare *= globalRandom;//rand(vec2(currentTime, 2*currentTime));
+		invDistSquare = 1.0f/(distanceSquare);
 
 
 		finalFragColor +=

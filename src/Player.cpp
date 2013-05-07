@@ -13,7 +13,7 @@ DynamicGameObject(){
 	head->light->setDirection(10,2,10);
 	head->light->setColor(0.9,0.8,0.7);
     head->light->setIntensity(70);
-	head->light->setSpread(10);
+	head->light->setSpread(50);
 
     children.push_back(head);
 

@@ -14,24 +14,20 @@ uniform float currentTime;
 uniform float globalRandom;
 
 //Light data
+const int MAX_NUMBER_OF_LIGHTS = 4;
 uniform int numberOfLights;
-const int maxNumberOfLights = 4;
-uniform vec3 lightPosition_worldSpace[maxNumberOfLights];
-uniform vec3 lightDirection_worldSpace[maxNumberOfLights];
+uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
+uniform vec3 lightDirection_worldSpace[MAX_NUMBER_OF_LIGHTS];
 
 //Output that will go to the fragment shader.
 //When it does it will be interpolated for each fragment.
 varying vec3 position_worldSpace;
 varying vec2 UV;
 varying vec3 viewDirectionToVertex_viewSpace;
-
-varying vec3 lightDirectionToVertex_viewSpace[maxNumberOfLights];
-//The lightDirection is the direction the light is pointing,
-//the lightDirectionToVertex is the direction from the light to the fragment.
-varying vec3 lightDirection_viewSpace[maxNumberOfLights];
-
 varying vec3 normal_viewSpace;
 
+varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
+varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
 
 
@@ -45,7 +41,7 @@ void main(){
 	//viewDirectionToVertex_viewspace is directed towards the camera
 	viewDirectionToVertex_viewSpace = vec3(0,0,0) + vertexPosition_viewSpace;
 
-	for (int i = 0; i < numberOfLights && i < maxNumberOfLights; ++i)
+	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i)
 	{
 		lightDirection_viewSpace[i] = (V * vec4(lightDirection_worldSpace[i], 0)).xyz;
 
