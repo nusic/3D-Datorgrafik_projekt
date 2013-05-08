@@ -25,8 +25,9 @@ public:
 	~Model();
 
 	void setShader(std::string _shaderName);
+	void setMesh(ModelMesh * _mesh);
 	void setTexture(std::string _textureName);
-	void setModelMatrix(glm::mat4 _modelMatrix);
+	void setLocalModelMatrix(glm::mat4 _localModelMatrix);
 
     bool hasMesh() const;
 
@@ -36,7 +37,7 @@ public:
 protected:
 
 	//transformation matrix specifik for this model
-	glm::mat4 modelMatrix;
+	glm::mat4 localModelMatrix;
 	std::vector<Model*> children;
 
 private:
@@ -49,12 +50,13 @@ private:
 	GLuint vertexUVID;
 	GLuint vertexNormalID;
 
+
 	GLuint textureID;
 
-	GLuint MVPMatrixID;
 	GLuint modelMatrixID;
 	GLuint viewMatrixID;
 	GLuint modelViewMatrixID;
+	GLuint modelViewPerspectiveMatrixID;
 
 	//Handle for matrix and texture
 	GLuint texture;	
