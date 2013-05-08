@@ -5,7 +5,7 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int MAX_NUMBER_OF_LIGHTS = 4;
+const int MAX_NUMBER_OF_LIGHTS = 6;
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
 uniform float lightIntensity[MAX_NUMBER_OF_LIGHTS];
@@ -34,7 +34,7 @@ void main()
 {
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
-	vec3 materialAmbientColor = vec3(0.0,0.0,0.0) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.1,0.0,0.0) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
 	vec3 n = normalize(normal_viewSpace);
@@ -65,10 +65,10 @@ void main()
 
 
 		//if (directional[i] == 1){
-			vec3 ld = normalize(lightDirection_viewSpace[i]);
-			cosPhi = clamp(dot(l, ld), 0, 1);
+		vec3 ld = normalize(lightDirection_viewSpace[i]);
+		cosPhi = clamp(dot(l, ld), 0, 1);
 
-			directionalIntensity = pow(cosPhi, lightSpread[i]);
+		directionalIntensity = pow(cosPhi, lightSpread[i]);	
 		//}
 		//else
 		//	directionalIntensity = 1;
@@ -84,7 +84,7 @@ void main()
 			lightIntensity[i] * cosTheta * (invDistSquare) + //Diffuse
 
 			vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * pow(cosAlpha, 10) * (invDistSquare); //Specular
+			lightIntensity[i] * pow(cosAlpha, 5) * (invDistSquare); //Specular
 	}
 
 	gl_FragColor = finalFragColor;

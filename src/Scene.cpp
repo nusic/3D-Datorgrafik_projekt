@@ -16,9 +16,9 @@ Scene::~Scene(){
 
 void Scene::initScene(){
 
-	GameObject* suzanne = new GameObject(0, 2, 1, 1);
-	GameObject* child1 = new GameObject(2, 1, 1, 0.5);
-	GameObject* child2 = new GameObject(-2, 1, 1, 0.5);
+	GameObject* suzanne = new GameObject(0, 1.5, 1, 1);
+	GameObject* child1 = new GameObject(2, 0, 1, 0.5);
+	GameObject* child2 = new GameObject(-2, 0, 1, 0.5);
 	suzanne->children.push_back(child1);
 	suzanne->children.push_back(child2);
 	children.push_back(suzanne);
@@ -55,24 +55,31 @@ void Scene::initScene(){
 	*/
 
 
-	Player * body = new Player;
-	body->setPosition(0.0f, 0.0f);
-	//GameObject* head = new GameObject(0,2,0);
-	//body->children.push_back(head);
-
-	addPlayer(body);
+	Player * body1 = new Player;
+	body1->setPosition(0.0f, 0.0f, 5.0f);
+	addPlayer(body1);
 
 	Player * body2 = new Player;
-	body2->setPosition(0.0f, 0.0f);
-	GameObject* head2 = new GameObject(0,2,0);
-	body2->children.push_back(head2);
+	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
 
 	Player * body3 = new Player;
-	body3->setPosition(0.0f, 0.0f);
-	GameObject* head3 = new GameObject(0,2,0);
-	body3->children.push_back(head3);
+	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayer(body3);
+
+	Player * body4 = new Player;
+	body4->setPosition(0.0f, 0.0f, -5.0f);
+	addPlayer(body4);
+
+	Player * body5 = new Player;
+	body5->setPosition(0.0f, 0.0f, 0.0f);
+	addPlayer(body5);
+
+	Player * body6 = new Player;
+	body6->setPosition(0.0f, 0.0f, -10.0f);
+	addPlayer(body6);
+
+
 
 }
 
