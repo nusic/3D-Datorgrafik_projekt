@@ -36,23 +36,10 @@ void GameObject::setScale(float xs, float ys, float zs){
 
 void GameObject::updateMatrix(){
 
-/*
-	//Calc rotationg axis
-	float sinPhi	= glm::sin(phi);
-	float sinTheta 	= glm::sin(theta);
-	float cosPhi	= glm::cos(phi);
-	float cosTheta	= glm::cos(theta);
-
-	glm::vec3 axis(	sinPhi * cosTheta,
-					sinPhi * sinTheta,
-					cosPhi			);
-*/
-
-	//Obs, the order is reversed
+	//OBS, the order is reversed
 	glm::mat4 E(1.0f);
-    //glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.z, -position.y));
+
     glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.y, position.z));
     glm::mat4 ST = glm::rotate(T, phi, glm::vec3(0.0f, 1.0f, 0.0f));
     localModelMatrix = glm::scale(ST, scale);
 }
-

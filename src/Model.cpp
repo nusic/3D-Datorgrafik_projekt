@@ -7,7 +7,6 @@ Model::Model(ModelMesh* _mesh, glm::mat4 _localModelMatrix, std::string _texture
 	setShader(_shaderName);
 	setTexture(_textureName);
 	setLocalModelMatrix(_localModelMatrix);
-	std::cout << "created Model" << std::endl;
 }
 
 Model::~Model(){

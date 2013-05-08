@@ -4,10 +4,9 @@
 
 ModelMesh::ModelMesh(const char* path){ 
 	if(loadOBJ(path)){
-		printf("File read.\n");
 		generateGLBuffers();
-		printf("Mesh successfully loaded!\n");
 	}
+	else printf("ERROR: COULDN'T READ OBJECT\n");
 }
 
 ModelMesh::~ModelMesh(){
@@ -102,7 +101,6 @@ bool ModelMesh::loadOBJ(const char * path){
 }
 
 void ModelMesh::generateGLBuffers(){
-
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
@@ -117,9 +115,7 @@ void ModelMesh::generateGLBuffers(){
 }
 
 void ModelMesh::deleteGLBuffers(){
-
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteBuffers(1, &uvBuffer);
 	glDeleteBuffers(1, &normalBuffer);
-
 }
