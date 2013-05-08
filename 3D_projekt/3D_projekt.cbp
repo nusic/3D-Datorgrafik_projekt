@@ -53,6 +53,8 @@
 		<Unit filename="../src/GameEngine.h" />
 		<Unit filename="../src/GameObject.cpp" />
 		<Unit filename="../src/GameObject.h" />
+		<Unit filename="../src/LightObject.cpp" />
+		<Unit filename="../src/LightObject.h" />
 		<Unit filename="../src/LightSource.cpp" />
 		<Unit filename="../src/LightSource.h" />
 		<Unit filename="../src/Model.cpp" />

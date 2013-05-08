@@ -1,7 +1,7 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
-#include "Model.h";
+#include "Model.h"
 #include "sgct.h"
 
 class GameObject : public Model{
@@ -24,7 +24,7 @@ protected:
 	glm::vec3 position;
 	glm::vec3 scale;
 	float phi, theta;
-	
+
 
 private:
 
