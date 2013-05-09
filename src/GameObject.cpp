@@ -55,10 +55,6 @@ void GameObject::updateMatrix(){
 
     glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.y, position.z));
     glm::mat4 ST = glm::rotate(T, phi, glm::vec3(0.0f, 1.0f, 0.0f));
-    localModelMatrix = glm::scale(ST, scale);
+    //localModelMatrix = glm::scale(ST, scale);
     
-    for (int i = 0; i < children.size(); ++i)
-    {
-    	/* code */
-    }
 }

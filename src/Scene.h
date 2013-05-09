@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "LightSource.h"
 #include "Player.h"
+#include "Node.h"
 #include <vector>
 
 
@@ -17,9 +18,9 @@ public:
 
 	void initScene();
 	void drawScene(glm::mat4 P, glm::mat4 V);
+	virtual void draw(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix);
 
 	void addPlayer(Player * player);
-
 	void addGenerations(Model* mother, int n);
 
 

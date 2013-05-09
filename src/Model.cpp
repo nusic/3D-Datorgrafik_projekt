@@ -6,7 +6,6 @@ Model::Model(ModelMesh* _mesh, glm::mat4 _localModelMatrix, std::string _texture
 	setMesh(_mesh);
 	setShader(_shaderName);
 	setTexture(_textureName);
-	setLocalModelMatrix(_localModelMatrix);
 }
 
 Model::~Model(){
@@ -48,15 +47,14 @@ void Model::setShader(std::string _shaderName){
 	sgct::ShaderManager::Instance()->unBindShader();
 }
 
-void Model::setLocalModelMatrix(glm::mat4 _localModelMatrix){
-	localModelMatrix = _localModelMatrix;
-}
-
 bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
-
+void Model::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix){
+	drawModel(P, V, parentModelMatrix);
+	Node::draw(P, V, parentModelMatrix);
+}
 
 void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
@@ -64,7 +62,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
 	//Calculate matrices necessary for shader
-	glm::mat4 M = parentModelMatrix * localModelMatrix;
+	glm::mat4 M = parentModelMatrix;// * localModelMatrix;
 	glm::mat4 MV = V * M;
 	glm::mat4 MVP = P * V * M;
 	
@@ -147,7 +145,9 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 
 	//Draw our children
+	/*
 	for(int i = 0; i<children.size(); ++i){
 		children[i]->drawModel(P, V, M);
 	}
+	*/
 }

@@ -26,7 +26,7 @@ void LightObject::setDirection(double x, double y, double z, double parentPhi){
 }
 
 void LightObject::updateLightOrientation(glm::mat4 parentLocalModelMatrix){
-	glm::mat4 thisM = parentLocalModelMatrix * localModelMatrix;
+	glm::mat4 thisM = parentLocalModelMatrix;// * localModelMatrix;
 	glm::vec4 pos = thisM * glm::vec4(light->getPosition(), 1.0f);
 	glm::vec4 dir = thisM * glm::vec4(light->getDirection(), 0.0f);
 	light->setPosition(pos.x, pos.y, pos.z);

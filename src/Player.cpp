@@ -15,7 +15,7 @@ DynamicGameObject(){
     head->light->setIntensity(70);
 	head->light->setSpread(30);
 
-    children.push_back(head);
+    //children.push_back(head);
 
     numberOfPlayers++;
 }

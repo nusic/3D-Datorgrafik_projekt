@@ -19,14 +19,15 @@ void Scene::initScene(){
 	GameObject* suzanne = new GameObject(0, 1.5, 1, 1);
 	GameObject* child1 = new GameObject(2, 0, 1, 0.5);
 	GameObject* child2 = new GameObject(-2, 0, 1, 0.5);
-	suzanne->children.push_back(child1);
-	suzanne->children.push_back(child2);
-	children.push_back(suzanne);
+	addChildNode(suzanne);
+	//suzanne->children.push_back(child1);
+	//suzanne->children.push_back(child2);
+	//children.push_back(suzanne);
 
 	GameObject* c1 = new GameObject(3, -3, 1);
 	GameObject* c2 = new GameObject(-3, -3, 1);
-	children.push_back(c1);
-	children.push_back(c2);
+	//children.push_back(c1);
+	//children.push_back(c2);
 
 
 //	LightSource* light1 = new LightSource(-3,2,-3);
@@ -54,7 +55,7 @@ void Scene::initScene(){
 	children.push_back(anne);
 	*/
 
-
+	/*
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
@@ -78,15 +79,16 @@ void Scene::initScene(){
 	Player * body6 = new Player;
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
-
+	*/
 
 
 }
 
 void Scene::addPlayer(Player * p){
+	/*
 	children.push_back(p);
 	players.push_back(p);
-
+	*/
 }
 
 void Scene::addGenerations(Model* mother, int n){
@@ -94,14 +96,21 @@ void Scene::addGenerations(Model* mother, int n){
 		return;
 	GameObject* child1 = new GameObject(2, 1, 1, 0.5);
 	GameObject* child2 = new GameObject(-2, 1, 1, 0.5);
+	/*
 	mother->children.push_back(child1);
 	mother->children.push_back(child2);
 
 	addGenerations(mother->children[0], n-1);
 	addGenerations(mother->children[1], n-1);
+	*/
 }
 
 
 void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
-	drawModel(P, V, glm::mat4());
+	draw(P, V, glm::mat4(1.0f));
 }
+
+void Scene::draw(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
+	Model::draw(P, V, parentModelMatrix);
+}
+
