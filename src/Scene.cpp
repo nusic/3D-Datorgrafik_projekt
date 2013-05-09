@@ -16,19 +16,27 @@ Scene::~Scene(){
 
 void Scene::initScene(){
 
-	GameObject* suzanne = new GameObject(0, 1.5, 1, 1);
-	GameObject* child1 = new GameObject(2, 0, 1, 0.5);
-	GameObject* child2 = new GameObject(-2, 0, 1, 0.5);
+	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleTexture2", "SimpleColor");
 	addChildNode(suzanne);
-	//suzanne->children.push_back(child1);
-	//suzanne->children.push_back(child2);
-	//children.push_back(suzanne);
 
+	Transformation* trans1 = new Translation(suzanne, 2.0f, 0.0f, 0.0f);
+	Transformation* scale1 = new Scaling(trans1, 0.5f, 0.5f, 0.5f);
+	Transformation* rot1 = new Rotation(scale1, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+		GameObject* child1 = new GameObject(2, 0, 1, 0.5);
+		rot1->addChildNode(child1);
+
+	
+	Transformation* trans2 = new Translation(suzanne, -2.0f, 0.0f, 0.0f);
+		GameObject* child2 = new GameObject(-2, 0, 1, 0.5);
+		trans2->addChildNode(child2);
+	
+	
+/*
 	GameObject* c1 = new GameObject(3, -3, 1);
 	GameObject* c2 = new GameObject(-3, -3, 1);
-	//children.push_back(c1);
-	//children.push_back(c2);
-
+	addChildNode(c1);
+	addChildNode(c2);
+*/
 
 //	LightSource* light1 = new LightSource(-3,2,-3);
 //	LightSource* light2 = new LightSource(10,1,5);

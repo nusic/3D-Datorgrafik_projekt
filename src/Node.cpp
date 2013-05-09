@@ -2,7 +2,11 @@
 
 Node::Node(Node * _parent, std::string _name){
 	name = _name;
-	parent = _parent;
+	parent = NULL;
+
+	if(_parent != NULL){
+		_parent->addChildNode(this);
+	}
 }
 
 Node::~Node(){
@@ -38,8 +42,10 @@ void Node::setParentNode(Node* newParent){
 }
 
 void Node::addChildNode(Node* childNode){
+	assert(childNode != NULL);
 	children.push_back(childNode);
 	childNode->setParentNode(this);
+
 }
 
 void Node::removeChildNode(Node* childNode){

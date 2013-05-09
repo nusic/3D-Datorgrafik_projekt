@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <cassert>
 #include "sgct.h"
 
 //This class is based on the tutorial from
