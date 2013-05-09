@@ -79,7 +79,8 @@ void Scene::initScene(){
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
 
-    readBMP("data/heightmap/heightmap_test.bmp");
+	std::string imgpath= "data/heightmap/heightmap_test.bmp";
+    readBMP(imgpath.c_str());
 }
 
 void Scene::addPlayer(Player * p){
@@ -109,7 +110,7 @@ float Scene::getZPosition(int x, int y){
     return *(heightmap + (x*y));
 }
 
-void Scene::readBMP(char* filename)
+void Scene::readBMP(const char* filename)
 {
     FILE* f = fopen(filename, "rb");
     unsigned char info[54];

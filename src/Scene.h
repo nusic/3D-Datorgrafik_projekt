@@ -24,7 +24,7 @@ public:
 
     float getZPosition(int x, int y);
 
-    void readBMP(char* filename);
+    void readBMP(const char* filename);
 
 	static std::vector<LightSource*> lightSources;
 
