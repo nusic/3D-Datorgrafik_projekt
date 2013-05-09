@@ -34,8 +34,23 @@ void GameObject::setScale(float xs, float ys, float zs){
 	scale.z = zs;
 }
 
+
 glm::vec3 GameObject::getPosition(){
 	return position;
+}
+
+void GameObject::incrementPosition(double dx, double dy, double dz){
+	position.x += dx;
+	position.y += dy;
+	position.z += dz;
+}
+
+void GameObject::incrementPositionAndTurnTo(double dx, double dy, double dz){
+	position.x += dx;
+	position.y += dy;
+	position.z += dz;
+
+	setDirection(180.0f/3.14159f * (float) glm::atan(dx,dz));
 }
 
 void GameObject::updateMatrix(){
@@ -46,4 +61,9 @@ void GameObject::updateMatrix(){
     glm::mat4 T = glm::translate(E, glm::vec3(position.x, position.y, position.z));
     glm::mat4 ST = glm::rotate(T, phi, glm::vec3(0.0f, 1.0f, 0.0f));
     localModelMatrix = glm::scale(ST, scale);
+    
+    for (int i = 0; i < children.size(); ++i)
+    {
+    	/* code */
+    }
 }

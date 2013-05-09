@@ -73,23 +73,13 @@ bool Controller::validateLeftStickValues(){
         return true;
     }
     else{
-        if (glfwGetKey('W') == GLFW_PRESS){
-            axes[CONTROLLER_LEFT_Y_AXIS] = 1;
-        }
-        else if (glfwGetKey('S') == GLFW_PRESS){
-            axes[CONTROLLER_LEFT_Y_AXIS] = -1;
-        }
-        else
-            axes[CONTROLLER_LEFT_Y_AXIS] = 0;
+        if (glfwGetKey('W') == GLFW_PRESS) axes[CONTROLLER_LEFT_Y_AXIS] = 1;
+        else if (glfwGetKey('S') == GLFW_PRESS) axes[CONTROLLER_LEFT_Y_AXIS] = -1;
+        else axes[CONTROLLER_LEFT_Y_AXIS] = 0;
 
-        if (glfwGetKey('A') == GLFW_PRESS){
-            axes[CONTROLLER_LEFT_X_AXIS] = -1;
-        }
-        else if (glfwGetKey('D') == GLFW_PRESS){
-            axes[CONTROLLER_LEFT_X_AXIS] = 1;
-        }
-        else
-            axes[CONTROLLER_LEFT_X_AXIS] = 0;
+        if (glfwGetKey('A') == GLFW_PRESS) axes[CONTROLLER_LEFT_X_AXIS] = -1;
+        else if (glfwGetKey('D') == GLFW_PRESS) axes[CONTROLLER_LEFT_X_AXIS] = 1;
+        else axes[CONTROLLER_LEFT_X_AXIS] = 0;
 
     }
     return true;

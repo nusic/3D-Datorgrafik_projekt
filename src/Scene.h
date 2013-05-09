@@ -23,6 +23,9 @@ public:
 
 	void addGenerations(Model* mother, int n);
 
+    float getZPosition(int x, int y);
+
+    void readBMP(const char* filename);
 
 	static std::vector<LightSource*> lightSources;
 
@@ -30,7 +33,7 @@ public:
 	FollowCamera* followCamera;
 
 private:
-
+    float* heightmap;
 };
 
 #endif

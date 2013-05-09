@@ -18,7 +18,6 @@ DynamicGameObject(){
     children.push_back(head);
 
     numberOfPlayers++;
-
 }
 
 Player::~Player(){
@@ -28,24 +27,21 @@ Player::~Player(){
 
 void Player::updatePlayerOrientation(float dt){
     controller->inputLoader();
-    if(controller -> validateLeftStickValues()){
 
-        incrementPositionAndTurnTo(
-            0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS),
-            0,
-            -0.1*controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS), dt);
-
-        head->setPosition(position.x, position.y + 2, position.z);
+    if(controller->validateLeftStickValues()){
+        float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)*dt*speed;
+        float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
+        incrementPositionAndTurnTo(xState,0.0f,-yState);
+        setVelocity(xState,0.0f,-yState);
+        head->setPosition(position.x, position.y + 2.0f, position.z);
     }
     if (controller->validateRightStickValues()){
-
-        glm::vec2 direction2d = glm::normalize(glm::vec2(
-            controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS),
-            controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS)));
-
-        head->setDirection(direction2d.x, -0.2, -direction2d.y, phi);
+        float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
+        float yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
+        glm::vec2 direction2d = glm::normalize(glm::vec2(xState,yState));
+        head->setDirection(direction2d.x, -0.2f, -direction2d.y, phi);
     }
-    head->updateMatrix();
+    //head->updateMatrix();
     updateMatrix();
     //head->updateLightOrientation(modelMatrix);
 

@@ -15,8 +15,7 @@ public:
 	glm::vec3 getVelocity();
 
 	void incrementPosition(float dt);
-	void incrementPosition(double dx, double dy, double dz, float dt);
-	void incrementPositionAndTurnTo(double dx, double dy, double dz, float dt);
+
 
 	void incrementAngleVel();
 	void incrementAngleVel(float _dPhi, float _dTheta);
@@ -25,6 +24,7 @@ public:
 protected:
 	glm::vec3 velocity;
 	float dPhi, dTheta;
+	float speed;
 
 };
 #endif
