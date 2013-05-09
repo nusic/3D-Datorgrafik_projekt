@@ -7,6 +7,7 @@
 #include "LightSource.h"
 #include "Player.h"
 #include <vector>
+#include "FollowCamera.h"
 
 
 class Scene : public Model{
@@ -26,6 +27,7 @@ public:
 	static std::vector<LightSource*> lightSources;
 
 	std::vector<Player*> players;
+	FollowCamera* followCamera;
 
 private:
 

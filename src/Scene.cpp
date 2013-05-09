@@ -79,7 +79,7 @@ void Scene::initScene(){
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
 
-
+	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
 }
 

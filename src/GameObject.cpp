@@ -34,6 +34,10 @@ void GameObject::setScale(float xs, float ys, float zs){
 	scale.z = zs;
 }
 
+glm::vec3 GameObject::getPosition(){
+	return position;
+}
+
 void GameObject::updateMatrix(){
 
 	//OBS, the order is reversed

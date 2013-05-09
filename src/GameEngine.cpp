@@ -19,7 +19,7 @@ void GameEngine::draw(){
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
 
 	glViewport(640,0,640,360);
-	scene->drawScene(camera2->getPerspectiveMatrix(), camera2->getViewMatrix());
+	scene->drawScene(scene->followCamera->getPerspectiveMatrix(), scene->followCamera->getViewMatrix());
 }
 
 void GameEngine::preSync(float dt){
@@ -35,6 +35,13 @@ void GameEngine::preSync(float dt){
 
 	camera2->incrementPosition(dt);
 	camera2->calcMatrices();
+
+	scene->followCamera->updateLookAt();
+	scene->followCamera->incrementPosition(	scene->followCamera->target->getVelocity().x,
+											scene->followCamera->target->getVelocity().y,
+											scene->followCamera->target->getVelocity().z,
+											dt);
+	scene->followCamera->calcMatrices();
 
 	for (int i = 0; i < scene->players.size(); ++i){
 		scene->players[i]->updatePlayerOrientation(dt);
