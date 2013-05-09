@@ -57,7 +57,7 @@ void GameEngine::initOGL(){
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Backface culling
-	glEnable(GL_CULL_FACE);
+//	glEnable(GL_CULL_FACE);
 
 
 	sgct::TextureManager::Instance()->loadTexure(

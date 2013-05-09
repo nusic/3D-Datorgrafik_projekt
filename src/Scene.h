@@ -22,13 +22,16 @@ public:
 
 	void addGenerations(Model* mother, int n);
 
+    float getZPosition(int x, int y);
+
+    void readBMP(char* filename);
 
 	static std::vector<LightSource*> lightSources;
 
 	std::vector<Player*> players;
 
 private:
-
+    float* heightmap;
 };
 
 #endif
