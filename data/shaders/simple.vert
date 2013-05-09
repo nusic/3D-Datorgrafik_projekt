@@ -9,12 +9,13 @@ attribute vec2 vertexUV;
 uniform mat4 MVP;
 uniform mat4 M;
 uniform mat4 V;
+uniform mat4 depthBiasMVP;
 
 uniform float currentTime;
 uniform float globalRandom;
 
 //Light data
-const int MAX_NUMBER_OF_LIGHTS = 6;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 uniform int numberOfLights;
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightDirection_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -28,6 +29,8 @@ varying vec3 normal_viewSpace;
 
 varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
+
+varying vec4 shadowCoord;
 
 
 
@@ -56,6 +59,8 @@ void main(){
 
 	//normal = vertexNormal;
 	UV = vertexUV;
+
+	shadowCoord = depthBiasMVP * vec4(vertexPosition, 1.0);
 }
 
 

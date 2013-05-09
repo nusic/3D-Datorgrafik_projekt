@@ -14,6 +14,12 @@ void GameEngine::draw(){
 	glUniform1f(globalRandomId, static_cast<float>(globalRandom));
 	sgct::ShaderManager::Instance()->unBindShader();
 
+	//Bind the framebuffer used for shadow mapping
+	glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
+	scene->renderToFrameBuffer(camera->getPerspectiveMatrix(), camera->getViewMatrix(), glm::mat4(1.0f));
+	//Bind the default framebuffer (render to screen)
+	glBindFramebuffer(GL_FRAMEBUFFER, 2);
+	glViewport(0,0,640 * 2,360 * 2);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
 }
 
@@ -67,6 +73,8 @@ void GameEngine::initOGL(){
 	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" );
 	sgct::ShaderManager::Instance()->unBindShader();
 
+	ShadowMap::initShadowMapBuffers();
+
 
 	scene = new Scene();
 	scene->initScene();
@@ -76,7 +84,7 @@ void GameEngine::initOGL(){
 	camera->setVelocity(0.05, 0.02, -0.01);
 
 	//Uncomment the two lines below to get simple static front view
-	camera->setPosition(0, 30, 30);
+	camera->setPosition(0, 15, 15);
 	camera->setVelocity(0, 0, 0);
 }
 
