@@ -14,7 +14,12 @@ void GameEngine::draw(){
 	glUniform1f(globalRandomId, static_cast<float>(globalRandom));
 	sgct::ShaderManager::Instance()->unBindShader();
 
+
+	glViewport(0,0,640,360);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+
+	glViewport(640,0,640,360);
+	scene->drawScene(camera2->getPerspectiveMatrix(), camera2->getViewMatrix());
 }
 
 void GameEngine::preSync(float dt){
@@ -27,6 +32,9 @@ void GameEngine::preSync(float dt){
 
 	camera->incrementPosition(dt);
 	camera->calcMatrices();
+
+	camera2->incrementPosition(dt);
+	camera2->calcMatrices();
 
 	for (int i = 0; i < scene->players.size(); ++i){
 		scene->players[i]->updatePlayerOrientation(dt);
@@ -49,7 +57,7 @@ void GameEngine::initOGL(){
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Backface culling
-//	glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 
 
 	sgct::TextureManager::Instance()->loadTexure(
@@ -78,6 +86,10 @@ void GameEngine::initOGL(){
 	//Uncomment the two lines below to get simple static front view
 	camera->setPosition(0, 30, 30);
 	camera->setVelocity(0, 0, 0);
+
+
+	camera2 = new Camera(0, 30, -30);
+	camera2->setLookAt(0, 0, 0);
 }
 
 void GameEngine::encode(){
