@@ -15,18 +15,25 @@ void GameEngine::draw(){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
 	//Bind the framebuffer used for shadow mapping
 	glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0,0,128,128); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+	glViewport(0,0,1024,1024); // Render on the whole framebuffer
 	scene->renderToFrameBuffer(glm::mat4(1.0f));
+	glDisable(GL_CULL_FACE);
 
 
+	//Backface culling
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	//Bind the default framebuffer (render to screen)
 	glBindFramebuffer(GL_FRAMEBUFFER, 2);
 	glViewport(0,0,640 * 2,360 * 2);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+	glDisable(GL_CULL_FACE);
 }
 
 void GameEngine::preSync(float dt){
@@ -59,9 +66,6 @@ void GameEngine::initOGL(){
 
 	// How to blend (?)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//Backface culling
-//	glEnable(GL_CULL_FACE);
 
 
 	sgct::TextureManager::Instance()->loadTexure(

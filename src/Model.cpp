@@ -211,16 +211,6 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 
-	// Render to our framebuffer
-	//glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
-	//glViewport(0,0,256,256); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-
-	// We don't use bias in the shader, but instead we draw back faces, 
-	// which are already separated from the front faces by a small distance 
-	// (if your geometry is made this way)
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
-
 
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));

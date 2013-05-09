@@ -85,21 +85,17 @@ void main()
 		//float visibility = shadow2D( shadowMap, vec3(shadowCoord.xy, (shadowCoord.z)/shadowCoord.w) ).r;
 
 		
-		float visibility;
-		float val = texture2D(shadowMap, shadowCoord.xy / shadowCoord.w).r;
-
-		float fragDepth = shadowCoord.z / shadowCoord.w;
-
-		if(val <= fragDepth) {
-
-			visibility = 0;
-
-		} else {
-
-			visibility = 1;
-
-		}
+		float visibility = 0.0;
 		
+		for (float x = -0.0001; x <= 0.0001; x+=0.00005){
+			for (float y = -0.0001; y <= 0.0001; y+=0.00005){
+				if(texture2D(shadowMap, (shadowCoord.xy / shadowCoord.w)).r >= shadowCoord.z / shadowCoord.w)
+					visibility += 1.0;
+			}	
+		}
+		visibility /= 16.0;
+		
+
 
 		finalFragColor += visibility * (
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
