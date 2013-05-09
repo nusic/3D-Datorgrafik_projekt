@@ -15,7 +15,25 @@ Scene::~Scene(){
 }
 
 void Scene::initScene(){
+	
+	
+	/*
+	Ny scengraph. Blir lite ny syntax nu.
+	Så här ärver klasserna av varandra. 
 
+					Node 
+					 |
+			---------------------
+			|		 			|
+		  Model   		  Transformation
+		  	|					|
+		  Scene			-----------------
+		  				|		|		|
+				Translation   Scale   Rotation
+
+	
+	*/
+	
 	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 	addChildNode(suzanne);
 
@@ -27,45 +45,22 @@ void Scene::initScene(){
 
 	GameObject* go1 = new GameObject(-2,0,0);
 	addChildNode(go1->getSceneGraphBranch());
-/*
-	GameObject* c1 = new GameObject(3, -3, 1);
-	GameObject* c2 = new GameObject(-3, -3, 1);
-	addChildNode(c1);
-	addChildNode(c2);
-*/
 
-//	LightSource* light1 = new LightSource(-3,2,-3);
-//	LightSource* light2 = new LightSource(10,1,5);
-//
-//	light1->setColor(0.7,0.9,0.8);
-//	light1->setDirectional(false);
-//	light1->setIntensity(5);
-//
-//	light2->setColor(0.9,0.6,0.6);
-//	light2->setDirectional(false);
-//	light2->setIntensity(5);
-
-
-//	Scene::lightSources.push_back(light1);
-//	Scene::lightSources.push_back(light2);
-
-
-	/*
-	GameObject* anne = new GameObject(0, 4, 0);
-	anne->setDirection(0.0f, 0.0f);
-	anne->updateMatrix();
-
-	addGenerations(anne, 5);
-	children.push_back(anne);
-	*/
 
 	
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-	//addGenerations(body1->getMainModel(), 4);
-	
-/*
+
+	/*
+	Testa att sätt antal generationer till 
+	ett större tal, som typ 10. Det slutar
+	funka att ladda in texturer (för mig erik). 
+	Är det grafikminnet som blir fullt tro?
+	*/
+	//addGenerations(body1->getMainModel(), 2);
+
+
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -85,9 +80,7 @@ void Scene::initScene(){
 	Player * body6 = new Player;
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
-	*/
-
-
+	
 }
 
 void Scene::addPlayer(Player * p){
@@ -97,7 +90,7 @@ void Scene::addPlayer(Player * p){
 }
 
 void Scene::addGenerations(Model* mother, int n){
-	if(n<0)
+	if(n<=0)
 		return;
 	GameObject* child1 = new GameObject(2, 1, 1, 0.7);
 	GameObject* child2 = new GameObject(-2, 1, 1, 0.7);

@@ -51,18 +51,17 @@ bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
-void Model::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix){
-	drawModel(P, V, parentModelMatrix);
-	Node::draw(P, V, parentModelMatrix);
+void Model::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+	drawModel(P, V, M);
+	Node::draw(P, V, M);
 }
 
-void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
+void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//Use the shader
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
 	//Calculate matrices necessary for shader
-	glm::mat4 M = parentModelMatrix;// * localModelMatrix;
 	glm::mat4 MV = V * M;
 	glm::mat4 MVP = P * V * M;
 	
@@ -143,11 +142,4 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	//Don't use the currently bound shader anymore
 	sgct::ShaderManager::Instance()->unBindShader();
 
-
-	//Draw our children
-	/*
-	for(int i = 0; i<children.size(); ++i){
-		children[i]->drawModel(P, V, M);
-	}
-	*/
 }
