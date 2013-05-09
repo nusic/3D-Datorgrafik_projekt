@@ -27,7 +27,7 @@ varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
 varying vec4 shadowCoord;
-uniform sampler2DShadow shadowMap;
+uniform sampler2D shadowMap;
 
 //uniform vec3 lightPosition_worldspace;
 
@@ -81,7 +81,25 @@ void main()
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
 		invDistSquare = 1.0f/(distanceSquare);
 
-		float visibility = shadow2D( shadowMap, vec3(shadowCoord.xy, (shadowCoord.z)/shadowCoord.w) ).r;
+
+		//float visibility = shadow2D( shadowMap, vec3(shadowCoord.xy, (shadowCoord.z)/shadowCoord.w) ).r;
+
+		
+		float visibility;
+		float val = texture2D(shadowMap, shadowCoord.xy / shadowCoord.w).r;
+
+		float fragDepth = shadowCoord.z / shadowCoord.w;
+
+		if(val <= fragDepth) {
+
+			visibility = 0;
+
+		} else {
+
+			visibility = 1;
+
+		}
+		
 
 		finalFragColor += visibility * (
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *

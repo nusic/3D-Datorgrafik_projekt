@@ -14,9 +14,15 @@ void GameEngine::draw(){
 	glUniform1f(globalRandomId, static_cast<float>(globalRandom));
 	sgct::ShaderManager::Instance()->unBindShader();
 
+
 	//Bind the framebuffer used for shadow mapping
 	glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
-	scene->renderToFrameBuffer(camera->getPerspectiveMatrix(), camera->getViewMatrix(), glm::mat4(1.0f));
+	// Clear the screen
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(0,0,128,128); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+	scene->renderToFrameBuffer(glm::mat4(1.0f));
+
+
 	//Bind the default framebuffer (render to screen)
 	glBindFramebuffer(GL_FRAMEBUFFER, 2);
 	glViewport(0,0,640 * 2,360 * 2);

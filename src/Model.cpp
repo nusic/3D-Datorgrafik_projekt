@@ -99,19 +99,19 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 
 
-	glm::mat4 depthModelMatrix = glm::mat4(1.0);
+	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
 
 	glm::vec3 lightDir = - glm::vec3(LightSource::getDirectionArray()[0],LightSource::getDirectionArray()[1],
 		LightSource::getDirectionArray()[2]);
-
-	// Compute the MVP matrix from the light's point of view
-	glm::mat4 depthProjectionMatrix = glm::ortho<float>(-10,10,-10,10,-10,20);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
-	// or, for spot light :
 	glm::vec3 lightPos(LightSource::getPositionArray()[0],LightSource::getPositionArray()[1],
 		LightSource::getPositionArray()[2]);
-	//glm::mat4 depthProjectionMatrix = glm::perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos + lightDir, glm::vec3(0,1,0));
+
+	// Compute the MVP matrix from the light's point of view
+	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-15,15,-15,15,-15,30);
+	glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
+	// or, for spot light :
+	glm::mat4 depthProjectionMatrix = glm::perspective(45.0f, 1.0f, 1.0f, 30.0f);
+	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
 
 	glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
 
@@ -209,11 +209,11 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	}
 }
 
-void Model::renderToFrameBuffer(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
+void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 
 	// Render to our framebuffer
-	glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
-	glViewport(0,0,256,256); // Render on the whole framebuffer, complete from the lower left corner to the upper right
+	//glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
+	//glViewport(0,0,256,256); // Render on the whole framebuffer, complete from the lower left corner to the upper right
 
 	// We don't use bias in the shader, but instead we draw back faces, 
 	// which are already separated from the front faces by a small distance 
@@ -221,8 +221,6 @@ void Model::renderToFrameBuffer(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelM
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
 
-	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
@@ -232,15 +230,15 @@ void Model::renderToFrameBuffer(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelM
 
 	glm::vec3 lightDir =  - glm::vec3(LightSource::getDirectionArray()[0], LightSource::getDirectionArray()[1],
 		LightSource::getDirectionArray()[2]);
-
-	// Compute the MVP matrix from the light's point of view
-	glm::mat4 depthProjectionMatrix = glm::ortho<float>(-10,10,-10,10,-10,20);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
-	// or, for spot light :
 	glm::vec3 lightPos(LightSource::getPositionArray()[0],LightSource::getPositionArray()[1],
 		LightSource::getPositionArray()[2]);
-	//glm::mat4 depthProjectionMatrix = glm::perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos + lightDir, glm::vec3(0,1,0));
+
+	// Compute the MVP matrix from the light's point of view
+	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-15 ,15,-15,15,-15,30);
+	glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
+	// or, for spot light :
+	glm::mat4 depthProjectionMatrix = glm::perspective(45.0f, 1.0f, 1.0f, 30.0f);
+	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
 
 	glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
 
@@ -299,7 +297,7 @@ void Model::renderToFrameBuffer(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelM
 	
 	//Render our children
 	for(int i = 0; i<children.size(); ++i){
-		children[i]->renderToFrameBuffer(depthProjectionMatrix, depthViewMatrix, depthModelMatrix);
+		children[i]->renderToFrameBuffer(depthModelMatrix);
 	}
 
 

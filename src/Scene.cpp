@@ -83,6 +83,9 @@ void Scene::initScene(){
 
 	*/
 
+	GameObject* c3 = new GameObject(5, 0, 5);
+	children.push_back(c3);
+
 
 
 }
