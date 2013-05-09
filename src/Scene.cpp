@@ -2,7 +2,7 @@
 
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/bumpy.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor"){
+Model(new ModelMesh("data/meshes/bumpy.obj"), "SimpleTexture", "SimpleColor"){
 	std::cout << "*** CREATED SCENE ***" << std::endl;
 
 }
@@ -16,21 +16,17 @@ Scene::~Scene(){
 
 void Scene::initScene(){
 
-	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), glm::mat4(1.0f), "SimpleTexture2", "SimpleColor");
+	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 	addChildNode(suzanne);
 
 	Transformation* trans1 = new Translation(suzanne, 2.0f, 0.0f, 0.0f);
 	Transformation* scale1 = new Scaling(trans1, 0.5f, 0.5f, 0.5f);
 	Transformation* rot1 = new Rotation(scale1, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		GameObject* child1 = new GameObject(2, 0, 1, 0.5);
+		Model* child1 = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 		rot1->addChildNode(child1);
 
-	
-	Transformation* trans2 = new Translation(suzanne, -2.0f, 0.0f, 0.0f);
-		GameObject* child2 = new GameObject(-2, 0, 1, 0.5);
-		trans2->addChildNode(child2);
-	
-	
+	GameObject* go1 = new GameObject(-2,0,0);
+	addChildNode(go1->getSceneGraphBranch());
 /*
 	GameObject* c1 = new GameObject(3, -3, 1);
 	GameObject* c2 = new GameObject(-3, -3, 1);
@@ -63,11 +59,13 @@ void Scene::initScene(){
 	children.push_back(anne);
 	*/
 
-	/*
+	
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-
+	//addGenerations(body1->getMainModel(), 4);
+	
+/*
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -93,24 +91,23 @@ void Scene::initScene(){
 }
 
 void Scene::addPlayer(Player * p){
-	/*
-	children.push_back(p);
+	addChildNode(p->getSceneGraphBranch());
 	players.push_back(p);
-	*/
+	
 }
 
 void Scene::addGenerations(Model* mother, int n){
 	if(n<0)
 		return;
-	GameObject* child1 = new GameObject(2, 1, 1, 0.5);
-	GameObject* child2 = new GameObject(-2, 1, 1, 0.5);
-	/*
-	mother->children.push_back(child1);
-	mother->children.push_back(child2);
+	GameObject* child1 = new GameObject(2, 1, 1, 0.7);
+	GameObject* child2 = new GameObject(-2, 1, 1, 0.7);
+	
+	mother->addChildNode(child1->getSceneGraphBranch());
+	mother->addChildNode(child2->getSceneGraphBranch());
 
-	addGenerations(mother->children[0], n-1);
-	addGenerations(mother->children[1], n-1);
-	*/
+	addGenerations(child1->getMainModel(), n-1);
+	addGenerations(child2->getMainModel(), n-1);
+
 }
 
 

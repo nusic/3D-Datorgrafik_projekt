@@ -29,7 +29,9 @@ public:
 	Scaling(Node * _parent, float sx, float sy, float sz);
 	virtual ~Scaling();
 
+	void setScaling(float s);
 	void setScaling(float sx, float sy, float sz);
+	glm::vec3 getScaling() const;
 };
 
 
@@ -58,6 +60,7 @@ public:
 	virtual ~Translation();
 
 	void setTranslation(float x, float y, float z);
+	glm::vec3 getTranslation() const;
 };
 
 

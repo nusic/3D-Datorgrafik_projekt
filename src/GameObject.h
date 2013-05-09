@@ -1,10 +1,12 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
 
+#include "Node.h"
+#include "Transformation.h"
 #include "Model.h"
 #include "sgct.h"
 
-class GameObject : public Model{
+class GameObject{
 public:
 	GameObject(double x = 0, double y = 0, double z = 0, float Scale = 1.0f, float _phi = 0);
 	~GameObject();
@@ -17,10 +19,13 @@ public:
 	void incrementPosition(double dx, double dy, double dz);
 	void incrementPositionAndTurnTo(double dx, double dy, double dz);
 
+
 	//call this function every frame when final
 	//position, direction, and Scale is set.
 	void updateMatrix();
 
+	Node* getSceneGraphBranch() const;
+	Model* getMainModel() const;
 
 protected:
 
@@ -31,7 +36,10 @@ protected:
 
 private:
 
-
+	Translation* 	translationNode;
+	Rotation* 		rotationNode;
+	Scaling*		scaleNode;
+	Model*			modelNode;
 
 };
 

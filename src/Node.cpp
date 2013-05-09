@@ -59,6 +59,10 @@ void Node::removeChildNode(Node* childNode){
 	}	
 }
 
+Node* Node::getChild(int index) const{
+	return children[index];
+}
+
 Node* Node::getChildByName(const std::string &searchName) const{
 	for(int i = 0; i<children.size(); ++i){
 		if(searchName == children[i]->name){

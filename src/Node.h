@@ -27,7 +27,9 @@ public:
 	std::string getNodeName() const;
 	int countChildNodes(const bool &recursiveCount) const;
 
+	Node* getChild(int index) const;
 	Node* getChildByName(const std::string &searchName) const;
+
 
 private:
 

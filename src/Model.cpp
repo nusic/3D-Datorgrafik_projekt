@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 
-Model::Model(ModelMesh* _mesh, glm::mat4 _localModelMatrix, std::string _textureName, std::string _shaderName){
+Model::Model(ModelMesh* _mesh, std::string _textureName, std::string _shaderName){
 	setMesh(_mesh);
 	setShader(_shaderName);
 	setTexture(_textureName);

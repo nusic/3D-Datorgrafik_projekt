@@ -43,10 +43,20 @@ Scaling::~Scaling(){
 
 }
 
+void Scaling::setScaling(float s){
+	matrix[0][0] = s;
+	matrix[1][1] = s;
+	matrix[2][2] = s;
+}
+
 void Scaling::setScaling(float sx, float sy, float sz){
 	matrix[0][0] = sx;
 	matrix[1][1] = sy;
 	matrix[2][2] = sz;
+}
+
+glm::vec3 Scaling::getScaling() const{
+	return glm::vec3(matrix[0][0], matrix[1][1], matrix[2][2]);
 }
 
 
@@ -107,4 +117,8 @@ void Translation::setTranslation(float x, float y, float z){
 	matrix[3][0] = x;
 	matrix[3][1] = y;
 	matrix[3][2] = z;
+}
+
+glm::vec3 Translation::getTranslation() const{
+	return glm::vec3(matrix[3][0], matrix[3][1], matrix[3][2]);
 }

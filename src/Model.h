@@ -19,7 +19,6 @@
 class Model : public Node{
 public:
 	Model(ModelMesh* _mesh = NULL, 
-		  glm::mat4 M = glm::mat4(1.0),
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
 
