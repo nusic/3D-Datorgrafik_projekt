@@ -30,8 +30,11 @@ public:
 
 	std::vector<Player*> players;
 
-private:
     float* heightmap;
+    int heightmapWidth;
+
+private:
+
 };
 
 #endif
