@@ -16,22 +16,51 @@ Scene::~Scene(){
 
 void Scene::initScene(){
 	
-	
 	/*
-	Ny scengraph. Blir lite ny syntax nu.
+	
+	Innan ärvde klasserna från varandra såhär
+
+					   Model
+						 |	* ModelMatrix
+						 |	* ModelMesh
+						 |	* Texture
+						 |	* Shader
+						 |	
+					GameObject
+						 |	* position
+						 |	* direction
+						 |
+			
+
+
+	Nu har vi ny scengraph. Blir lite ny syntax nu.
 	Så här ärver klasserna av varandra. 
 
-					Node 
-					 |
-			---------------------
-			|		 			|
-		  Model   		  Transformation
-		  	|					|
-		  Scene			-----------------
-		  				|		|		|
-				Translation   Scale   Rotation
 
-	
+						Node 
+						 |  * vector<Node*> children
+						 |  * Node* parent
+						 | 	  virtual void draw(P, V, M);
+						 |
+		-------------------------------------
+		|		 							|
+	  Model   		 		 	  	  Transformation
+	    |  * ModelMesh		 				| 	* glm::mat4 matrix
+	    |  * Texture						|
+	    |  * Shader				 			|
+	  	|									|
+	  Scene									---------------------
+	  	   * vector<Player*>				|			|		|
+		   * vector<LightSource*>		Translation   Scale   Rotation
+
+
+
+
+	- GameObject ärver inte längre från Model
+	- GameObject är i princip bara en kedja med Nodes:
+
+			Translation->Rotation->Scale->Model
+
 	*/
 	
 	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");

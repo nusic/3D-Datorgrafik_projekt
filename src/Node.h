@@ -15,7 +15,7 @@ public:
 	Node(Node * _parent = NULL, std::string _name = "");
 	virtual ~Node();
 
-	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix);
+	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
 	void update(float dt);
 
 	Node* getParentNode() const;

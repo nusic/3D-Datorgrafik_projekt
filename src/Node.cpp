@@ -22,10 +22,10 @@ void Node::update(float dt){
 	}
 }
 
-void Node::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix){
+void Node::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	for (int i = 0; i < children.size(); ++i){
 		if (children[i] != NULL){
-			children[i]->draw(P, V, parentModelMatrix);
+			children[i]->draw(P, V, M);
 		}
 	}	
 }
