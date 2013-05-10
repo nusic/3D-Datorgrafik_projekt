@@ -3,7 +3,7 @@
 
 #include "sgct.h"
 #include "Camera.h"
-#include "DynamicGameObject.h"
+#include "GameObject.h"
 
 class FollowCamera : public Camera{
 public:

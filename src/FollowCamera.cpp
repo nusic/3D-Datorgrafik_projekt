@@ -1,6 +1,4 @@
 #include "FollowCamera.h"
-#include "DynamicGameObject.h"
-#include "Camera.h"
 
 FollowCamera::FollowCamera(GameObject* _target, float x, float y, float z) : Camera(x, y, z){
 	target = _target;
