@@ -12,7 +12,7 @@ public:
 	~LightSource();
 
 	void bindVariables();
-	bool initShadowMapBuffers(int resolution);
+	static bool initShadowMapBuffers(int resolution);
 
 	void setPosition(double _x, double _y, double _z);
 	void setColor(double _r, double _g, double _b);
@@ -45,7 +45,7 @@ public:
 	static GLuint directionalID;
 	static GLuint numberOfLightsID;
 
-	static std::vector<shadowMapData> shadowData;
+	static shadowMapData shadowData;
 
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;
@@ -60,6 +60,7 @@ private:
 	static std::vector<float> intensity;
 	static std::vector<float> spread;
 	static std::vector<int> directional;
+
 
 
 };

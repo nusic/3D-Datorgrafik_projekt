@@ -43,8 +43,6 @@ void Model::setShader(std::string _shaderName){
 	//Get handle for the texture sampler
 	textureID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("textureSampler");
 
-	ShadowMap::depthBiasID = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "depthBiasMVP" );
-	ShadowMap::shadowMapID = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "shadowMap" );
 
 	//Don't use currently bound shader anymore
 	sgct::ShaderManager::Instance()->unBindShader();
@@ -90,26 +88,9 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	glUniform1i(textureID, 0);
 
 
-/*
-	// Compute the MVP matrix from the light's point of view
-	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
-	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
-
-	glm::mat4 biasMatrix(
-		0.5, 0.0, 0.0, 0.0, 
-		0.0, 0.5, 0.0, 0.0,
-		0.0, 0.0, 0.5, 0.0,
-		0.5, 0.5, 0.5, 1.0
-	);
-
-	glm::mat4 depthBiasMVP = biasMatrix * depthMVP;
-
-	// Send our transformation to the currently bound shader, 
-	// in the "MVP" uniform
-	glUniformMatrix4fv(LightSource::shadowData[0].depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
 
 
-*/
+
 
 
 
@@ -128,20 +109,16 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(ShadowMap::depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
-
-
-
-
-
-
-
-
+	glUniformMatrix4fv(LightSource::shadowData.depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
 
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, ShadowMap::depthTexture);
-	glUniform1i(ShadowMap::shadowMapID, 1);
+	glBindTexture(GL_TEXTURE_2D, LightSource::shadowData.depthTexture);
+	glUniform1i(LightSource::shadowData.shadowMapID, 1);
+
+
+
+
 
 
 	//Lightsources data
@@ -214,7 +191,8 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 }
 
 void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
-/*
+
+	
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 
@@ -225,13 +203,13 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(LightSource::shadowData[0].depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
+	glUniformMatrix4fv(LightSource::shadowData.depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
 
 	// Attribute buffer : vertices
 	glEnableVertexAttribArray(vertexPositionID);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glVertexAttribPointer(
-		ShadowMap::depth_vertexPosition_modelspaceID,  // The attribute we want to configure
+		LightSource::shadowData.depth_vertexPosition_modelspaceID,  // The attribute we want to configure
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -252,46 +230,5 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 	for(int i = 0; i<children.size(); ++i){
 		children[i]->renderToFrameBuffer(depthModelMatrix);
 	}
-*/
-
 	
-	
-	// Use our shader
-	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
-
-	// Compute the MVP matrix from the light's point of view
-	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
-	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
-
-
-	// Send our transformation to the currently bound shader, 
-	// in the "MVP" uniform
-	glUniformMatrix4fv(ShadowMap::depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
-
-	// Attribute buffer : vertices
-	glEnableVertexAttribArray(vertexPositionID);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
-	glVertexAttribPointer(
-		ShadowMap::depth_vertexPosition_modelspaceID,  // The attribute we want to configure
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-
-	// Draw the triangles!
-	glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
-
-	glDisableVertexAttribArray(vertexPositionID);
-
-	//Don't use the currently bound shader anymore
-	sgct::ShaderManager::Instance()->unBindShader();
-
-	
-	//Render our children
-	for(int i = 0; i<children.size(); ++i){
-		children[i]->renderToFrameBuffer(depthModelMatrix);
-	}
-
 }

@@ -5,22 +5,6 @@
 #include <iostream>
 
 
-
-class ShadowMap{
-public:
-	static GLuint framebufferName;
-	static GLuint depthTexture;
-
-	static GLuint depthMatrixID;
-	static GLuint depth_vertexPosition_modelspaceID;
-
-	static GLuint depthBiasID;
-	static GLuint shadowMapID;
-
-	static bool initShadowMapBuffers();
-
-};
-
 struct shadowMapData{
 	GLuint framebufferName;
 	GLuint depthTexture;
@@ -30,8 +14,8 @@ struct shadowMapData{
 
 	GLuint depthBiasID;
 	GLuint shadowMapID;
-};
 
+};
 
 
 

@@ -18,7 +18,7 @@ void GameEngine::draw(){
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	//Bind the framebuffer used for shadow mapping
-	glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
+	glBindFramebuffer(GL_FRAMEBUFFER, LightSource::shadowData.framebufferName);
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0,0,128,128); // Render on the whole framebuffer
@@ -87,7 +87,7 @@ void GameEngine::initOGL(){
 	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" );
 	sgct::ShaderManager::Instance()->unBindShader();
 
-	ShadowMap::initShadowMapBuffers();
+	//ShadowMap::initShadowMapBuffers();
 
 
 	scene = new Scene();

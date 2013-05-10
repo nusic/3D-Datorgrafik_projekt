@@ -14,10 +14,11 @@ LightSource::LightSource(double x, double y, double z, std::string _shaderName){
 	shaderName = _shaderName;
 
 	bindVariables();
-
+	
 	if(!initShadowMapBuffers(128)){
 		std::cout << "Unable to initialize shadow map buffer!" << std::endl;
 	}
+	
 }
 
 LightSource::~LightSource(){
@@ -42,26 +43,28 @@ GLuint LightSource::lightSpreadID;
 GLuint LightSource::directionalID;
 GLuint LightSource::numberOfLightsID;
 
-std::vector<shadowMapData> LightSource::shadowData;
+shadowMapData LightSource::shadowData;
+
 
 bool LightSource::initShadowMapBuffers(int resolution){
 
-	shadowData.push_back(shadowMapData());
-
 	// Get a handle for our "MVP" uniform
-	shadowData[index].depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
+	shadowData.depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
 	// Get a handle for our buffers
-	shadowData[index].depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
+	shadowData.depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
+
+	shadowData.depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
+	shadowData.shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
 
 	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-	shadowData[index].framebufferName = 0;
-	glGenFramebuffers(1, &shadowData[index].framebufferName);
-	glBindFramebuffer(GL_FRAMEBUFFER, shadowData[index].framebufferName);
+	shadowData.framebufferName = 0;
+	glGenFramebuffers(1, &shadowData.framebufferName);
+	glBindFramebuffer(GL_FRAMEBUFFER, shadowData.framebufferName);
 
 	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
-	glGenTextures(1, &shadowData[index].depthTexture);
-	glBindTexture(GL_TEXTURE_2D, shadowData[index].depthTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, resolution, resolution, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+	glGenTextures(1, &shadowData.depthTexture);
+	glBindTexture(GL_TEXTURE_2D, shadowData.depthTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, 128, 128, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -69,9 +72,9 @@ bool LightSource::initShadowMapBuffers(int resolution){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
-	glTexParameteri( shadowData[index].shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+	glTexParameteri( shadowData.shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowData[index].depthTexture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowData.depthTexture, 0);
 
 	// No color output in the bound framebuffer, only depth.
 	glDrawBuffer(GL_NONE);
