@@ -12,9 +12,9 @@ Scene::~Scene(){
 }
 
 void Scene::initScene(){
-	
+
 	/*
-	
+
 	Innan ärvde klasserna från varandra såhär
 
 					   Model
@@ -24,8 +24,8 @@ void Scene::initScene(){
 						 |	* Texture
 						 |	* Shader
 						 |	  void drawModel(P, V, localModelMatrix);
-						 |	
-			-----------------------------		 
+						 |
+			-----------------------------
 			|							|
 		  Scene						GameObject
 			  * vector<Player>			|	* position
@@ -38,16 +38,16 @@ void Scene::initScene(){
 						 			  Player
 						 			  		* Controller
 						 			  		* LightObject* head
-			
+
 
 ==============================================================================
 
 
 	Nu har vi ny scengraph. Blir lite ny syntax.
-	Så här ärver klasserna av varandra nu. 
+	Så här ärver klasserna av varandra nu.
 
 
-							   Node 
+							   Node
 								|  * vector<Node*> children
 							 	|  * Node* parent
 							 	| 	  virtual void draw(P, V, M);
@@ -89,9 +89,9 @@ void Scene::initScene(){
 		   Player
 		  		* Controller
 		  		* LightObject* head
-	
+
 	*/
-	
+
 	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 	addChildNode(suzanne);
 /*
@@ -99,7 +99,7 @@ void Scene::initScene(){
 	Transformation* scale1 = new Scaling(trans1, 0.5f, 0.5f, 0.5f);
 	Transformation* rot1 = new Rotation(scale1, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	Model* child1 = new Model(rot1, new ModelMesh("data/meshes/suzanne.obj"));
-		
+
 
 	GameObject* go1 = new GameObject(-2,0,0);
 	addChildNode(go1->getSceneGraphBranch());
@@ -114,9 +114,9 @@ void Scene::initScene(){
 	//trans2->addChildNode(l1);
 
 	/*
-	Testa att sätt antal generationer till 
+	Testa att sätt antal generationer till
 	ett större tal, som typ 10. Det slutar
-	funka att ladda in texturer (för erik). 
+	funka att ladda in texturer (för erik).
 	Är det grafikminnet som blir fullt tro?
 	*/
 	//addGenerations(body1->getMainModel(), 2);
@@ -161,7 +161,7 @@ void Scene::addGenerations(Model* mother, int n){
 		return;
 	GameObject* child1 = new GameObject(2, 1, 1, 0.7);
 	GameObject* child2 = new GameObject(-2, 1, 1, 0.7);
-	
+
 	mother->addChildNode(child1->getSceneGraphBranch());
 	mother->addChildNode(child2->getSceneGraphBranch());
 
@@ -190,8 +190,9 @@ void Scene::readBMP(const char* filename)
     unsigned int width, height;
     unsigned int imageSize;   // = width*height*3
     // Actual RGB data
-    unsigned char * data;
     unsigned char * allData;
+
+    float scale = 0.1;
 
     // Open the file
     FILE * file = fopen(filename,"rb");
@@ -215,12 +216,14 @@ void Scene::readBMP(const char* filename)
 
     // Create a buffer
     allData = new unsigned char [imageSize];
-    data = new unsigned char [imageSize/3];
+    heightmap = new float[imageSize/3];
+
+    heightmapWidth = width;
 
     fread(allData,1,imageSize,file);
 
     for(int i = 0; i < imageSize; i+=3)
-        data[i/3] = allData[i];
+        heightmap[i/3] = (float)allData[i]*scale;
 
     fclose(file);
 }

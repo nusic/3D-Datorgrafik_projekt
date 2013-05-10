@@ -47,8 +47,6 @@
 		<Unit filename="../src/Camera.h" />
 		<Unit filename="../src/Controller.cpp" />
 		<Unit filename="../src/Controller.h" />
-		<Unit filename="../src/DynamicGameObject.cpp" />
-		<Unit filename="../src/DynamicGameObject.h" />
 		<Unit filename="../src/FollowCamera.cpp" />
 		<Unit filename="../src/FollowCamera.h" />
 		<Unit filename="../src/GameEngine.cpp" />
