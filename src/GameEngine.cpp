@@ -21,7 +21,7 @@ void GameEngine::draw(){
 	glBindFramebuffer(GL_FRAMEBUFFER, ShadowMap::framebufferName);
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0,0,1024,1024); // Render on the whole framebuffer
+	glViewport(0,0,128,128); // Render on the whole framebuffer
 	scene->renderToFrameBuffer(glm::mat4(1.0f));
 	glDisable(GL_CULL_FACE);
 

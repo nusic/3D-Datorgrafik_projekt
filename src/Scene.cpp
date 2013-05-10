@@ -86,6 +86,20 @@ void Scene::initScene(){
 	GameObject* c3 = new GameObject(5, 0, 5);
 	children.push_back(c3);
 
+	GameObject* c4 = new GameObject(5, 0, 2);
+	children.push_back(c4);
+
+	GameObject* c5 = new GameObject(-4, 0, -3);
+	children.push_back(c5);
+
+	GameObject* c6 = new GameObject(-4, 0, 4);
+	children.push_back(c6);
+
+	GameObject* c7 = new GameObject(-2, 0, 5);
+	children.push_back(c7);
+
+	GameObject* c8 = new GameObject(5, 0, -2);
+	children.push_back(c8);
 
 
 }

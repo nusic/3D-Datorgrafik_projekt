@@ -20,7 +20,6 @@ public:
 	static glm::mat4 biasMatrix;
 
 	static bool initShadowMapBuffers();
-	static void renderToFrameBuffer();
 
 };
 

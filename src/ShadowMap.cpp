@@ -43,7 +43,7 @@ bool ShadowMap::initShadowMapBuffers(){
 	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
 	glGenTextures(1, &depthTexture);
 	glBindTexture(GL_TEXTURE_2D, depthTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, 1024, 1024, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, 128, 128, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -101,65 +101,3 @@ bool ShadowMap::initShadowMapBuffers(){
 	// Get a handle for our "LightPosition" uniform
 	//GLuint lightInvDirID = glGetUniformLocation(programID, "LightInvDirection_worldspace");
 }
-/*
-void ShadowMap::renderToFrameBuffer(){
-	// Render to our framebuffer
-	glBindFramebuffer(GL_FRAMEBUFFER, framebufferName);
-	glViewport(0,0,1024,1024); // Render on the whole framebuffer, complete from the lower left corner to the upper right
-
-	// We don't use bias in the shader, but instead we draw back faces, 
-	// which are already separated from the front faces by a small distance 
-	// (if your geometry is made this way)
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK); // Cull back-facing triangles -> draw only front-facing triangles
-
-	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Use our shader
-	sgct::ShaderManager::Instance()->bindShader(depthProgram);
-
-
-	glm::vec3 lightDir = glm::vec3(LightSource::getDirectionArray()[0]);
-
-	// Compute the MVP matrix from the light's point of view
-	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-10,10,-10,10,-10,20);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
-	// or, for spot light :
-	glm::vec3 lightPos(LightSource::getPositionArray()[0]);
-	glm::mat4 depthProjectionMatrix = glm::perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos + lightDir, glm::vec3(0,1,0));
-
-	glm::mat4 depthModelMatrix = glm::mat4(1.0);
-	glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
-
-	// Send our transformation to the currently bound shader, 
-	// in the "MVP" uniform
-	glUniformMatrix4fv(depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
-
-	// 1rst attribute buffer : vertices
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glVertexAttribPointer(
-		depth_vertexPosition_modelspaceID,  // The attribute we want to configure
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-
-	// Index buffer
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-
-	// Draw the triangles !
-	glDrawElements(
-		GL_TRIANGLES,      // mode
-		indices.size(),    // count
-		GL_UNSIGNED_SHORT, // type
-		(void*)0           // element array buffer offset
-	);
-
-	glDisableVertexAttribArray(0);
-}
-*/
