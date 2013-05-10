@@ -2,7 +2,11 @@
 
 Scene::Scene():
 Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){
+    glm::vec3 maxVal = getMaxVertexValues();
+    glm::vec3 minVal = getMinVertexValues();
 
+    sceneHeight = maxVal.z - minVal.z;
+    sceneWidth  = maxVal.x - minVal.x;
 }
 
 std::vector<LightSource*> Scene::lightSources;
@@ -120,7 +124,7 @@ void Scene::initScene(){
 	Är det grafikminnet som blir fullt tro?
 	*/
 	//addGenerations(body1->getMainModel(), 2);
-
+/*
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -144,6 +148,7 @@ void Scene::initScene(){
 	Player * body7 = new Player;
 	body7->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayer(body7);
+*/
 
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
@@ -192,7 +197,7 @@ void Scene::readBMP(const char* filename)
     // Actual RGB data
     unsigned char * allData;
 
-    float scale = 0.1;
+    float scale = 0.2;
 
     // Open the file
     FILE * file = fopen(filename,"rb");
@@ -219,6 +224,7 @@ void Scene::readBMP(const char* filename)
     heightmap = new float[imageSize/3];
 
     heightmapWidth = width;
+    heightmapHeight = height;
 
     fread(allData,1,imageSize,file);
 

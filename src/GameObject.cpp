@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(double x, double y, double z, float s, float phi){
-	
+
 	translationNode = new Translation(x,y,z);
 	rotationNode = new Rotation(translationNode, phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode = new Scaling(rotationNode, s, s, s);
@@ -11,7 +11,7 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 	setScale(s);
 	setDirection(phi, 0.0f);
 	setVelocity(0.0f, 0.0f, 0.0f);
-	
+
 	speed = 5;
 
 }
@@ -25,6 +25,10 @@ void GameObject::setPosition(double x, double y, double z){
 	position.x = x;
 	position.y = y;
 	position.z = z;
+}
+
+void GameObject::setYPosition(float y){
+    position.y = y;
 }
 
 void GameObject::setDirection(float _phi, float _theta){
@@ -107,7 +111,7 @@ glm::vec3 GameObject::getVelocity(){
 
 
 void GameObject::updateMatrix(){
-	
+
 }
 
 Node* GameObject::getSceneGraphBranch() const{

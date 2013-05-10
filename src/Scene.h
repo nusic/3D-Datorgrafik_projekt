@@ -36,6 +36,10 @@ public:
 
     float* heightmap;
     int heightmapWidth;
+    int heightmapHeight;
+
+    float sceneWidth;
+    float sceneHeight;
 
 private:
 

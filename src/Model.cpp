@@ -31,6 +31,26 @@ void Model::setMesh(ModelMesh* _mesh){
 		std::cout << "WARNING: MODEL WITH NULL MESH CREATED!!!!!" << std::endl;
 }
 
+glm::vec3 Model::getMaxVertexValues(){
+    glm::vec3 maxValues = mesh->vertices[0];
+    for(int i = 1; i<mesh->vertices.size(); ++i){
+        if(mesh->vertices[i].x > maxValues.x) maxValues.x = mesh->vertices[i].x;
+        if(mesh->vertices[i].y > maxValues.y) maxValues.y = mesh->vertices[i].y;
+        if(mesh->vertices[i].z > maxValues.z) maxValues.z = mesh->vertices[i].z;
+    }
+    return maxValues;
+}
+
+glm::vec3 Model::getMinVertexValues(){
+    glm::vec3 minValues = mesh->vertices[0];
+    for(int i = 1; i<mesh->vertices.size(); ++i){
+        if(mesh->vertices[i].x < minValues.x) minValues.x = mesh->vertices[i].x;
+        if(mesh->vertices[i].y < minValues.y) minValues.y = mesh->vertices[i].y;
+        if(mesh->vertices[i].z < minValues.z) minValues.z = mesh->vertices[i].z;
+    }
+    return minValues;
+}
+
 void Model::setShader(std::string _shaderName){
 	shaderName = _shaderName;
 
@@ -72,7 +92,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	//Calculate matrices necessary for shader
 	glm::mat4 MV = V * M;
 	glm::mat4 MVP = P * V * M;
-	
+
 	//Bind matrices to shader
 	glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, &V[0][0]);
 	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &M[0][0]);

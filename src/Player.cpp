@@ -47,13 +47,29 @@ Player::~Player(){
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
 
-void Player::updatePlayerOrientation(float dt){
+void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapWidth, int heightmapHeight, float sceneWidth, float sceneHeight){
     controller->inputLoader();
 
     if(controller->validateLeftStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)*dt*speed;
         float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
 
+        //float s = 10.0f;
+
+        int imgX = heightmapWidth/2  + heightmapWidth /sceneWidth * getPosition().x;
+        int imgZ = heightmapHeight/2 + heightmapHeight/sceneHeight* getPosition().z;
+
+        printf("imgX = %i  ", imgX);
+        printf("imgZ = %i\n", imgZ);
+
+        int XZPos = (int)(imgX + heightmapWidth*(heightmapHeight - imgZ));
+        if(XZPos < 0){XZPos = 0;}
+        //printf("XZpos = %i \n", XZPos);
+        float zPosTemp = heightmap[XZPos] * 0.1f;
+        //printf("position.z = %i    position.x = %i\n", (int) position.z, (int) position.x);
+        printf("heightmap[%i] = %f\n", XZPos, zPosTemp);
+
+        setYPosition(zPosTemp);
         setVelocity(xState, 0.0f, -yState);
         setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
         update(dt);

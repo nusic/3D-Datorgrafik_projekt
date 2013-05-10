@@ -48,7 +48,13 @@ void GameEngine::preSync(float dt){
 	scene->followCamera->calcMatrices();
 
 	for (int i = 0; i < scene->players.size(); ++i){
-		scene->players[i]->updatePlayerOrientation(dt);
+		scene->players[i]->updatePlayerOrientation(
+                dt,
+                scene->heightmap,
+                scene->heightmapWidth,
+                scene->heightmapHeight,
+                scene->sceneWidth,
+                scene->sceneHeight);
 	}
 }
 

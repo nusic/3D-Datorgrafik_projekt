@@ -13,6 +13,7 @@ public:
 
 	//POSITIONS
 	void setPosition(double x, double y, double z = 0);
+	void setYPosition(float y);
 	void setDirection(float phi = 0, float theta = 0);
 	void setScale(float s);
 	void setScale(float xs, float ys, float zs);

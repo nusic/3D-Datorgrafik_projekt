@@ -11,8 +11,14 @@ public:
     Player();
     ~Player();
 
-    void updatePlayerOrientation(float dt);
-    
+    void updatePlayerOrientation(
+            float dt,
+            float * heightmap,
+            int heightmapWidth,
+            int heightmapHeight,
+            float sceneWidth,
+            float sceneHeight);
+
     static int numberOfPlayers;
 
 private:
@@ -20,7 +26,6 @@ private:
 	Rotation* 		headRotation;
 	Model*			headModel;
 	LightSource* 	headLight;
-
 
     Controller* controller;
     int playerIndex;

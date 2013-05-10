@@ -18,7 +18,7 @@
 
 class Model : public Node{
 public:
-	Model(ModelMesh* _mesh = NULL, 
+	Model(ModelMesh* _mesh = NULL,
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
 	Model(Node* _parent = NULL, ModelMesh* _mesh = NULL,
@@ -39,12 +39,14 @@ public:
 
     virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
 
+    glm::vec3 getMaxVertexValues();
+    glm::vec3 getMinVertexValues();
 
 private:
 
 	ModelMesh* mesh;
 	std::string shaderName;
-	
+
 	//Handles for the shader
 	GLuint vertexPositionID;
 	GLuint vertexUVID;
@@ -59,7 +61,7 @@ private:
 	GLuint modelViewPerspectiveMatrixID;
 
 	//Handle for matrix and texture
-	GLuint texture;	
+	GLuint texture;
 
 };
 

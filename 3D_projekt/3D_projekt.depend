@@ -1483,13 +1483,13 @@
 1368192335 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\dynamicgameobject.h
 	"GameObject.h"
 
-1368202694 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.h
+1368204102 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.h
 	"Node.h"
 	"Transformation.h"
 	"Model.h"
 	"sgct.h"
 
-1368195172 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.h
+1368207779 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.h
 	<vector>
 	<iostream>
 	<string>
@@ -1512,7 +1512,7 @@
 	"Node.h"
 	<iostream>
 
-1368202694 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
+1368208505 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
 1368107346 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.h
@@ -1524,7 +1524,7 @@
 	"GameObject.h"
 	"Player.h"
 
-1368195172 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.h
+1368207595 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.h
 	"sgct.h"
 	"Model.h"
 	"GameObject.h"
@@ -1535,7 +1535,7 @@
 	<vector>
 	"FollowCamera.h"
 
-1368202694 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.h
+1368208606 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.h
 	"Controller.h"
 	"GameObject.h"
 	"LightObject.h"
@@ -1545,18 +1545,18 @@
 	"GameObject.h"
 	"LightSource.h"
 
-1368202694 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
+1368204102 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
 1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.cpp
 	"LightSource.h"
 
-1368202694 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\main.cpp
+1368206170 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\main.cpp
 	<iostream>
 	"sgct.h"
 	"GameEngine.h"
 
-1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.cpp
+1368208800 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
 	"Scene.h"
 
@@ -1564,11 +1564,11 @@
 	"ModelMesh.h"
 	<iostream>
 
-1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
+1368209332 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 	<new>
 
-1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
+1368208412 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
 1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightobject.cpp
