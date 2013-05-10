@@ -76,6 +76,11 @@ void Scene::initScene(){
 	addPlayer(body6);
 
     readBMP("data/heightmap/heightmap.bmp");
+
+	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
+
+//	std::string imgpath= "data/heightmap/heightmap.bmp";
+    //readBMP(imgpath.c_str());
 }
 
 void Scene::addPlayer(Player * p){
@@ -103,7 +108,7 @@ float Scene::getZPosition(int x, int y){
     return *(heightmap + (x*y));
 }
 
-void Scene::readBMP(char* filename)
+void Scene::readBMP(const char* filename)
 {
     unsigned char header[54]; // Each BMP file begins by a 54-bytes header
     unsigned int dataPos;     // Position in the file where the actual data begins

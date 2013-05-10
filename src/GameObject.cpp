@@ -34,6 +34,11 @@ void GameObject::setScale(float xs, float ys, float zs){
 	scale.z = zs;
 }
 
+
+glm::vec3 GameObject::getPosition(){
+	return position;
+}
+
 void GameObject::incrementPosition(double dx, double dy, double dz){
 	position.x += dx;
 	position.y += dy;

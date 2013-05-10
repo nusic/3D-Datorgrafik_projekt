@@ -32,6 +32,7 @@ void Player::updatePlayerOrientation(float dt){
         float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)*dt*speed;
         float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
         incrementPositionAndTurnTo(xState,0.0f,-yState);
+        setVelocity(xState,0.0f,-yState);
         head->setPosition(position.x, position.y + 2.0f, position.z);
     }
     if (controller->validateRightStickValues()){

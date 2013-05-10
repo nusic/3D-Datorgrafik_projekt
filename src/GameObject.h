@@ -14,8 +14,11 @@ public:
 	void setScale(float s);
 	void setScale(float xs, float ys, float zs);
 
+	glm::vec3 getPosition();
+
 	void incrementPosition(double dx, double dy, double dz);
 	void incrementPositionAndTurnTo(double dx, double dy, double dz);
+
 
 	//call this function every frame when final
 	//position, direction, and Scale is set.

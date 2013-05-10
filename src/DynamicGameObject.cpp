@@ -22,6 +22,7 @@ void DynamicGameObject::setAngleVel(float _dPhi, float _dTheta){
 }
 
 void DynamicGameObject::incrementPosition(float dt){
+
 	position.x += velocity.x * dt * speed;
 	position.y += velocity.y * dt * speed;
 	position.z += velocity.z * dt * speed;
@@ -35,4 +36,8 @@ void DynamicGameObject::incrementAngleVel(float _dPhi, float _dTheta){
 void DynamicGameObject::incrementAngleVel(){
 	phi += dPhi;
 	theta += dTheta;
+}
+
+glm::vec3 DynamicGameObject::getVelocity(){
+	return velocity;
 }

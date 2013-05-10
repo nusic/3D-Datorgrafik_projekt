@@ -7,6 +7,7 @@
 #include "LightSource.h"
 #include "Player.h"
 #include <vector>
+#include "FollowCamera.h"
 
 
 class Scene : public Model{
@@ -24,11 +25,12 @@ public:
 
     float getZPosition(int x, int y);
 
-    void readBMP(char* filename);
+    void readBMP(const char* filename);
 
 	static std::vector<LightSource*> lightSources;
 
 	std::vector<Player*> players;
+	FollowCamera* followCamera;
 
     float* heightmap;
     int heightmapWidth;
