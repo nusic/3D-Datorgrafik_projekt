@@ -55,6 +55,7 @@ void Player::updatePlayerOrientation(float dt){
         float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
 
         setVelocity(xState, 0.0f, -yState);
+        setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
         update(dt);
     }
     if (controller->validateRightStickValues()){
