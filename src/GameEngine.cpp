@@ -14,12 +14,16 @@ void GameEngine::draw(){
 	glUniform1f(globalRandomId, static_cast<float>(globalRandom));
 	sgct::ShaderManager::Instance()->unBindShader();
 
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
 	glViewport(0,0,640,360);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
 
 	glViewport(640,0,640,360);
 	scene->drawScene(scene->followCamera->getPerspectiveMatrix(), scene->followCamera->getViewMatrix());
+
+	glDisable(GL_CULL_FACE);
 }
 
 void GameEngine::preSync(float dt){
@@ -63,10 +67,6 @@ void GameEngine::initOGL(){
 	// How to blend (?)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	//Backface culling
-//	glEnable(GL_CULL_FACE);
-
-
 	sgct::TextureManager::Instance()->loadTexure(
 		"SimpleTexture", "data/textures/texture1.png", true);
 
@@ -82,7 +82,6 @@ void GameEngine::initOGL(){
 	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" );
 	sgct::ShaderManager::Instance()->unBindShader();
 
-
 	scene = new Scene();
 	scene->initScene();
 
@@ -93,7 +92,6 @@ void GameEngine::initOGL(){
 	//Uncomment the two lines below to get simple static front view
 	camera->setPosition(0, 30, 30);
 	camera->setVelocity(0, 0, 0);
-
 
 	camera2 = new Camera(0, 30, -30);
 	camera2->setLookAt(0, 0, 0);

@@ -1561,7 +1561,7 @@
 	"Player.h"
 	<new>
 
-1368192563 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
+1368192913 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
 1368107346 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightobject.cpp
@@ -1571,4 +1571,9 @@
 	"sgct.h"
 	"Camera.h"
 	"DynamicGameObject.h"
+
+1368192335 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\followcamera.cpp
+	"FollowCamera.h"
+	"DynamicGameObject.h"
+	"Camera.h"
 

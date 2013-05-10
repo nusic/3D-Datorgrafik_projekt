@@ -75,12 +75,10 @@ void Scene::initScene(){
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
 
-    readBMP("data/heightmap/heightmap.bmp");
-
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
-//	std::string imgpath= "data/heightmap/heightmap.bmp";
-    //readBMP(imgpath.c_str());
+	std::string imgpath= "data/heightmap/heightmap.bmp";
+    readBMP(imgpath.c_str());
 }
 
 void Scene::addPlayer(Player * p){
