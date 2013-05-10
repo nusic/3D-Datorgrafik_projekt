@@ -90,31 +90,10 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	glUniform1i(textureID, 0);
 
 
-
-
-
-
-
-
-
-
-
-	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
-
-	glm::vec3 lightDir = - glm::vec3(LightSource::getDirectionArray()[0],LightSource::getDirectionArray()[1],
-		LightSource::getDirectionArray()[2]);
-	glm::vec3 lightPos(LightSource::getPositionArray()[0],LightSource::getPositionArray()[1],
-		LightSource::getPositionArray()[2]);
-
+/*
 	// Compute the MVP matrix from the light's point of view
-	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-15,15,-15,15,-15,30);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
-	// or, for spot light :
-	glm::mat4 depthProjectionMatrix = glm::perspective(45.0f, 1.0f, 1.0f, 30.0f);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
-
-	glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
-
+	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
+	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
 
 	glm::mat4 biasMatrix(
 		0.5, 0.0, 0.0, 0.0, 
@@ -123,11 +102,36 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 		0.5, 0.5, 0.5, 1.0
 	);
 
-	glm::mat4 depthBiasMVP = biasMatrix*depthMVP;
+	glm::mat4 depthBiasMVP = biasMatrix * depthMVP;
+
+	// Send our transformation to the currently bound shader, 
+	// in the "MVP" uniform
+	glUniformMatrix4fv(LightSource::shadowData[0].depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+
+
+*/
+
+
+
+	// Compute the MVP matrix from the light's point of view
+	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
+	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
+
+	glm::mat4 biasMatrix(
+		0.5, 0.0, 0.0, 0.0, 
+		0.0, 0.5, 0.0, 0.0,
+		0.0, 0.0, 0.5, 0.0,
+		0.5, 0.5, 0.5, 1.0
+	);
+
+	glm::mat4 depthBiasMVP = biasMatrix * depthMVP;
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(ShadowMap::depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+
+
+
 
 
 
@@ -210,61 +214,20 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 }
 
 void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
-
-
+/*
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 
-
+	// Compute the MVP matrix from the light's point of view
 	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
+	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
 
-	glm::vec3 lightDir =  - glm::vec3(LightSource::getDirectionArray()[0], LightSource::getDirectionArray()[1],
-		LightSource::getDirectionArray()[2]);
-	glm::vec3 lightPos(LightSource::getPositionArray()[0],LightSource::getPositionArray()[1],
-		LightSource::getPositionArray()[2]);
-
-	// Compute the MVP matrix from the light's point of view
-	//glm::mat4 depthProjectionMatrix = glm::ortho<float>(-15 ,15,-15,15,-15,30);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
-	// or, for spot light :
-	glm::mat4 depthProjectionMatrix = glm::perspective(45.0f, 1.0f, 1.0f, 30.0f);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos - lightDir, glm::vec3(0,1,0));
-
-	glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(ShadowMap::depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
+	glUniformMatrix4fv(LightSource::shadowData[0].depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
 
-
-
-
-/*
-
-	glm::vec3 lightInvDir = glm::vec3(0.5f,2,2);
-
-	// Compute the MVP matrix from the light's point of view
-	glm::mat4 depthProjectionMatrix = glm::ortho<float>(-10,10,-10,10,-10,20);
-	glm::mat4 depthViewMatrix = glm::lookAt(lightInvDir, glm::vec3(0,0,0), glm::vec3(0,1,0));
-	// or, for spot light :
-	//glm::vec3 lightPos(5, 20, 20);
-	//glm::mat4 depthProjectionMatrix = glm::perspective<float>(45.0f, 1.0f, 2.0f, 50.0f);
-	//glm::mat4 depthViewMatrix = glm::lookAt(lightPos, lightPos-lightInvDir, glm::vec3(0,1,0));
-
-	glm::mat4 depthModelMatrix = glm::mat4(1.0);
-	glm::mat4 depthMVP = depthProjectionMatrix * depthViewMatrix * depthModelMatrix;
-
-	// Send our transformation to the currently bound shader, 
-	// in the "MVP" uniform
-	glUniformMatrix4fv(ShadowMap::depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
-
-*/
-
-
-
-
-
-	// 1rst attribute buffer : vertices
+	// Attribute buffer : vertices
 	glEnableVertexAttribArray(vertexPositionID);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glVertexAttribPointer(
@@ -289,6 +252,46 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 	for(int i = 0; i<children.size(); ++i){
 		children[i]->renderToFrameBuffer(depthModelMatrix);
 	}
+*/
 
+	
+	
+	// Use our shader
+	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
+
+	// Compute the MVP matrix from the light's point of view
+	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
+	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
+
+
+	// Send our transformation to the currently bound shader, 
+	// in the "MVP" uniform
+	glUniformMatrix4fv(ShadowMap::depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
+
+	// Attribute buffer : vertices
+	glEnableVertexAttribArray(vertexPositionID);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glVertexAttribPointer(
+		ShadowMap::depth_vertexPosition_modelspaceID,  // The attribute we want to configure
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
+	// Draw the triangles!
+	glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
+
+	glDisableVertexAttribArray(vertexPositionID);
+
+	//Don't use the currently bound shader anymore
+	sgct::ShaderManager::Instance()->unBindShader();
+
+	
+	//Render our children
+	for(int i = 0; i<children.size(); ++i){
+		children[i]->renderToFrameBuffer(depthModelMatrix);
+	}
 
 }

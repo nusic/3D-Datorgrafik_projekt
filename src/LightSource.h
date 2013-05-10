@@ -3,6 +3,7 @@
 
 #include "sgct.h"
 #include <iostream>
+#include "ShadowMap.h"
 
 
 class LightSource{
@@ -11,7 +12,7 @@ public:
 	~LightSource();
 
 	void bindVariables();
-
+	bool initShadowMapBuffers(int resolution);
 
 	void setPosition(double _x, double _y, double _z);
 	void setColor(double _r, double _g, double _b);
@@ -22,6 +23,9 @@ public:
 
 	glm::vec3 getPosition();
 	glm::vec3 getDirection();
+
+	glm::mat4 getVP();
+	static glm::mat4 getVPFromIndex(int index);
 
 
 	static float* getPositionArray();
@@ -40,6 +44,8 @@ public:
 	static GLuint lightSpreadID;
 	static GLuint directionalID;
 	static GLuint numberOfLightsID;
+
+	static std::vector<shadowMapData> shadowData;
 
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;

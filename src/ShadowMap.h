@@ -17,10 +17,19 @@ public:
 	static GLuint depthBiasID;
 	static GLuint shadowMapID;
 
-	static glm::mat4 biasMatrix;
-
 	static bool initShadowMapBuffers();
 
+};
+
+struct shadowMapData{
+	GLuint framebufferName;
+	GLuint depthTexture;
+
+	GLuint depthMatrixID;
+	GLuint depth_vertexPosition_modelspaceID;
+
+	GLuint depthBiasID;
+	GLuint shadowMapID;
 };
 
 
