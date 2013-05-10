@@ -1,14 +1,16 @@
 #include "Scene.h"
 
-
 Scene::Scene():
-Model(new ModelMesh("data/meshes/bumpy.obj"), "SimpleTexture", "SimpleColor"){
+//<<<<<<< HEAD
+Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){
+//=======
+//Model(new ModelMesh("data/meshes/plane.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor"){
+//>>>>>>> master
 	std::cout << "*** CREATED SCENE ***" << std::endl;
 
 }
 
 std::vector<LightSource*> Scene::lightSources;
-
 
 Scene::~Scene(){
 
@@ -124,7 +126,6 @@ void Scene::initScene(){
 	*/
 	//addGenerations(body1->getMainModel(), 2);
 
-
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -149,12 +150,15 @@ void Scene::initScene(){
 	body7->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayer(body7);
 
+	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
+
+	std::string imgpath= "data/heightmap/heightmap.bmp";
+    readBMP(imgpath.c_str());
 }
 
 void Scene::addPlayer(Player * p){
 	addChildNode(p->getSceneGraphBranch());
 	players.push_back(p);
-	
 }
 
 void Scene::addGenerations(Model* mother, int n){
@@ -171,7 +175,6 @@ void Scene::addGenerations(Model* mother, int n){
 
 }
 
-
 void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
 	draw(P, V, glm::mat4(1.0f));
 }
@@ -180,3 +183,49 @@ void Scene::draw(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	Model::draw(P, V, parentModelMatrix);
 }
 
+
+float Scene::getZPosition(int x, int y){
+    return *(heightmap + (x*y));
+}
+
+void Scene::readBMP(const char* filename)
+{
+    unsigned char header[54]; // Each BMP file begins by a 54-bytes header
+    unsigned int dataPos;     // Position in the file where the actual data begins
+    unsigned int width, height;
+    unsigned int imageSize;   // = width*height*3
+    // Actual RGB data
+    unsigned char * data;
+    unsigned char * allData;
+
+    // Open the file
+    FILE * file = fopen(filename,"rb");
+    if (!file){printf("Image could not be opened\n");}
+
+    if ( fread(header, 1, 54, file)!=54 ){ // If not 54 bytes read : problem
+    printf("Not a correct BMP file\n");
+    }
+    if ( header[0]!='B' || header[1]!='M' ){
+    printf("Not a correct BMP file\n");
+    }
+
+    // Read ints from the byte array
+    dataPos    = *(int*)&(header[0x0A]);
+    imageSize  = *(int*)&(header[0x22]);
+    width      = *(int*)&(header[0x12]);
+    height     = *(int*)&(header[0x16]);
+
+    if (imageSize==0)    imageSize=width*height*3;
+    if (dataPos==0)      dataPos=54;
+
+    // Create a buffer
+    allData = new unsigned char [imageSize];
+    data = new unsigned char [imageSize/3];
+
+    fread(allData,1,imageSize,file);
+
+    for(int i = 0; i < imageSize; i+=3)
+        data[i/3] = allData[i];
+
+    fclose(file);
+}

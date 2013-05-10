@@ -12,7 +12,10 @@ public:
 	void setVelocity(double dx = 0, double dy = 0, double d = 0);
 	void setAngleVel(float _dPhi, float dTheta);
 
+	glm::vec3 getVelocity();
+
 	void incrementPosition(float dt);
+
 
 	void incrementAngleVel();
 	void incrementAngleVel(float _dPhi, float _dTheta);

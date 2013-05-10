@@ -9,6 +9,7 @@
 #include "Node.h"
 #include "Transformation.h"
 #include <vector>
+#include "FollowCamera.h"
 
 
 class Scene : public Model{
@@ -24,10 +25,17 @@ public:
 	void addPlayer(Player * player);
 	void addGenerations(Model* mother, int n);
 
+    float getZPosition(int x, int y);
+
+    void readBMP(const char* filename);
 
 	static std::vector<LightSource*> lightSources;
 
 	std::vector<Player*> players;
+	FollowCamera* followCamera;
+
+    float* heightmap;
+    int heightmapWidth;
 
 private:
 

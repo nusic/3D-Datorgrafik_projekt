@@ -54,17 +54,16 @@ void Player::updatePlayerOrientation(float dt){
         float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)*dt*speed;
         float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
         incrementPositionAndTurnTo(xState,0.0f,-yState);
-        //head->setPosition(position.x, position.y + 2.0f, position.z);
+
+        setVelocity(xState, 0.0f, -yState);
     }
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
         float yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
         glm::vec2 direction2d = glm::normalize(glm::vec2(xState,yState));
         headRotation->setRotation(180.0f / 3.141592 * glm::atan(xState,-yState), glm::vec3(0.0f,1.0f,0.0f));
-        //head->setDirection(direction2d.x, -0.2f, -direction2d.y, phi);
     }
-    //head->updateMatrix();
+    
     updateMatrix();
-    //head->updateLightOrientation(modelMatrix);
 
 }
