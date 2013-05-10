@@ -1,12 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-//<<<<<<< HEAD
 Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){
-//=======
-//Model(new ModelMesh("data/meshes/plane.obj"), glm::mat4(1.0f), "SimpleTexture", "SimpleColor"){
-//>>>>>>> master
-	std::cout << "*** CREATED SCENE ***" << std::endl;
 
 }
 
@@ -99,7 +94,7 @@ void Scene::initScene(){
 	
 	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 	addChildNode(suzanne);
-
+/*
 	Transformation* trans1 = new Translation(suzanne, 2.0f, 0.0f, 0.0f);
 	Transformation* scale1 = new Scaling(trans1, 0.5f, 0.5f, 0.5f);
 	Transformation* rot1 = new Rotation(scale1, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -110,7 +105,7 @@ void Scene::initScene(){
 	addChildNode(go1->getSceneGraphBranch());
 
 
-	
+	*/
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);

@@ -2,11 +2,11 @@
 #define PLAYER_H
 
 #include "Controller.h"
-#include "DynamicGameObject.h"
+#include "GameObject.h"
 #include "LightObject.h"
 #include "Transformation.h"
 
-class Player : public DynamicGameObject{
+class Player : public GameObject{
 public:
     Player();
     ~Player();

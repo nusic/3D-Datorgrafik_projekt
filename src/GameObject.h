@@ -11,19 +11,32 @@ public:
 	GameObject(double x = 0, double y = 0, double z = 0, float Scale = 1.0f, float _phi = 0);
 	~GameObject();
 
+	//POSITIONS
 	void setPosition(double x, double y, double z = 0);
 	void setDirection(float phi = 0, float theta = 0);
 	void setScale(float s);
 	void setScale(float xs, float ys, float zs);
 
 	glm::vec3 getPosition();
-
 	void incrementPosition(double dx, double dy, double dz);
 	void incrementPositionAndTurnTo(double dx, double dy, double dz);
 
 
+
+	//VELOCITIES
+	void setVelocity(double dx = 0, double dy = 0, double d = 0);
+	void setAngleVel(float _dPhi, float dTheta);
+
+	glm::vec3 getVelocity();
+
+	void incrementAngleVel();
+	void incrementAngleVel(float _dPhi, float _dTheta);
+
+	float getSpeed() const;
+
 	//call this function every frame when final
 	//position, direction, and Scale is set.
+	void update(float dt);
 	void updateMatrix();
 
 	Node* getSceneGraphBranch() const;
@@ -35,6 +48,9 @@ protected:
 	glm::vec3 scale;
 	float phi, theta;
 
+	glm::vec3 velocity;
+	float dPhi, dTheta;
+	float speed;
 
 private:
 

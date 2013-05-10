@@ -4,8 +4,8 @@
 int Player::numberOfPlayers = 0;
 
 Player::Player():
-DynamicGameObject(){
-
+GameObject(){
+    speed = 15.0f;
     controller = new Controller(numberOfPlayers);
 
     headPosition = new Translation(getSceneGraphBranch(), 0.0f, 2.0f, 0.0f);
@@ -53,17 +53,14 @@ void Player::updatePlayerOrientation(float dt){
     if(controller->validateLeftStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)*dt*speed;
         float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
-        incrementPositionAndTurnTo(xState,0.0f,-yState);
 
         setVelocity(xState, 0.0f, -yState);
+        update(dt);
     }
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
         float yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
-        glm::vec2 direction2d = glm::normalize(glm::vec2(xState,yState));
         headRotation->setRotation(180.0f / 3.141592 * glm::atan(xState,-yState), glm::vec3(0.0f,1.0f,0.0f));
     }
-    
-    updateMatrix();
 
 }

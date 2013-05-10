@@ -10,6 +10,10 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 	setPosition(x, y, z);
 	setScale(s);
 	setDirection(phi, 0.0f);
+	setVelocity(0.0f, 0.0f, 0.0f);
+	
+	speed = 5;
+
 }
 
 GameObject::~GameObject(){
@@ -38,9 +42,12 @@ void GameObject::setScale(float xs, float ys, float zs){
 	scale.z = zs;
 }
 
-
 glm::vec3 GameObject::getPosition(){
 	return position;
+}
+
+float GameObject::getSpeed() const{
+	return speed;
 }
 
 void GameObject::incrementPosition(double dx, double dy, double dz){
@@ -57,10 +64,50 @@ void GameObject::incrementPositionAndTurnTo(double dx, double dy, double dz){
 	setDirection(180.0f/3.14159f * (float) glm::atan(dx,dz));
 }
 
-void GameObject::updateMatrix(){
+
+
+
+
+
+void GameObject::setVelocity(double dx, double dy, double dz){
+	velocity.x = dx;
+	velocity.y = dy;
+	velocity.z = dz;
+}
+
+void GameObject::setAngleVel(float _dPhi, float _dTheta){
+	dPhi = _dPhi;
+	dTheta = _dTheta;
+}
+
+void GameObject::update(float dt){
+	position.x += velocity.x * dt * speed;
+	position.y += velocity.y * dt * speed;
+	position.z += velocity.z * dt * speed;
+
 	translationNode->setTranslation(position.x, position.y, position.z);
 	rotationNode->setRotation(phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode->setScaling(scale.x, scale.y, scale.z);
+}
+
+void GameObject::incrementAngleVel(float _dPhi, float _dTheta){
+	phi += _dPhi;
+	theta += _dTheta;
+}
+
+void GameObject::incrementAngleVel(){
+	phi += dPhi;
+	theta += dTheta;
+}
+
+glm::vec3 GameObject::getVelocity(){
+	return velocity;
+}
+
+
+
+void GameObject::updateMatrix(){
+	
 }
 
 Node* GameObject::getSceneGraphBranch() const{

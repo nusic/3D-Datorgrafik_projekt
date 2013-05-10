@@ -7,12 +7,12 @@
 
 class FollowCamera : public Camera{
 public:
-	FollowCamera(DynamicGameObject* _target, float x, float y, float z);
+	FollowCamera(GameObject* _target, float x, float y, float z);
 	~FollowCamera();
 
 	void updateLookAt();
 
-	DynamicGameObject* target;
+	GameObject* target;
 
 
 private:
