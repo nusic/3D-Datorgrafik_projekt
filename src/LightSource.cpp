@@ -1,23 +1,34 @@
 #include "LightSource.h"
 
+
 LightSource::LightSource(double x, double y, double z, std::string _shaderName){
+	setStandardValues();
+	position = glm::vec3(x,y,z);
+	shaderName = _shaderName;
+	bindVariables();
+}
 
+LightSource::LightSource(Node* _parent, double x, double y, double z, std::string _shaderName):
+Node(_parent){
+	setStandardValues();
+	position = glm::vec3(x,y,z);
+	shaderName = _shaderName;
+	bindVariables();
+}
+
+void LightSource::setStandardValues(){
+	index = LightSource::worldPosition.size();
 	position = glm::vec3(0.0f, 0.0f, 0.0f);
-	direction = glm::vec3(1.0f, 0.0f, 1.0f);
+	direction = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	LightSource::worldPosition.push_back(glm::vec3(x, y, z));
+	LightSource::worldPosition.push_back(glm::vec3(0, 0, index));
 	LightSource::worldDirection.push_back(glm::vec3(5,1,5));
 	LightSource::color.push_back(glm::vec3(1,1,1));
 	LightSource::intensity.push_back(50);
 	LightSource::spread.push_back(1);
 	LightSource::directional.push_back(true);
-
-	index = LightSource::worldPosition.size() - 1;
-
-	shaderName = _shaderName;
-
-	bindVariables();
 }
+
 
 LightSource::~LightSource(){
 	std::cout << "NÄ MEN NU FÅR DU SKÄRPA DIG, TA INTE BORT EN LIGHTSOURCE!!" << std::endl <<
@@ -25,11 +36,13 @@ LightSource::~LightSource(){
 }
 
 void LightSource::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+
 	glm::vec4 worldPos = M * glm::vec4(position, 1);
 	glm::vec4 worldDir = M * glm::vec4(direction, 0);
 	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
 	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
 	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
+
 	Node::draw(P, V, M);
 }
 

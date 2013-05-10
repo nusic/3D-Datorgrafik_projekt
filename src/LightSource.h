@@ -8,22 +8,23 @@
 
 class LightSource : public Node{
 public:
-	LightSource(double x=0, double y=0, double z=0, std::string _shaderName = "SimpleColor");
+	LightSource(double x, double y, double z, std::string _shaderName = "SimpleColor");
+	LightSource(Node* _parent = NULL, double x = 0, double y = 0, double z = 0, std::string _shaderName = "SimpleColor");
+
 	virtual ~LightSource();
 
 	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
-
-	void bindVariables();
+	
 
 	void setPosition(double x, double y, double z);
 	void setDirection(double x, double y, double z);	
 
-	void setWorldPosition(double _x, double _y, double _z);
-	void setWorldDirection(double _x, double _y, double _z);
-	void setColor(double _r, double _g, double _b);
-	void setIntensity(float _i);
-	void setSpread(float _s);
-	void setDirectional(bool _d);
+	void setWorldPosition(double x, double y, double z);
+	void setWorldDirection(double x, double y, double z);
+	void setColor(double r, double g, double b);
+	void setIntensity(float i);
+	void setSpread(float s);
+	void setDirectional(bool d);
 
 	glm::vec3 getPosition();
 	glm::vec3 getDirection();
@@ -53,6 +54,7 @@ public:
 	static std::vector<glm::vec3> worldDirection;
 
 private:
+
 	glm::vec3 position;
 	glm::vec3 direction;
 
@@ -66,6 +68,9 @@ private:
 	static std::vector<float> spread;
 	static std::vector<int> directional;
 
+
+	void setStandardValues();
+	void bindVariables();
 
 };
 

@@ -5,8 +5,7 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 	translationNode = new Translation(x,y,z);
 	rotationNode = new Rotation(translationNode, phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode = new Scaling(rotationNode, s, s, s);
-	modelNode = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
-	scaleNode->addChildNode(modelNode);
+	modelNode = new Model(scaleNode, new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 
 	setPosition(x, y, z);
 	setScale(s);

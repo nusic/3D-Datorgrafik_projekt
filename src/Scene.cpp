@@ -46,25 +46,25 @@ void Scene::initScene(){
 ==============================================================================
 
 
-	Nu har vi ny scengraph. Blir lite ny syntax nu.
-	Så här ärver klasserna av varandra. 
+	Nu har vi ny scengraph. Blir lite ny syntax.
+	Så här ärver klasserna av varandra nu. 
 
 
-						Node 
-						 |  * vector<Node*> children
-						 |  * Node* parent
-						 | 	  virtual void draw(P, V, M);
-						 |
-		-------------------------------------
-		|		 							|
-	  Model   		 		 	  	  Transformation
-	    |  * ModelMesh		 				| 	* glm::mat4 matrix
-	    |  * Texture						|
-	    |  * Shader				 			|
-	  	|									|
-	  Scene									---------------------
-	  	   * vector<Player*>				|			|		|
-		   * vector<LightSource*>		Translation   Scale   Rotation
+							   Node 
+								|  * vector<Node*> children
+							 	|  * Node* parent
+							 	| 	  virtual void draw(P, V, M);
+							 	|
+		---------------------------------------------------------
+		|		 				|								|
+	  Model   		 		 LightSource			  	  	Transformation
+	    |  * ModelMesh				* glm::vec3 position		| 	* glm::mat4 matrix
+	    |  * Texture				* glm::vec3 direction		|
+	    |  * Shader			 		* index						|
+	  	|														|
+	  Scene											---------------------
+	  	   * vector<Player*>						|			|		|
+		   * vector<LightSource*>				Translation   Scale   Rotation
 
 
 
@@ -76,6 +76,9 @@ void Scene::initScene(){
 
 
 		 GameObject
+		 	 |	* glm::vec3 position
+		 	 |	* glm::vec3 direction
+		 	 |	* float phi, theta
 			 |	* Translation
 			 |	* Rotation
 			 | 	* Scaling
@@ -83,7 +86,7 @@ void Scene::initScene(){
 			 |	  Node* getSceneGraphBranch();
 			 |
 	 DynamicGameObject
-	 		 |	* velocity
+	 		 |	* glm::vec3 velocity
 			 |	* angleVelocity
 			 |
 		   Player
@@ -98,8 +101,8 @@ void Scene::initScene(){
 	Transformation* trans1 = new Translation(suzanne, 2.0f, 0.0f, 0.0f);
 	Transformation* scale1 = new Scaling(trans1, 0.5f, 0.5f, 0.5f);
 	Transformation* rot1 = new Rotation(scale1, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-		Model* child1 = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
-		rot1->addChildNode(child1);
+	Model* child1 = new Model(rot1, new ModelMesh("data/meshes/suzanne.obj"));
+		
 
 	GameObject* go1 = new GameObject(-2,0,0);
 	addChildNode(go1->getSceneGraphBranch());
@@ -121,7 +124,7 @@ void Scene::initScene(){
 	*/
 	//addGenerations(body1->getMainModel(), 2);
 
-/*
+
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -141,7 +144,11 @@ void Scene::initScene(){
 	Player * body6 = new Player;
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
-*/	
+
+	Player * body7 = new Player;
+	body7->setPosition(0.0f, 0.0f, 10.0f);
+	addPlayer(body7);
+
 }
 
 void Scene::addPlayer(Player * p){

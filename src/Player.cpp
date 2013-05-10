@@ -10,18 +10,36 @@ DynamicGameObject(){
 
     headPosition = new Translation(getSceneGraphBranch(), 0.0f, 2.0f, 0.0f);
     headRotation = new Rotation(headPosition, 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-    headModel = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
-    headRotation->addChildNode(headModel);
+    headModel = new Model(headRotation, new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
+    headLight = new LightSource(headModel);
 
-    headLight = new LightSource();
 	headLight->setDirection(0,-1,4);
 	headLight->setColor(0.9,0.8,0.7);
     headLight->setIntensity(70);
 	headLight->setSpread(30);
 
-    headModel->addChildNode(headLight);
-
     numberOfPlayers++;
+
+
+
+    /*
+    En player skapar en ScenGraphBranch som ser ut så här
+
+            Translation
+                 |
+                 |---------------
+                 |              |
+              Rotation      Translation
+                 |              |
+              Scaling        Rotation
+                 |              |
+               Model         Scaling
+                                |
+                              Model
+                                |
+                            LightSource
+
+    */
 }
 
 Player::~Player(){

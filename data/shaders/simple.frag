@@ -5,7 +5,7 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int MAX_NUMBER_OF_LIGHTS = 6;
+const int MAX_NUMBER_OF_LIGHTS = 7;
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
 uniform float lightIntensity[MAX_NUMBER_OF_LIGHTS];

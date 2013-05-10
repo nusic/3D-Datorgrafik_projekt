@@ -8,8 +8,16 @@ Model::Model(ModelMesh* _mesh, std::string _textureName, std::string _shaderName
 	setTexture(_textureName);
 }
 
+Model::Model(Node* _parent, ModelMesh* _mesh, std::string _textureName, std::string _shaderName):
+Node(_parent){
+	setMesh(_mesh);
+	setShader(_shaderName);
+	setTexture(_textureName);
+}
+
+
 Model::~Model(){
-	
+	delete mesh;
 }
 
 void Model::setTexture(std::string _textureName){

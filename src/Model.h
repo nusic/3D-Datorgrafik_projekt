@@ -21,6 +21,9 @@ public:
 	Model(ModelMesh* _mesh = NULL, 
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
+	Model(Node* _parent = NULL, ModelMesh* _mesh = NULL,
+		  std::string _textureName = "SimpleTexture",
+		  std::string _shaderName = "SimpleColor");
 
 	virtual ~Model();
 
@@ -36,10 +39,6 @@ public:
 
     virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
 
-protected:
-
-	//transformation matrix specifik for this model
-	//glm::mat4 localModelMatrix;
 
 private:
 
