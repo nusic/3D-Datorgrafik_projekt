@@ -2,26 +2,33 @@
 #define LIGHTSOURCE_H 
 
 #include "sgct.h"
+#include "Node.h"
 #include <iostream>
 
 
-class LightSource{
+class LightSource : public Node{
 public:
 	LightSource(double x=0, double y=0, double z=0, std::string _shaderName = "SimpleColor");
-	~LightSource();
+	virtual ~LightSource();
+
+	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
 
 	void bindVariables();
 
+	void setPosition(double x, double y, double z);
+	void setDirection(double x, double y, double z);	
 
-	void setPosition(double _x, double _y, double _z);
+	void setWorldPosition(double _x, double _y, double _z);
+	void setWorldDirection(double _x, double _y, double _z);
 	void setColor(double _r, double _g, double _b);
-	void setDirection(double _x, double _y, double _z);
 	void setIntensity(float _i);
 	void setSpread(float _s);
 	void setDirectional(bool _d);
 
 	glm::vec3 getPosition();
 	glm::vec3 getDirection();
+	glm::vec3 getWorldPosition();
+	glm::vec3 getWorldDirection();
 
 
 	static float* getPositionArray();
@@ -41,10 +48,14 @@ public:
 	static GLuint directionalID;
 	static GLuint numberOfLightsID;
 
-	static std::vector<glm::vec3> position;
-	static std::vector<glm::vec3> direction;
+	//Detta är globala variabler
+	static std::vector<glm::vec3> worldPosition;
+	static std::vector<glm::vec3> worldDirection;
 
 private:
+	glm::vec3 position;
+	glm::vec3 direction;
+
 	unsigned short index;
 	static std::string shaderName;
 

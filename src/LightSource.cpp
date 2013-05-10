@@ -2,14 +2,17 @@
 
 LightSource::LightSource(double x, double y, double z, std::string _shaderName){
 
-	LightSource::position.push_back(glm::vec3(x, y, z));
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
+	direction = glm::vec3(1.0f, 0.0f, 1.0f);
+
+	LightSource::worldPosition.push_back(glm::vec3(x, y, z));
+	LightSource::worldDirection.push_back(glm::vec3(5,1,5));
 	LightSource::color.push_back(glm::vec3(1,1,1));
-	LightSource::direction.push_back(glm::vec3(5,1,5));
 	LightSource::intensity.push_back(50);
 	LightSource::spread.push_back(1);
 	LightSource::directional.push_back(true);
 
-	index = LightSource::position.size() - 1;
+	index = LightSource::worldPosition.size() - 1;
 
 	shaderName = _shaderName;
 
@@ -21,11 +24,20 @@ LightSource::~LightSource(){
 		"NU BLIR DET MÖRKT RAGNAR!!" << std::endl;
 }
 
+void LightSource::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+	glm::vec4 worldPos = M * glm::vec4(position, 1);
+	glm::vec4 worldDir = M * glm::vec4(direction, 0);
+	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
+	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
+	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
+	Node::draw(P, V, M);
+}
+
 std::string LightSource::shaderName = "SimpleColor";
 
-std::vector<glm::vec3> LightSource::position;
+std::vector<glm::vec3> LightSource::worldPosition;
 std::vector<glm::vec3> LightSource::color;
-std::vector<glm::vec3> LightSource::direction;
+std::vector<glm::vec3> LightSource::worldDirection;
 std::vector<float> LightSource::intensity;
 std::vector<float> LightSource::spread;
 std::vector<int> LightSource::directional;
@@ -39,24 +51,45 @@ GLuint LightSource::directionalID;
 GLuint LightSource::numberOfLightsID;
 
 
+void LightSource::setPosition(double x, double y, double z){
+	position.x = x;
+	position.y = y;
+	position.z = z;
+}
+
+void LightSource::setDirection(double x, double y, double z){
+	direction.x = x;
+	direction.y = y;
+	direction.z = z;
+}
+
 glm::vec3 LightSource::getPosition(){
-	return LightSource::position[index];
+	return position;
 }
 
 glm::vec3 LightSource::getDirection(){
-	return LightSource::direction[index];
+	return direction;
 }
 
-void LightSource::setPosition(double x, double y, double z){
-	LightSource::position[index] = glm::vec3(x, y, z);
+
+glm::vec3 LightSource::getWorldPosition(){
+	return LightSource::worldPosition[index];
+}
+
+glm::vec3 LightSource::getWorldDirection(){
+	return LightSource::worldDirection[index];
+}
+
+void LightSource::setWorldPosition(double x, double y, double z){
+	LightSource::worldPosition[index] = glm::vec3(x, y, z);
+}
+
+void LightSource::setWorldDirection(double x, double y, double z){
+	LightSource::worldDirection[index] = glm::vec3(x, y, z);
 }
 
 void LightSource::setColor(double r, double g, double b){
 	LightSource::color[index] = glm::vec3(r, g, b);
-}
-
-void LightSource::setDirection(double x, double y, double z){
-	LightSource::direction[index] = glm::vec3(x, y, z);
 }
 
 void LightSource::setIntensity(float i){
@@ -73,7 +106,7 @@ void LightSource::setDirectional(bool d){
 
 
 float* LightSource::getPositionArray(){
-	return &(LightSource::position[0].x);
+	return &(LightSource::worldPosition[0].x);
 }
 
 float* LightSource::getColorArray(){
@@ -81,7 +114,7 @@ float* LightSource::getColorArray(){
 }
 
 float* LightSource::getDirectionArray(){
-	return &(LightSource::direction[0].x);
+	return &(LightSource::worldDirection[0].x);
 }
 
 float* LightSource::getIntensityArray(){
@@ -97,7 +130,7 @@ int* LightSource::getDirectionalArray(){
 }
 
 unsigned short LightSource::getNumberOfLightSources(){
-	return position.size();
+	return worldPosition.size();
 }
 
 void LightSource::bindVariables(){

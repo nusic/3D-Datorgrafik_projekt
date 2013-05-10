@@ -22,7 +22,7 @@ public:
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
 
-	~Model();
+	virtual ~Model();
 
 	void setShader(std::string _shaderName);
 	void setMesh(ModelMesh * _mesh);

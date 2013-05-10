@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include "DynamicGameObject.h"
 #include "LightObject.h"
+#include "Transformation.h"
 
 class Player : public DynamicGameObject{
 public:
@@ -15,7 +16,12 @@ public:
     static int numberOfPlayers;
 
 private:
-	LightObject* head;
+	Translation* 	headPosition;
+	Rotation* 		headRotation;
+	Model*			headModel;
+	LightSource* 	headLight;
+
+
     Controller* controller;
     int playerIndex;
 

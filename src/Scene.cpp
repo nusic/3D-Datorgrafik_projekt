@@ -21,16 +21,29 @@ void Scene::initScene(){
 	Innan ärvde klasserna från varandra såhär
 
 					   Model
+					   	 |	* vector<Model*> children
 						 |	* ModelMatrix
 						 |	* ModelMesh
 						 |	* Texture
 						 |	* Shader
+						 |	  void drawModel(P, V, localModelMatrix);
 						 |	
-					GameObject
-						 |	* position
-						 |	* direction
-						 |
+			-----------------------------		 
+			|							|
+		  Scene						GameObject
+			  * vector<Player>			|	* position
+			  * vector<LightSource> 	|	* direction
+						 				|
+						 		DynamicGameObject
+						 				|	* velocity
+						 				|	* angleVelocity
+						 				|
+						 			  Player
+						 			  		* Controller
+						 			  		* LightObject* head
 			
+
+==============================================================================
 
 
 	Nu har vi ny scengraph. Blir lite ny syntax nu.
@@ -57,10 +70,26 @@ void Scene::initScene(){
 
 
 	- GameObject ärver inte längre från Model
-	- GameObject är i princip bara en kedja med Nodes:
+	- GameObject är i princip bara 4 Nodes som är ihop kopplade enligt
 
-			Translation->Rotation->Scale->Model
+				Translation -> Rotation -> Scaling -> Model
 
+
+		 GameObject
+			 |	* Translation
+			 |	* Rotation
+			 | 	* Scaling
+			 | 	* Model
+			 |	  Node* getSceneGraphBranch();
+			 |
+	 DynamicGameObject
+	 		 |	* velocity
+			 |	* angleVelocity
+			 |
+		   Player
+		  		* Controller
+		  		* LightObject* head
+	
 	*/
 	
 	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
@@ -80,16 +109,19 @@ void Scene::initScene(){
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
+	//Transformation* trans2 = new Translation(body1->getSceneGraphBranch(), 2.0f, 0.0f, 0.0f);
+	//LightSource* l1 = new LightSource();
+	//trans2->addChildNode(l1);
 
 	/*
 	Testa att sätt antal generationer till 
 	ett större tal, som typ 10. Det slutar
-	funka att ladda in texturer (för mig erik). 
+	funka att ladda in texturer (för erik). 
 	Är det grafikminnet som blir fullt tro?
 	*/
 	//addGenerations(body1->getMainModel(), 2);
 
-
+/*
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -109,7 +141,7 @@ void Scene::initScene(){
 	Player * body6 = new Player;
 	body6->setPosition(0.0f, 0.0f, -10.0f);
 	addPlayer(body6);
-	
+*/	
 }
 
 void Scene::addPlayer(Player * p){
