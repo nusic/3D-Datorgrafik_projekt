@@ -15,7 +15,7 @@ Node::~Node(){
 }
 
 void Node::update(float dt){
-	for (int i = 0; i < children.size(); ++i){
+	for (unsigned int i = 0; i < children.size(); ++i){
 		if (children[i] != NULL){
 			children[i]->update(dt);
 		}
@@ -23,11 +23,11 @@ void Node::update(float dt){
 }
 
 void Node::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
-	for (int i = 0; i < children.size(); ++i){
+	for (unsigned int i = 0; i < children.size(); ++i){
 		if (children[i] != NULL){
 			children[i]->draw(P, V, M);
 		}
-	}	
+	}
 }
 
 Node* Node::getParentNode() const{
@@ -50,13 +50,13 @@ void Node::addChildNode(Node* childNode){
 
 void Node::removeChildNode(Node* childNode){
 	if(childNode != NULL && !children.empty()){
-		for(int i = 0; i<children.size(); ++i){
+		for(unsigned int i = 0; i<children.size(); ++i){
 			if(children[i] == childNode){
 				children.erase(children.begin() + i);
 				break;
 			}
 		}
-	}	
+	}
 }
 
 Node* Node::getChild(int index) const{
@@ -64,7 +64,7 @@ Node* Node::getChild(int index) const{
 }
 
 Node* Node::getChildByName(const std::string &searchName) const{
-	for(int i = 0; i<children.size(); ++i){
+	for(unsigned int i = 0; i<children.size(); ++i){
 		if(searchName == children[i]->name){
 			return children[i];
 		}
@@ -78,7 +78,7 @@ int Node::countChildNodes(const bool &recursiveCount) const{
 	}
 	else{
 		int count = children.size();
-		for(int i = 0; i<children.size(); ++i){
+		for(unsigned int i = 0; i<children.size(); ++i){
 			count += children[i]->countChildNodes(recursiveCount);
 		}
 		return count;
