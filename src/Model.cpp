@@ -113,7 +113,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, LightSource::shadowData.depthTexture);
+	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture);
 	glUniform1i(LightSource::shadowData.shadowMapID, 1);
 
 

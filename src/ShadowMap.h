@@ -6,8 +6,6 @@
 
 
 struct shadowMapData{
-	GLuint framebufferName;
-	GLuint depthTexture;
 
 	GLuint depthMatrixID;
 	GLuint depth_vertexPosition_modelspaceID;

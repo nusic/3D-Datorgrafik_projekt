@@ -12,7 +12,7 @@ public:
 	~LightSource();
 
 	void bindVariables();
-	static bool initShadowMapBuffers(int resolution);
+	static bool initShadowMapBuffers();
 
 	void setPosition(double _x, double _y, double _z);
 	void setColor(double _r, double _g, double _b);
@@ -47,8 +47,13 @@ public:
 
 	static shadowMapData shadowData;
 
+	static GLuint FBO;
+	static GLuint depthTexture;
+
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;
+
+	static const int SHADOW_MAP_RESOLUTION = 512;
 
 private:
 	unsigned short index;
