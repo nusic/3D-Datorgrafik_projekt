@@ -16,8 +16,7 @@ public:
             float * heightmap,
             int heightmapWidth,
             int heightmapHeight,
-            float sceneWidth,
-            float sceneHeight);
+            glm::vec3 sceneDimensions);
 
     static int numberOfPlayers;
 

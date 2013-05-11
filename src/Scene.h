@@ -36,8 +36,7 @@ public:
     int heightmapWidth;
     int heightmapHeight;
 
-    float sceneWidth;
-    float sceneHeight;
+    glm::vec3 sceneDimensions;
 
 private:
 

@@ -1,12 +1,8 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){
-    glm::vec3 maxVal = getMaxVertexValues();
-    glm::vec3 minVal = getMinVertexValues();
-
-    sceneHeight = maxVal.z - minVal.z;
-    sceneWidth  = maxVal.x - minVal.x;
+Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){ 
+	sceneDimensions = getMaxVertexValues() - getMinVertexValues();
 }
 
 std::vector<LightSource*> Scene::lightSources;
@@ -158,16 +154,13 @@ void Scene::initScene(){
 
 void Scene::update(float dt){
 
-
-
 	for (int i = 0; i < players.size(); ++i){
 		players[i]->updatePlayerOrientation(
             dt,
             heightmap,
             heightmapWidth,
             heightmapHeight,
-			sceneWidth,
-			sceneHeight);
+			sceneDimensions);
 	}
 
 	followCamera->updateLookAt();
@@ -222,8 +215,6 @@ void Scene::readBMP(const char* filename)
     // Actual RGB data
     unsigned char * allData;
 
-    float scale = 0.2;
-
     // Open the file
     FILE * file = fopen(filename,"rb");
     if (!file){printf("Image could not be opened\n");}
@@ -235,11 +226,15 @@ void Scene::readBMP(const char* filename)
     printf("Not a correct BMP file\n");
     }
 
+
     // Read ints from the byte array
     dataPos    = *(int*)&(header[0x0A]);
     imageSize  = *(int*)&(header[0x22]);
     width      = *(int*)&(header[0x12]);
     height     = *(int*)&(header[0x16]);
+
+    heightmapWidth = width;
+    heightmapHeight = height;
 
     if (imageSize==0)    imageSize=width*height*3;
     if (dataPos==0)      dataPos=54;
@@ -248,13 +243,20 @@ void Scene::readBMP(const char* filename)
     allData = new unsigned char [imageSize];
     heightmap = new float[imageSize/3];
 
-    heightmapWidth = width;
-    heightmapHeight = height;
-
     fread(allData,1,imageSize,file);
 
-    for(int i = 0; i < imageSize; i+=3)
+    unsigned char maxDepth = allData[0];
+    unsigned char minDepth = allData[0];
+    for(int i = 0; i < imageSize; i+=3){
+    	if(allData[i] > maxDepth) maxDepth = allData[i];
+    	if(allData[i] < minDepth) minDepth = allData[i];
+    }
+    
+    float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
+    
+    for(int i = 0; i < imageSize; i+=3){
         heightmap[i/3] = (float)allData[i]*scale;
+    }
 
     fclose(file);
 }
