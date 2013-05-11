@@ -3,6 +3,8 @@
 Scene::Scene():
 Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){ 
 	sceneDimensions = getMaxVertexValues() - getMinVertexValues();
+	printf("sceneDimesions: x = %f,  y = %f,  z = %f\n", 
+		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
 }
 
 std::vector<LightSource*> Scene::lightSources;
@@ -109,6 +111,13 @@ void Scene::initScene(){
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
+
+	StaticGameObject* sgo = new StaticGameObject(5.0f, 0.0f, 5.0f);
+	sgo->setRotation(45.0f, 30.0f);
+	addChildNode(sgo->getSceneGraphBranch());
+	
+
+
 	//Transformation* trans2 = new Translation(body1->getSceneGraphBranch(), 2.0f, 0.0f, 0.0f);
 	//LightSource* l1 = new LightSource();
 	//trans2->addChildNode(l1);
@@ -217,13 +226,14 @@ void Scene::readBMP(const char* filename)
 
     // Open the file
     FILE * file = fopen(filename,"rb");
-    if (!file){printf("Image could not be opened\n");}
-
+    if (!file){
+    	printf("Image could not be opened\n");
+    }
     if ( fread(header, 1, 54, file)!=54 ){ // If not 54 bytes read : problem
-    printf("Not a correct BMP file\n");
+    	printf("Not a correct BMP file\n");
     }
     if ( header[0]!='B' || header[1]!='M' ){
-    printf("Not a correct BMP file\n");
+    	printf("Not a correct BMP file\n");
     }
 
 
@@ -247,13 +257,14 @@ void Scene::readBMP(const char* filename)
 
     unsigned char maxDepth = allData[0];
     unsigned char minDepth = allData[0];
-    for(int i = 0; i < imageSize; i+=3){
+    for(int i = 3; i < imageSize; i+=3){
     	if(allData[i] > maxDepth) maxDepth = allData[i];
     	if(allData[i] < minDepth) minDepth = allData[i];
     }
     
     float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
-    
+    printf("heightmap:  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
+
     for(int i = 0; i < imageSize; i+=3){
         heightmap[i/3] = (float)allData[i]*scale;
     }

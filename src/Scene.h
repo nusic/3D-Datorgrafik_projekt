@@ -1,14 +1,16 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <vector>
+
 #include "sgct.h"
 #include "Model.h"
 #include "GameObject.h"
+#include "StaticGameObject.h"
 #include "LightSource.h"
 #include "Player.h"
 #include "Node.h"
 #include "Transformation.h"
-#include <vector>
 #include "FollowCamera.h"
 
 

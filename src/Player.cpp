@@ -59,12 +59,12 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
 
  
         int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * getPosition().x;
-        int imgZ = heightmapHeight/2 + heightmapHeight/sceneDimensions.z * getPosition().z;
+        int imgZ = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * getPosition().z;
 
         //printf("imgX = %i  ", imgX);
         //printf("imgZ = %i\n", imgZ);
 
-        int XZPos = (int)(imgX + heightmapWidth*(heightmapHeight - imgZ));
+        int XZPos = (int)(imgX + heightmapWidth*imgZ);
         if(XZPos < 0) XZPos = 0;
 
         //printf("XZpos = %i \n", XZPos);
@@ -74,7 +74,7 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
         //printf("heightmap[%i] = %f\n", XZPos, zPosTemp);
 
         setVelocity(xState, 0.0f, -yState);
-        setYPosition(zPosTemp);
+        setYPosition(zPosTemp-4);
         setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
         update(dt);
     }

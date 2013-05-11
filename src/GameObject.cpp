@@ -17,7 +17,7 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 }
 
 GameObject::~GameObject(){
-
+	
 };
 
 
