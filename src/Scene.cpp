@@ -156,6 +156,31 @@ void Scene::initScene(){
     readBMP(imgpath.c_str());
 }
 
+void Scene::update(float dt){
+
+
+
+	for (int i = 0; i < players.size(); ++i){
+		players[i]->updatePlayerOrientation(
+            dt,
+            heightmap,
+            heightmapWidth,
+            heightmapHeight,
+			sceneWidth,
+			sceneHeight);
+	}
+
+	followCamera->updateLookAt();
+	followCamera->incrementPosition(
+		followCamera->target->getVelocity().x,
+		followCamera->target->getVelocity().y,
+		followCamera->target->getVelocity().z,
+		dt);
+	
+	followCamera->calcMatrices();
+}
+
+
 void Scene::addPlayer(Player * p){
 	addChildNode(p->getSceneGraphBranch());
 	players.push_back(p);
