@@ -85,30 +85,25 @@ void main()
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
 		invDistSquare = 1.0f/(distanceSquare);
 
-
-		//float visibility = shadow2D( shadowMap, vec3(shadowCoord.xy, (shadowCoord.z)/shadowCoord.w) ).r;
 		
 		float visibility = 0.0;
 		
 		if (i < MAX_NUMBER_OF_SHADOWS)
 		{
 			if (i == 0){
-					if(texture2D(shadowMap, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
-						visibility += 1;
+				if(texture2D(shadowMap, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
 			}
 			//SECOND ONLY FOR TEST; THIS SHOUD BE DONE IN THE LOOP
 			else if (i == 1){
-					if(texture2D(shadowMap2, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
-						visibility += 1;
+				if(texture2D(shadowMap2, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
 			}
 			//-----
 		}
 		
 		else
 			visibility = 1;
-
-
-		
 
 
 		finalFragColor += visibility * (

@@ -12,7 +12,6 @@
 #include "ModelMesh.h"
 #include "LightSource.h"
 #include "sgct.h"
-#include "ShadowMap.h"
 #include "Camera.h"
 
 

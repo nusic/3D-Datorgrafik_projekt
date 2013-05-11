@@ -3,7 +3,6 @@
 
 #include "sgct.h"
 #include <iostream>
-#include "ShadowMap.h"
 
 
 class LightSource{

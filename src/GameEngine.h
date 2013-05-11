@@ -9,7 +9,6 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "Player.h"
-#include "ShadowMap.h"
 
 class GameEngine{
 public:
