@@ -113,24 +113,22 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 	}
 	// Send our transformation to the currently bound shader, 
-	// in the "MVP" uniform
+	// in the "depthBiasMVP" uniform
 	glUniformMatrix4fv(LightSource::depthBiasID, numOfLightSources, GL_FALSE, &depthBiasMVP[0][0][0]);
 
-	//Depth texture sampler 1
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[0]);
-	glUniform1i(LightSource::shadowMapID, 1);//1 is the same 1 as in GL_TEXTURE1
-
-	//FOR TEST_------
-	//Depth texture sampler 2
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[1]);
-	glUniform1i(LightSource::shadowMapID2, 2);//2 is the same 2 as in GL_TEXTURE2
-	//------
-
-	
-
-
+	// Denna for-loop krävs eftersom det inte går att skicka in texturer som arrayer till glsl
+	// I stället kommer de nås som shadowMap1, shadowMap2, shadowMap3... osv. Detta innebär
+	// i sin tur att vi inte kommer kunna loopa igenom varje skuggning utan i stället måste
+	// vi köra med if-satser som kollar vilken lampa som är aktiv vid varje shadowmap.
+	// Med denna kod går det att ha max 9 shadowmaps men det går att modifiera för fler
+	std::string str = "shadowMap";
+	for (int i = 0; i < numOfLightSources; ++i){
+		glActiveTexture(GL_TEXTURE1 + i);
+		glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[i]);
+		glUniform1i(
+			sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str + (char) (i+'1')),
+			i + 1);//1 is the same 1 as in GL_TEXTURE1
+	}
 
 
 

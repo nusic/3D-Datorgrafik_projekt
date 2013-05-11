@@ -50,13 +50,9 @@ GLuint LightSource::depthMatrixID;
 GLuint LightSource::depth_vertexPosition_modelspaceID;
 
 GLuint LightSource::depthBiasID;
-GLuint LightSource::shadowMapID;
 
 std::vector<GLuint> LightSource::FBO;
 std::vector<GLuint> LightSource::depthTexture;
-
-//STILL BAD
-GLuint LightSource::shadowMapID2;
 
 
 bool LightSource::initShadowMapBuffers(){
@@ -78,7 +74,8 @@ bool LightSource::initShadowMapBuffers(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
-	glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+	// Inte säker på vad denna gjorde men den verkar inte behövas (låter den vara kommenterad dock)
+	//glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTex, 0);
 
@@ -184,12 +181,8 @@ void LightSource::bindVariables(){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
-	shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
-	shadowMapID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap2" );
-
-	// Get a handle for our "MVP" uniform when rendering to depth buffer
+	//The last two will be used when rendering to the depth-buffer
 	depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
-	// Get a handle for our buffers
 	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
 }
 

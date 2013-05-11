@@ -5,8 +5,8 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int MAX_NUMBER_OF_LIGHTS = 3;
-const int MAX_NUMBER_OF_SHADOWS = 2;
+const int MAX_NUMBER_OF_LIGHTS = 9;
+const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
@@ -29,12 +29,19 @@ varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
 varying vec4 shadowCoord[MAX_NUMBER_OF_LIGHTS];
-uniform sampler2D shadowMap;
 
-
-//SECOND FOR TEST---
+uniform sampler2D shadowMap1; //Tyvärr går det inte att skapa arrayer med sampler2D
 uniform sampler2D shadowMap2;
-//-----
+uniform sampler2D shadowMap3;
+uniform sampler2D shadowMap4;
+uniform sampler2D shadowMap5;
+uniform sampler2D shadowMap6;
+uniform sampler2D shadowMap7;
+uniform sampler2D shadowMap8;
+uniform sampler2D shadowMap9;
+
+
+
 
 
 void main()
@@ -88,20 +95,46 @@ void main()
 		
 		float visibility = 0.0;
 		
+		//Detta skulle ha varit en for-loop men eftersom det inte verkar gå att skapa arrayer av sampler2D görs det på detta sett
 		if (i < MAX_NUMBER_OF_SHADOWS)
 		{
 			if (i == 0){
-				if(texture2D(shadowMap, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+				if(texture2D(shadowMap1, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
 					visibility += 1;
 			}
-			//SECOND ONLY FOR TEST; THIS SHOUD BE DONE IN THE LOOP
 			else if (i == 1){
 				if(texture2D(shadowMap2, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
 					visibility += 1;
 			}
-			//-----
+			else if (i == 2){
+				if(texture2D(shadowMap3, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
+			else if (i == 3){
+				if(texture2D(shadowMap4, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
+			else if (i == 4){
+				if(texture2D(shadowMap5, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
+			else if (i == 5){
+				if(texture2D(shadowMap6, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
+			else if (i == 6){
+				if(texture2D(shadowMap7, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
+			else if (i == 7){
+				if(texture2D(shadowMap8, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
+			else if (i == 8){
+				if(texture2D(shadowMap9, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
+					visibility += 1;
+			}
 		}
-		
 		else
 			visibility = 1;
 

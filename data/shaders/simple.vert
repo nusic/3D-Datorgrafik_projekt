@@ -1,7 +1,7 @@
 #version 120
 
-const int MAX_NUMBER_OF_LIGHTS = 3;
-const int MAX_NUMBER_OF_SHADOWS = 2;
+const int MAX_NUMBER_OF_LIGHTS = 9;
+const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 // Input vertex data, different for all executions of this shader.
 attribute vec3 vertexPosition;
@@ -35,13 +35,6 @@ varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
 varying vec4 shadowCoord[MAX_NUMBER_OF_LIGHTS];
-
-
-//FOR TEST
-uniform mat4 depthBiasMVP2;
-//----
-
-
 
 
 void main(){

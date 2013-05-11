@@ -51,9 +51,6 @@ public:
 	static GLuint depth_vertexPosition_modelspaceID; //Denna också
 
 	static GLuint depthBiasID;
-	static GLuint shadowMapID;
-	//STILL BAD
-	static GLuint shadowMapID2;
 
 	static std::vector<GLuint> FBO;
 	static std::vector<GLuint> depthTexture;
