@@ -60,7 +60,7 @@ void Scene::initScene(){
 	addPlayer(body1);
 
 	
-/*
+
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
