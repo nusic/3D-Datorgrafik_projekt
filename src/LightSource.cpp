@@ -133,8 +133,7 @@ bool LightSource::initShadowMapBuffers(){
 	}
 	//------------
 
-	std::cout << "FBO = " << FBO << std::endl;
-	std::cout << "FBO2 = " << FBO2 << std::endl;
+
 
 	return true;
 }

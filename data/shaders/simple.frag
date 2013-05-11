@@ -88,13 +88,15 @@ void main()
 		//float visibility = shadow2D( shadowMap, vec3(shadowCoord.xy, (shadowCoord.z)/shadowCoord.w) ).r;
 		
 		float visibility = 0.0;
+		
 		if (i == 0)
 		{
+
 				if(texture2D(shadowMap, ((shadowCoord.xy) / shadowCoord.w) + vec2(0, 0)).r >= shadowCoord.z / shadowCoord.w)
 					visibility += 1;
 		}
-		
-		//SECOND ONLY FOR TEST; THIS SHOUD BE DONE IN A LOOP
+		//SECOND ONLY FOR TEST; THIS SHOUD BE DONE IN THE LOOP
+
 		else if (i == 1)
 		{
 

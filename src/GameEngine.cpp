@@ -98,8 +98,6 @@ void GameEngine::initOGL(){
 	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" );
 	sgct::ShaderManager::Instance()->unBindShader();
 
-	//ShadowMap::initShadowMapBuffers();
-
 
 	scene = new Scene();
 	scene->initScene();

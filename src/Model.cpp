@@ -85,7 +85,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	//Set our "textureSampler" sampler to user Texture Unit 0
-	glUniform1i(textureID, 0);
+	glUniform1i(textureID, 0); //0 is the same 0 as in GL_TEXTURE0
 
 
 
@@ -114,7 +114,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture);
-	glUniform1i(LightSource::shadowData.shadowMapID, 1);
+	glUniform1i(LightSource::shadowData.shadowMapID, 1);//1 is the same 1 as in GL_TEXTURE1
 
 	
 	//FOR TEST_------
@@ -128,8 +128,9 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture2);
-	glUniform1i(LightSource::shadowData2.shadowMapID, 1);
+	glUniform1i(LightSource::shadowData2.shadowMapID, 2);//2 is the same 2 as in GL_TEXTURE2
 	//------
+
 	
 
 
