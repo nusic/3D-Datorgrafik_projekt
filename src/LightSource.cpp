@@ -13,11 +13,15 @@ LightSource::LightSource(double x, double y, double z, std::string _shaderName){
 
 	shaderName = _shaderName;
 
-	bindVariables();
-	
-	if(!initShadowMapBuffers()){
-		std::cout << "Unable to initialize shadow map buffer!" << std::endl;
+	//This should only be done once
+	if (index == 0)
+	{
+		bindVariables();
+		if(!initShadowMapBuffers()){
+			std::cout << "Unable to initialize shadow map buffer!" << std::endl;
+		}
 	}
+
 	
 }
 
