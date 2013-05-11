@@ -7,9 +7,6 @@
 
 struct shadowMapData{
 
-	GLuint depthMatrixID;
-	GLuint depth_vertexPosition_modelspaceID;
-
 	GLuint depthBiasID;
 	GLuint shadowMapID;
 

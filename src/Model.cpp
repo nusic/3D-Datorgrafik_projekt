@@ -221,13 +221,13 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix, int lightSourceInde
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(LightSource::shadowData.depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
+	glUniformMatrix4fv(LightSource::depthMatrixID, 1, GL_FALSE, &depthMVP[0][0]);
 
 	// Attribute buffer : vertices
 	glEnableVertexAttribArray(vertexPositionID);
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
 	glVertexAttribPointer(
-		LightSource::shadowData.depth_vertexPosition_modelspaceID,  // The attribute we want to configure
+		LightSource::depth_vertexPosition_modelspaceID,  // The attribute we want to configure
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?

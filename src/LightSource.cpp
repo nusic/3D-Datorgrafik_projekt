@@ -43,6 +43,9 @@ GLuint LightSource::lightSpreadID;
 GLuint LightSource::directionalID;
 GLuint LightSource::numberOfLightsID;
 
+GLuint LightSource::depthMatrixID;
+GLuint LightSource::depth_vertexPosition_modelspaceID;
+
 shadowMapData LightSource::shadowData;
 GLuint LightSource::FBO;
 GLuint LightSource::depthTexture;
@@ -56,9 +59,9 @@ GLuint LightSource::depthTexture2;
 bool LightSource::initShadowMapBuffers(){
 
 	// Get a handle for our "MVP" uniform
-	shadowData.depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
+	depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
 	// Get a handle for our buffers
-	shadowData.depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
+	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
 
 	shadowData.depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
 	shadowData.shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );

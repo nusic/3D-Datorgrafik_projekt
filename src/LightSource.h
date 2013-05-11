@@ -47,6 +47,9 @@ public:
 
 	static shadowMapData shadowData;
 
+	static GLuint depthMatrixID;
+	static GLuint depth_vertexPosition_modelspaceID;
+
 	static GLuint FBO;
 	static GLuint depthTexture;
 
