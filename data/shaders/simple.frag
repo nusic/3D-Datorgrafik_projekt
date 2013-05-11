@@ -26,12 +26,11 @@ varying vec3 viewDirectionToVertex_viewSpace;
 varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
-varying vec4 shadowCoord;
+varying vec4 shadowCoord[MAX_NUMBER_OF_LIGHTS];
 uniform sampler2D shadowMap;
 
 
 //SECOND FOR TEST---
-varying vec4 shadowCoord2;
 uniform sampler2D shadowMap2;
 //-----
 
@@ -92,7 +91,7 @@ void main()
 		if (i == 0)
 		{
 
-				if(texture2D(shadowMap, ((shadowCoord.xy) / shadowCoord.w) + vec2(0, 0)).r >= shadowCoord.z / shadowCoord.w)
+				if(texture2D(shadowMap, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
 					visibility += 1;
 		}
 		//SECOND ONLY FOR TEST; THIS SHOUD BE DONE IN THE LOOP
@@ -100,7 +99,7 @@ void main()
 		else if (i == 1)
 		{
 
-				if(texture2D(shadowMap2, ((shadowCoord2.xy) / shadowCoord2.w) + vec2(0, 0)).r >= shadowCoord2.z / shadowCoord2.w)
+				if(texture2D(shadowMap2, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
 					visibility += 1;
 		}
 		//-----

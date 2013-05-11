@@ -46,9 +46,8 @@ public:
 	static GLuint numberOfLightsID;
 
 	//ShadowMap data
-	static GLuint depthMatrixID;
-	static GLuint depth_vertexPosition_modelspaceID;
-
+	static GLuint depthMatrixID; //Denna behövs det bara en av
+	static GLuint depth_vertexPosition_modelspaceID; //Denna också
 
 	static GLuint depthBiasID;
 	static GLuint shadowMapID;
@@ -58,7 +57,7 @@ public:
 
 	//THE SECOND ONES ARE ONLY FOR TEST
 
-	static GLuint depthBiasID2;
+	//static GLuint depthBiasID2;
 	static GLuint shadowMapID2;
 
 	static GLuint FBO2;

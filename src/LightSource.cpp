@@ -53,7 +53,7 @@ GLuint LightSource::FBO;
 GLuint LightSource::depthTexture;
 
 //For test
-GLuint LightSource::depthBiasID2;
+//GLuint LightSource::depthBiasID2;
 GLuint LightSource::shadowMapID2;
 
 GLuint LightSource::FBO2;
@@ -107,7 +107,7 @@ bool LightSource::initShadowMapBuffers(){
 
 	//SECOND, THIS IS ONLY FOR TEST
 
-	depthBiasID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP2" );
+	//depthBiasID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP2" );
 	shadowMapID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap2" );
 
 	FBO2 = 0;

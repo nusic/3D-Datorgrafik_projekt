@@ -9,7 +9,6 @@ attribute vec2 vertexUV;
 uniform mat4 MVP;
 uniform mat4 M;
 uniform mat4 V;
-uniform mat4 depthBiasMVP;
 
 uniform float currentTime;
 uniform float globalRandom;
@@ -19,6 +18,9 @@ const int MAX_NUMBER_OF_LIGHTS = 2;
 uniform int numberOfLights;
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightDirection_worldSpace[MAX_NUMBER_OF_LIGHTS];
+
+uniform mat4 depthBiasMVP[MAX_NUMBER_OF_LIGHTS];
+
 
 //Output that will go to the fragment shader.
 //When it does it will be interpolated for each fragment.
@@ -30,12 +32,11 @@ varying vec3 normal_viewSpace;
 varying vec3 lightDirectionToVertex_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 
-varying vec4 shadowCoord;
+varying vec4 shadowCoord[MAX_NUMBER_OF_LIGHTS];
 
 
 //FOR TEST
 uniform mat4 depthBiasMVP2;
-varying vec4 shadowCoord2;
 //----
 
 
@@ -67,8 +68,10 @@ void main(){
 	//normal = vertexNormal;
 	UV = vertexUV;
 
-	shadowCoord = depthBiasMVP * vec4(vertexPosition, 1.0);
-	shadowCoord2 = depthBiasMVP2 * vec4(vertexPosition, 1.0);
+	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i)
+	{
+		shadowCoord[i] = depthBiasMVP[i] * vec4(vertexPosition, 1.0);
+	}
 
 }
 
