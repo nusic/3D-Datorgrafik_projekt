@@ -56,10 +56,7 @@ public:
 	static GLuint depthTexture;
 
 	//THE SECOND ONES ARE ONLY FOR TEST
-
-	//static GLuint depthBiasID2;
 	static GLuint shadowMapID2;
-
 	static GLuint FBO2;
 	static GLuint depthTexture2;
 	//------
