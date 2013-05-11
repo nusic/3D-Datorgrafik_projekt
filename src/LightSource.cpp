@@ -52,27 +52,24 @@ GLuint LightSource::depth_vertexPosition_modelspaceID;
 GLuint LightSource::depthBiasID;
 GLuint LightSource::shadowMapID;
 
-GLuint LightSource::FBO;
-GLuint LightSource::depthTexture;
+std::vector<GLuint> LightSource::FBO;
+std::vector<GLuint> LightSource::depthTexture;
 
-//For test
-//GLuint LightSource::depthBiasID2;
+//STILL BAD
 GLuint LightSource::shadowMapID2;
 
-GLuint LightSource::FBO2;
-GLuint LightSource::depthTexture2;
-//--------
 
 bool LightSource::initShadowMapBuffers(){
-
 	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-	FBO = 0;
-	glGenFramebuffers(1, &FBO);
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	GLuint frameBufferObj = 0;
+	GLuint depthTex = 0;
+
+	glGenFramebuffers(1, &frameBufferObj);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj);
 
 	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
-	glGenTextures(1, &depthTexture);
-	glBindTexture(GL_TEXTURE_2D, depthTexture);
+	glGenTextures(1, &depthTex);
+	glBindTexture(GL_TEXTURE_2D, depthTex);
 	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
@@ -83,7 +80,7 @@ bool LightSource::initShadowMapBuffers(){
 
 	glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTex, 0);
 
 	// No color output in the bound framebuffer, only depth.
 	glDrawBuffer(GL_NONE);
@@ -95,49 +92,8 @@ bool LightSource::initShadowMapBuffers(){
 		return false;
 	}
 
-
-
-
-
-
-	//SECOND, THIS IS ONLY FOR TEST
-
-	//depthBiasID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP2" );
-	shadowMapID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap2" );
-
-	FBO2 = 0;
-	glGenFramebuffers(1, &FBO2);
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO2);
-
-	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
-	glGenTextures(1, &depthTexture2);
-	glBindTexture(GL_TEXTURE_2D, depthTexture2);
-	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-
-	glTexParameteri( shadowMapID2 , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
-		 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture2, 0);
-
-	// No color output in the bound framebuffer, only depth.
-	glDrawBuffer(GL_NONE);
-	glReadBuffer(GL_NONE);
-
-	// Always check that our framebuffer is ok
-	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-		std::cout << "FRAMEBUFFER IS NOT OK!!!" << std::endl;
-		return false;
-	}
-	//------------
-
-
-
-	return true;
+	FBO.push_back(frameBufferObj);
+	depthTexture.push_back(depthTex);
 }
 
 
@@ -229,6 +185,8 @@ void LightSource::bindVariables(){
 
 	depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
 	shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
+	shadowMapID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap2" );
+
 	// Get a handle for our "MVP" uniform when rendering to depth buffer
 	depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
 	// Get a handle for our buffers

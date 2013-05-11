@@ -1,5 +1,8 @@
 #version 120
 
+const int MAX_NUMBER_OF_LIGHTS = 3;
+const int MAX_NUMBER_OF_SHADOWS = 2;
+
 // Input vertex data, different for all executions of this shader.
 attribute vec3 vertexPosition;
 attribute vec3 vertexNormal;
@@ -14,7 +17,6 @@ uniform float currentTime;
 uniform float globalRandom;
 
 //Light data
-const int MAX_NUMBER_OF_LIGHTS = 2;
 uniform int numberOfLights;
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightDirection_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -68,7 +70,7 @@ void main(){
 	//normal = vertexNormal;
 	UV = vertexUV;
 
-	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i)
+	for (int i = 0; i < MAX_NUMBER_OF_SHADOWS; ++i)
 	{
 		shadowCoord[i] = depthBiasMVP[i] * vec4(vertexPosition, 1.0);
 	}

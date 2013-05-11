@@ -105,30 +105,26 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 		0.5, 0.5, 0.5, 1.0
 	);
 	glm::mat4 depthMVP;
-
-
 	glm::mat4* depthBiasMVP = new glm::mat4[numOfLightSources];
-
 	for (int i = 0; i < numOfLightSources; ++i)
 	{
 		depthMVP = LightSource::getVPFromIndex(i) * depthModelMatrix;
 		depthBiasMVP[i] = biasMatrix * depthMVP;
 
 	}
-
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
 	glUniformMatrix4fv(LightSource::depthBiasID, numOfLightSources, GL_FALSE, &depthBiasMVP[0][0][0]);
 
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture);
+	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[0]);
 	glUniform1i(LightSource::shadowMapID, 1);//1 is the same 1 as in GL_TEXTURE1
-
+	
 	//FOR TEST_------
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture2);
+	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[1]);
 	glUniform1i(LightSource::shadowMapID2, 2);//2 is the same 2 as in GL_TEXTURE2
 	//------
 

@@ -12,6 +12,8 @@ public:
 	~LightSource();
 
 	void bindVariables();
+
+	//This can only be called from the constructor
 	bool initShadowMapBuffers();
 
 	void setPosition(double _x, double _y, double _z);
@@ -52,15 +54,18 @@ public:
 	static GLuint depthBiasID;
 	static GLuint shadowMapID;
 
-	static GLuint FBO;
-	static GLuint depthTexture;
+	static std::vector<GLuint> FBO;
+	static std::vector<GLuint> depthTexture;
 
-	//THE SECOND ONES ARE ONLY FOR TEST
+	//STILL BAD
 	static GLuint shadowMapID2;
+
+	/*
+	//THE SECOND ONES ARE ONLY FOR TEST
 	static GLuint FBO2;
 	static GLuint depthTexture2;
 	//------
-
+	*/
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;
 
