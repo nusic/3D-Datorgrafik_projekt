@@ -58,7 +58,7 @@ public:
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;
 
-	static const int SHADOW_MAP_RESOLUTION = 512;
+	static const int SHADOW_MAP_RESOLUTION = 1024;
 	//------
 
 private:

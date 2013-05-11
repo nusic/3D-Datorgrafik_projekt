@@ -58,7 +58,7 @@ void Scene::initScene(){
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-
+/*
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -90,7 +90,7 @@ void Scene::initScene(){
 	Player * body9 = new Player;
 	body9->setPosition(5.0f, 0.0f, 10.0f);
 	addPlayer(body9);
-
+*/
 
 	GameObject* c3 = new GameObject(5, 0, 5);
 	children.push_back(c3);

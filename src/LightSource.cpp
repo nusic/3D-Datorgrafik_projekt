@@ -69,8 +69,8 @@ bool LightSource::initShadowMapBuffers(){
 	glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
@@ -104,14 +104,14 @@ glm::vec3 LightSource::getDirection(){
 
 glm::mat4 LightSource::getVP(){
 	glm::mat4 V = glm::lookAt(position[index], position[index] + direction[index], glm::vec3(0,1,0));
-	glm::mat4 P = glm::perspective(45.0f, 1.0f, 1.0f, 30.0f);
+	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 30.0f);
 
 	return P * V;
 }
 
 glm::mat4 LightSource::getVPFromIndex(int _index){
 	glm::mat4 V = glm::lookAt(position[_index], position[_index] + direction[_index], glm::vec3(0,1,0));
-	glm::mat4 P = glm::perspective(45.0f, 1.0f, 1.0f, 30.0f);
+	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 30.0f);
 
 	return P * V;
 }

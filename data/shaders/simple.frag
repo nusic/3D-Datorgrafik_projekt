@@ -5,7 +5,7 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int MAX_NUMBER_OF_LIGHTS = 9;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -48,7 +48,7 @@ void main()
 {
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
-	vec3 materialAmbientColor = vec3(0.1,0.0,0.0) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.1,0.1,0.1) * materialDiffuseColor;
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
 	vec3 n = normalize(normal_viewSpace);
@@ -95,7 +95,9 @@ void main()
 		
 		float visibility = 0.0;
 		
-		//Detta skulle ha varit en for-loop men eftersom det inte verkar gå att skapa arrayer av sampler2D görs det på detta sett
+		// Detta skulle ha varit en for-loop men eftersom det inte verkar gå att skapa arrayer av sampler2D görs det på detta sätt.
+		// Här skulle man även kunna göra så kallat Poisson sampling för att få skuggorna mjukare. Det visar sig dock att beräkningarna
+		// blir alldeles för många och det laggar alldeles för mycket. 
 		if (i < MAX_NUMBER_OF_SHADOWS)
 		{
 			if (i == 0){
@@ -136,7 +138,7 @@ void main()
 			}
 		}
 		else
-			visibility = 1;
+			visibility = 1; //Än så länge 9 st shadow maps
 
 
 		finalFragColor += visibility * (
