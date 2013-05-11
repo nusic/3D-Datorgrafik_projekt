@@ -35,5 +35,8 @@ all:
 run:
 	./Program -config data/sgct_config/single.xml
 	
+runmake:
+	say sojojoj. Det där var inte meningen. Nu sket du i byxan.
+	
 run-windows:
 	3D_projekt.exe -config "data/sgct_config/single.xml"

@@ -96,7 +96,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 	int numOfLightSources = LightSource::getNumberOfLightSources();
 
-	// Compute the MVP matrix from the light's point of view
+	// Compute the MVP and bias matrix from the light's point of view, done for every light
 	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
 	glm::mat4 biasMatrix(
 		0.5, 0.0, 0.0, 0.0, 
@@ -116,13 +116,13 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	// in the "MVP" uniform
 	glUniformMatrix4fv(LightSource::depthBiasID, numOfLightSources, GL_FALSE, &depthBiasMVP[0][0][0]);
 
-	//Depth texture sampler
+	//Depth texture sampler 1
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[0]);
 	glUniform1i(LightSource::shadowMapID, 1);//1 is the same 1 as in GL_TEXTURE1
-	
+
 	//FOR TEST_------
-	//Depth texture sampler
+	//Depth texture sampler 2
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[1]);
 	glUniform1i(LightSource::shadowMapID2, 2);//2 is the same 2 as in GL_TEXTURE2
@@ -204,7 +204,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	}
 }
 
-void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix, int lightSourceIndex){
+void Model::renderToDepthBuffer(glm::mat4 parentModelMatrix, int lightSourceIndex){
 
 	
 	// Use our shader
@@ -213,8 +213,6 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix, int lightSourceInde
 	// Compute the MVP matrix from the light's point of view
 	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
 	glm::mat4 depthMVP = LightSource::getVPFromIndex(lightSourceIndex) * depthModelMatrix;
-
-
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
@@ -243,7 +241,7 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix, int lightSourceInde
 	
 	//Render our children
 	for(int i = 0; i<children.size(); ++i){
-		children[i]->renderToFrameBuffer(depthModelMatrix, lightSourceIndex);
+		children[i]->renderToDepthBuffer(depthModelMatrix, lightSourceIndex);
 	}
 	
 }

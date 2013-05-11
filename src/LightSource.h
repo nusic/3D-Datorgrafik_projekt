@@ -53,19 +53,12 @@ public:
 
 	static GLuint depthBiasID;
 	static GLuint shadowMapID;
+	//STILL BAD
+	static GLuint shadowMapID2;
 
 	static std::vector<GLuint> FBO;
 	static std::vector<GLuint> depthTexture;
 
-	//STILL BAD
-	static GLuint shadowMapID2;
-
-	/*
-	//THE SECOND ONES ARE ONLY FOR TEST
-	static GLuint FBO2;
-	static GLuint depthTexture2;
-	//------
-	*/
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;
 
