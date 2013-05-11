@@ -8,15 +8,13 @@ GameObject(){
     speed = 15.0f;
     controller = new Controller(numberOfPlayers);
 
-    headPosition = new Translation(getSceneGraphBranch(), 0.0f, 2.0f, 0.0f);
-    headRotation = new Rotation(headPosition, 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-    headModel = new Model(headRotation, new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
-    headLight = new LightSource(headModel);
-
-	headLight->setDirection(0,-1,4);
-	headLight->setColor(0.9,0.8,0.7);
-    headLight->setIntensity(70);
-	headLight->setSpread(30);
+    head = GameObject(0.0f, 2.0f, 0.0f);
+    translationNode->addChildNode(head.getSceneGraphBranch());
+    light = new LightSource(head.modelNode);
+	light->setDirection(0,-1,4);
+	light->setColor(0.9,0.8,0.7);
+    light->setIntensity(70);
+	light->setSpread(30);
 
     numberOfPlayers++;
 
@@ -25,19 +23,24 @@ GameObject(){
     /*
     En player skapar en ScenGraphBranch som ser ut så här
 
-            Translation
-                 |
-                 |---------------
-                 |              |
-              Rotation      Translation
-                 |              |
-              Scaling        Rotation
-                 |              |
-               Model         Scaling
-                                |
-                              Model
-                                |
-                            LightSource
+
+
+        GameObject (body)
+        ------------------
+        |   Translation  |
+        |         |      
+        |         |------------------------    GameObject (head)
+        |         |               ------  |  ------ 
+        |      Rotation  |        |   Translation |
+        |         |      |        |       |       |
+        |      Scaling   |        |   Rotation    |
+        |         |      |        |       |       |
+        |       Model    |        |   Scaling     |
+        ------------------        |       |       |     
+                                  |     Model     |
+                                  ------  |  ------
+                                          | 
+                                     LightSource
 
     */
 }
@@ -77,7 +80,7 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
         float yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
-        headRotation->setRotation(180.0f / 3.141592 * glm::atan(xState,-yState), glm::vec3(0.0f,1.0f,0.0f));
+        head.rotationNode->setRotation(180.0f / 3.141592 * glm::atan(xState,-yState), glm::vec3(0.0f,1.0f,0.0f));
     }
 
 }

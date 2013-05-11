@@ -40,12 +40,7 @@ void GameEngine::preSync(float dt){
 	camera2->incrementPosition(dt);
 	camera2->calcMatrices();
 
-	scene->followCamera->updateLookAt();
-	scene->followCamera->incrementPosition(	scene->followCamera->target->getVelocity().x,
-											scene->followCamera->target->getVelocity().y,
-											scene->followCamera->target->getVelocity().z,
-											dt);
-	scene->followCamera->calcMatrices();
+	
 	scene->update(dt);
 }
 

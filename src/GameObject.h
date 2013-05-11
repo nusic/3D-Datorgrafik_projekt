@@ -8,7 +8,7 @@
 
 class GameObject{
 public:
-	GameObject(double x = 0, double y = 0, double z = 0, float Scale = 1.0f, float _phi = 0);
+	GameObject(double x = 0, double y = 0, double z = 0, float scale = 1.0f, float _phi = 0);
 	~GameObject();
 
 	//POSITIONS
@@ -43,7 +43,16 @@ public:
 	Node* getSceneGraphBranch() const;
 	Model* getMainModel() const;
 
+	Translation* 	translationNode;
+	Rotation* 		rotationNode;
+	Scaling*		scaleNode;
+	Model*			modelNode;
+
 protected:
+
+	float speed;
+
+private:
 
 	glm::vec3 position;
 	glm::vec3 scale;
@@ -51,14 +60,8 @@ protected:
 
 	glm::vec3 velocity;
 	float dPhi, dTheta;
-	float speed;
-
-private:
-
-	Translation* 	translationNode;
-	Rotation* 		rotationNode;
-	Scaling*		scaleNode;
-	Model*			modelNode;
+	
+	
 
 };
 

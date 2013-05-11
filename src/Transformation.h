@@ -14,6 +14,7 @@ public:
 	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix);
 
 protected:
+	friend class StaticGameObject;
 	glm::mat4 matrix;
 };
 

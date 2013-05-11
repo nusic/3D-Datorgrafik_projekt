@@ -176,7 +176,7 @@ void Scene::update(float dt){
 		followCamera->target->getVelocity().y,
 		followCamera->target->getVelocity().z,
 		dt);
-	
+
 	followCamera->calcMatrices();
 }
 

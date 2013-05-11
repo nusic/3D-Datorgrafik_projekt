@@ -22,10 +22,8 @@ public:
     static int numberOfPlayers;
 
 private:
-	Translation* 	headPosition;
-	Rotation* 		headRotation;
-	Model*			headModel;
-	LightSource* 	headLight;
+	GameObject head;
+	LightSource* light;
 
     Controller* controller;
     int playerIndex;
