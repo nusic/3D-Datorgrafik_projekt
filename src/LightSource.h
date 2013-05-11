@@ -45,16 +45,21 @@ public:
 	static GLuint directionalID;
 	static GLuint numberOfLightsID;
 
-	static shadowMapData shadowData;
-
+	//ShadowMap data
 	static GLuint depthMatrixID;
 	static GLuint depth_vertexPosition_modelspaceID;
+
+
+	static GLuint depthBiasID;
+	static GLuint shadowMapID;
 
 	static GLuint FBO;
 	static GLuint depthTexture;
 
 	//THE SECOND ONES ARE ONLY FOR TEST
-	static shadowMapData shadowData2;
+
+	static GLuint depthBiasID2;
+	static GLuint shadowMapID2;
 
 	static GLuint FBO2;
 	static GLuint depthTexture2;
@@ -64,6 +69,7 @@ public:
 	static std::vector<glm::vec3> direction;
 
 	static const int SHADOW_MAP_RESOLUTION = 512;
+	//------
 
 private:
 	unsigned short index;

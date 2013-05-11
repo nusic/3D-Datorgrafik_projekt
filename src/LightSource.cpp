@@ -46,12 +46,16 @@ GLuint LightSource::numberOfLightsID;
 GLuint LightSource::depthMatrixID;
 GLuint LightSource::depth_vertexPosition_modelspaceID;
 
-shadowMapData LightSource::shadowData;
+GLuint LightSource::depthBiasID;
+GLuint LightSource::shadowMapID;
+
 GLuint LightSource::FBO;
 GLuint LightSource::depthTexture;
 
 //For test
-shadowMapData LightSource::shadowData2;
+GLuint LightSource::depthBiasID2;
+GLuint LightSource::shadowMapID2;
+
 GLuint LightSource::FBO2;
 GLuint LightSource::depthTexture2;
 //--------
@@ -63,8 +67,8 @@ bool LightSource::initShadowMapBuffers(){
 	// Get a handle for our buffers
 	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
 
-	shadowData.depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
-	shadowData.shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
+	depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
+	shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
 
 	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
 	FBO = 0;
@@ -82,7 +86,7 @@ bool LightSource::initShadowMapBuffers(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
-	glTexParameteri( shadowData.shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+	glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
 
@@ -103,8 +107,8 @@ bool LightSource::initShadowMapBuffers(){
 
 	//SECOND, THIS IS ONLY FOR TEST
 
-	shadowData2.depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP2" );
-	shadowData2.shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap2" );
+	depthBiasID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP2" );
+	shadowMapID2 = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap2" );
 
 	FBO2 = 0;
 	glGenFramebuffers(1, &FBO2);
@@ -121,7 +125,7 @@ bool LightSource::initShadowMapBuffers(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
-	glTexParameteri( shadowData2.shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+	glTexParameteri( shadowMapID2 , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture2, 0);
 

@@ -109,12 +109,12 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(LightSource::shadowData.depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
+	glUniformMatrix4fv(LightSource::depthBiasID, 1, GL_FALSE, &depthBiasMVP[0][0]);
 
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture);
-	glUniform1i(LightSource::shadowData.shadowMapID, 1);//1 is the same 1 as in GL_TEXTURE1
+	glUniform1i(LightSource::shadowMapID, 1);//1 is the same 1 as in GL_TEXTURE1
 
 	
 	//FOR TEST_------
@@ -123,12 +123,12 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
-	glUniformMatrix4fv(LightSource::shadowData2.depthBiasID, 1, GL_FALSE, &depthBiasMVP2[0][0]);
+	glUniformMatrix4fv(LightSource::depthBiasID2, 1, GL_FALSE, &depthBiasMVP2[0][0]);
 
 	//Depth texture sampler
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture2);
-	glUniform1i(LightSource::shadowData2.shadowMapID, 2);//2 is the same 2 as in GL_TEXTURE2
+	glUniform1i(LightSource::shadowMapID2, 2);//2 is the same 2 as in GL_TEXTURE2
 	//------
 
 	
