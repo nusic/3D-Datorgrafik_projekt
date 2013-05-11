@@ -5,7 +5,7 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int MAX_NUMBER_OF_LIGHTS = 3;
+const int MAX_NUMBER_OF_LIGHTS = 2;
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
 uniform float lightIntensity[MAX_NUMBER_OF_LIGHTS];
@@ -29,8 +29,11 @@ varying vec3 lightDirection_viewSpace[MAX_NUMBER_OF_LIGHTS];
 varying vec4 shadowCoord;
 uniform sampler2D shadowMap;
 
-//uniform vec3 lightPosition_worldspace;
 
+//SECOND FOR TEST---
+varying vec4 shadowCoord2;
+uniform sampler2D shadowMap2;
+//-----
 
 
 void main()
@@ -83,16 +86,23 @@ void main()
 
 
 		//float visibility = shadow2D( shadowMap, vec3(shadowCoord.xy, (shadowCoord.z)/shadowCoord.w) ).r;
-
+		
 		float visibility = 0.0;
 		if (i == 0)
 		{
-			for (float x = -8; x < 8; x+=1)
-			{
-				if(texture2D(shadowMap, ((shadowCoord.xy) / shadowCoord.w) + vec2(0, x/300)).r >= shadowCoord.z / shadowCoord.w)
-					visibility += 0.05;
-			}
+				if(texture2D(shadowMap, ((shadowCoord.xy) / shadowCoord.w) + vec2(0, 0)).r >= shadowCoord.z / shadowCoord.w)
+					visibility += 1;
 		}
+		
+		//SECOND ONLY FOR TEST; THIS SHOUD BE DONE IN A LOOP
+		else if (i == 1)
+		{
+
+				if(texture2D(shadowMap2, ((shadowCoord2.xy) / shadowCoord2.w) + vec2(0, 0)).r >= shadowCoord2.z / shadowCoord2.w)
+					visibility += 1;
+		}
+		//-----
+		
 		else
 			visibility = 1;
 

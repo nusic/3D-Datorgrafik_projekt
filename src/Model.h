@@ -35,7 +35,7 @@ public:
 
 	friend class Scene;
     void drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-    void renderToFrameBuffer(glm::mat4 M);
+    void renderToFrameBuffer(glm::mat4 M, int lightSourceIndex);
 
 protected:
 

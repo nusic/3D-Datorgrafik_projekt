@@ -116,6 +116,22 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture);
 	glUniform1i(LightSource::shadowData.shadowMapID, 1);
 
+	
+	//FOR TEST_------
+	glm::mat4 depthMVP2 = LightSource::getVPFromIndex(1) * depthModelMatrix;
+	glm::mat4 depthBiasMVP2 = biasMatrix * depthMVP2;
+
+	// Send our transformation to the currently bound shader, 
+	// in the "MVP" uniform
+	glUniformMatrix4fv(LightSource::shadowData2.depthBiasID, 1, GL_FALSE, &depthBiasMVP2[0][0]);
+
+	//Depth texture sampler
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture2);
+	glUniform1i(LightSource::shadowData2.shadowMapID, 1);
+	//------
+	
+
 
 
 
@@ -190,7 +206,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	}
 }
 
-void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
+void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix, int lightSourceIndex){
 
 	
 	// Use our shader
@@ -198,7 +214,8 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 
 	// Compute the MVP matrix from the light's point of view
 	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
-	glm::mat4 depthMVP = LightSource::getVPFromIndex(0) * depthModelMatrix;
+	glm::mat4 depthMVP = LightSource::getVPFromIndex(lightSourceIndex) * depthModelMatrix;
+
 
 
 	// Send our transformation to the currently bound shader, 
@@ -228,7 +245,7 @@ void Model::renderToFrameBuffer(glm::mat4 parentModelMatrix){
 	
 	//Render our children
 	for(int i = 0; i<children.size(); ++i){
-		children[i]->renderToFrameBuffer(depthModelMatrix);
+		children[i]->renderToFrameBuffer(depthModelMatrix, lightSourceIndex);
 	}
 	
 }

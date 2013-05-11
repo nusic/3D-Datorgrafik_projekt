@@ -22,7 +22,18 @@ void GameEngine::draw(){
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION); // Render on the whole framebuffer
-	scene->renderToFrameBuffer(glm::mat4(1.0f));
+	scene->renderToFrameBuffer(glm::mat4(1.0f), 0);
+
+
+	//TEST
+	//Bind the framebuffer used for shadow mapping
+	glBindFramebuffer(GL_FRAMEBUFFER, LightSource::FBO2);
+	// Clear the screen
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION); // Render on the whole framebuffer
+	scene->renderToFrameBuffer(glm::mat4(1.0f), 1);
+	//--------
+
 	glDisable(GL_CULL_FACE);
 
 
