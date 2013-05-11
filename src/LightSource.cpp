@@ -14,12 +14,11 @@ LightSource::LightSource(double x, double y, double z, std::string _shaderName){
 	shaderName = _shaderName;
 
 	//This should only be done once
-	if (index == 0)
-	{
+	if (index == 0){
 		bindVariables();
-		if(!initShadowMapBuffers()){
-			std::cout << "Unable to initialize shadow map buffer!" << std::endl;
-		}
+	}
+	if(!initShadowMapBuffers()){
+		std::cout << "Unable to initialize shadow map buffer!" << std::endl;
 	}
 
 	
@@ -65,14 +64,6 @@ GLuint LightSource::depthTexture2;
 //--------
 
 bool LightSource::initShadowMapBuffers(){
-
-	// Get a handle for our "MVP" uniform
-	depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
-	// Get a handle for our buffers
-	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
-
-	depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
-	shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
 
 	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
 	FBO = 0;
@@ -235,5 +226,12 @@ void LightSource::bindVariables(){
 	LightSource::directionalID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
 	LightSource::numberOfLightsID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("numberOfLights");
 	sgct::ShaderManager::Instance()->unBindShader();
+
+	depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
+	shadowMapID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "shadowMap" );
+	// Get a handle for our "MVP" uniform when rendering to depth buffer
+	depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
+	// Get a handle for our buffers
+	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
 }
 
