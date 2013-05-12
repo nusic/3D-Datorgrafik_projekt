@@ -173,11 +173,10 @@ void Scene::update(float dt){
 	}
 
 	followCamera->updateLookAt();
-	followCamera->incrementPosition(
-		followCamera->target->getVelocity().x,
-		followCamera->target->getVelocity().y,
-		followCamera->target->getVelocity().z,
-		dt);
+	followCamera->setPosition(
+		followCamera->target->getPosition().x,
+		followCamera->target->getPosition().y + 15,
+		followCamera->target->getPosition().z + 15);
 
 	followCamera->calcMatrices();
 }
@@ -246,7 +245,14 @@ void Scene::readBMP(const char* filename)
     heightmapWidth = width;
     heightmapHeight = height;
 
-    if (imageSize==0)    imageSize=width*height*3;
+    printf("imageSize = %i\n", imageSize);
+    printf("width * height * 3 = %i\n", width * height * 3);
+
+    //Imagesize include the header or something. It's too big.
+    //We cant use it to loop through the rows and column in the pic,
+    //we will get outside the array bounds and get rubbish values.
+    //Instead, simply define image size as below:
+    imageSize = width*height*3;
     if (dataPos==0)      dataPos=54;
 
     // Create a buffer
@@ -260,13 +266,28 @@ void Scene::readBMP(const char* filename)
     for(int i = 3; i < imageSize; i+=3){
     	if(allData[i] > maxDepth) maxDepth = allData[i];
     	if(allData[i] < minDepth) minDepth = allData[i];
+    	if(allData[i] == 0)
+    		printf("ZERO PIXEL at %i\n", i/3);
     }
     
     float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
     printf("heightmap:  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
+
+    float minSceneY = getMinVertexValues().y;
     for(int i = 0; i < imageSize; i+=3){
-        heightmap[i/3] = (float)allData[i]*scale;
+   		//1. Before scaling the image, we need to have 0 in heightmap
+   		//means 0 in world coordinates. Therefor reduce all pixels with
+   		//minDepth. Now minimum depth will be 0.
+
+    	//2. Scale
+
+   		//3. After the scaling, we need to add the minimum value from the 
+   		//scene vertices. That makes the heighmap place the player correctly
+   		//according to the actual mesh.
+
+        heightmap[i/3] = (float)(allData[i] - minDepth)*scale + minSceneY;
+
     }
 
     fclose(file);

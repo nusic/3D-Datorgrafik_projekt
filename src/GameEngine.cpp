@@ -82,7 +82,7 @@ void GameEngine::initOGL(){
 	camera->setVelocity(0.05, 0.02, -0.01);
 
 	//Uncomment the two lines below to get simple static front view
-	camera->setPosition(0, 10, 30);
+	camera->setPosition(15, 15, 0);
 	camera->setVelocity(0, 0, 0);
 
 	camera2 = new Camera(0, 30, -30);

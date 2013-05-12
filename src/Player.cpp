@@ -59,22 +59,31 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
 
  
         int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * getPosition().x;
-        int imgZ = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * getPosition().z;
+        int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * getPosition().z;
 
         //printf("imgX = %i  ", imgX);
-        //printf("imgZ = %i\n", imgZ);
+        //printf("imgY = %i\n", imgY);
 
-        int XZPos = (int)(imgX + heightmapWidth*imgZ);
-        if(XZPos < 0) XZPos = 0;
-
+        int XZPos = (int)(imgX + heightmapWidth*imgY);
+        float zPosTemp;
+        if (0 < imgX && imgX < heightmapWidth &&
+            0 < imgY && imgY < heightmapHeight)
+            zPosTemp = heightmap[XZPos];
+        else 
+            zPosTemp = 0.0f;
         //printf("XZpos = %i \n", XZPos);
-        float zPosTemp = heightmap[XZPos];
+        
 
         //printf("position.z = %i    position.x = %i\n", (int) position.z, (int) position.x);
         //printf("heightmap[%i] = %f\n", XZPos, zPosTemp);
 
+        sgct::MessageHandler::Instance()->print(
+          "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f", 
+           getPosition().x, getPosition().z,      imgX,      imgY,      XZPos,          zPosTemp);
+        sgct::MessageHandler::Instance()->print("\r");
+
         setVelocity(xState, 0.0f, -yState);
-        setYPosition(zPosTemp-4);
+        setYPosition(zPosTemp);
         setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
         update(dt);
     }
