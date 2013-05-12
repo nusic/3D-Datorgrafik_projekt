@@ -54,7 +54,13 @@ void Scene::initScene(){
 	children.push_back(anne);
 	*/
 
-
+	for (int i = 0; i < 11; ++i)
+	{
+		Player* p = new Player();
+		p->setPosition(i*3, 0,0);
+		addPlayer(p);
+	}
+/*
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);

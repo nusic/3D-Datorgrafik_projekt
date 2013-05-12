@@ -50,16 +50,17 @@ public:
 	static GLuint depthMatrixID; //Denna behövs det bara en av
 	static GLuint depth_vertexPosition_modelspaceID; //Denna också
 
-	static GLuint depthBiasID;
+	static GLuint depthBiasID; //Array av depthBiasMVP-matriser i shadern
 
 	static std::vector<GLuint> FBO;
 	static std::vector<GLuint> depthTexture;
+	//------
+
 
 	static std::vector<glm::vec3> position;
 	static std::vector<glm::vec3> direction;
 
 	static const int SHADOW_MAP_RESOLUTION = 1024;
-	//------
 
 private:
 	unsigned short index;

@@ -120,13 +120,13 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	// I stället kommer de nås som shadowMap1, shadowMap2, shadowMap3... osv. Detta innebär
 	// i sin tur att vi inte kommer kunna loopa igenom varje skuggning utan i stället måste
 	// vi köra med if-satser som kollar vilken lampa som är aktiv vid varje shadowmap.
-	// Med denna kod går det att ha max 9 shadowmaps men det går att modifiera för fler
 	std::string str = "shadowMap";
 	for (int i = 0; i < numOfLightSources; ++i){
 		glActiveTexture(GL_TEXTURE1 + i);
 		glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[i]);
 		glUniform1i(
-			sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str + (char) (i+'1')),
+			sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str +
+				(char)((i + 1)/10 + '0') + (char) ((i+1)%10 + '0')),
 			i + 1);//1 is the same 1 as in GL_TEXTURE1
 	}
 
