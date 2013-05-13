@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 2;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];

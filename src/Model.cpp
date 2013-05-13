@@ -223,14 +223,13 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	delete [] depthBiasMVP;
 }
 
-void Model::renderToDepthBuffer(glm::mat4 depthM, int lightSourceIndex){
+void Model::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
 	
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 
 	// Compute the MVP matrix from the light's point of view
-	
-	glm::mat4 depthMVP = LightSource::getVPFromIndex(lightSourceIndex) * depthM;
+	glm::mat4 depthMVP = VP * M;
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
@@ -257,5 +256,5 @@ void Model::renderToDepthBuffer(glm::mat4 depthM, int lightSourceIndex){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	//RENDER ALL CHILD NODES.
-	Node::renderToDepthBuffer(depthM, lightSourceIndex);
+	Node::renderToDepthBuffer(VP, M);
 }

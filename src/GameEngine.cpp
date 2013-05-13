@@ -25,8 +25,10 @@ void GameEngine::draw(){
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Render on the whole framebuffer
-		glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION); 
-		scene->renderToDepthBuffer(glm::mat4(1.0f), i);
+		glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
+		glm::mat4 VP = LightSource::getVPFromIndex(i);
+		glm::mat4 M(1.0f);
+		scene->renderToDepthBuffer(VP, M);
 	}
 	glDisable(GL_CULL_FACE);
 
