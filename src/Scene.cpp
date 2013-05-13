@@ -2,7 +2,7 @@
 
 Scene::Scene():
 Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){ 
-	sceneDimensions = getMaxVertexValues() - getMinVertexValues();
+	sceneDimensions = getMesh()->getMaxVertexValues() - getMesh()->getMinVertexValues();
 	printf("sceneDimesions: x = %f,  y = %f,  z = %f\n", 
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
 }
@@ -295,7 +295,7 @@ void Scene::readBMP(const char* filename)
     printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
 
-    float minSceneY = getMinVertexValues().y;
+    float minSceneY = getMesh()->getMinVertexValues().y;
     for(int i = 0; i < imageSize; i+=3){
    		//1. Before scaling the image, we need to have 0 in heightmap
    		//means 0 in world coordinates. Therefor reduce all pixels with
