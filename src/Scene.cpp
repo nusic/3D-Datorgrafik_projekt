@@ -2,7 +2,9 @@
 
 Scene::Scene():
 Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){ 
-	sceneDimensions = getMesh()->getMaxVertexValues() - getMesh()->getMinVertexValues();
+	
+	glm::vec3 minVertexValues = getMesh()->getMinVertexValues();
+	sceneDimensions = getMesh()->getMaxVertexValues() - minVertexValues;
 	printf("sceneDimesions: x = %f,  y = %f,  z = %f\n", 
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
 }
