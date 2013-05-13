@@ -13,7 +13,7 @@ public:
 
 	virtual ~LightSource();
 
-	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
+	virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
 	
 
 	void setPosition(double x, double y, double z);

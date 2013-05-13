@@ -11,7 +11,7 @@ public:
 
 	glm::mat4 getMatrix() const;
 
-	virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix);
+	virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix);
 
 protected:
 	friend class StaticGameObject;

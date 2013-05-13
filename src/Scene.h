@@ -21,7 +21,7 @@ public:
 
 	void initScene();
 	void drawScene(glm::mat4 P, glm::mat4 V);
-	virtual void draw(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix);
+	virtual void renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix);
 	void update(float dt);
 
 	void addPlayer(Player * player);
@@ -39,6 +39,7 @@ public:
     int heightmapHeight;
 
     glm::vec3 sceneDimensions;
+    
 
 private:
 

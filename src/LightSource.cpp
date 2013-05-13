@@ -35,7 +35,7 @@ LightSource::~LightSource(){
 		"NU BLIR DET MÖRKT RAGNAR!!" << std::endl;
 }
 
-void LightSource::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+void LightSource::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 
 	glm::vec4 worldPos = M * glm::vec4(position, 1);
 	glm::vec4 worldDir = M * glm::vec4(direction, 0);
@@ -43,7 +43,7 @@ void LightSource::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
 	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
 
-	Node::draw(P, V, M);
+	Node::renderToScreen(P, V, M);
 }
 
 std::string LightSource::shaderName = "SimpleColor";

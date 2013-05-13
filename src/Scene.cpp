@@ -202,11 +202,11 @@ void Scene::addGenerations(Model* mother, int n){
 }
 
 void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
-	draw(P, V, glm::mat4(1.0f));
+	renderToScreen(P, V, glm::mat4(1.0f));
 }
 
-void Scene::draw(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
-	Model::draw(P, V, parentModelMatrix);
+void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
+	Model::renderToScreen(P, V, parentModelMatrix);
 }
 
 

@@ -79,9 +79,9 @@ bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
-void Model::draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+void Model::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	drawModel(P, V, M);
-	Node::draw(P, V, M);
+	Node::renderToScreen(P, V, M);
 }
 
 void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){

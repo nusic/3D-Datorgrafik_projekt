@@ -37,7 +37,7 @@ public:
     void drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 
-    virtual void draw(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
+    virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
 
     glm::vec3 getMaxVertexValues();
     glm::vec3 getMinVertexValues();
