@@ -18,6 +18,26 @@ float ModelMesh::getRadius() const{
 	return vertexRadiusXZ;
 }
 
+glm::vec3 ModelMesh::getMaxVertexValues(){
+    glm::vec3 maxValues = vertices[0];
+    for(int i = 1; i<vertices.size(); ++i){
+        if(vertices[i].x > maxValues.x) maxValues.x = vertices[i].x;
+        if(vertices[i].y > maxValues.y) maxValues.y = vertices[i].y;
+        if(vertices[i].z > maxValues.z) maxValues.z = vertices[i].z;
+    }
+    return maxValues;
+}
+
+glm::vec3 ModelMesh::getMinVertexValues(){
+    glm::vec3 minValues = vertices[0];
+    for(int i = 1; i<vertices.size(); ++i){
+        if(vertices[i].x < minValues.x) minValues.x = vertices[i].x;
+        if(vertices[i].y < minValues.y) minValues.y = vertices[i].y;
+        if(vertices[i].z < minValues.z) minValues.z = vertices[i].z;
+    }
+    return minValues;
+}
+
 void ModelMesh::calcRadiusXZ(){
 	float maxSquaredRadius = 0.0f;
 	float temp = 0.0f;

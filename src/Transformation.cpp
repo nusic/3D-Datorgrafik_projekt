@@ -12,7 +12,7 @@ Transformation::~Transformation(){
 
 }
 
-glm::mat4 Transformation::getMatrix() const{
+const glm::mat4& Transformation::getMatrix() const{
 	return matrix;
 }
 

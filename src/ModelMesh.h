@@ -15,10 +15,9 @@ public:
 	ModelMesh(const char* path);
 	~ModelMesh();
 
-	bool loadOBJ(const char* path);
-
 	
-
+	glm::vec3 getMaxVertexValues();
+    glm::vec3 getMinVertexValues();
 	float getRadius() const;
 
 
@@ -33,6 +32,7 @@ public:
 private:
 	float vertexRadiusXZ;
 
+	bool loadOBJ(const char* path);
 
 	void generateGLBuffers();
 	void deleteGLBuffers();

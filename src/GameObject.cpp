@@ -54,6 +54,16 @@ float GameObject::getSpeed() const{
 	return speed;
 }
 
+float GameObject::getAvgScale() const{
+	return (scaleNode->getMatrix()[0][0] + 
+			scaleNode->getMatrix()[1][1] + 
+			scaleNode->getMatrix()[2][2]) / 3.0f;
+}
+
+float GameObject::getBaseRadius() const{
+	return getAvgScale()*modelNode->getMesh()->getRadius();
+}
+
 void GameObject::incrementPosition(double dx, double dy, double dz){
 	position.x += dx;
 	position.y += dy;
@@ -106,12 +116,6 @@ void GameObject::incrementAngleVel(){
 
 glm::vec3 GameObject::getVelocity(){
 	return velocity;
-}
-
-
-
-void GameObject::updateMatrix(){
-
 }
 
 Node* GameObject::getSceneGraphBranch() const{
