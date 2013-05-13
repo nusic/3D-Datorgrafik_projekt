@@ -47,8 +47,8 @@
 		<Unit filename="../src/Camera.h" />
 		<Unit filename="../src/Controller.cpp" />
 		<Unit filename="../src/Controller.h" />
-		<Unit filename="../src/DynamicGameObject.cpp" />
-		<Unit filename="../src/DynamicGameObject.h" />
+		<Unit filename="../src/FollowCamera.cpp" />
+		<Unit filename="../src/FollowCamera.h" />
 		<Unit filename="../src/GameEngine.cpp" />
 		<Unit filename="../src/GameEngine.h" />
 		<Unit filename="../src/GameObject.cpp" />
@@ -61,10 +61,14 @@
 		<Unit filename="../src/Model.h" />
 		<Unit filename="../src/ModelMesh.cpp" />
 		<Unit filename="../src/ModelMesh.h" />
+		<Unit filename="../src/Node.cpp" />
+		<Unit filename="../src/Node.h" />
 		<Unit filename="../src/Player.cpp" />
 		<Unit filename="../src/Player.h" />
 		<Unit filename="../src/Scene.cpp" />
 		<Unit filename="../src/Scene.h" />
+		<Unit filename="../src/Transformation.cpp" />
+		<Unit filename="../src/Transformation.h" />
 		<Unit filename="../src/main.cpp" />
 		<Extensions>
 			<code_completion />

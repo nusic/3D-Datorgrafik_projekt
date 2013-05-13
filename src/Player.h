@@ -2,20 +2,28 @@
 #define PLAYER_H
 
 #include "Controller.h"
-#include "DynamicGameObject.h"
+#include "GameObject.h"
 #include "LightObject.h"
+#include "Transformation.h"
 
-class Player : public DynamicGameObject{
+class Player : public GameObject{
 public:
     Player();
     ~Player();
 
-    void updatePlayerOrientation(float dt);
-    
+    void updatePlayerOrientation(
+            float dt,
+            float * heightmap,
+            int heightmapWidth,
+            int heightmapHeight,
+            glm::vec3 sceneDimensions);
+
     static int numberOfPlayers;
 
 private:
-	LightObject* head;
+	GameObject head;
+	LightSource* light;
+
     Controller* controller;
     int playerIndex;
 

@@ -51,10 +51,10 @@ void myInitOGLFun(){
 }
 
 void myPreSyncFun(){
-	sgct::MessageHandler::Instance()->print(
-		"synctime = %.5f  drawtime = %0.5f  frametime = %0.5f", 
-		gEngine->getSyncTime(), gEngine->getDrawTime(), gEngine->getDt() );
-	sgct::MessageHandler::Instance()->print("\r");
+	//sgct::MessageHandler::Instance()->print(
+	//	"synctime = %.5f  drawtime = %0.5f  frametime = %0.5f",
+	//	gEngine->getSyncTime(), gEngine->getDrawTime(), gEngine->getDt() );
+	//sgct::MessageHandler::Instance()->print("\r");
 
 	if(gEngine->isMaster())
 		gameEngine->preSync(gEngine->getDt());

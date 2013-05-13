@@ -1,15 +1,22 @@
 #include "Model.h"
 
 
-Model::Model(ModelMesh* _mesh, glm::mat4 _localModelMatrix, std::string _textureName, std::string _shaderName){
+Model::Model(ModelMesh* _mesh, std::string _textureName, std::string _shaderName){
 	setMesh(_mesh);
 	setShader(_shaderName);
 	setTexture(_textureName);
-	setLocalModelMatrix(_localModelMatrix);
 }
 
+Model::Model(Node* _parent, ModelMesh* _mesh, std::string _textureName, std::string _shaderName):
+Node(_parent){
+	setMesh(_mesh);
+	setShader(_shaderName);
+	setTexture(_textureName);
+}
+
+
 Model::~Model(){
-	
+	delete mesh;
 }
 
 void Model::setTexture(std::string _textureName){
@@ -21,6 +28,26 @@ void Model::setMesh(ModelMesh* _mesh){
 	mesh = _mesh;
 	if(!mesh)
 		std::cout << "WARNING: MODEL WITH NULL MESH CREATED!!!!!" << std::endl;
+}
+
+glm::vec3 Model::getMaxVertexValues(){
+    glm::vec3 maxValues = mesh->vertices[0];
+    for(int i = 1; i<mesh->vertices.size(); ++i){
+        if(mesh->vertices[i].x > maxValues.x) maxValues.x = mesh->vertices[i].x;
+        if(mesh->vertices[i].y > maxValues.y) maxValues.y = mesh->vertices[i].y;
+        if(mesh->vertices[i].z > maxValues.z) maxValues.z = mesh->vertices[i].z;
+    }
+    return maxValues;
+}
+
+glm::vec3 Model::getMinVertexValues(){
+    glm::vec3 minValues = mesh->vertices[0];
+    for(int i = 1; i<mesh->vertices.size(); ++i){
+        if(mesh->vertices[i].x < minValues.x) minValues.x = mesh->vertices[i].x;
+        if(mesh->vertices[i].y < minValues.y) minValues.y = mesh->vertices[i].y;
+        if(mesh->vertices[i].z < minValues.z) minValues.z = mesh->vertices[i].z;
+    }
+    return minValues;
 }
 
 void Model::setShader(std::string _shaderName){
@@ -51,17 +78,16 @@ void Model::setShader(std::string _shaderName){
 
 }
 
-void Model::setLocalModelMatrix(glm::mat4 _localModelMatrix){
-	localModelMatrix = _localModelMatrix;
-}
-
 bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
+void Model::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+	drawModel(P, V, M);
+	Node::renderToScreen(P, V, M);
+}
 
-
-void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
+void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -69,10 +95,9 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	assert(sgct::ShaderManager::Instance()->bindShader(shaderName));
 
 	//Calculate matrices necessary for shader
-	glm::mat4 M = parentModelMatrix * localModelMatrix;
 	glm::mat4 MV = V * M;
 	glm::mat4 MVP = P * V * M;
-	
+
 	//Bind matrices to shader
 	glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, &V[0][0]);
 	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &M[0][0]);
@@ -97,7 +122,7 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	int numOfLightSources = LightSource::getNumberOfLightSources();
 
 	// Compute the MVP and bias matrix from the light's point of view, done for every light
-	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
+	glm::mat4 depthModelMatrix = M;
 	glm::mat4 biasMatrix(
 		0.5, 0.0, 0.0, 0.0, 
 		0.0, 0.5, 0.0, 0.0,
@@ -195,22 +220,16 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	delete [] depthBiasMVP;
-
-	//Draw our children
-	for(int i = 0; i<children.size(); ++i){
-		children[i]->drawModel(P, V, M);
-	}
 }
 
-void Model::renderToDepthBuffer(glm::mat4 parentModelMatrix, int lightSourceIndex){
-
+void Model::renderToDepthBuffer(glm::mat4 depthM, int lightSourceIndex){
 	
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 
 	// Compute the MVP matrix from the light's point of view
-	glm::mat4 depthModelMatrix = parentModelMatrix * localModelMatrix;
-	glm::mat4 depthMVP = LightSource::getVPFromIndex(lightSourceIndex) * depthModelMatrix;
+	
+	glm::mat4 depthMVP = LightSource::getVPFromIndex(lightSourceIndex) * depthM;
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform
@@ -236,10 +255,6 @@ void Model::renderToDepthBuffer(glm::mat4 parentModelMatrix, int lightSourceInde
 	//Don't use the currently bound shader anymore
 	sgct::ShaderManager::Instance()->unBindShader();
 
-	
-	//Render our children
-	for(int i = 0; i<children.size(); ++i){
-		children[i]->renderToDepthBuffer(depthModelMatrix, lightSourceIndex);
-	}
-	
+	//RENDER ALL CHILD NODES.
+	Node::renderToDepthBuffer(depthM, lightSourceIndex);
 }

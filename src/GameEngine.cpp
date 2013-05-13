@@ -38,7 +38,17 @@ void GameEngine::draw(){
 	glBindFramebuffer(GL_FRAMEBUFFER, 2);
 	glViewport(0,0,640 * 2,360 * 2);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+/*
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+
+	glViewport(0,0,640,360);
+	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+
+	glViewport(640,0,640,360);
+	scene->drawScene(scene->followCamera->getPerspectiveMatrix(), scene->followCamera->getViewMatrix());
 	glDisable(GL_CULL_FACE);
+*/
 }
 
 void GameEngine::preSync(float dt){
@@ -52,9 +62,11 @@ void GameEngine::preSync(float dt){
 	camera->incrementPosition(dt);
 	camera->calcMatrices();
 
-	for (int i = 0; i < scene->players.size(); ++i){
-		scene->players[i]->updatePlayerOrientation(dt);
-	}
+	camera2->incrementPosition(dt);
+	camera2->calcMatrices();
+
+	
+	scene->update(dt);
 }
 
 void GameEngine::initOGL(){
@@ -92,7 +104,6 @@ void GameEngine::initOGL(){
 	globalRandomId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "globalRandom" );
 	sgct::ShaderManager::Instance()->unBindShader();
 
-
 	scene = new Scene();
 	scene->initScene();
 
@@ -101,8 +112,12 @@ void GameEngine::initOGL(){
 	camera->setVelocity(0.05, 0.02, -0.01);
 
 	//Uncomment the two lines below to get simple static front view
+
 	camera->setPosition(0, 15, 15);
 	camera->setVelocity(0, 0, 0);
+
+	camera2 = new Camera(0, 30, -30);
+	camera2->setLookAt(0, 0, 0);
 }
 
 void GameEngine::encode(){

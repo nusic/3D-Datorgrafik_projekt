@@ -1,6 +1,6 @@
 #version 120
 
-const int MAX_NUMBER_OF_LIGHTS = 11;
+const int MAX_NUMBER_OF_LIGHTS = 2;
 const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 // Input vertex data, different for all executions of this shader.
@@ -63,11 +63,9 @@ void main(){
 	//normal = vertexNormal;
 	UV = vertexUV;
 
-	for (int i = 0; i < MAX_NUMBER_OF_SHADOWS; ++i)
-	{
+	for (int i = 0; i < MAX_NUMBER_OF_SHADOWS; ++i){
 		shadowCoord[i] = depthBiasMVP[i] * vec4(vertexPosition, 1.0);
 	}
-
 }
 
 

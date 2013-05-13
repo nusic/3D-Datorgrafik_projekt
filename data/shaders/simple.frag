@@ -5,7 +5,8 @@ uniform sampler2D textureSampler;
 
 //Light data
 uniform int numberOfLights;
-const int MAX_NUMBER_OF_LIGHTS = 11;
+
+const int MAX_NUMBER_OF_LIGHTS = 2;
 const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -47,15 +48,13 @@ uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
 
-
-
-
-
 void main()
 {
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
-	vec3 materialAmbientColor = vec3(0.1,0.1,0.1) * materialDiffuseColor;
+
+	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
+
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
 	vec3 n = normalize(normal_viewSpace);
@@ -89,7 +88,7 @@ void main()
 		vec3 ld = normalize(lightDirection_viewSpace[i]);
 		cosPhi = clamp(dot(l, ld), 0, 1);
 
-		directionalIntensity = pow(cosPhi, lightSpread[i]);	
+		directionalIntensity = pow(cosPhi, lightSpread[i]);
 		//}
 		//else
 		//	directionalIntensity = 1;
@@ -170,7 +169,7 @@ void main()
 
 		}
 		else
-			visibility = 1; //Än så länge 9 st shadow maps
+			visibility = 1;
 
 
 		finalFragColor += visibility * (
