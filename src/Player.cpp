@@ -12,7 +12,10 @@ GameObject(){
     translationNode->addChildNode(head.getSceneGraphBranch());
     light = new LightSource(head.modelNode);
 	light->setDirection(0,-1,4);
-	light->setColor(0.9,0.8,0.7);
+
+    int n = numberOfPlayers;
+	light->setColor(n/2, n%2, n/3);
+
     light->setIntensity(70);
 	light->setSpread(30);
 
