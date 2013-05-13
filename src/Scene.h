@@ -33,7 +33,7 @@ public:
 	static std::vector<LightSource*> lightSources;
 
 	
-	float getZPosition(int x, int y);
+	float getYPosition(float x, float z);
     float* heightmap;
     int heightmapWidth;
     int heightmapHeight;

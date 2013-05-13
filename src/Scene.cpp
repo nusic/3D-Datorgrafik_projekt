@@ -14,6 +14,8 @@ Scene::~Scene(){
 }
 
 void Scene::initScene(){
+	std::string imgpath= "data/heightmap/heightmap.bmp";
+    readBMP(imgpath.c_str());
 
 	/*
 
@@ -166,8 +168,7 @@ void Scene::initScene(){
 */
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
-	std::string imgpath= "data/heightmap/heightmap.bmp";
-    readBMP(imgpath.c_str());
+	
 }
 
 void Scene::update(float dt){
@@ -192,6 +193,8 @@ void Scene::update(float dt){
 
 
 void Scene::addPlayer(Player * p){
+	//Put player on the ground
+	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
 	addChildNode(p->getSceneGraphBranch());
 	players.push_back(p);
 }
@@ -219,8 +222,17 @@ void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix
 }
 
 
-float Scene::getZPosition(int x, int y){
-    return *(heightmap + (x*y));
+float Scene::getYPosition(float x, float z){
+	//Här kan man optimera genom att lagra uträkningen av heigtWidth/sceneDimensions.x osv
+	int imgX = heightmapWidth /2 + heightmapWidth /sceneDimensions.x * x;
+	int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * z;
+
+	int imgXYPos = (int)(imgX + heightmapWidth*imgY);
+
+	if (0 < imgX && imgX < heightmapWidth &&
+	    0 < imgY && imgY < heightmapHeight)
+	    return heightmap[imgXYPos];
+	return -1.0f;
 }
 
 void Scene::readBMP(const char* filename)

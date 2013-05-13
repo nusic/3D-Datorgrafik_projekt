@@ -57,8 +57,8 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
         float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS);
         float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS);
 
-        int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (getPosition().x + xState*speed*dt);
-        int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (getPosition().z + yState*speed*dt);
+        int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (getPosition().x + xState);
+        int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (getPosition().z + yState);
 
         int imgXYPos = (int)(imgX + heightmapWidth*imgY);
 
@@ -67,7 +67,7 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
             0 < imgY && imgY < heightmapHeight)
             yTemp = heightmap[imgXYPos];
         else 
-            yTemp = -2.0f;
+            yTemp = -0.0f;
 
 
         sgct::MessageHandler::Instance()->print(
@@ -81,7 +81,7 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
             setYPosition(yTemp);
         }
         else{
-            setVelocity(-xState, 0.0f, yState);
+            setVelocity(0.0f, 0.0f, 0.0f);
         }
         setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
         update(dt);
