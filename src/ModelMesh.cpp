@@ -5,12 +5,30 @@
 ModelMesh::ModelMesh(const char* path){ 
 	if(loadOBJ(path)){
 		generateGLBuffers();
+		calcRadiusXZ();
 	}
 	else printf("ERROR: COULDN'T READ OBJECT\n");
 }
 
 ModelMesh::~ModelMesh(){
 	deleteGLBuffers();
+}
+
+float ModelMesh::getRadius() const{
+	return vertexRadiusXZ;
+}
+
+void ModelMesh::calcRadiusXZ(){
+	float maxSquaredRadius = 0.0f;
+	float temp = 0.0f;
+
+	for (int i = 0; i < vertices.size(); ++i){
+		temp = glm::pow(vertices[i].x, 2.0f) + glm::pow(vertices[i].z, 2.0f);
+		if(temp > maxSquaredRadius)
+			maxSquaredRadius = temp;
+	}
+
+	vertexRadiusXZ = glm::pow(maxSquaredRadius, 0.5f);
 }
 
 

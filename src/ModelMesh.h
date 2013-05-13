@@ -17,10 +17,11 @@ public:
 
 	bool loadOBJ(const char* path);
 
-	void generateGLBuffers();
-	void deleteGLBuffers();
-
 	
+
+	float getRadius() const;
+
+
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> uvs;
@@ -28,6 +29,14 @@ public:
 	GLuint vertexBuffer;
 	GLuint normalBuffer;
 	GLuint uvBuffer;
+
+private:
+	float vertexRadiusXZ;
+
+
+	void generateGLBuffers();
+	void deleteGLBuffers();
+	void calcRadiusXZ();
 };
 
 #endif
