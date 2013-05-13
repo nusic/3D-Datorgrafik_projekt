@@ -14,7 +14,7 @@ public:
 	virtual ~LightSource();
 
 	virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
-	virtual void renderToDepthBuffer(glm::mat4 M, int lightSourceIndex);
+	virtual void renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M);
 	
 
 	//This can only be called from the constructor

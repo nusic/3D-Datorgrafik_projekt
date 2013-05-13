@@ -30,10 +30,10 @@ void Node::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	}
 }
 
-void Node::renderToDepthBuffer(glm::mat4 M, int lightSourceIndex){
+void Node::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
 	for (unsigned int i = 0; i < children.size(); ++i){
 		if (children[i] != NULL){
-			children[i]->renderToDepthBuffer(M, lightSourceIndex);
+			children[i]->renderToDepthBuffer(VP, M);
 		}
 	}
 }

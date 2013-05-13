@@ -60,14 +60,14 @@ void LightSource::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	Node::renderToScreen(P, V, M);
 }
 
-void LightSource::renderToDepthBuffer(glm::mat4 M, int lightSourceIndex){
+void LightSource::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
 	glm::vec4 worldPos = M * glm::vec4(position, 1);
 	glm::vec4 worldDir = M * glm::vec4(direction, 0);
 	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
 	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
 	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
 
-	Node::renderToDepthBuffer(M, lightSourceIndex);
+	Node::renderToDepthBuffer(VP, M);
 }
 
 std::string LightSource::shaderName = "SimpleColor";

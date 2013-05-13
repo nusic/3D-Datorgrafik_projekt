@@ -21,9 +21,9 @@ void Transformation::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &paren
 	Node::renderToScreen(P, V, M);
 }
 
-void Transformation::renderToDepthBuffer(glm::mat4 parentModelMatrix, int lightSourceIndex){
+void Transformation::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &parentModelMatrix){
 	glm::mat4 M = parentModelMatrix * matrix;
-	Node::renderToDepthBuffer(M, lightSourceIndex);
+	Node::renderToDepthBuffer(VP, M);
 }
 
 

@@ -40,10 +40,9 @@ public:
 
 	friend class Scene;
     void drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-    virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
-    virtual void renderToDepthBuffer(glm::mat4 M, int lightSourceIndex);
 
-    
+    virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M);
+    virtual void renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M);
 
 private:
 
