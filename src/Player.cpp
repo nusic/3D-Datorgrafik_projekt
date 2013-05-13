@@ -89,13 +89,14 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
         float maxStep = 1.0f;
 
         //Testa om players främre kant befinner sig innanför heightmappen
-        //OCH Testa om denna höjd är för stor för att kunna röra sig upp för.
+        //OCH Testa om denna höjdskillnad är för stor för att kunna röra sig upp för.
         if (0 < imgX && imgX < heightmapWidth &&
             0 < imgY && imgY < heightmapHeight &&
             abs(yTemp - getPosition().y) < maxStep){
             
             //Fritt fram för player att röra sig!
-            //Vi tar fram players riktiga position, dvs centrum av player
+            //Vi tar fram players riktiga position i höjdmappen
+            //dvs den som baseras på centrum av player
             imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (getPosition().x);
             imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (getPosition().z);
 
