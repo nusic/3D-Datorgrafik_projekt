@@ -65,7 +65,6 @@ public:
 
 	static std::vector<GLuint> FBO;
 	static std::vector<GLuint> depthTexture;
-	//------
 
 
 	static std::vector<glm::vec3> worldPosition;

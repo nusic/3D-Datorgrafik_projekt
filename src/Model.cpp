@@ -149,10 +149,11 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	for (int i = 0; i < numOfLightSources; ++i){
 		glActiveTexture(GL_TEXTURE1 + i);
 		glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[i]);
-		glUniform1i(
-			sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str +
-				(char)((i + 1)/10 + '0') + (char) ((i+1)%10 + '0')),
-			i + 1);//1 is the same 1 as in GL_TEXTURE1
+		GLuint shadowMapID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str +
+					(char)((i + 1)/10 + '0') + (char) ((i+1)%10 + '0'));
+
+		glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+		glUniform1i(shadowMapID, i + 1);//1 is the same 1 as in GL_TEXTURE1
 	}
 
 

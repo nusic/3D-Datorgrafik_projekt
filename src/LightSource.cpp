@@ -132,6 +132,7 @@ bool LightSource::initShadowMapBuffers(){
 
 	FBO.push_back(frameBufferObj);
 	depthTexture.push_back(depthTex);
+	return true;
 }
 
 

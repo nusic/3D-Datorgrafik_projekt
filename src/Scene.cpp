@@ -69,28 +69,38 @@ void Scene::initScene(){
 
 
 	- GameObject ärver inte längre från Model
-	- GameObject är i princip bara 4 Nodes som är ihop kopplade enligt
+	- GameObject är i princip bara 4 Nodes som är ihopkopplade enligt
 
 				Translation -> Rotation -> Scaling -> Model
 
 
-		 GameObject
-		 	 |	* glm::vec3 position
-		 	 |	* glm::vec3 direction
-		 	 |	* float phi, theta
+		 GameObject 						
+		 	 |	* glm::vec3 position 			    
+		 	 |	* glm::vec3 direction 				
+		 	 |	* float phi, theta 					
+		 	 |	* glm::vec3 velocity 				
+			 |	* angleVelocity 		 	
+			 | 									
 			 |	* Translation
 			 |	* Rotation
 			 | 	* Scaling
 			 | 	* Model
+			 |
 			 |	  Node* getSceneGraphBranch();
 			 |
-	 DynamicGameObject
-	 		 |	* glm::vec3 velocity
-			 |	* angleVelocity
-			 |
-		   Player
+			 | 									    
+		   Player 									
 		  		* Controller
 		  		* LightObject* head
+
+
+
+	- StaticGameObject är en enklare, effektivare variant av GameObject 
+	- Används för saker som inte ska röra sig, tex stenar, träd
+	- StaticGameObject är i princip bara 2 Nodes som är ihopkopplade enligt
+
+				Transformation -> Model
+
 
 	*/
 
@@ -244,8 +254,8 @@ void Scene::readBMP(const char* filename)
     heightmapWidth = width;
     heightmapHeight = height;
 
-    printf("imageSize = %i\n", imageSize);
-    printf("width * height * 3 = %i\n", width * height * 3);
+    printf("heightmap:\n  imageSize read from file = %i\n", imageSize);
+    printf("  width * height * 3 = %i\n", width * height * 3);
 
     //Imagesize include the header or something. It's too big.
     //We cant use it to loop through the rows and column in the pic,
@@ -266,11 +276,11 @@ void Scene::readBMP(const char* filename)
     	if(allData[i] > maxDepth) maxDepth = allData[i];
     	if(allData[i] < minDepth) minDepth = allData[i];
     	if(allData[i] == 0)
-    		printf("ZERO PIXEL at %i\n", i/3);
+    		printf("  ZERO PIXEL at %i\n", i/3);
     }
     
     float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
-    printf("heightmap:  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
+    printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
 
     float minSceneY = getMinVertexValues().y;

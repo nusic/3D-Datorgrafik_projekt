@@ -5,7 +5,7 @@ int Player::numberOfPlayers = 0;
 
 Player::Player():
 GameObject(){
-    speed = 15.0f;
+    speed = 5.0f;
     controller = new Controller(numberOfPlayers);
 
     head = GameObject(0.0f, 2.0f, 0.0f);
@@ -54,36 +54,35 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
     controller->inputLoader();
 
     if(controller->validateLeftStickValues()){
-        float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS)*dt*speed;
-        float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS)*dt*speed;
+        float xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS);
+        float yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS);
 
- 
-        int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * getPosition().x;
-        int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * getPosition().z;
+        int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (getPosition().x + xState*speed*dt);
+        int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (getPosition().z + yState*speed*dt);
 
-        //printf("imgX = %i  ", imgX);
-        //printf("imgY = %i\n", imgY);
+        int imgXYPos = (int)(imgX + heightmapWidth*imgY);
 
-        int XZPos = (int)(imgX + heightmapWidth*imgY);
-        float zPosTemp;
+        float yTemp;
         if (0 < imgX && imgX < heightmapWidth &&
             0 < imgY && imgY < heightmapHeight)
-            zPosTemp = heightmap[XZPos];
+            yTemp = heightmap[imgXYPos];
         else 
-            zPosTemp = 0.0f;
-        //printf("XZpos = %i \n", XZPos);
-        
+            yTemp = -2.0f;
 
-        //printf("position.z = %i    position.x = %i\n", (int) position.z, (int) position.x);
-        //printf("heightmap[%i] = %f\n", XZPos, zPosTemp);
 
         sgct::MessageHandler::Instance()->print(
           "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f", 
-           getPosition().x, getPosition().z,      imgX,      imgY,      XZPos,          zPosTemp);
+           getPosition().x, getPosition().z, imgX,      imgY,                imgXYPos, yTemp);
         sgct::MessageHandler::Instance()->print("\r");
 
-        setVelocity(xState, 0.0f, -yState);
-        setYPosition(zPosTemp);
+        float maxStep = 1.0f;
+        if(yTemp - maxStep < getPosition().y){
+            setVelocity(xState, 0.0f, -yState);
+            setYPosition(yTemp);
+        }
+        else{
+            setVelocity(-xState, 0.0f, yState);
+        }
         setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
         update(dt);
     }
