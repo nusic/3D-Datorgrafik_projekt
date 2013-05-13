@@ -34,11 +34,10 @@ public:
 	void incrementAngleVel(float _dPhi, float _dTheta);
 
 	float getSpeed() const;
+	float getBaseRadius() const;
+	float getAvgScale() const;
 
-	//call this function every frame when final
-	//position, direction, and Scale is set.
 	void update(float dt);
-	void updateMatrix();
 
 	Node* getSceneGraphBranch() const;
 	Model* getMainModel() const;

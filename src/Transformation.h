@@ -9,7 +9,7 @@ public:
 	Transformation(Node * _parent = NULL);
 	virtual ~Transformation();
 
-	glm::mat4 getMatrix() const;
+	const glm::mat4& getMatrix() const;
 
 	virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix);
 	virtual void renderToDepthBuffer(glm::mat4 M, int lightSourceIndex);
