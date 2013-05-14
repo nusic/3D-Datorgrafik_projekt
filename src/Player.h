@@ -3,7 +3,6 @@
 
 #include "Controller.h"
 #include "GameObject.h"
-#include "LightObject.h"
 #include "Transformation.h"
 
 class Player : public GameObject{
