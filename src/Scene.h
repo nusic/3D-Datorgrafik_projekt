@@ -2,6 +2,9 @@
 #define SCENE_H
 
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
+#include <new>
 
 #include "sgct.h"
 #include "Model.h"
@@ -39,6 +42,8 @@ public:
     int heightmapHeight;
 
     glm::vec3 sceneDimensions;
+    glm::vec3 minVertexValues;
+    glm::vec3 maxVertexValues;
     
 
 private:

@@ -68,6 +68,10 @@ bool Model::hasMesh() const{
     return (mesh != NULL);
 }
 
+int Model::getNumberOfVertices() const{
+	return mesh->vertices.size() + Node::getNumberOfVertices();
+}
+
 void Model::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	drawModel(P, V, M);
 	Node::renderToScreen(P, V, M);
@@ -97,9 +101,6 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureID, 0); //0 is the same 0 as in GL_TEXTURE0
-
-
-
 
 
 

@@ -2,10 +2,11 @@
 
 Scene::Scene():
 Model(new ModelMesh("data/meshes/plane.obj"), "Sublime", "SimpleColor"){ 
-	
-	glm::vec3 minVertexValues = getMesh()->getMinVertexValues();
-	sceneDimensions = getMesh()->getMaxVertexValues() - minVertexValues;
-	printf("sceneDimesions: x = %f,  y = %f,  z = %f\n", 
+
+	minVertexValues = getMesh()->getMinVertexValues();
+	maxVertexValues = getMesh()->getMaxVertexValues();
+	sceneDimensions = maxVertexValues - minVertexValues;
+	printf("sceneDimensions: x = %f,  y = %f,  z = %f\n", 
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
 }
 
@@ -128,11 +129,22 @@ void Scene::initScene(){
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
 
-	StaticGameObject* sgo = new StaticGameObject(5.0f, 0.0f, 5.0f);
-	sgo->setRotation(45.0f, 30.0f);
-	addChildNode(sgo->getSceneGraphBranch());
-	
 
+	StaticGameObject* sgo;
+	srand(time(NULL));
+	for (int i = 0; i < 10; ++i){
+		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
+		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
+		float y = getYPosition(x, z);
+		float phi 	= 180.0f*(rand()/(float)RAND_MAX);
+		float theta = 180.0f*(rand()/(float)RAND_MAX);
+
+		sgo = new StaticGameObject(x, y, z);
+		sgo->setRotation(phi, theta);
+
+		addChildNode(sgo->getSceneGraphBranch());
+	}
+	
 
 	//Transformation* trans2 = new Translation(body1->getSceneGraphBranch(), 2.0f, 0.0f, 0.0f);
 	//LightSource* l1 = new LightSource();
@@ -172,7 +184,7 @@ void Scene::initScene(){
 
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
-
+	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
 }
 
 
@@ -301,7 +313,7 @@ void Scene::readBMP(const char* filename)
     printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
 
-    float minSceneY = getMesh()->getMinVertexValues().y;
+    float minSceneY = minVertexValues.y;
     for(int i = 0; i < imageSize; i+=3){
    		//1. Before scaling the image, we need to have 0 in heightmap
    		//means 0 in world coordinates. Therefor reduce all pixels with
