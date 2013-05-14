@@ -38,6 +38,8 @@ public:
 private:
 
 	bool renderWireFrame;
+	int defaultFBOindex;
+	int getDefaultFBOindex() const;
 };
 
 #endif

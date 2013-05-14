@@ -35,16 +35,23 @@ void GameEngine::draw(){
 
 		scene->renderToDepthBuffer(VP, M);
 	}
-
+	
+		
 
 	//RENDER TO THE SCREEN
 	//Backface culling
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	//Bind the default framebuffer (render to screen)
-	glBindFramebuffer(GL_FRAMEBUFFER, 2);
+	glBindFramebuffer(GL_FRAMEBUFFER, defaultFBOindex);
 	glViewport(0,0,640 * 2,360 * 2);
-
+/*
+	int res;
+	glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &res);
+    printf("OpenGL draw frambuffer binding: %i\n", res);
+    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &res);
+    printf("OpenGL read frambuffer binding: %i\n", res);
+*/
 	if(renderWireFrame){
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDisable(GL_DEPTH_TEST);
@@ -90,8 +97,9 @@ void GameEngine::preSync(float dt){
 	scene->update(dt);
 }
 
+
 void GameEngine::initOGL(){
-	srand((unsigned)time(0));
+
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -140,7 +148,40 @@ void GameEngine::initOGL(){
 	camera2 = new Camera(0, 30, -30);
 	camera2->setLookAt(0, 0, 0);
 
-	
+	defaultFBOindex = getDefaultFBOindex();
+	printf("setting default FBO index to %i\n", defaultFBOindex);
+}
+
+int GameEngine::getDefaultFBOindex() const{
+	printf("\nTesting if some FBO indices are defined in OpenGL ... \n");
+	int theIndex = -1;
+	int N = LightSource::FBO[LightSource::FBO.size()-1]+10;
+	for (int i = 0; i < N; ++i){
+		printf("%2i : ", i);
+		if(glIsFramebuffer(i)){
+			printf("yes --> ");
+			int forShadow = -1;
+			for (int j = 0; j < LightSource::FBO.size(); ++j){
+				if(i == LightSource::FBO[j]){
+					forShadow = j;
+					break;
+				}
+			}
+			if(forShadow != -1)
+				printf("shadowmap FBO[%i] = %i", forShadow, LightSource::FBO[forShadow]);
+			else{
+				printf("not declares as shadowmap. This can be the default screen FBO");
+				theIndex = (theIndex == -1) ? i : -2;
+			}
+		}
+		else
+			printf("no  ");
+		printf("\n");
+	}
+	printf("\n");
+	if(theIndex == -1) printf("WARNING: Didn't find possible default index\n");
+	if(theIndex == -2) printf("WARNING: Found 2 or more possible default index\n");
+	return theIndex;
 }
 
 void GameEngine::encode(){
