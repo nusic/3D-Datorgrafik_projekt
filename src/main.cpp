@@ -30,6 +30,7 @@ int main(int argc, char* argv[]){
 		return EXIT_FAILURE;
 	}
 
+
 	sgct::SharedData::Instance()->setEncodeFunction(myEncodeFun);
 	sgct::SharedData::Instance()->setDecodeFunction(myDecodeFun);
 
@@ -47,6 +48,7 @@ int main(int argc, char* argv[]){
 }
 
 void myInitOGLFun(){
+	printf("\ninit GameEngine ... \n");
 	gameEngine->initOGL();
 }
 

@@ -34,6 +34,9 @@ all:
 
 run:
 	./Program -config data/sgct_config/single.xml
+
+fish:
+	./Program -config data/sgct_config/single_fisheye.xml	
 	
 runmake:
 	say sojojoj. Det där var inte meningen. Nu sket du i byxan.
