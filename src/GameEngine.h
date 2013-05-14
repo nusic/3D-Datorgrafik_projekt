@@ -21,6 +21,8 @@ public:
 	void encode();
 	void decode();
 
+	void keyboardCallback(int key, int action);
+
 
 	Scene * scene;
 	Camera * camera;
@@ -33,7 +35,7 @@ public:
 	double currentTime;
 	double globalRandom;
 
-	void swapRenderMode();
+	void toggleRenderMode();
 
 private:
 

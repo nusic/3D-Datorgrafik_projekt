@@ -8,7 +8,14 @@ GameEngine::~GameEngine(){
 
 }
 
-void GameEngine::swapRenderMode(){
+void GameEngine::keyboardCallback(int key, int action){
+	switch(key){
+		case 'm':
+		case 'M': if(action == SGCT_PRESS) toggleRenderMode(); break;
+	}
+}
+
+void GameEngine::toggleRenderMode(){
 	renderWireFrame = !renderWireFrame;
 }
 
@@ -35,7 +42,6 @@ void GameEngine::draw(){
 
 		scene->renderToDepthBuffer(VP, M);
 	}
-		
 
 	//RENDER TO THE SCREEN
 	//Backface culling
