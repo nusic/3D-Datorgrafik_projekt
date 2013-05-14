@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj"), "SimpleTexture", "SimpleColor"){ 
+Model(new ModelMesh("data/meshes/plane.obj"), "Sublime", "SimpleColor"){ 
 	
 	glm::vec3 minVertexValues = getMesh()->getMinVertexValues();
 	sceneDimensions = getMesh()->getMaxVertexValues() - minVertexValues;

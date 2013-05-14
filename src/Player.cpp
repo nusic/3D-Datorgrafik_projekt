@@ -13,8 +13,9 @@ GameObject(){
     light = new LightSource(head.modelNode);
 	light->setDirection(0,-1,4);
 
-    int n = numberOfPlayers;
-	light->setColor(n/2, n%2, n/3);
+    //int n = numberOfPlayers;
+	//light->setColor(n/2, n%2, n/3);
+    light->setColor(0.9f, 0.8f, 0.7f);
 
     light->setIntensity(70);
 	light->setSpread(30);
