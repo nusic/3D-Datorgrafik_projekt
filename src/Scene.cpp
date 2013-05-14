@@ -170,7 +170,29 @@ void Scene::initScene(){
 
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
-	
+
+	printf("\nTesting if some FBO indices are defined in OpenGL ... \n");
+	for (int i = 0; i < LightSource::FBO[LightSource::FBO.size()-1]+10; ++i){
+		printf("%2i : ", i);
+		if(glIsFramebuffer(i)){
+			printf("yes --> ");
+			int forShadow = -1;
+			for (int j = 0; j < LightSource::FBO.size(); ++j){
+				if(i == LightSource::FBO[j]){
+					forShadow = j;
+					break;
+				}
+			}
+			if(forShadow != -1)
+				printf("shadowmap FBO[%i] = %i", forShadow, LightSource::FBO[forShadow]);
+			else
+				printf("not declares as shadowmap. This can be the default screen FBO");
+		}
+		else
+			printf("no  ");
+		printf("\n");
+	}
+	printf("\n");
 }
 
 void Scene::update(float dt){

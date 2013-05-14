@@ -233,18 +233,18 @@ unsigned short LightSource::getNumberOfLightSources(){
 
 void LightSource::bindVariables(){
 	sgct::ShaderManager::Instance()->bindShader( "SimpleColor" );
-	LightSource::lightPositionID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
-	LightSource::lightColorID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
-	LightSource::lightDirectionID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
-	LightSource::lightIntensityID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightIntensity");
-	LightSource::lightSpreadID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
-	LightSource::directionalID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
-	LightSource::numberOfLightsID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("numberOfLights");
+	lightPositionID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightPosition_worldSpace");
+	lightColorID = 		sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightColor");
+	lightDirectionID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightDirection_worldSpace");
+	lightIntensityID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightIntensity");
+	lightSpreadID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("lightSpread");
+	directionalID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("directional");
+	numberOfLightsID = 	sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("numberOfLights");
 	sgct::ShaderManager::Instance()->unBindShader();
 
-	depthBiasID = sgct::ShaderManager::Instance()->getShader( shaderName).getUniformLocation( "depthBiasMVP" );
+	depthBiasID = 		sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation("depthBiasMVP");
 	//The last two will be used when rendering to the depth-buffer
-	depthMatrixID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getUniformLocation( "depthMVP" );
-	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader( "depthProgram").getAttribLocation( "vertexPosition_modelspace" );
+	depthMatrixID = 	sgct::ShaderManager::Instance()->getShader("depthProgram").getUniformLocation("depthMVP");
+	depth_vertexPosition_modelspaceID = sgct::ShaderManager::Instance()->getShader("depthProgram").getAttribLocation("vertexPosition_modelspace");
 }
 

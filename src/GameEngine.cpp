@@ -1,11 +1,15 @@
 #include "GameEngine.h"
 
 GameEngine::GameEngine(){
-
+	renderWireFrame = false;
 }
 
 GameEngine::~GameEngine(){
 
+}
+
+void GameEngine::swapRenderMode(){
+	renderWireFrame = !renderWireFrame;
 }
 
 void GameEngine::draw(){
@@ -27,10 +31,10 @@ void GameEngine::draw(){
 		// Render on the whole framebuffer
 		glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
 		glm::mat4 VP = LightSource::getVPFromIndex(i);
-		glm::mat4 M(1.0f);
+		glm::mat4 M(1.0f);		
+
 		scene->renderToDepthBuffer(VP, M);
 	}
-	glDisable(GL_CULL_FACE);
 
 
 	//RENDER TO THE SCREEN
@@ -40,7 +44,21 @@ void GameEngine::draw(){
 	//Bind the default framebuffer (render to screen)
 	glBindFramebuffer(GL_FRAMEBUFFER, 2);
 	glViewport(0,0,640 * 2,360 * 2);
+
+	if(renderWireFrame){
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
+	}
+
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+	/*
+	if(sgct::Engine::Instance()->isRenderingOffScreen())
+		sgct::MessageHandler::Instance()->print("rendering offscreen!\n"); 
+	else
+		sgct::MessageHandler::Instance()->print("rendering to screen!\n"); 
+    sgct::MessageHandler::Instance()->print("\r");
+    */
 /*
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -121,6 +139,8 @@ void GameEngine::initOGL(){
 
 	camera2 = new Camera(0, 30, -30);
 	camera2->setLookAt(0, 0, 0);
+
+	
 }
 
 void GameEngine::encode(){

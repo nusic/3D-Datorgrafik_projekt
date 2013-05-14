@@ -32,6 +32,12 @@ public:
 	//Variables to share across cluster
 	double currentTime;
 	double globalRandom;
+
+	void swapRenderMode();
+
+private:
+
+	bool renderWireFrame;
 };
 
 #endif
