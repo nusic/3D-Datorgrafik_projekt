@@ -146,8 +146,10 @@ void GameEngine::initOGL(){
 	camera2 = new Camera(0, 30, -30);
 	camera2->setLookAt(0, 0, 0);
 
-	defaultFBOindex = getDefaultFBOindex();
-	assert(defaultFBOindex >= 0);
+	int temp = getDefaultFBOindex();
+	defaultFBOindex = 2;
+	if(temp >= 0)
+		defaultFBOindex = temp;
 	printf("setting default FBO index to %i\n", defaultFBOindex);
 }
 
