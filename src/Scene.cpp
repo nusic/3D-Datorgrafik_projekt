@@ -113,22 +113,6 @@ void Scene::initScene(){
 
 	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
 	addChildNode(suzanne);
-/*
-	Transformation* trans1 = new Translation(suzanne, 2.0f, 0.0f, 0.0f);
-	Transformation* scale1 = new Scaling(trans1, 0.5f, 0.5f, 0.5f);
-	Transformation* rot1 = new Rotation(scale1, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	Model* child1 = new Model(rot1, new ModelMesh("data/meshes/suzanne.obj"));
-
-
-	GameObject* go1 = new GameObject(-2,0,0);
-	addChildNode(go1->getSceneGraphBranch());
-*/
-
-
-	Player * body1 = new Player;
-	body1->setPosition(0.0f, 0.0f, 5.0f);
-	addPlayer(body1);
-
 
 	StaticGameObject* sgo;
 	srand(time(NULL));
@@ -157,6 +141,10 @@ void Scene::initScene(){
 	Är det grafikminnet som blir fullt tro?
 	*/
 	//addGenerations(body1->getMainModel(), 2);
+
+	Player * body1 = new Player;
+	body1->setPosition(0.0f, 0.0f, 5.0f);
+	addPlayer(body1);
 
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
@@ -211,29 +199,6 @@ void Scene::update(float dt){
 		followCamera->target->getPosition().z + 15);
 
 	followCamera->calcMatrices();
-}
-
-
-void Scene::addGenerations(Model* mother, int n){
-	if(n<=0)
-		return;
-	GameObject* child1 = new GameObject(2, 1, 1, 0.7);
-	GameObject* child2 = new GameObject(-2, 1, 1, 0.7);
-
-	mother->addChildNode(child1->getSceneGraphBranch());
-	mother->addChildNode(child2->getSceneGraphBranch());
-
-	addGenerations(child1->getMainModel(), n-1);
-	addGenerations(child2->getMainModel(), n-1);
-
-}
-
-void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
-	renderToScreen(P, V, glm::mat4(1.0f));
-}
-
-void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
-	Model::renderToScreen(P, V, parentModelMatrix);
 }
 
 void Scene::updatePlayerPosition(Player * p, float dt) const{
@@ -320,6 +285,30 @@ float Scene::getYPosition(float x, float z){
 	    return heightmap[imgXYPos];
 	return -1.0f;
 }
+
+void Scene::addGenerations(Model* mother, int n){
+	if(n<=0)
+		return;
+	GameObject* child1 = new GameObject(2, 1, 1, 0.7);
+	GameObject* child2 = new GameObject(-2, 1, 1, 0.7);
+
+	mother->addChildNode(child1->getSceneGraphBranch());
+	mother->addChildNode(child2->getSceneGraphBranch());
+
+	addGenerations(child1->getMainModel(), n-1);
+	addGenerations(child2->getMainModel(), n-1);
+
+}
+
+void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
+	renderToScreen(P, V, glm::mat4(1.0f));
+}
+
+void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix){
+	Model::renderToScreen(P, V, parentModelMatrix);
+}
+
+
 
 void Scene::readBMP(const char* filename)
 {

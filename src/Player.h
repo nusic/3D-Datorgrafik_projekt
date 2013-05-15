@@ -10,14 +10,6 @@ public:
     Player();
     ~Player();
 
-    void updatePlayerOrientation(
-            float dt,
-            float * heightmap,
-            int heightmapWidth,
-            int heightmapHeight,
-            int heightmapArrayLength,
-            glm::vec3 sceneDimensions);
-
     void updateUserInputs();
     void getLeftControllerValues(float &xState, float& yState) const;
 
