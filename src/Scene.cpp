@@ -336,11 +336,13 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 	float r = p->getBaseRadius();
 	
 
+	//Calculate X och Y coordinates for player's front in heightmap
     glm::vec2 sn = (state.x || state.y) ? glm::normalize(state) : glm::vec2(0.0f, 0.0f);
-
-    //Beräkna vilket X och Y players främre kant skulle ha i heightmappen.
     int imgX = halfHw + worldToHeightmapX * (p->getPosition().x + sn.x*r);
     int imgY = halfHh + worldToHeightmapZ * (p->getPosition().z - sn.y*r);
+
+
+    //Player front inside map?
     if (0 < imgX && imgX < heightmapWidth &&
         0 < imgY && imgY < heightmapHeight){
 	    
@@ -354,19 +356,30 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 	    int imgYmin = halfHh + worldToHeightmapZ * (p->getPosition().z + r);
 
 	    //If max/min values outside heigtmap -> set height to 0.
-    	float maxStep = 0.5f;
     	float yXmax = (imgXmax 	< heightmapWidth ) ? heightmap[ (imgXmax + heightmapWidth*imgY) ] : 0.0f;
     	float yXmin = (0 		< imgXmin		 ) ? heightmap[ (imgXmin + heightmapWidth*imgY) ] : 0.0f;
     	float yYmax = (imgYmax 	< heightmapHeight) ? heightmap[ (imgX + heightmapWidth*imgYmax) ] : 0.0f;
     	float yYmin = (0 		< imgYmin		 ) ? heightmap[ (imgX + heightmapWidth*imgYmin) ] : 0.0f;
 
+    	//Calc gradient based on the 4 height samples
     	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, (yYmax-yYmin)/r);
     	float steep = glm::length(grad);
+    	float maxStep = 0.0f;
     	if(steep > maxStep){
+
+    		//Define new ON-base from grad and a vector orthogonal to grad
 	    	grad = glm::normalize(grad);
 	    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
+
+	    	//Transform state to the new base e.
 	    	glm::vec2 eState = T * state;
-	    	eState[0] = -0.5f * steep * steep;
+
+	    	//Remove or decrease velocity along positive grad 
+	    	//eState.x = eState.x - 0.4f * steep;
+	    	eState.x = eState.x - steep;
+
+	    	//Back to world coordinates. 
+	    	//T^t = T^-1 since normalized base(?)
 	    	state = glm::transpose(T) * eState;
     	}
 
