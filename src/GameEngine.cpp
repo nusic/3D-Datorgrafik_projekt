@@ -27,6 +27,7 @@ void GameEngine::draw(){
 
 	//RENDER TO THE DEPTH BUFFERS
 	//FRONT FACE CULLING IS ENABLED WHEN RENDERING TO DEPTH-BUFFER
+	/*
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	int numOfLightSources = LightSource::getNumberOfLightSources();
@@ -42,14 +43,18 @@ void GameEngine::draw(){
 
 		scene->renderToDepthBuffer(VP, M);
 	}
-
+*/
 	//RENDER TO THE SCREEN
 	//Backface culling
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	//Bind the default framebuffer (render to screen)
-	glBindFramebuffer(GL_FRAMEBUFFER, defaultFBOindex);
+	//glBindFramebuffer(GL_FRAMEBUFFER, defaultFBOindex);
 	glViewport(0,0,640 * 2,360 * 2);
+
+	int b;
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &b);
+	printf("frame buffer binding %i \n", b);
 /*
 	int res;
 	glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &res);
@@ -104,8 +109,6 @@ void GameEngine::preSync(float dt){
 
 
 void GameEngine::initOGL(){
-
-
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 
