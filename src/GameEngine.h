@@ -42,9 +42,9 @@ private:
 	bool renderWireFrame;
 
 	#ifdef __APPLE__
-        const int defaultFBOindex = 2;
+        static const int DEFAULT_FBO_INDEX = 2;
 	#else
-        const int defaultFBOindex = 3;
+        static const int DEFAULT_FBO_INDEX = 3;
 	#endif
 
 	int getDefaultFBOindex() const;

@@ -56,7 +56,7 @@ void GameEngine::draw(){
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
-    glBindFramebuffer(GL_FRAMEBUFFER, defaultFBOindex);
+    glBindFramebuffer(GL_FRAMEBUFFER, DEFAULT_FBO_INDEX);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
     glDisable(GL_CULL_FACE);
 }
