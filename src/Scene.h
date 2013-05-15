@@ -42,6 +42,9 @@ public:
     int heightmapHeight;
     int heightmapArrayLength;
 
+    int worldToHeightmapX;
+    int worldToHeightmapZ;
+
     glm::vec3 sceneDimensions;
     glm::vec3 minVertexValues;
     glm::vec3 maxVertexValues;
@@ -49,7 +52,9 @@ public:
 
 private:
 
-	void updatePlayerPosition(Player * p) const;
+	void updatePlayerPosition1Sa(Player * p) const;
+	void updatePlayerPosition4Sa(Player * p) const;
+	void updatePlayerPosition5Sa(Player * p) const;
 	void readBMP(const char* filename);
 
 };

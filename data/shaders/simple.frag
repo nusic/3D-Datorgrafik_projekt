@@ -53,7 +53,7 @@ void main()
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
 
-	vec3 materialAmbientColor = vec3(0.02,0.02,0.02) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
 
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 

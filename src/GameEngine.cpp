@@ -37,7 +37,7 @@ void GameEngine::draw(){
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Render on the whole framebuffer
-		glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
+		//glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
 		glm::mat4 VP = LightSource::getVPFromIndex(i);
 		glm::mat4 M(1.0f);
 
@@ -49,7 +49,7 @@ void GameEngine::draw(){
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glViewport(0,0,640 * 2,360 * 2);
+	//glViewport(0,0,640 * 2,360 * 2);
 
 	if(renderWireFrame){
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

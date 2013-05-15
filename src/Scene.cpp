@@ -188,7 +188,7 @@ void Scene::update(float dt){
 
 	for (int i = 0; i < players.size(); ++i){
 		players[i]->updateUserInputs();
-		updatePlayerPosition(players[i]);
+		updatePlayerPosition5Sa(players[i]);
 		players[i]->updateHeadDirection();
 		players[i]->update(dt);
 	}
@@ -202,9 +202,13 @@ void Scene::update(float dt){
 	followCamera->calcMatrices();
 }
 
-void Scene::updatePlayerPosition(Player * p) const{
+void Scene::updatePlayerPosition1Sa(Player * p) const{
 	float xState, yState;
 	p->getLeftControllerValues(xState, yState);
+
+	//Uppdatera riktningen
+    p->setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
+
 /*
     Beräkna X och Y i heighmappen för "den kritiska ytterkanten" av player. Dvs positionen
     för meshens främre kant. Vi kan beräkna den genom att vi har tillgång till
@@ -214,67 +218,171 @@ void Scene::updatePlayerPosition(Player * p) const{
     för detta. Dock kommer vi kunna "krypa" i branta backar som man annars
     inte kan gå i. Därför normaliserar vi dessa först innan vi använder
     dom. OBS vi kan inte normalisera en nollvektor, så vi måste testa detta först.
-    */
+*/
     glm::vec2 sn = glm::vec2(0.0f, 0.0f);
     if(xState || yState)
         sn = glm::normalize(glm::vec2(xState, yState));
 
 
     //Beräkna vilket X och Y players främre kant skulle ha i heightmappen.
-    int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (p->getPosition().x + sn.x*p->getBaseRadius());
-    int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (p->getPosition().z - sn.y*p->getBaseRadius());
+    int imgX = heightmapWidth/2  + worldToHeightmapX * (p->getPosition().x + sn.x*p->getBaseRadius());
+    int imgY = heightmapHeight/2 + worldToHeightmapZ * (p->getPosition().z - sn.y*p->getBaseRadius());
 
-
-    //Beräkna höjden för players främre kant.
-    int imgXYPos = (int)(imgX + heightmapWidth*imgY);
-
-    float yTemp = (imgXYPos < heightmapArrayLength) ? heightmap[imgXYPos] : -1.0f;
-
-
-    //Temporärt kan vi använde denna som ett tröskelvärde 
-    //som avgör hur brant en player kan gå.
-    float maxStep = 1.0f;
 
     //Testa om players främre kant befinner sig innanför heightmappen
-    //OCH Testa om denna höjdskillnad är för stor för att kunna röra sig upp för.
     if (0 < imgX && imgX < heightmapWidth &&
-        0 < imgY && imgY < heightmapHeight &&
-        abs(yTemp - p->getPosition().y) < maxStep){
+        0 < imgY && imgY < heightmapHeight){
+
+
         
-        //Fritt fram för player att röra sig!
-        //Vi tar fram players riktiga position i höjdmappen
-        //dvs den som baseras på centrum av player
-        imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (p->getPosition().x);
-        imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (p->getPosition().z);
+	    //Beräkna höjden för players främre kant.
+	    int imgXYPos = (int)(imgX + heightmapWidth*imgY);
+	    float yTemp = heightmap[imgXYPos];
 
-        //Hämta höjden från mappen
-        imgXYPos = (int)(imgX + heightmapWidth*imgY);
-        yTemp = heightmap[imgXYPos];
+	    //Temporärt kan vi använde denna som ett tröskelvärde 
+	    //som avgör hur brant en player kan gå.
+	    float maxStep = 2.0f;
 
-        //Sätt nya värden på hastighet och höjd
-        p->setVelocity(xState, 0.0f, -yState);
-        p->setYPosition(yTemp);
+	    //Testa om denna höjdskillnad är för stor för att kunna röra sig upp för.
+        if(abs(yTemp - p->getPosition().y) < maxStep){
+	        //Fritt fram för player att röra sig!
+	        //Vi tar fram players riktiga position i höjdmappen
+	        //dvs den som baseras på centrum av player
+	        imgX = heightmapWidth/2  + worldToHeightmapX * (p->getPosition().x);
+	        imgY = heightmapHeight/2 + worldToHeightmapZ * (p->getPosition().z);
+
+	        //Hämta höjden från mappen
+	        imgXYPos = (int)(imgX + heightmapWidth*imgY);
+	        yTemp = heightmap[imgXYPos];
+
+	        //Sätt nya värden på hastighet och höjd
+	        p->setVelocity(xState, 0.0f, -yState);
+	        p->setYPosition(yTemp);
+
+            /*
+		    sgct::MessageHandler::Instance()->print(
+		      "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f", 
+		       getPosition().x, getPosition().z, imgX,      imgY,                imgXYPos, yTemp);
+		    sgct::MessageHandler::Instance()->print("\r");
+			*/
+	        return;
+    	}
     }
-    else{
-        //Om vi befinner oss utanför mappen eller
-        //om vi har en för brant backe framför oss så stå still
-        p->setVelocity(0.0f, 0.0f, 0.0f);
+
+    //Om vi befinner oss utanför mappen eller
+    //om vi har en för brant backe framför oss så stå still
+    p->setVelocity(0.0f, 0.0f, 0.0f); 
+}
+
+void Scene::updatePlayerPosition4Sa(Player * p) const{
+	
+	glm::vec2 state;
+	p->getLeftControllerValues(state.x, state.y);
+	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
+
+
+
+	//pre-compute
+	int halfHw = heightmapWidth/2;
+	int halfHh = heightmapHeight/2;   
+	float r = p->getBaseRadius();
+
+    int imgX 	= halfHw + worldToHeightmapX * (p->getPosition().x);
+	int imgY 	= halfHh + worldToHeightmapZ * (p->getPosition().z);
+    int imgXmax = halfHw + worldToHeightmapX * (p->getPosition().x + r);
+    int imgXmin = halfHw + worldToHeightmapX * (p->getPosition().x - r);
+    int imgYmax = halfHh + worldToHeightmapZ * (p->getPosition().z - r);
+    int imgYmin = halfHh + worldToHeightmapZ * (p->getPosition().z + r);
+
+
+    //Test if max/min values are inside map
+    if (0 < imgXmin && imgXmax < heightmapWidth &&
+    	0 < imgYmin && imgYmax < heightmapHeight){
+
+    	float maxStep = 0.5f;
+    	float yXmax = heightmap[ (imgXmax + heightmapWidth*imgY) ];
+    	float yXmin = heightmap[ (imgXmin + heightmapWidth*imgY) ];
+    	float yYmax = heightmap[ (imgX + heightmapWidth*imgYmax) ];
+    	float yYmin = heightmap[ (imgX + heightmapWidth*imgYmin) ];
+
+    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, (yYmax-yYmin)/r);
+    	float steep = glm::length(grad);
+    	if(steep > maxStep){
+	    	grad = glm::normalize(grad);
+	    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
+	    	glm::vec2 eState = T * state;
+	    	eState[0] = -0.5f * steep * steep;
+	    	state = glm::transpose(T) * eState;
+    	}
+
+    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/4.0f);
+    	p->setVelocity(state.x, 0.0f, -state.y);
+    	return;	
+
     }
-/*
-    sgct::MessageHandler::Instance()->print(
-      "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f", 
-       getPosition().x, getPosition().z, imgX,      imgY,                imgXYPos, yTemp);
-    sgct::MessageHandler::Instance()->print("\r");
-*/
-    
-    //Uppdatera riktningen oavsett om vi kunde röra oss eller inte
-    p->setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
+
+    p->setVelocity(0.0f, 0.0f, 0.0f); 
+}
+
+void Scene::updatePlayerPosition5Sa(Player * p) const{
+	
+	glm::vec2 state;
+	p->getLeftControllerValues(state.x, state.y);
+	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
+
+	//pre-compute
+	int halfHw = heightmapWidth/2;
+	int halfHh = heightmapHeight/2;   
+	float r = p->getBaseRadius();
+	
+
+    glm::vec2 sn = (state.x || state.y) ? glm::normalize(state) : glm::vec2(0.0f, 0.0f);
+
+    //Beräkna vilket X och Y players främre kant skulle ha i heightmappen.
+    int imgX = halfHw + worldToHeightmapX * (p->getPosition().x + sn.x*r);
+    int imgY = halfHh + worldToHeightmapZ * (p->getPosition().z - sn.y*r);
+    if (0 < imgX && imgX < heightmapWidth &&
+        0 < imgY && imgY < heightmapHeight){
+	    
+	    //Don't need X and P for player front anymore. now sample 4.
+
+	    imgX 	 	= halfHw + worldToHeightmapX * (p->getPosition().x);
+		imgY 		= halfHh + worldToHeightmapZ * (p->getPosition().z);
+	    int imgXmax = halfHw + worldToHeightmapX * (p->getPosition().x + r);
+	    int imgXmin = halfHw + worldToHeightmapX * (p->getPosition().x - r);
+	    int imgYmax = halfHh + worldToHeightmapZ * (p->getPosition().z - r);
+	    int imgYmin = halfHh + worldToHeightmapZ * (p->getPosition().z + r);
+
+	    //If max/min values outside heigtmap -> set height to 0.
+    	float maxStep = 0.5f;
+    	float yXmax = (imgXmax 	< heightmapWidth ) ? heightmap[ (imgXmax + heightmapWidth*imgY) ] : 0.0f;
+    	float yXmin = (0 		< imgXmin		 ) ? heightmap[ (imgXmin + heightmapWidth*imgY) ] : 0.0f;
+    	float yYmax = (imgYmax 	< heightmapHeight) ? heightmap[ (imgX + heightmapWidth*imgYmax) ] : 0.0f;
+    	float yYmin = (0 		< imgYmin		 ) ? heightmap[ (imgX + heightmapWidth*imgYmin) ] : 0.0f;
+
+    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, (yYmax-yYmin)/r);
+    	float steep = glm::length(grad);
+    	if(steep > maxStep){
+	    	grad = glm::normalize(grad);
+	    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
+	    	glm::vec2 eState = T * state;
+	    	eState[0] = -0.5f * steep * steep;
+	    	state = glm::transpose(T) * eState;
+    	}
+
+    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/4.0f);
+    	p->setVelocity(state.x, 0.0f, -state.y);
+    	return;	
+	    
+	}
+
+    p->setVelocity(0.0f, 0.0f, 0.0f); 
 }
 
 float Scene::getYPosition(float x, float z){
 	//Här kan man optimera genom att lagra uträkningen av heigtWidth/sceneDimensions.x osv
-	int imgX = heightmapWidth /2 + heightmapWidth /sceneDimensions.x * x;
-	int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * z;
+	int imgX = heightmapWidth /2 + worldToHeightmapX * x;
+	int imgY = heightmapHeight/2 + worldToHeightmapZ * z;
 
 	int imgXYPos = (int)(imgX + heightmapWidth*imgY);
 
@@ -340,6 +448,9 @@ void Scene::readBMP(const char* filename)
     heightmapHeight = height;
     heightmapArrayLength = width * height;
 
+    worldToHeightmapX =  heightmapWidth  / sceneDimensions.x;
+    worldToHeightmapZ = -heightmapHeight / sceneDimensions.z;
+
     printf("heightmap:\n  imageSize read from file = %i\n", imageSize);
     printf("  width * height * 3 = %i\n", width * height * 3);
 
@@ -382,7 +493,6 @@ void Scene::readBMP(const char* filename)
    		//according to the actual mesh.
 
         heightmap[i/3] = (float)(allData[i] - minDepth)*scale + minSceneY;
-
     }
 
     fclose(file);
