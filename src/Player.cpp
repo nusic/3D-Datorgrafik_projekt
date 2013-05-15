@@ -85,7 +85,8 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
 
         //Beräkna höjden för players främre kant.
         int imgXYPos = (int)(imgX + heightmapWidth*imgY);
-        float yTemp = heightmap[imgXYPos];
+
+        float yTemp = (imgXYPos < heightmapWidth * heightmapHeight) ? heightmap[imgXYPos] : -1.0f;
 
 
         //Temporärt kan vi använde denna som ett tröskelvärde 
