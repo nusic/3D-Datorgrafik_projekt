@@ -47,8 +47,26 @@ void GameObject::setScale(float xs, float ys, float zs){
 	scale.z = zs;
 }
 
-glm::vec3 GameObject::getPosition(){
+void GameObject::setVelocity(double dx, double dy, double dz){
+	velocity.x = dx;
+	velocity.y = dy;
+	velocity.z = dz;
+}
+
+void GameObject::setAngleVel(float _dPhi, float _dTheta){
+	dPhi = _dPhi;
+	dTheta = _dTheta;
+}
+
+
+
+
+const glm::vec3& GameObject::getPosition() const{
 	return position;
+}
+
+const glm::vec3& GameObject::getVelocity() const{
+	return velocity;
 }
 
 float GameObject::getSpeed() const{
@@ -65,35 +83,22 @@ float GameObject::getBaseRadius() const{
 	return getAvgScale()*modelNode->getMesh()->getRadius();
 }
 
-void GameObject::incrementPosition(double dx, double dy, double dz){
-	position.x += dx;
-	position.y += dy;
-	position.z += dz;
-}
 
-void GameObject::incrementPositionAndTurnTo(double dx, double dy, double dz){
-	position.x += dx;
-	position.y += dy;
-	position.z += dz;
 
-	setDirection(180.0f/3.14159f * (float) glm::atan(dx,dz));
+float GameObject::getPhi() const{
+	return phi;
 }
 
 
 
-
-
-
-void GameObject::setVelocity(double dx, double dy, double dz){
-	velocity.x = dx;
-	velocity.y = dy;
-	velocity.z = dz;
+Node* GameObject::getSceneGraphBranch() const{
+	return translationNode;
 }
 
-void GameObject::setAngleVel(float _dPhi, float _dTheta){
-	dPhi = _dPhi;
-	dTheta = _dTheta;
+Model* GameObject::getMainModel() const{
+	return modelNode;
 }
+
 
 void GameObject::update(float dt){
 	position.x += velocity.x * dt * speed;
@@ -110,31 +115,5 @@ void GameObject::update(float dt){
 	translationNode->setTranslation(position.x, position.y, position.z);
 	rotationNode->setRotation(phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode->setScaling(scale.x, scale.y, scale.z);
-}
-
-void GameObject::incrementAngleVel(float _dPhi, float _dTheta){
-	phi += _dPhi;
-	theta += _dTheta;
-}
-
-void GameObject::incrementAngleVel(){
-	phi += dPhi;
-	theta += dTheta;
-}
-
-glm::vec3 GameObject::getVelocity(){
-	return velocity;
-}
-
-float GameObject::getPhi() const{
-	return phi;
-}
-
-Node* GameObject::getSceneGraphBranch() const{
-	return translationNode;
-}
-
-Model* GameObject::getMainModel() const{
-	return modelNode;
 }
 

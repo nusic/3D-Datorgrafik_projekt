@@ -11,56 +11,43 @@ public:
 	GameObject(double x = 0, double y = 0, double z = 0, float scale = 1.0f, float _phi = 0);
 	~GameObject();
 
-	//POSITIONS
-	void setPosition(double x, double y, double z = 0);
+	void setPosition(double x, double y, double z);
 	void setYPosition(float y);
-	void setDirection(float phi = 0, float theta = 0);
+	void setDirection(float phi, float theta = 0);
 	void setScale(float s);
 	void setScale(float xs, float ys, float zs);
-
-	glm::vec3 getPosition();
-	void incrementPosition(double dx, double dy, double dz);
-	void incrementPositionAndTurnTo(double dx, double dy, double dz);
-
-
-
-	//VELOCITIES
-	void setVelocity(double dx = 0, double dy = 0, double d = 0);
+	void setVelocity(double dx, double dy, double d);
 	void setAngleVel(float _dPhi, float dTheta = 0);
 
-	glm::vec3 getVelocity();
-
-	void incrementAngleVel();
-	void incrementAngleVel(float _dPhi, float _dTheta);
-
+	const glm::vec3& getPosition() const;
+	const glm::vec3& getVelocity() const;
 	float getSpeed() const;
 	float getBaseRadius() const;
 	float getAvgScale() const;
 	float getPhi() const;
 
-	void update(float dt);
-
 	Node* getSceneGraphBranch() const;
 	Model* getMainModel() const;
 
-	Translation* 	translationNode;
-	Rotation* 		rotationNode;
-	Scaling*		scaleNode;
-	Model*			modelNode;
+	void update(float dt);
+	
 
-protected:
+private:
+
+	glm::vec3 scale;
+	glm::vec3 position;
+	glm::vec3 velocity;
+	float phi, theta;
+	float dPhi, dTheta;
 
 	float speed;
 	float turnSpeed;
 
-private:
-
-	glm::vec3 position;
-	glm::vec3 scale;
-	float phi, theta;
-
-	glm::vec3 velocity;
-	float dPhi, dTheta;
+	friend class Player;
+	Translation* 	translationNode;
+	Rotation* 		rotationNode;
+	Scaling*		scaleNode;
+	Model*			modelNode;
 
 };
 
