@@ -26,7 +26,7 @@ private:
 
     Controller* controller;
     int playerIndex;
-
+    
 };
 
 #endif // PLAYER_H

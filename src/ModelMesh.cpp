@@ -53,7 +53,7 @@ void ModelMesh::calcRadiusXZ(){
 
 
 bool ModelMesh::loadOBJ(const char * path){
-	printf("Loading OBJ file %s...\n", path);
+	printf("Loading OBJ file %s... ", path);
 
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices; 
@@ -134,7 +134,7 @@ bool ModelMesh::loadOBJ(const char * path){
 		normals .push_back(normal);
 	
 	}
-
+	printf("verts: %i\n", (int)vertices.size());
 	return true;
 }
 
