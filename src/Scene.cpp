@@ -188,17 +188,20 @@ void Scene::initScene(){
 }
 
 
+void Scene::addPlayer(Player * p){
+	//Put player on the ground
+	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
+	addChildNode(p->getSceneGraphBranch());
+	players.push_back(p);
+}
+
 
 void Scene::update(float dt){
 
 	for (int i = 0; i < players.size(); ++i){
-		players[i]->updatePlayerOrientation(
-            dt,
-            heightmap,
-            heightmapWidth,
-            heightmapHeight,
-            heightmapArrayLength,
-			sceneDimensions);
+		players[i]->updateUserInputs();
+		updatePlayerPosition(players[i], dt);
+		players[i]->updateHeadDirection(dt);
 	}
 
 	followCamera->updateLookAt();
@@ -210,13 +213,6 @@ void Scene::update(float dt){
 	followCamera->calcMatrices();
 }
 
-
-void Scene::addPlayer(Player * p){
-	//Put player on the ground
-	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
-	addChildNode(p->getSceneGraphBranch());
-	players.push_back(p);
-}
 
 void Scene::addGenerations(Model* mother, int n){
 	if(n<=0)
@@ -240,6 +236,77 @@ void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix
 	Model::renderToScreen(P, V, parentModelMatrix);
 }
 
+void Scene::updatePlayerPosition(Player * p, float dt) const{
+	float xState, yState;
+	p->getLeftControllerValues(xState, yState);
+/*
+    Beräkna X och Y i heighmappen för "den kritiska ytterkanten" av player. Dvs positionen
+    för meshens främre kant. Vi kan beräkna den genom att vi har tillgång till
+    radien. Sedan måste vi veta vilket håll vi är påväg mot. Vi använder
+        xState
+        yState
+    för detta. Dock kommer vi kunna "krypa" i branta backar som man annars
+    inte kan gå i. Därför normaliserar vi dessa först innan vi använder
+    dom. OBS vi kan inte normalisera en nollvektor, så vi måste testa detta först.
+    */
+    glm::vec2 sn = glm::vec2(0.0f, 0.0f);
+    if(xState || yState)
+        sn = glm::normalize(glm::vec2(xState, yState));
+
+
+    //Beräkna vilket X och Y players främre kant skulle ha i heightmappen.
+    int imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (p->getPosition().x + sn.x*p->getBaseRadius());
+    int imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (p->getPosition().z - sn.y*p->getBaseRadius());
+
+
+    //Beräkna höjden för players främre kant.
+    int imgXYPos = (int)(imgX + heightmapWidth*imgY);
+
+    float yTemp = (imgXYPos < heightmapArrayLength) ? heightmap[imgXYPos] : -1.0f;
+
+
+    //Temporärt kan vi använde denna som ett tröskelvärde 
+    //som avgör hur brant en player kan gå.
+    float maxStep = 1.0f;
+
+    //Testa om players främre kant befinner sig innanför heightmappen
+    //OCH Testa om denna höjdskillnad är för stor för att kunna röra sig upp för.
+    if (0 < imgX && imgX < heightmapWidth &&
+        0 < imgY && imgY < heightmapHeight &&
+        abs(yTemp - p->getPosition().y) < maxStep){
+        
+        //Fritt fram för player att röra sig!
+        //Vi tar fram players riktiga position i höjdmappen
+        //dvs den som baseras på centrum av player
+        imgX = heightmapWidth/2  + heightmapWidth /sceneDimensions.x * (p->getPosition().x);
+        imgY = heightmapHeight/2 - heightmapHeight/sceneDimensions.z * (p->getPosition().z);
+
+        //Hämta höjden från mappen
+        imgXYPos = (int)(imgX + heightmapWidth*imgY);
+        yTemp = heightmap[imgXYPos];
+
+        //Sätt nya värden på hastighet och höjd
+        p->setVelocity(xState, 0.0f, -yState);
+        p->setYPosition(yTemp);
+    }
+    else{
+        //Om vi befinner oss utanför mappen eller
+        //om vi har en för brant backe framför oss så stå still
+        p->setVelocity(0.0f, 0.0f, 0.0f);
+    }
+/*
+    sgct::MessageHandler::Instance()->print(
+      "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f", 
+       getPosition().x, getPosition().z, imgX,      imgY,                imgXYPos, yTemp);
+    sgct::MessageHandler::Instance()->print("\r");
+*/
+    
+    //Uppdatera riktningen oavsett om vi kunde röra oss eller inte
+    p->setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
+
+    //Slutligen uppdaterar vi vår position
+    p->update(dt);
+}
 
 float Scene::getYPosition(float x, float z){
 	//Här kan man optimera genom att lagra uträkningen av heigtWidth/sceneDimensions.x osv

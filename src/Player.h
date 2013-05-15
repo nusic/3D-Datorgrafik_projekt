@@ -18,6 +18,11 @@ public:
             int heightmapArrayLength,
             glm::vec3 sceneDimensions);
 
+    void updateUserInputs();
+    void getLeftControllerValues(float &xState, float& yState) const;
+
+    void updateHeadDirection(float dt);
+
     static int numberOfPlayers;
 
 private:
@@ -26,7 +31,7 @@ private:
 
     Controller* controller;
     int playerIndex;
-    
+
 };
 
 #endif // PLAYER_H

@@ -54,9 +54,20 @@ Player::~Player(){
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
 
+void Player::updateUserInputs(){
+    controller->inputLoader();
+}
+
+void Player::getLeftControllerValues(float &xState, float& yState) const{
+    if(controller->validateLeftStickValues()){
+        xState = controller->getAxisValue(Controller::CONTROLLER_LEFT_X_AXIS);
+        yState = controller->getAxisValue(Controller::CONTROLLER_LEFT_Y_AXIS);
+    }
+}
+
 void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapWidth, int heightmapHeight, int heightmapArrayLength, glm::vec3 sceneDimensions){
     controller->inputLoader();
-
+    
     if(controller->validateLeftStickValues()){
 
         //spara kontrollens axis values i variabler för läsbarhet
@@ -131,10 +142,13 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
         //Slutligen uppdaterar vi vår position
         update(dt);
     }
+}
+
+void Player::updateHeadDirection(float dt){
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
         float yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
         head.rotationNode->setRotation(180.0f / 3.141592 * glm::atan(xState,-yState), glm::vec3(0.0f,1.0f,0.0f));
     }
-
 }
+
