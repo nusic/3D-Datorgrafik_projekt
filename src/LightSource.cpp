@@ -30,46 +30,6 @@ Node(_parent){
 	}
 }
 
-void LightSource::setStandardValues(){
-	index = LightSource::worldPosition.size();
-	position = glm::vec3(0.0f, 0.0f, 0.0f);
-	direction = glm::vec3(0.0f, 0.0f, 1.0f);
-
-	LightSource::worldPosition.push_back(glm::vec3(0, 0, index));
-	LightSource::worldDirection.push_back(glm::vec3(5,1,5));
-	LightSource::color.push_back(glm::vec3(1,1,1));
-	LightSource::intensity.push_back(50);
-	LightSource::spread.push_back(1);
-	LightSource::directional.push_back(true);
-}
-
-
-LightSource::~LightSource(){
-	std::cout << "NÄ MEN NU FÅR DU SKÄRPA DIG, TA INTE BORT EN LIGHTSOURCE!!" << std::endl <<
-		"NU BLIR DET MÖRKT RAGNAR!!" << std::endl;
-}
-
-void LightSource::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
-
-	glm::vec4 worldPos = M * glm::vec4(position, 1);
-	glm::vec4 worldDir = M * glm::vec4(direction, 0);
-	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
-	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
-	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
-
-	Node::renderToScreen(P, V, M);
-}
-
-void LightSource::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
-	glm::vec4 worldPos = M * glm::vec4(position, 1);
-	glm::vec4 worldDir = M * glm::vec4(direction, 0);
-	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
-	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
-	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
-
-	Node::renderToDepthBuffer(VP, M);
-}
-
 std::string LightSource::shaderName = "SimpleColor";
 
 std::vector<glm::vec3> LightSource::worldPosition;
@@ -96,43 +56,23 @@ std::vector<GLuint> LightSource::FBO;
 std::vector<GLuint> LightSource::depthTexture;
 
 
-bool LightSource::initShadowMapBuffers(){
-	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
-	GLuint frameBufferObj = 0;
-	GLuint depthTex = 0;
+void LightSource::setStandardValues(){
+	index = LightSource::worldPosition.size();
+	position = glm::vec3(0.0f, 0.0f, 0.0f);
+	direction = glm::vec3(0.0f, 0.0f, 1.0f);
 
-	glGenFramebuffers(1, &frameBufferObj);
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj);
+	LightSource::worldPosition.push_back(glm::vec3(0, 0, index));
+	LightSource::worldDirection.push_back(glm::vec3(5,1,5));
+	LightSource::color.push_back(glm::vec3(1,1,1));
+	LightSource::intensity.push_back(50);
+	LightSource::spread.push_back(1);
+	LightSource::directional.push_back(true);
+}
 
-	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
-	glGenTextures(1, &depthTex);
-	glBindTexture(GL_TEXTURE_2D, depthTex);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
 
-	// Inte säker på vad denna gjorde men den verkar inte behövas (låter den vara kommenterad dock)
-	//glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
-		 
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTex, 0);
-
-	// No color output in the bound framebuffer, only depth.
-	glDrawBuffer(GL_NONE);
-	glReadBuffer(GL_NONE);
-
-	// Always check that our framebuffer is ok
-	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-		std::cout << "FRAMEBUFFER IS NOT OK!!!" << std::endl;
-		return false;
-	}
-
-	FBO.push_back(frameBufferObj);
-	depthTexture.push_back(depthTex);
-	return true;
+LightSource::~LightSource(){
+	std::cout << "NÄ MEN NU FÅR DU SKÄRPA DIG, TA INTE BORT EN LIGHTSOURCE!!" << std::endl <<
+		"NU BLIR DET MÖRKT RAGNAR!!" << std::endl;
 }
 
 
@@ -148,15 +88,15 @@ void LightSource::setDirection(double x, double y, double z){
 	direction.z = z;
 }
 
-glm::vec3 LightSource::getPosition(){
+const glm::vec3& LightSource::getPosition() const{
 	return position;
 }
 
-glm::vec3 LightSource::getDirection(){
+const glm::vec3& LightSource::getDirection() const{
 	return direction;
 }
 
-glm::mat4 LightSource::getVP(){
+const glm::mat4 LightSource::getVP() const{
 	glm::mat4 V = glm::lookAt(worldPosition[index], worldPosition[index] + worldDirection[index], glm::vec3(0,1,0));
 	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 30.0f);
 
@@ -170,11 +110,11 @@ glm::mat4 LightSource::getVPFromIndex(int _index){
 	return P * V;
 }
 
-glm::vec3 LightSource::getWorldPosition(){
+const glm::vec3& LightSource::getWorldPosition() const{
 	return LightSource::worldPosition[index];
 }
 
-glm::vec3 LightSource::getWorldDirection(){
+const glm::vec3& LightSource::getWorldDirection() const{
 	return LightSource::worldDirection[index];
 }
 
@@ -229,6 +169,71 @@ int* LightSource::getDirectionalArray(){
 
 unsigned short LightSource::getNumberOfLightSources(){
 	return worldPosition.size();
+}
+
+
+
+void LightSource::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+
+	glm::vec4 worldPos = M * glm::vec4(position, 1);
+	glm::vec4 worldDir = M * glm::vec4(direction, 0);
+	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
+	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
+	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
+
+	Node::renderToScreen(P, V, M);
+}
+
+void LightSource::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
+	glm::vec4 worldPos = M * glm::vec4(position, 1);
+	glm::vec4 worldDir = M * glm::vec4(direction, 0);
+	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
+	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
+	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
+
+	Node::renderToDepthBuffer(VP, M);
+}
+
+
+
+
+bool LightSource::initShadowMapBuffers(){
+	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+	GLuint frameBufferObj = 0;
+	GLuint depthTex = 0;
+
+	glGenFramebuffers(1, &frameBufferObj);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj);
+
+	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
+	glGenTextures(1, &depthTex);
+	glBindTexture(GL_TEXTURE_2D, depthTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+
+	// Inte säker på vad denna gjorde men den verkar inte behövas (låter den vara kommenterad dock)
+	//glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+		 
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTex, 0);
+
+	// No color output in the bound framebuffer, only depth.
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+
+	// Always check that our framebuffer is ok
+	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+		std::cout << "FRAMEBUFFER IS NOT OK!!!" << std::endl;
+		return false;
+	}
+
+	FBO.push_back(frameBufferObj);
+	depthTexture.push_back(depthTex);
+	return true;
 }
 
 void LightSource::bindVariables(){

@@ -31,12 +31,12 @@ public:
 	void setSpread(float s);
 	void setDirectional(bool d);
 
-	glm::vec3 getPosition();
-	glm::vec3 getDirection();
-	glm::vec3 getWorldPosition();
-	glm::vec3 getWorldDirection();
+	const glm::vec3& getPosition() const;
+	const glm::vec3& getDirection() const;
+	const glm::vec3& getWorldPosition() const;
+	const glm::vec3& getWorldDirection() const;
 
-	glm::mat4 getVP();
+	const glm::mat4 getVP() const;
 	static glm::mat4 getVPFromIndex(int index);
 
 

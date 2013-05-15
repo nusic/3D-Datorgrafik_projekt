@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <math.h>
+#include <new>
 
 #include "Controller.h"
 #include "GameObject.h"

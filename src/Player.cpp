@@ -1,5 +1,5 @@
 #include "Player.h"
-#include <new>
+
 
 int Player::numberOfPlayers = 0;
 
@@ -16,7 +16,6 @@ GameObject(){
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
     light->setColor(0.9f, 0.8f, 0.7f);
-
     light->setIntensity(70);
 	light->setSpread(30);
 
@@ -77,7 +76,7 @@ void Player::updateHeadDirection(){
         float phiTarget = 180.0f / 3.141592 * glm::atan(xState,-yState);
         float phiDiff = fmod(phiTarget - head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
         head.setAngleVel(phiDiff);
-        
+
         sgct::MessageHandler::Instance()->print(
             "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
         sgct::MessageHandler::Instance()->print("\r");
