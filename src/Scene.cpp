@@ -188,8 +188,9 @@ void Scene::update(float dt){
 
 	for (int i = 0; i < players.size(); ++i){
 		players[i]->updateUserInputs();
-		updatePlayerPosition(players[i], dt);
-		players[i]->updateHeadDirection(dt);
+		updatePlayerPosition(players[i]);
+		players[i]->updateHeadDirection();
+		players[i]->update(dt);
 	}
 
 	followCamera->updateLookAt();
@@ -201,7 +202,7 @@ void Scene::update(float dt){
 	followCamera->calcMatrices();
 }
 
-void Scene::updatePlayerPosition(Player * p, float dt) const{
+void Scene::updatePlayerPosition(Player * p) const{
 	float xState, yState;
 	p->getLeftControllerValues(xState, yState);
 /*
@@ -268,9 +269,6 @@ void Scene::updatePlayerPosition(Player * p, float dt) const{
     
     //Uppdatera riktningen oavsett om vi kunde röra oss eller inte
     p->setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
-
-    //Slutligen uppdaterar vi vår position
-    p->update(dt);
 }
 
 float Scene::getYPosition(float x, float z){

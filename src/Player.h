@@ -1,9 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <math.h>
+
 #include "Controller.h"
 #include "GameObject.h"
 #include "Transformation.h"
+
 
 class Player : public GameObject{
 public:
@@ -13,7 +16,9 @@ public:
     void updateUserInputs();
     void getLeftControllerValues(float &xState, float& yState) const;
 
-    void updateHeadDirection(float dt);
+
+    void updateHeadDirection();
+    void update(float dt);
 
     static int numberOfPlayers;
 

@@ -54,6 +54,11 @@ Player::~Player(){
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
 
+void Player::update(float dt){
+    GameObject::update(dt);
+    head.update(dt);
+}
+
 void Player::updateUserInputs(){
     controller->inputLoader();
 }
@@ -65,11 +70,18 @@ void Player::getLeftControllerValues(float &xState, float& yState) const{
     }
 }
 
-void Player::updateHeadDirection(float dt){
+void Player::updateHeadDirection(){
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
         float yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
-        head.rotationNode->setRotation(180.0f / 3.141592 * glm::atan(xState,-yState), glm::vec3(0.0f,1.0f,0.0f));
+        float phiTarget = 180.0f / 3.141592 * glm::atan(xState,-yState);
+        float phiDiff = fmod(phiTarget - head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
+        head.setAngleVel(phiDiff);
+        
+        sgct::MessageHandler::Instance()->print(
+            "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
+        sgct::MessageHandler::Instance()->print("\r");
+    
     }
 }
 

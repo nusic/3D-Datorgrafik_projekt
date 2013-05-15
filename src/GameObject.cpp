@@ -12,7 +12,8 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 	setDirection(phi, 0.0f);
 	setVelocity(0.0f, 0.0f, 0.0f);
 
-	speed = 5;
+	speed = 5.0f;
+	turnSpeed = 5.0f;
 
 }
 
@@ -99,6 +100,13 @@ void GameObject::update(float dt){
 	position.y += velocity.y * dt * speed;
 	position.z += velocity.z * dt * speed;
 
+	phi += dPhi * dt * turnSpeed;
+	if(phi < -180.0f)
+		phi+=360.0f;
+	else if(phi > 180.0f)
+		phi-= 360.0f;
+	//theta += dTheta * dt * turnSpeed;
+
 	translationNode->setTranslation(position.x, position.y, position.z);
 	rotationNode->setRotation(phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode->setScaling(scale.x, scale.y, scale.z);
@@ -116,6 +124,10 @@ void GameObject::incrementAngleVel(){
 
 glm::vec3 GameObject::getVelocity(){
 	return velocity;
+}
+
+float GameObject::getPhi() const{
+	return phi;
 }
 
 Node* GameObject::getSceneGraphBranch() const{

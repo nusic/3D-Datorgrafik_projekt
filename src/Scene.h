@@ -49,7 +49,7 @@ public:
 
 private:
 
-	void updatePlayerPosition(Player * p, float dt) const;
+	void updatePlayerPosition(Player * p) const;
 	void readBMP(const char* filename);
 
 };

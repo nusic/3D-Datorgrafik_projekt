@@ -26,7 +26,7 @@ public:
 
 	//VELOCITIES
 	void setVelocity(double dx = 0, double dy = 0, double d = 0);
-	void setAngleVel(float _dPhi, float dTheta);
+	void setAngleVel(float _dPhi, float dTheta = 0);
 
 	glm::vec3 getVelocity();
 
@@ -36,6 +36,7 @@ public:
 	float getSpeed() const;
 	float getBaseRadius() const;
 	float getAvgScale() const;
+	float getPhi() const;
 
 	void update(float dt);
 
@@ -50,6 +51,7 @@ public:
 protected:
 
 	float speed;
+	float turnSpeed;
 
 private:
 
@@ -59,8 +61,6 @@ private:
 
 	glm::vec3 velocity;
 	float dPhi, dTheta;
-	
-	
 
 };
 
