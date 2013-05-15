@@ -1007,7 +1007,7 @@
 1367694001 source:c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.cpp
 	"LightSource.h"
 
-1368025288 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\camera.cpp
+1368279690 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\camera.cpp
 	"Camera.h"
 
 1368107346 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\camera.h
@@ -1483,13 +1483,13 @@
 1368192335 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\dynamicgameobject.h
 	"GameObject.h"
 
-1368204102 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.h
+1368620626 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.h
 	"Node.h"
 	"Transformation.h"
 	"Model.h"
 	"sgct.h"
 
-1368207779 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.h
+1368622188 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.h
 	<vector>
 	<iostream>
 	<string>
@@ -1498,8 +1498,9 @@
 	"Node.h"
 	"LightSource.h"
 	"sgct.h"
+	"Camera.h"
 
-1368107346 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\modelmesh.h
+1368620626 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\modelmesh.h
 	<vector>
 	<string>
 	<stdio.h>
@@ -1507,15 +1508,15 @@
 	<glm/glm.hpp>
 	<sgct.h>
 
-1368195172 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.h
+1368622188 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.h
 	"sgct.h"
 	"Node.h"
 	<iostream>
 
-1368208505 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
+1368623415 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
-1368107346 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.h
+1368623384 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.h
 	<vector>
 	<ctime>
 	"sgct.h"
@@ -1524,51 +1525,53 @@
 	"GameObject.h"
 	"Player.h"
 
-1368207595 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.h
+1368620626 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.h
+	<vector>
+	<stdlib.h>
+	<time.h>
+	<new>
 	"sgct.h"
 	"Model.h"
 	"GameObject.h"
+	"StaticGameObject.h"
 	"LightSource.h"
 	"Player.h"
 	"Node.h"
 	"Transformation.h"
-	<vector>
 	"FollowCamera.h"
 
-1368208606 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.h
+1368620626 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.h
 	"Controller.h"
 	"GameObject.h"
-	"LightObject.h"
 	"Transformation.h"
 
 1368107346 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightobject.h
 	"GameObject.h"
 	"LightSource.h"
 
-1368204102 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
+1368620626 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
-1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.cpp
+1368622188 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.cpp
 	"LightSource.h"
 
-1368206170 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\main.cpp
+1368620626 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\main.cpp
 	<iostream>
 	"sgct.h"
 	"GameEngine.h"
 
-1368208800 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.cpp
+1368622188 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
-	"Scene.h"
 
-1368107346 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\modelmesh.cpp
+1368620626 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\modelmesh.cpp
 	"ModelMesh.h"
 	<iostream>
 
-1368209332 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
+1368620626 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 	<new>
 
-1368208412 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
+1368620626 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
 1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightobject.cpp
@@ -1579,22 +1582,30 @@
 	"Camera.h"
 	"GameObject.h"
 
-1368202694 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\followcamera.cpp
+1368617326 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\followcamera.cpp
 	"FollowCamera.h"
 
-1368195172 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\node.h
+1368622188 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\node.h
 	<vector>
 	<string>
 	<cassert>
 	"sgct.h"
 
-1368195172 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.h
+1368622188 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.h
 	"Node.h"
 	"sgct.h"
 
-1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.cpp
+1368622188 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.cpp
 	"Transformation.h"
 
-1368195316 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\node.cpp
+1368622188 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\node.cpp
 	"Node.h"
+
+1368459401 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\staticgameobject.h
+	"Node.h"
+	"Transformation.h"
+	"Model.h"
+
+1368459401 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\staticgameobject.cpp
+	"StaticGameObject.h"
 

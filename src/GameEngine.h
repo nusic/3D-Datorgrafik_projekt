@@ -27,7 +27,7 @@ public:
 	Scene * scene;
 	Camera * camera;
 	Camera * camera2;
-	
+
 	GLuint currentTimeId;
 	GLuint globalRandomId;
 
@@ -40,7 +40,13 @@ public:
 private:
 
 	bool renderWireFrame;
-	int defaultFBOindex;
+
+	#ifdef __APPLE__
+        const int defaultFBOindex = 2;
+	#else
+        const int defaultFBOindex = 3;
+	#endif
+
 	int getDefaultFBOindex() const;
 };
 

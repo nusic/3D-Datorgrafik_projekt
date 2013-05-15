@@ -27,7 +27,7 @@ void GameEngine::draw(){
 
 	//RENDER TO THE DEPTH BUFFERS
 	//FRONT FACE CULLING IS ENABLED WHEN RENDERING TO DEPTH-BUFFER
-	/*
+
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	int numOfLightSources = LightSource::getNumberOfLightSources();
@@ -39,54 +39,26 @@ void GameEngine::draw(){
 		// Render on the whole framebuffer
 		glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
 		glm::mat4 VP = LightSource::getVPFromIndex(i);
-		glm::mat4 M(1.0f);		
+		glm::mat4 M(1.0f);
 
 		scene->renderToDepthBuffer(VP, M);
 	}
-*/
+	glDisable(GL_CULL_FACE);
+
 	//RENDER TO THE SCREEN
-	//Backface culling
+
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	//Bind the default framebuffer (render to screen)
-	//glBindFramebuffer(GL_FRAMEBUFFER, defaultFBOindex);
 	glViewport(0,0,640 * 2,360 * 2);
 
-	int b;
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING, &b);
-	printf("frame buffer binding %i \n", b);
-/*
-	int res;
-	glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &res);
-    printf("OpenGL draw frambuffer binding: %i\n", res);
-    glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &res);
-    printf("OpenGL read frambuffer binding: %i\n", res);
-*/
 	if(renderWireFrame){
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
-
+    glBindFramebuffer(GL_FRAMEBUFFER, defaultFBOindex);
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
-	/*
-	if(sgct::Engine::Instance()->isRenderingOffScreen())
-		sgct::MessageHandler::Instance()->print("rendering offscreen!\n"); 
-	else
-		sgct::MessageHandler::Instance()->print("rendering to screen!\n"); 
-    sgct::MessageHandler::Instance()->print("\r");
-    */
-/*
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-
-	glViewport(0,0,640,360);
-	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
-
-	glViewport(640,0,640,360);
-	scene->drawScene(scene->followCamera->getPerspectiveMatrix(), scene->followCamera->getViewMatrix());
-	glDisable(GL_CULL_FACE);
-*/
+    glDisable(GL_CULL_FACE);
 }
 
 void GameEngine::preSync(float dt){
@@ -103,7 +75,7 @@ void GameEngine::preSync(float dt){
 	camera2->incrementPosition(dt);
 	camera2->calcMatrices();
 
-	
+
 	scene->update(dt);
 }
 
@@ -160,11 +132,6 @@ void GameEngine::initOGL(){
 	camera2 = new Camera(0, 30, -30);
 	camera2->setLookAt(0, 0, 0);
 
-	int temp = getDefaultFBOindex();
-	defaultFBOindex = 2;
-	if(temp >= 0)
-		defaultFBOindex = temp;
-	printf("setting default FBO index to %i\n", defaultFBOindex);
 }
 
 int GameEngine::getDefaultFBOindex() const{
