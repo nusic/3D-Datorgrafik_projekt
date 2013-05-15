@@ -54,7 +54,7 @@ Player::~Player(){
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
 
-void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapWidth, int heightmapHeight, glm::vec3 sceneDimensions){
+void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapWidth, int heightmapHeight, int heightmapArrayLength, glm::vec3 sceneDimensions){
     controller->inputLoader();
 
     if(controller->validateLeftStickValues()){
@@ -86,7 +86,7 @@ void Player::updatePlayerOrientation(float dt, float * heightmap, int heightmapW
         //Beräkna höjden för players främre kant.
         int imgXYPos = (int)(imgX + heightmapWidth*imgY);
 
-        float yTemp = (imgXYPos < heightmapWidth * heightmapHeight) ? heightmap[imgXYPos] : -1.0f;
+        float yTemp = (imgXYPos < heightmapArrayLength) ? heightmap[imgXYPos] : -1.0f;
 
 
         //Temporärt kan vi använde denna som ett tröskelvärde 

@@ -197,6 +197,7 @@ void Scene::update(float dt){
             heightmap,
             heightmapWidth,
             heightmapHeight,
+            heightmapArrayLength,
 			sceneDimensions);
 	}
 
@@ -283,6 +284,7 @@ void Scene::readBMP(const char* filename)
 
     heightmapWidth = width;
     heightmapHeight = height;
+    heightmapArrayLength = width * height;
 
     printf("heightmap:\n  imageSize read from file = %i\n", imageSize);
     printf("  width * height * 3 = %i\n", width * height * 3);
