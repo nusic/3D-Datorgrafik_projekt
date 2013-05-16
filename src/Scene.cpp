@@ -145,7 +145,7 @@ void Scene::initScene(){
 	Player * body1 = new Player;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-
+/*
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -170,6 +170,7 @@ void Scene::initScene(){
 	body7->setPosition(-5.0f, 0.0f, 5.0f);
 	addPlayer(body7);
 
+*/
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
 	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
@@ -343,53 +344,77 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 
 
     //Player front inside map?
-    if (0 < imgX && imgX < heightmapWidth &&
-        0 < imgY && imgY < heightmapHeight){
+
+	bool atEdge = false;
+	if ((0 		> imgX 			  && state.x < 0.0f) ||
+		(imgX 	> heightmapWidth  && state.x > 0.0f)){
+		sn.x = 0.0f;
+		atEdge = true;
+	}
+
+	if ((0 		> imgY 			  && state.y < 0.0f) ||
+		(imgY 	> heightmapHeight && state.y > 0.0f)){
+		sn.y = 0.0f;
+		atEdge = true;
+	}
+
+    if (!atEdge){
 	    
 	    //Don't need X and P for player front anymore. now sample 4.
 
 	    imgX 	 	= halfHw + worldToHeightmapX * (p->getPosition().x);
 		imgY 		= halfHh + worldToHeightmapZ * (p->getPosition().z);
+
 	    int imgXmax = halfHw + worldToHeightmapX * (p->getPosition().x + r);
 	    int imgXmin = halfHw + worldToHeightmapX * (p->getPosition().x - r);
 	    int imgYmax = halfHh + worldToHeightmapZ * (p->getPosition().z - r);
 	    int imgYmin = halfHh + worldToHeightmapZ * (p->getPosition().z + r);
 
 	    //If max/min values outside heigtmap -> set height to 0.
-    	float yXmax = (imgXmax 	< heightmapWidth ) ? heightmap[ (imgXmax + heightmapWidth*imgY) ] : 0.0f;
-    	float yXmin = (0 		< imgXmin		 ) ? heightmap[ (imgXmin + heightmapWidth*imgY) ] : 0.0f;
-    	float yYmax = (imgYmax 	< heightmapHeight) ? heightmap[ (imgX + heightmapWidth*imgYmax) ] : 0.0f;
-    	float yYmin = (0 		< imgYmin		 ) ? heightmap[ (imgX + heightmapWidth*imgYmin) ] : 0.0f;
+    	float yXmax = 0; 
+    	float yXmin = 0; 
+    	float yYmax = 0; 
+    	float yYmin = 0;
+    	float validSamples = 0.0f;
 
-    	//Calc gradient based on the 4 height samples
-    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, (yYmax-yYmin)/r);
-    	float steep = glm::length(grad);
-    	float maxStep = 0.6f;
-    	if(steep > maxStep){
+    	if (imgXmax < heightmapWidth ){ yXmax = heightmap[ (imgXmax + heightmapWidth*imgY) ]; ++validSamples;}
+		if (0 		< imgXmin		 ){ yXmin = heightmap[ (imgXmin + heightmapWidth*imgY) ]; ++validSamples;}
+		if (imgYmax < heightmapHeight){ yYmax = heightmap[ (imgX + heightmapWidth*imgYmax) ]; ++validSamples;}
+		if (0 		< imgYmin		 ){ yYmin = heightmap[ (imgX + heightmapWidth*imgYmin) ]; ++validSamples;}
 
-    		//Define new ON-base from grad and a vector orthogonal to grad
-	    	grad = glm::normalize(grad);
-	    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
+		if(validSamples == 4.0f){
+			
+	    	//Calc gradient based on the 4 height samples
+	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
+	    	float steep = glm::length(grad);
+	    	float maxStep = 0.6f;
+	    	if(steep > maxStep){
+	    		
+	    		//Define new ON-base from grad and a vector orthogonal to grad
+		    	grad = glm::normalize(grad);
+		    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
 
-	    	//Transform state to the new base e.
-	    	glm::vec2 eState = T * state;
+		    	//Transform state to the new base e.
+		    	glm::vec2 eState = T * state;
 
-	    	//Remove or decrease velocity along positive grad 
-	    	//eState.x = eState.x - 0.4f * steep;
-	    	eState.x = eState.x - steep;
+		    	//Remove or decrease velocity along positive grad 
+		    	
+		    	eState.x -= 0.5f * steep;
+				
+		    	//Back to world coordinates. 
+		    	//T^t = T^-1 since normalized base(?)
+		    	state = glm::transpose(T) * eState;
+	    	}
+	    }
 
-	    	//Back to world coordinates. 
-	    	//T^t = T^-1 since normalized base(?)
-	    	state = glm::transpose(T) * eState;
-    	}
-
-    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/4.0f);
+    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples);
     	p->setVelocity(state.x, 0.0f, -state.y);
-    	return;	
-	    
-	}
+    
+    	return;
+    }
 
-    p->setVelocity(0.0f, 0.0f, 0.0f); 
+    p->setVelocity(sn.x, 0.0f, -sn.y);
+    
 }
 
 float Scene::getYPosition(float x, float z){

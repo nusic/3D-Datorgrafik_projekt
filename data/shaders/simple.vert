@@ -1,6 +1,6 @@
 #version 120
 
-const int MAX_NUMBER_OF_LIGHTS = 7;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 // Input vertex data, different for all executions of this shader.

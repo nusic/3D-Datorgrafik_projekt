@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 7;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 const int MAX_NUMBER_OF_SHADOWS = MAX_NUMBER_OF_LIGHTS; //In case you don't want shadows for all lights
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -53,7 +53,7 @@ void main()
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
 
-	vec3 materialAmbientColor = vec3(0.2,0.2,0.2) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.4,0.4,0.4) * materialDiffuseColor;
 
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
