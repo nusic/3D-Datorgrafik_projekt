@@ -42,4 +42,17 @@ Saker man kan jobba med
 * modellera miljö
 
 
+=====================================
+
+* Player kunna plocka upp guld och "ha på ryggen" eller nåt
+
+* Magic light
+ 
+* När man dör så svävar ens ljuskälla upp mot hilmen och lyser ner
+  på marken där man just dog
+ 
+* En hugganimnation
+
+* En jävla massa massa 
+
 

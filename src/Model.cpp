@@ -77,6 +77,7 @@ void Model::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	Node::renderToScreen(P, V, M);
 }
 
+int n_ = 0;
 void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -93,11 +94,12 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &M[0][0]);
 	glUniformMatrix4fv(modelViewMatrixID, 1, GL_FALSE, &MV[0][0]);
 	glUniformMatrix4fv(modelViewPerspectiveMatrixID, 1, GL_FALSE, &MVP[0][0]);
-
+	
 
 	//Bind our texture in Texture Unit 0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
+
 
 	//Set our "textureSampler" sampler to user Texture Unit 0
 	glUniform1i(textureID, 0); //0 is the same 0 as in GL_TEXTURE0
@@ -135,13 +137,24 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	std::string str = "shadowMap";
 	for (int i = 0; i < numOfLightSources; ++i){
 		glActiveTexture(GL_TEXTURE1 + i);
+
 		glBindTexture(GL_TEXTURE_2D, LightSource::depthTexture[i]);
+
 		GLuint shadowMapID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str +
 					(char)((i + 1)/10 + '0') + (char) ((i+1)%10 + '0'));
 
-		glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+
+		if(n_ < 1) printf("shadowMapID = %i\n", shadowMapID);
+		if(n_ < 1) printf("error code: %i\n", glGetError());
+		//glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+		//glTexParameteri(GL_TEXTURE_2D, shadowMapID);
+		if(n_ < 1) printf("error code: %i\n", glGetError());
+
+
+
 		glUniform1i(shadowMapID, i + 1);//1 is the same 1 as in GL_TEXTURE1
 	}
+	++n_;
 
 
 

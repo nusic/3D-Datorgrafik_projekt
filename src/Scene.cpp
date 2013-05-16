@@ -111,16 +111,16 @@ void Scene::initScene(){
 
 	*/
 
-	Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
-	addChildNode(suzanne);
+	//Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
+	//addChildNode(suzanne);
 
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 10; ++i){
+	for (int i = 0; i < 2; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
-		float phi 	= 180.0f*(rand()/(float)RAND_MAX);
+		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
 		float theta = 180.0f*(rand()/(float)RAND_MAX);
 
 		sgo = new StaticGameObject(x, y, z);
@@ -387,7 +387,7 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
 	    	float steep = glm::length(grad);
-	    	float maxStep = 0.6f;
+	    	float maxStep = 0.5f;
 	    	if(steep > maxStep){
 	    		
 	    		//Define new ON-base from grad and a vector orthogonal to grad
@@ -395,11 +395,11 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 		    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
 
 		    	//Transform state to the new base e.
-		    	glm::vec2 eState = T * state;
+		    	glm::vec2 eState = T * sn;
 
 		    	//Remove or decrease velocity along positive grad 
 		    	
-		    	eState.x -= 0.5f * steep;
+		    	eState.x -= 0.5f*steep;
 				
 		    	//Back to world coordinates. 
 		    	//T^t = T^-1 since normalized base(?)

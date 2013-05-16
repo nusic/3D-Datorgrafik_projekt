@@ -53,7 +53,7 @@ void main()
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
 
-	vec3 materialAmbientColor = vec3(0.4,0.4,0.4) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.9,0.9,0.9) * materialDiffuseColor;
 
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
@@ -166,7 +166,6 @@ void main()
 				if(texture2D(shadowMap15, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w)
 					visibility += 1;
 			}
-
 		}
 		else
 			visibility = 1;
