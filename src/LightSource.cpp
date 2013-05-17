@@ -200,12 +200,11 @@ void LightSource::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
 bool LightSource::initShadowMapBuffers(){
 	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
 	GLuint frameBufferObj = 0;
-	GLuint depthTex = 0;
-
 	glGenFramebuffers(1, &frameBufferObj);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj);
 
 	// Depth texture. Slower than a depth buffer, but you can sample it later in your shader
+	GLuint depthTex = 0;
 	glGenTextures(1, &depthTex);
 	glBindTexture(GL_TEXTURE_2D, depthTex);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, SHADOW_MAP_RESOLUTION, SHADOW_MAP_RESOLUTION, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
