@@ -25,8 +25,6 @@ public:
 
 
 	Scene * scene;
-	Camera * camera;
-	Camera * camera2;
 
 	GLuint currentTimeId;
 	GLuint globalRandomId;

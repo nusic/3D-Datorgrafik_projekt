@@ -20,15 +20,10 @@ Scene::~Scene(){
 
 void Scene::initScene(){
 
-	//std::string imgpath= "data/heightmap/heightmap.bmp";
-    //readBMP(imgpath.c_str());
-
 	const int HEIGHT_MAP_RESOLUTION = 512;
 
 	// First render the heightmap for only the scene.
     renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
-
-
 	/*
 
 	Innan ärvde klasserna från varandra såhär
@@ -179,7 +174,14 @@ void Scene::initScene(){
 	body7->setPosition(-5.0f, 0.0f, 5.0f);
 	addPlayer(body7);
 
-*/
+*/	camera = new Camera(-30, -5, 15);
+	camera->setLookAt(0, 0, 0);
+	camera->setVelocity(0.05/2, 0.02/2, -0.01/2);
+
+	//Uncomment the two lines below to get simple static front view
+	//camera->setPosition(0, 25, 5);
+	//camera->setVelocity(0, 0, 0);
+
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
 	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
@@ -196,12 +198,8 @@ void Scene::addPlayer(Player * p){
 
 void Scene::update(float dt){
 
-	for (int i = 0; i < players.size(); ++i){
-		players[i]->updateUserInputs();
-		updatePlayerPosition5Sa(players[i]);
-		players[i]->updateHeadDirection();
-		players[i]->update(dt);
-	}
+	camera->incrementPosition(dt);
+	camera->calcMatrices();
 
 	followCamera->updateLookAt();
 	followCamera->setPosition(
@@ -210,12 +208,36 @@ void Scene::update(float dt){
 		followCamera->target->getPosition().z + 15);
 
 	followCamera->calcMatrices();
+
+	for (int i = 0; i < players.size(); ++i){
+		players[i]->updateUserInputs();
+		updatePlayerPosition5Sa(players[i], camera);
+		updatePlayerHeadDirection(players[i], camera);
+		players[i]->update(dt);
+	}
 }
 
-void Scene::updatePlayerPosition1Sa(Player * p) const{
+void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
+	glm::vec2 state;
+	p->getRightControllerValues(state.x, state.y);
+	
+	if (cam != NULL){
+		state = getStateInCamSpace(state, p->getPosition(), cam);
+
+    float phiTarget = 180.0f / 3.141592 * glm::atan(state.x,-state.y);
+    float phiDiff = fmod(phiTarget - p->head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
+    p->head.setAngleVel(phiDiff);
+/*
+    sgct::MessageHandler::Instance()->print(
+        "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
+    sgct::MessageHandler::Instance()->print("\r");
+*/    
+    }
+}
+
+void Scene::updatePlayerPosition1Sa(Player * p, Camera* cam) const{
 	float xState, yState;
 	p->getLeftControllerValues(xState, yState);
-
 	//Uppdatera riktningen
     p->setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
 
@@ -284,10 +306,12 @@ void Scene::updatePlayerPosition1Sa(Player * p) const{
     p->setVelocity(0.0f, 0.0f, 0.0f); 
 }
 
-void Scene::updatePlayerPosition4Sa(Player * p) const{
+void Scene::updatePlayerPosition4Sa(Player * p, Camera* cam) const{
 	
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
+	if (cam != NULL)
+		state = getStateInCamSpace(state, p->getPosition(), cam);
 	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
 
 
@@ -334,10 +358,12 @@ void Scene::updatePlayerPosition4Sa(Player * p) const{
     p->setVelocity(0.0f, 0.0f, 0.0f); 
 }
 
-void Scene::updatePlayerPosition5Sa(Player * p) const{
+void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
+	if (cam != NULL)
+		state = getStateInCamSpace(state, p->getPosition(), cam);
 	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
 
 	//pre-compute
@@ -425,6 +451,26 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
     p->setVelocity(sn.x, 0.0f, -sn.y);
     
 }
+
+glm::vec2 Scene::getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera* cam) const{
+	glm::vec3 camToPlayerDirXYZ = cam->getLookAt() - cam->getPosition() + playerPos;
+    glm::vec2 camDir = glm::vec2(-camToPlayerDirXYZ.z, -camToPlayerDirXYZ.x);
+    
+    printf("camDir x: %f, y: %f                         \n", camDir.x, camDir.y);
+    printf("original state x: %f, y: %f                         \n", state.x, state.y);
+    if (glm::length(camDir) != 0.0f)
+    {
+    	camDir = glm::normalize(camDir);
+    	glm::mat2 T = glm::mat2(camDir, glm::vec2(-camDir.y, camDir.x));
+    	printf("T = \n %f %f \n %f %f\n", T[0].x, T[1].x, T[0].y, T[1].y);
+    	//KONSTIGHT!!! DETTA SKA FIXAS, SKA VARA X RESP Y INTE TVÄRT OM!
+    	glm::vec2 tState = T * state;
+    	printf("transformed state x: %f, y: %f                      \n", tState.x, tState.y);
+    	return tState;
+	}
+	else return state;
+}
+
 
 float Scene::getYPosition(float x, float z){
 	//Här kan man optimera genom att lagra uträkningen av heigtWidth/sceneDimensions.x osv

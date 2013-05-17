@@ -82,7 +82,6 @@ private:
 
 	
 	static std::vector<glm::vec3> color;
-	
 	static std::vector<float> intensity;
 	static std::vector<float> spread;
 	static std::vector<int> directional;

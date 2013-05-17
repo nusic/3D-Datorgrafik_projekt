@@ -63,7 +63,7 @@ void GameEngine::draw(){
 	}
     glBindFramebuffer(GL_FRAMEBUFFER, DEFAULT_FBO_INDEX);
 
-	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+	scene->drawScene(scene->camera->getPerspectiveMatrix(), scene->camera->getViewMatrix());
 
     glDisable(GL_CULL_FACE);
 
@@ -76,13 +76,6 @@ void GameEngine::preSync(float dt){
 	//kankse lite roligare fördelningsfunktions mha en sinus.
 	//Ska likna brinnande eld var tanken dårå.
 	globalRandom = sin(0.3f+rand()/(float)RAND_MAX);
-
-	camera->incrementPosition(dt);
-	camera->calcMatrices();
-
-	camera2->incrementPosition(dt);
-	camera2->calcMatrices();
-
 
 	scene->update(dt);
 
@@ -129,21 +122,6 @@ void GameEngine::initOGL(){
 
 	scene = new Scene();
 	scene->initScene();
-
-	camera = new Camera(-30, -5, 15);
-	camera->setLookAt(0, 0, 0);
-	camera->setVelocity(0.05, 0.02, -0.01);
-
-	//Uncomment the two lines below to get simple static front view
-	camera->setPosition(0, 25, 5);
-	camera->setVelocity(0, 0, 0);
-
-	camera2 = new Camera(0, 30, -30);
-	camera2->setLookAt(0, 0, 0);
-
-
-	
-
 }
 
 int GameEngine::getDefaultFBOindex() const{

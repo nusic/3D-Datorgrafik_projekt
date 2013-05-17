@@ -64,3 +64,11 @@ glm::mat4 Camera::getViewMatrix() const{
 glm::mat4 Camera::getPerspectiveMatrix() const{
 	return perspectiveMatrix;
 }
+
+glm::vec3 Camera::getLookAt(){
+	return lookAt;
+}
+
+glm::vec3 Camera::getPosition(){
+	return position;
+}

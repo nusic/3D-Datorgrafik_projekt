@@ -16,6 +16,7 @@ public:
 
     void updateUserInputs();
     void getLeftControllerValues(float &xState, float& yState) const;
+    void getRightControllerValues(float &xState, float& yState) const;
 
 
     void updateHeadDirection();
@@ -23,8 +24,9 @@ public:
 
     static int numberOfPlayers;
 
+    //UUUSCH, SKA JU VA PRIVATE!
+    GameObject head;
 private:
-	GameObject head;
 	LightSource* light;
 
     Controller* controller;

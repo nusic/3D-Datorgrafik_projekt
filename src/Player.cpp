@@ -69,6 +69,13 @@ void Player::getLeftControllerValues(float &xState, float& yState) const{
     }
 }
 
+void Player::getRightControllerValues(float &xState, float& yState) const{
+    if(controller->validateRightStickValues()){
+        xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
+        yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
+    }
+}
+
 void Player::updateHeadDirection(){
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);

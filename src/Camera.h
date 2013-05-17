@@ -23,6 +23,9 @@ public:
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getPerspectiveMatrix() const;
 
+	glm::vec3 getLookAt();
+	glm::vec3 getPosition();
+
 private:
 
 	glm::vec3 position;
