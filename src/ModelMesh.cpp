@@ -2,8 +2,16 @@
 #include <iostream>
 
 
-ModelMesh::ModelMesh(const char* path){ 
-	if(loadOBJ(path)){
+ModelMesh::ModelMesh(const char* path, float scale){ 
+	if(loadOBJ(path, scale, scale, scale)){
+		generateGLBuffers();
+		calcRadiusXZ();
+	}
+	else printf("ERROR: COULDN'T READ OBJECT\n");
+}
+
+ModelMesh::ModelMesh(const char* path, float sx, float sy, float sz){ 
+	if(loadOBJ(path, sx, sy, sz)){
 		generateGLBuffers();
 		calcRadiusXZ();
 	}
@@ -52,7 +60,7 @@ void ModelMesh::calcRadiusXZ(){
 }
 
 
-bool ModelMesh::loadOBJ(const char * path){
+bool ModelMesh::loadOBJ(const char * path, float sx, float sy, float sz){
 	printf("Loading OBJ file %s... ", path);
 
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
@@ -128,6 +136,11 @@ bool ModelMesh::loadOBJ(const char * path){
 		glm::vec2 uv = temp_uvs[ uvIndex-1 ];
 		glm::vec3 normal = temp_normals[ normalIndex-1 ];
 		
+		// Resize
+		vertex.x *= sx;
+		vertex.y *= sy;
+		vertex.z *= sz;
+
 		// Put the attributes in buffers
 		vertices.push_back(vertex);
 		uvs     .push_back(uv);

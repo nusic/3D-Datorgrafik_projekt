@@ -12,7 +12,8 @@
 
 class ModelMesh{
 public:
-	ModelMesh(const char* path);
+	ModelMesh(const char* path, float scale = 1.0f);
+	ModelMesh(const char* path, float sx, float sy, float sz);
 	~ModelMesh();
 
 	
@@ -32,7 +33,7 @@ public:
 private:
 	float vertexRadiusXZ;
 
-	bool loadOBJ(const char* path);
+	bool loadOBJ(const char* path, float sx = 1.0f, float sy = 1.0f, float sz = 1.0f);
 
 	void generateGLBuffers();
 	void deleteGLBuffers();

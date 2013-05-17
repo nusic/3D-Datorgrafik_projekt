@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj"), "Sublime", "SimpleColor"){
+Model(new ModelMesh("data/meshes/plane.obj", 2.0f, 1.0f, 2.0f), "Sublime", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -19,7 +19,6 @@ Scene::~Scene(){
 
 
 void Scene::initScene(){
-
 	//First render the heightmap for the "ground mesh" only.
 	const int HEIGHT_MAP_RESOLUTION = 512;
     renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
@@ -30,25 +29,25 @@ void Scene::initScene(){
 	//Render to the heightmap again, now with static game objects added.
     renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
 
-
 	initDynamicObjects();
 
-	
 	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
 }
 
 void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 2; ++i){
+	for (int i = 0; i < 3; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float theta = 180.0f*(rand()/(float)RAND_MAX);
+		float size = (rand()/(float)RAND_MAX) + 1.0f;
 
-		sgo = new StaticGameObject(x, y, z);
-		sgo->setRotation(phi, theta);
+		sgo = new StaticGameObject("data/meshes/tree.obj");
+		sgo->setPosition(x, y, z);
+		sgo->setSize(size);
+		sgo->setRotation(phi);
 
 		addChildNode(sgo->getSceneGraphBranch());
 	}
@@ -90,8 +89,8 @@ void Scene::initDynamicObjects(){
 	camera->setVelocity(0.05/2, 0.02/2, -0.01/2);
 
 	//Uncomment the two lines below to get simple static front view
-	camera->setPosition(0, 20, -15);
-	camera->setVelocity(0, 0, 0);
+	//camera->setPosition(0, 20, -15);
+	//camera->setVelocity(0, 0, 0);
 
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
