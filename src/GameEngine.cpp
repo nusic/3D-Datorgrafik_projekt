@@ -108,6 +108,8 @@ void GameEngine::initOGL(){
 	sgct::TextureManager::Instance()->loadTexure(
 		"Sublime", "data/textures/sublime.png", true);
 
+	sgct::TextureManager::Instance()->loadTexure(
+		"Ground", "data/textures/ground.png", true);
 
 
 	//Creating the shader "SimpleColor"

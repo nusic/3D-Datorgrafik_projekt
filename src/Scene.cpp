@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj", 2.0f, 1.0f, 2.0f), "Sublime", "SimpleColor"){
+Model(new ModelMesh("data/meshes/plane.obj", 2.0f, 1.0f, 2.0f), "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -37,7 +37,7 @@ void Scene::initScene(){
 void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 3; ++i){
+	for (int i = 0; i < 5; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
@@ -57,11 +57,11 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-	/*
-	Player * body2 = new Player;
+	
+	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
-
+/*
 	Player * body3 = new Player;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayer(body3);
@@ -84,9 +84,9 @@ void Scene::initDynamicObjects(){
 	*/
 
 
-	camera = new Camera(-30, -5, 15);
+	camera = new Camera(-30, 5, 15);
 	camera->setLookAt(0, 0, 0);
-	camera->setVelocity(0.05/2, 0.02/2, -0.01/2);
+	camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
 
 	//Uncomment the two lines below to get simple static front view
 	//camera->setPosition(0, 20, -15);
