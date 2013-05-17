@@ -17,8 +17,25 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 
 }
 
+GameObject::GameObject(const char* modelPath){
+
+	translationNode = new Translation(0,0,0);
+	rotationNode = new Rotation(translationNode, phi, glm::vec3(0.0f, 1.0f, 0.0f));
+	scaleNode = new Scaling(rotationNode, 1.0f, 1.0f, 1.0f);
+	modelNode = new Model(scaleNode, new ModelMesh(modelPath), "SimpleTexture2", "SimpleColor");
+
+	setPosition(0, 0, 0);
+	setScale(1.0f);
+	setDirection(0, 0.0f);
+	setVelocity(0.0f, 0.0f, 0.0f);
+
+	speed = 5.0f;
+	turnSpeed = 5.0f;
+
+}
+
 GameObject::~GameObject(){
-	
+
 };
 
 
@@ -74,8 +91,8 @@ float GameObject::getSpeed() const{
 }
 
 float GameObject::getAvgScale() const{
-	return (scaleNode->getMatrix()[0][0] + 
-			scaleNode->getMatrix()[1][1] + 
+	return (scaleNode->getMatrix()[0][0] +
+			scaleNode->getMatrix()[1][1] +
 			scaleNode->getMatrix()[2][2]) / 3.0f;
 }
 

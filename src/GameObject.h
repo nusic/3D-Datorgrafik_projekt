@@ -9,6 +9,7 @@
 class GameObject{
 public:
 	GameObject(double x = 0, double y = 0, double z = 0, float scale = 1.0f, float _phi = 0);
+	GameObject(const char* modelPath);
 	~GameObject();
 
 	void setPosition(double x, double y, double z);
@@ -30,7 +31,18 @@ public:
 	Model* getMainModel() const;
 
 	void update(float dt);
-	
+
+protected:
+    friend class Player;
+    friend class Character;
+
+    Translation* 	translationNode;
+	Rotation* 		rotationNode;
+	Scaling*		scaleNode;
+	Model*			modelNode;
+
+    float speed;
+	float turnSpeed;
 
 private:
 
@@ -39,15 +51,6 @@ private:
 	glm::vec3 velocity;
 	float phi, theta;
 	float dPhi, dTheta;
-
-	float speed;
-	float turnSpeed;
-
-	friend class Player;
-	Translation* 	translationNode;
-	Rotation* 		rotationNode;
-	Scaling*		scaleNode;
-	Model*			modelNode;
 
 };
 

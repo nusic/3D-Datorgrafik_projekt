@@ -18,20 +18,32 @@ public:
     void getLeftControllerValues(float &xState, float& yState) const;
     void getRightControllerValues(float &xState, float& yState) const;
 
-
     void updateHeadDirection();
     void update(float dt);
 
     static int numberOfPlayers;
 
-    //UUUSCH, SKA JU VA PRIVATE!
     GameObject head;
-private:
-	LightSource* light;
 
+private:
     Controller* controller;
     int playerIndex;
 
+};
+
+class Character : public Player{
+public:
+    Character();
+    ~Character();
+
+    void updateTorchDirection();
+    void updatePickaxeDirection();
+
+private:
+    GameObject torch;
+    GameObject pickaxe;
+
+    LightSource* light;
 };
 
 #endif // PLAYER_H
