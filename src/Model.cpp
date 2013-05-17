@@ -77,9 +77,8 @@ void Model::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	Node::renderToScreen(P, V, M);
 }
 
-int n_ = 0;
 void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
-
+	
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//Use the shader
@@ -143,18 +142,9 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 		GLuint shadowMapID = sgct::ShaderManager::Instance()->getShader(shaderName).getUniformLocation(str +
 					(char)((i + 1)/10 + '0') + (char) ((i+1)%10 + '0'));
 
-
-		if(n_ < 1) printf("shadowMapID = %i\n", shadowMapID);
-		if(n_ < 1) printf("error code: %i\n", glGetError());
-		//glTexParameteri( shadowMapID , GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
-		//glTexParameteri(GL_TEXTURE_2D, shadowMapID);
-		if(n_ < 1) printf("error code: %i\n", glGetError());
-
-
-
 		glUniform1i(shadowMapID, i + 1);//1 is the same 1 as in GL_TEXTURE1
 	}
-	++n_;
+
 
 
 
