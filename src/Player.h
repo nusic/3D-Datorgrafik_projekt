@@ -18,7 +18,7 @@ public:
     void getLeftControllerValues(float &xState, float& yState) const;
 
     void updateHeadDirection();
-    void update(float dt);
+    virtual void update(float dt);
 
     static int numberOfPlayers;
 
@@ -36,6 +36,9 @@ public:
     Character();
     ~Character();
 
+    void update(float dt);
+    void updateTorch();
+
     void updateTorchDirection();
     void updatePickaxeDirection();
 
@@ -44,6 +47,8 @@ private:
     GameObject pickaxe;
 
     LightSource* light;
+
+    int animationIndex;
 };
 
 #endif // PLAYER_H

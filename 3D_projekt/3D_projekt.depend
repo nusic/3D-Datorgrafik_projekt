@@ -1513,7 +1513,7 @@
 	"Node.h"
 	<iostream>
 
-1368794142 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
+1368804871 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
 1368641431 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.h
@@ -1540,7 +1540,7 @@
 	"Transformation.h"
 	"FollowCamera.h"
 
-1368801033 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.h
+1368807566 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.h
 	<math.h>
 	<new>
 	"Controller.h"
@@ -1551,7 +1551,7 @@
 	"GameObject.h"
 	"LightSource.h"
 
-1368801835 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
+1368810083 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
 1368794142 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.cpp
@@ -1562,17 +1562,17 @@
 	"sgct.h"
 	"GameEngine.h"
 
-1368794142 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.cpp
+1368804871 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
 
 1368641431 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\modelmesh.cpp
 	"ModelMesh.h"
 	<iostream>
 
-1368797178 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
+1368810255 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 
-1368802249 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
+1368810301 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
 1368195172 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightobject.cpp
@@ -1592,11 +1592,11 @@
 	<cassert>
 	"sgct.h"
 
-1368622188 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.h
+1368810069 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.h
 	"Node.h"
 	"sgct.h"
 
-1368622188 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.cpp
+1368810151 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\transformation.cpp
 	"Transformation.h"
 
 1368622188 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\node.cpp

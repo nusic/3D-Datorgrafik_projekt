@@ -1,5 +1,5 @@
 #ifndef TRANSFORMATION_H
-#define TRANSFORMATION_H 
+#define TRANSFORMATION_H
 
 #include "Node.h"
 #include "sgct.h"
@@ -43,11 +43,15 @@ public:
 
 class Rotation : public Transformation{
 public:
-	Rotation(float angle, glm::vec3 axis);
-	Rotation(Node * _parent, float angle, glm::vec3 axis);
+	Rotation(float angle, glm::vec3 _axis = glm::vec3(0.0f, 1.0f, 0.0f));
+	Rotation(Node * _parent, float angle, glm::vec3 _axis = glm::vec3(0.0f, 1.0f, 0.0f));
 	virtual ~Rotation();
 
-	void setRotation(float angle, glm::vec3 axis);
+    void setAxis(glm::vec3);
+	void setRotation(float angle);
+
+private:
+    glm::vec3 axis;
 };
 
 

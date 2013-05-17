@@ -73,22 +73,24 @@ glm::vec3 Scaling::getScaling() const{
 	ROTATION
 */
 
-Rotation::Rotation(float angle, glm::vec3 axis){
-	setRotation(angle, axis);
+Rotation::Rotation(float angle, glm::vec3 _axis){
+    axis = _axis;
+	setRotation(angle);
 }
 
-Rotation::Rotation(Node * _parent, float angle, glm::vec3 axis):
+Rotation::Rotation(Node * _parent, float angle, glm::vec3 _axis):
 Transformation(_parent){
-	setRotation(angle, axis);
+    axis = _axis;
+	setRotation(angle);
 }
 
 Rotation::~Rotation(){
 
 }
 
-void Rotation::setRotation(float angle, glm::vec3 axis){
+void Rotation::setRotation(float angle){
 	/*
-	Gillar inte riktigt att man måste kalla på konstruktorn för 
+	Gillar inte riktigt att man måste kalla på konstruktorn för
 	glm::mat4 varje gång man ska skapa en rotationsmatris med glm.
 	Lättare optimering är dock att köra pass by reference. Kan börja
 	med det om det skulle behövas.
@@ -96,6 +98,9 @@ void Rotation::setRotation(float angle, glm::vec3 axis){
 	matrix = glm::rotate(glm::mat4(1.0f), angle, axis);
 }
 
+void Rotation::setAxis(glm::vec3 _axis){
+    axis = _axis;
+}
 
 
 

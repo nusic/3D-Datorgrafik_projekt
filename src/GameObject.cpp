@@ -127,10 +127,15 @@ void GameObject::update(float dt){
 		phi+=360.0f;
 	else if(phi > 180.0f)
 		phi-= 360.0f;
-	//theta += dTheta * dt * turnSpeed;
+
+	theta += dTheta * dt * turnSpeed;
+	if(theta < -180.0f)
+		theta+=360.0f;
+	else if(theta > 180.0f)
+		theta-= 360.0f;
 
 	translationNode->setTranslation(position.x, position.y, position.z);
-	rotationNode->setRotation(phi, glm::vec3(0.0f, 1.0f, 0.0f));
+	rotationNode->setRotation(phi);
 	scaleNode->setScaling(scale.x, scale.y, scale.z);
 }
 
