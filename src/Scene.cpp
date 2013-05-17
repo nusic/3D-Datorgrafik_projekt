@@ -462,7 +462,7 @@ void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix
 	Model::renderToScreen(P, V, parentModelMatrix);
 }
 
-
+int _n = 0;
 bool Scene::renderToHeightMap(int xRes, int yRes){
 
 	// The FBO that will be used when rendering the heightmap
@@ -473,8 +473,8 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glGenTextures(1, &depthTex);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj); //bind it to the framebuffer target
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glBindTexture(GL_TEXTURE_2D, depthTex);
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, xRes, yRes, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, depthTex, 0);
 
@@ -510,6 +510,10 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
+
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	// Render to the FBO
 	renderToDepthBuffer(VP, M);
 	glDisable(GL_CULL_FACE);
