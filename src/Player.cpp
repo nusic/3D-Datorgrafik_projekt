@@ -99,6 +99,7 @@ Player(){
     head.rotationNode->addChildNode(pickaxe.getSceneGraphBranch());
 
     light = new LightSource(torch.modelNode);
+    light->setPosition(0,0,1.5f);
 	light->setDirection(0,-1,4);
 
     light->setColor(0.9f, 0.8f, 0.7f);
