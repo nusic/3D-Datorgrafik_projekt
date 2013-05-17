@@ -24,7 +24,10 @@ public:
 
 	void initScene();
 	void drawScene(glm::mat4 P, glm::mat4 V);
+	
 	virtual void renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix);
+	bool renderToHeightMap(int xRes, int yRes);
+
 	void update(float dt);
 
 	void addPlayer(Player * player);

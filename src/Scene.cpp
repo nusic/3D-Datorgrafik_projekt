@@ -19,8 +19,15 @@ Scene::~Scene(){
 
 
 void Scene::initScene(){
-	std::string imgpath= "data/heightmap/heightmap.bmp";
-    readBMP(imgpath.c_str());
+
+	//std::string imgpath= "data/heightmap/heightmap.bmp";
+    //readBMP(imgpath.c_str());
+
+	const int HEIGHT_MAP_RESOLUTION = 512;
+
+	// First render the heightmap for only the scene.
+    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
+
 
 	/*
 
@@ -129,6 +136,8 @@ void Scene::initScene(){
 		addChildNode(sgo->getSceneGraphBranch());
 	}
 	
+	// Render to the heightmap with static game objects.
+    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);	
 
 	//Transformation* trans2 = new Translation(body1->getSceneGraphBranch(), 2.0f, 0.0f, 0.0f);
 	//LightSource* l1 = new LightSource();
@@ -334,7 +343,7 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 	//pre-compute
 	int halfHw = heightmapWidth/2;
 	int halfHh = heightmapHeight/2;   
-	float r = p->getBaseRadius();
+	float r = p->getBaseRadius() * 0.2f;
 	
 
 	//Calculate X och Y coordinates for player's front in heightmap
@@ -452,6 +461,112 @@ void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix
 	Model::renderToScreen(P, V, parentModelMatrix);
 }
 
+
+bool Scene::renderToHeightMap(int xRes, int yRes){
+
+	// The FBO that will be used when rendering the heightmap
+	GLuint frameBufferObj = 0;
+	GLuint depthTex = 0;
+
+	glGenFramebuffers(1, &frameBufferObj); //generate the framebuffer object
+	glGenTextures(1, &depthTex);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj); //bind it to the framebuffer target
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glBindTexture(GL_TEXTURE_2D, depthTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, xRes, yRes, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, depthTex, 0);
+
+	// Check that our framebuffer is ok
+	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
+		std::cout << "Unable to create framebuffer for height map!" << std::endl;
+		return false;
+	}
+
+	// We want to render from this view
+	glm::mat4 V = glm::lookAt(
+		glm::vec3(0,0,0), // position
+		glm::vec3(0,-1,0), // look at: downwards
+		glm::vec3(0,0,-1)); // up vector: -z, makes x point to the right
+
+	glm::vec3 minVertexValues = getMesh()->getMinVertexValues();
+	glm::vec3 maxVertexValues = getMesh()->getMaxVertexValues();
+
+	// Create the box where the orthogonal projection takes place
+	glm::mat4 P = glm::ortho(
+		minVertexValues.x, // left
+		maxVertexValues.x, // right
+		minVertexValues.z, // bottom
+		maxVertexValues.z, // top
+		-maxVertexValues.y, // zNear
+		-minVertexValues.y); // zFar ---- z is y since we look from above
+
+	//First model matrix is just a enhetsmatrisnångångnudå
+	glm::mat4 M(1.0);
+	glm::mat4 VP = P * V;
+	
+	glViewport(0,0,xRes,yRes);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	// Render to the FBO
+	renderToDepthBuffer(VP, M);
+	glDisable(GL_CULL_FACE);
+
+	//Och hänne ska vi använda glReadPixels..
+	// Actual RGB data
+    unsigned char* allData = new unsigned char [xRes * yRes * 3];
+	heightmap = new float[xRes * yRes];
+
+    heightmapWidth = xRes;
+    heightmapHeight = yRes;
+    heightmapArrayLength = xRes * yRes;
+
+    worldToHeightmapX =  xRes  / sceneDimensions.x;
+    worldToHeightmapZ = -yRes / sceneDimensions.z;
+
+	glReadPixels(
+		0,
+ 		0,
+ 		xRes,
+ 		yRes,
+ 		GL_RGB,
+ 		GL_UNSIGNED_BYTE,
+ 		allData);
+
+	int maxDepth = allData[0];
+    int minDepth = allData[0];
+    for(int i = 3; i < xRes * yRes * 3; i+=3){
+    	if(allData[i] > maxDepth) maxDepth = allData[i];
+    	if(allData[i] < minDepth) minDepth = allData[i];
+    }
+    
+    float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
+    printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
+
+
+    float minSceneY = minVertexValues.y;
+    for(int i = 0; i < xRes * yRes * 3; i+=3){
+   		//1. Before scaling the image, we need to have 0 in heightmap
+   		//means 0 in world coordinates. Therefor reduce all pixels with
+   		//minDepth. Now minimum depth will be 0.
+
+    	//2. Scale
+
+   		//3. After the scaling, we need to add the minimum value from the 
+   		//scene vertices. That makes the heighmap place the player correctly
+   		//according to the actual mesh.
+
+        heightmap[i/3] = (float)(allData[i] - minDepth)*scale + minSceneY;
+
+    }
+
+	delete[] allData;
+	glDeleteFramebuffers(1, &frameBufferObj);
+	glDeleteTextures(1, &depthTex);
+	
+
+}
 
 
 void Scene::readBMP(const char* filename)
