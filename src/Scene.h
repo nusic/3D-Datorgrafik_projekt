@@ -23,6 +23,9 @@ public:
 	~Scene();
 
 	void initScene();
+	void initStaticObjects();
+	void initDynamicObjects();
+
 	void drawScene(glm::mat4 P, glm::mat4 V);
 	
 	virtual void renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix);
