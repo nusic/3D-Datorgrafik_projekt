@@ -17,19 +17,33 @@ public:
     void updateUserInputs();
     void getLeftControllerValues(float &xState, float& yState) const;
 
-
     void updateHeadDirection();
     void update(float dt);
 
     static int numberOfPlayers;
 
-private:
-	GameObject head;
-	LightSource* light;
+protected:
+    GameObject head;
 
+private:
     Controller* controller;
     int playerIndex;
 
+};
+
+class Character : public Player{
+public:
+    Character();
+    ~Character();
+
+    void updateTorchDirection();
+    void updatePickaxeDirection();
+
+private:
+    GameObject torch;
+    GameObject pickaxe;
+
+    LightSource* light;
 };
 
 #endif // PLAYER_H

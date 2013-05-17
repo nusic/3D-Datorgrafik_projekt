@@ -1,27 +1,23 @@
 #include "Player.h"
 
+/*
+    PLAYER
+*/
 
 int Player::numberOfPlayers = 0;
 
 Player::Player():
-GameObject(){
+GameObject("data/meshes/body.obj"){
     speed = 5.0f;
     controller = new Controller(numberOfPlayers);
 
-    head = GameObject(0.0f, 2.0f, 0.0f);
+    head = GameObject(0.0f, 5.0f, 0.0f);
     translationNode->addChildNode(head.getSceneGraphBranch());
-    light = new LightSource(head.modelNode);
-	light->setDirection(0,-1,4);
 
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
-    light->setColor(0.9f, 0.8f, 0.7f);
-    light->setIntensity(70);
-	light->setSpread(30);
 
     numberOfPlayers++;
-
-
 
     /*
     En player skapar en ScenGraphBranch som ser ut så här
@@ -31,18 +27,18 @@ GameObject(){
         GameObject (body)
         ------------------
         |   Translation  |
-        |         |      
+        |         |
         |         |------------------------    GameObject (head)
-        |         |               ------  |  ------ 
+        |         |               ------  |  ------
         |      Rotation  |        |   Translation |
         |         |      |        |       |       |
         |      Scaling   |        |   Rotation    |
         |         |      |        |       |       |
         |       Model    |        |   Scaling     |
-        ------------------        |       |       |     
+        ------------------        |       |       |
                                   |     Model     |
                                   ------  |  ------
-                                          | 
+                                          |
                                      LightSource
 
     */
@@ -80,7 +76,46 @@ void Player::updateHeadDirection(){
         sgct::MessageHandler::Instance()->print(
             "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
         sgct::MessageHandler::Instance()->print("\r");
-*/    
+*/
     }
 }
+
+/*
+    CHARACTER
+*/
+
+Character::Character():
+Player(){
+    torch = GameObject("data/meshes/flashlight.obj");
+    torch.setPosition(1.2f, -0.5f, 0.0f);
+
+    pickaxe = GameObject("data/meshes/flashlight.obj");
+    pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
+
+    head.rotationNode->addChildNode(torch.getSceneGraphBranch());
+    head.rotationNode->addChildNode(pickaxe.getSceneGraphBranch());
+
+    light = new LightSource(torch.modelNode);
+	light->setDirection(0,-1,4);
+
+    light->setColor(0.9f, 0.8f, 0.7f);
+    light->setIntensity(70);
+    light->setSpread(30);
+    torch.update(0.0f);
+    pickaxe.update(0.0f);
+}
+
+Character::~Character(){
+
+}
+
+void Character::updateTorchDirection(){
+
+}
+
+void Character::updatePickaxeDirection(){
+
+}
+
+
 

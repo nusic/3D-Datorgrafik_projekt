@@ -1,12 +1,12 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj"), "Sublime", "SimpleColor"){ 
+Model(new ModelMesh("data/meshes/plane.obj"), "Sublime", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
 	sceneDimensions = maxVertexValues - minVertexValues;
-	printf("sceneDimensions: x = %f,  y = %f,  z = %f\n", 
+	printf("sceneDimensions: x = %f,  y = %f,  z = %f\n",
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
 }
 
@@ -88,13 +88,13 @@ void Scene::initScene(){
 				Translation -> Rotation -> Scaling -> Model
 
 
-		 GameObject 						
-		 	 |	* glm::vec3 position 			    
-		 	 |	* glm::vec3 direction 				
-		 	 |	* float phi, theta 					
-		 	 |	* glm::vec3 velocity 				
-			 |	* angleVelocity 		 	
-			 | 									
+		 GameObject
+		 	 |	* glm::vec3 position
+		 	 |	* glm::vec3 direction
+		 	 |	* float phi, theta
+		 	 |	* glm::vec3 velocity
+			 |	* angleVelocity
+			 |
 			 |	* Translation
 			 |	* Rotation
 			 | 	* Scaling
@@ -102,14 +102,14 @@ void Scene::initScene(){
 			 |
 			 |	  Node* getSceneGraphBranch();
 			 |
-			 | 									    
-		   Player 									
+			 |
+		   Player
 		  		* Controller
 		  		* LightObject* head
 
 
 
-	- StaticGameObject är en enklare, effektivare variant av GameObject 
+	- StaticGameObject är en enklare, effektivare variant av GameObject
 	- Används för saker som inte ska röra sig, tex stenar, träd
 	- StaticGameObject är i princip bara 2 Nodes som är ihopkopplade enligt
 
@@ -135,9 +135,9 @@ void Scene::initScene(){
 
 		addChildNode(sgo->getSceneGraphBranch());
 	}
-	
+
 	// Render to the heightmap with static game objects.
-    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);	
+    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
 
 	//Transformation* trans2 = new Translation(body1->getSceneGraphBranch(), 2.0f, 0.0f, 0.0f);
 	//LightSource* l1 = new LightSource();
@@ -151,9 +151,10 @@ void Scene::initScene(){
 	*/
 	//addGenerations(body1->getMainModel(), 2);
 
-	Player * body1 = new Player;
+	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
+
 /*
 	Player * body2 = new Player;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
@@ -244,12 +245,12 @@ void Scene::updatePlayerPosition1Sa(Player * p) const{
         0 < imgY && imgY < heightmapHeight){
 
 
-        
+
 	    //Beräkna höjden för players främre kant.
 	    int imgXYPos = (int)(imgX + heightmapWidth*imgY);
 	    float yTemp = heightmap[imgXYPos];
 
-	    //Temporärt kan vi använde denna som ett tröskelvärde 
+	    //Temporärt kan vi använde denna som ett tröskelvärde
 	    //som avgör hur brant en player kan gå.
 	    float maxStep = 2.0f;
 
@@ -271,7 +272,7 @@ void Scene::updatePlayerPosition1Sa(Player * p) const{
 
             /*
 		    sgct::MessageHandler::Instance()->print(
-		      "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f", 
+		      "position.x = %f  position.z = %f  imgX = %i  imgY = %i  heightmap[%i] = %f",
 		       getPosition().x, getPosition().z, imgX,      imgY,                imgXYPos, yTemp);
 		    sgct::MessageHandler::Instance()->print("\r");
 			*/
@@ -281,11 +282,11 @@ void Scene::updatePlayerPosition1Sa(Player * p) const{
 
     //Om vi befinner oss utanför mappen eller
     //om vi har en för brant backe framför oss så stå still
-    p->setVelocity(0.0f, 0.0f, 0.0f); 
+    p->setVelocity(0.0f, 0.0f, 0.0f);
 }
 
 void Scene::updatePlayerPosition4Sa(Player * p) const{
-	
+
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
 	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
@@ -294,7 +295,7 @@ void Scene::updatePlayerPosition4Sa(Player * p) const{
 
 	//pre-compute
 	int halfHw = heightmapWidth/2;
-	int halfHh = heightmapHeight/2;   
+	int halfHh = heightmapHeight/2;
 	float r = p->getBaseRadius();
 
     int imgX 	= halfHw + worldToHeightmapX * (p->getPosition().x);
@@ -327,24 +328,24 @@ void Scene::updatePlayerPosition4Sa(Player * p) const{
 
     	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/4.0f);
     	p->setVelocity(state.x, 0.0f, -state.y);
-    	return;	
+    	return;
 
     }
 
-    p->setVelocity(0.0f, 0.0f, 0.0f); 
+    p->setVelocity(0.0f, 0.0f, 0.0f);
 }
 
 void Scene::updatePlayerPosition5Sa(Player * p) const{
-	
+
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
 	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
 
 	//pre-compute
 	int halfHw = heightmapWidth/2;
-	int halfHh = heightmapHeight/2;   
+	int halfHh = heightmapHeight/2;
 	float r = p->getBaseRadius() * 0.2f;
-	
+
 
 	//Calculate X och Y coordinates for player's front in heightmap
     glm::vec2 sn = (state.x || state.y) ? glm::normalize(state) : glm::vec2(0.0f, 0.0f);
@@ -368,7 +369,7 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 	}
 
     if (!atEdge){
-	    
+
 	    //Don't need X and P for player front anymore. now sample 4.
 
 	    imgX 	 	= halfHw + worldToHeightmapX * (p->getPosition().x);
@@ -380,9 +381,9 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 	    int imgYmin = halfHh + worldToHeightmapZ * (p->getPosition().z + r);
 
 	    //If max/min values outside heigtmap -> set height to 0.
-    	float yXmax = 0; 
-    	float yXmin = 0; 
-    	float yYmax = 0; 
+    	float yXmax = 0;
+    	float yXmin = 0;
+    	float yYmax = 0;
     	float yYmin = 0;
     	float validSamples = 0.0f;
 
@@ -392,13 +393,13 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 		if (0 		< imgYmin		 ){ yYmin = heightmap[ (imgX + heightmapWidth*imgYmin) ]; ++validSamples;}
 
 		if(validSamples == 4.0f){
-			
+
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
 	    	float steep = glm::length(grad);
 	    	float maxStep = 0.5f;
 	    	if(steep > maxStep){
-	    		
+
 	    		//Define new ON-base from grad and a vector orthogonal to grad
 		    	grad = glm::normalize(grad);
 		    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
@@ -406,11 +407,11 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 		    	//Transform state to the new base e.
 		    	glm::vec2 eState = T * sn;
 
-		    	//Remove or decrease velocity along positive grad 
-		    	
+		    	//Remove or decrease velocity along positive grad
+
 		    	eState.x -= 0.5f*steep;
-				
-		    	//Back to world coordinates. 
+
+		    	//Back to world coordinates.
 		    	//T^t = T^-1 since normalized base(?)
 		    	state = glm::transpose(T) * eState;
 	    	}
@@ -418,12 +419,12 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
 
     	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples);
     	p->setVelocity(state.x, 0.0f, -state.y);
-    
+
     	return;
     }
 
     p->setVelocity(sn.x, 0.0f, -sn.y);
-    
+
 }
 
 float Scene::getYPosition(float x, float z){
@@ -504,7 +505,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	//First model matrix is just a enhetsmatrisnångångnudå
 	glm::mat4 M(1.0);
 	glm::mat4 VP = P * V;
-	
+
 	glViewport(0,0,xRes,yRes);
 
 	glEnable(GL_CULL_FACE);
@@ -540,7 +541,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
     	if(allData[i] > maxDepth) maxDepth = allData[i];
     	if(allData[i] < minDepth) minDepth = allData[i];
     }
-    
+
     float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
     printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
@@ -553,7 +554,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 
     	//2. Scale
 
-   		//3. After the scaling, we need to add the minimum value from the 
+   		//3. After the scaling, we need to add the minimum value from the
    		//scene vertices. That makes the heighmap place the player correctly
    		//according to the actual mesh.
 
@@ -564,7 +565,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	delete[] allData;
 	glDeleteFramebuffers(1, &frameBufferObj);
 	glDeleteTextures(1, &depthTex);
-	
+
 
 }
 
@@ -628,7 +629,7 @@ void Scene::readBMP(const char* filename)
     	if(allData[i] == 0)
     		printf("  ZERO PIXEL at %i\n", i/3);
     }
-    
+
     float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
     printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
@@ -641,7 +642,7 @@ void Scene::readBMP(const char* filename)
 
     	//2. Scale
 
-   		//3. After the scaling, we need to add the minimum value from the 
+   		//3. After the scaling, we need to add the minimum value from the
    		//scene vertices. That makes the heighmap place the player correctly
    		//according to the actual mesh.
 

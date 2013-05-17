@@ -98,12 +98,12 @@ void main()
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
 		invDistSquare = 1.0f/(distanceSquare);
 
-		
+
 		float visibility = 0.0;
-		
+
 		// Detta skulle ha varit en for-loop men eftersom det inte verkar gå att skapa arrayer av sampler2D görs det på detta sätt.
 		// Här skulle man även kunna göra så kallat Poisson sampling för att få skuggorna mjukare. Det visar sig dock att beräkningarna
-		// blir alldeles för många och det laggar alldeles för mycket. 
+		// blir alldeles för många och det laggar alldeles för mycket.
 		if (i < MAX_NUMBER_OF_SHADOWS)
 		{
 			if (i == 0){
