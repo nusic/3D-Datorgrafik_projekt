@@ -65,7 +65,7 @@ void GameEngine::draw(){
 		glDisable(GL_CULL_FACE);
 	}
 
-	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
+	scene->drawScene(scene->camera->getPerspectiveMatrix(), scene->camera->getViewMatrix());
 
     glDisable(GL_CULL_FACE);
 
@@ -78,13 +78,6 @@ void GameEngine::preSync(float dt){
 	//kankse lite roligare fördelningsfunktions mha en sinus.
 	//Ska likna brinnande eld var tanken dårå.
 	globalRandom = sin(0.3f+rand()/(float)RAND_MAX);
-
-	camera->incrementPosition(dt);
-	camera->calcMatrices();
-
-	camera2->incrementPosition(dt);
-	camera2->calcMatrices();
-
 
 	scene->update(dt);
 
@@ -114,6 +107,8 @@ void GameEngine::initOGL(){
 	sgct::TextureManager::Instance()->loadTexure(
 		"Sublime", "data/textures/sublime.png", true);
 
+	sgct::TextureManager::Instance()->loadTexure(
+		"Ground", "data/textures/ground.png", true);
 
 
 	//Creating the shader "SimpleColor"
@@ -142,10 +137,6 @@ void GameEngine::initOGL(){
 
 	camera2 = new Camera(0, 30, -30);
 	camera2->setLookAt(0, 0, 0);
-
-
-
-
 }
 
 int GameEngine::getDefaultFBOindex() const{

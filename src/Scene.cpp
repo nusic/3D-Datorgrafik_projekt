@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj"), "Sublime", "SimpleColor"){
+Model(new ModelMesh("data/meshes/plane.obj", 5.0f, 1.0f, 2.0f), "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -19,147 +19,49 @@ Scene::~Scene(){
 
 
 void Scene::initScene(){
-
-	//std::string imgpath= "data/heightmap/heightmap.bmp";
-    //readBMP(imgpath.c_str());
-
+	//First render the heightmap for the "ground mesh" only.
 	const int HEIGHT_MAP_RESOLUTION = 512;
-
-	// First render the heightmap for only the scene.
     renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
 
+    //Now we can use the previously rendered heightmap to place static objects
+    initStaticObjects();
 
-	/*
+	//Render to the heightmap again, now with static game objects added.
+    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
 
-	Innan ärvde klasserna från varandra såhär
+	initDynamicObjects();
 
-					   Model
-					   	 |	* vector<Model*> children
-						 |	* ModelMatrix
-						 |	* ModelMesh
-						 |	* Texture
-						 |	* Shader
-						 |	  void drawModel(P, V, localModelMatrix);
-						 |
-			-----------------------------
-			|							|
-		  Scene						GameObject
-			  * vector<Player>			|	* position
-			  * vector<LightSource> 	|	* direction
-						 				|
-						 		DynamicGameObject
-						 				|	* velocity
-						 				|	* angleVelocity
-						 				|
-						 			  Player
-						 			  		* Controller
-						 			  		* LightObject* head
+	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
+}
 
-
-==============================================================================
-
-
-	Nu har vi ny scengraph. Blir lite ny syntax.
-	Så här ärver klasserna av varandra nu.
-
-
-							   Node
-								|  * vector<Node*> children
-							 	|  * Node* parent
-							 	| 	  virtual void draw(P, V, M);
-							 	|
-		---------------------------------------------------------
-		|		 				|								|
-	  Model   		 		 LightSource			  	  	Transformation
-	    |  * ModelMesh				* glm::vec3 position		| 	* glm::mat4 matrix
-	    |  * Texture				* glm::vec3 direction		|
-	    |  * Shader			 		* index						|
-	  	|														|
-	  Scene											---------------------
-	  	   * vector<Player*>						|			|		|
-		   * vector<LightSource*>				Translation   Scale   Rotation
-
-
-
-
-	- GameObject ärver inte längre från Model
-	- GameObject är i princip bara 4 Nodes som är ihopkopplade enligt
-
-				Translation -> Rotation -> Scaling -> Model
-
-
-		 GameObject
-		 	 |	* glm::vec3 position
-		 	 |	* glm::vec3 direction
-		 	 |	* float phi, theta
-		 	 |	* glm::vec3 velocity
-			 |	* angleVelocity
-			 |
-			 |	* Translation
-			 |	* Rotation
-			 | 	* Scaling
-			 | 	* Model
-			 |
-			 |	  Node* getSceneGraphBranch();
-			 |
-			 |
-		   Player
-		  		* Controller
-		  		* LightObject* head
-
-
-
-	- StaticGameObject är en enklare, effektivare variant av GameObject
-	- Används för saker som inte ska röra sig, tex stenar, träd
-	- StaticGameObject är i princip bara 2 Nodes som är ihopkopplade enligt
-
-				Transformation -> Model
-
-
-	*/
-
-	//Model* suzanne = new Model(new ModelMesh("data/meshes/suzanne.obj"), "SimpleTexture2", "SimpleColor");
-	//addChildNode(suzanne);
-
+void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 2; ++i){
+	for (int i = 0; i < 5; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float theta = 180.0f*(rand()/(float)RAND_MAX);
+		float size = (rand()/(float)RAND_MAX) + 1.0f;
 
-		sgo = new StaticGameObject(x, y, z);
-		sgo->setRotation(phi, theta);
+		sgo = new StaticGameObject("data/meshes/tree.obj");
+		sgo->setPosition(x, y, z);
+		sgo->setSize(size);
+		sgo->setRotation(phi);
 
 		addChildNode(sgo->getSceneGraphBranch());
 	}
+}
 
-	// Render to the heightmap with static game objects.
-    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
-
-	//Transformation* trans2 = new Translation(body1->getSceneGraphBranch(), 2.0f, 0.0f, 0.0f);
-	//LightSource* l1 = new LightSource();
-	//trans2->addChildNode(l1);
-
-	/*
-	Testa att sätt antal generationer till
-	ett större tal, som typ 10. Det slutar
-	funka att ladda in texturer (för erik).
-	Är det grafikminnet som blir fullt tro?
-	*/
-	//addGenerations(body1->getMainModel(), 2);
-
+void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-
-/*
-	Player * body2 = new Player;
+	
+	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
-
+/*
 	Player * body3 = new Player;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayer(body3);
@@ -179,11 +81,19 @@ void Scene::initScene(){
 	Player * body7 = new Player;
 	body7->setPosition(-5.0f, 0.0f, 5.0f);
 	addPlayer(body7);
+	*/
 
-*/
+
+	camera = new Camera(-30, 5, 15);
+	camera->setLookAt(0, 0, 0);
+	camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
+
+	//Uncomment the two lines below to get simple static front view
+	//camera->setPosition(0, 20, -15);
+	//camera->setVelocity(0, 0, 0);
+
 	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
-	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
 }
 
 
@@ -197,12 +107,8 @@ void Scene::addPlayer(Player * p){
 
 void Scene::update(float dt){
 
-	for (int i = 0; i < players.size(); ++i){
-		players[i]->updateUserInputs();
-		updatePlayerPosition5Sa(players[i]);
-		players[i]->updateHeadDirection();
-		players[i]->update(dt);
-	}
+	camera->incrementPosition(dt);
+	camera->calcMatrices();
 
 	followCamera->updateLookAt();
 	followCamera->setPosition(
@@ -211,12 +117,36 @@ void Scene::update(float dt){
 		followCamera->target->getPosition().z + 15);
 
 	followCamera->calcMatrices();
+
+	for (int i = 0; i < players.size(); ++i){
+		players[i]->updateUserInputs();
+		updatePlayerPosition5Sa(players[i], camera);
+		updatePlayerHeadDirection(players[i], camera);
+		players[i]->update(dt);
+	}
 }
 
-void Scene::updatePlayerPosition1Sa(Player * p) const{
+void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
+	glm::vec2 state;
+	p->getRightControllerValues(state.x, state.y);
+
+	if (cam != NULL){
+		state = getStateInCamSpace(state, p->getPosition(), cam);
+
+    float phiTarget = 180.0f / 3.141592 * glm::atan(state.x,-state.y);
+    float phiDiff = fmod(phiTarget - p->head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
+    p->head.setAngleVel(phiDiff);
+	/*
+    sgct::MessageHandler::Instance()->print(
+        "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
+    sgct::MessageHandler::Instance()->print("\r");
+	*/  
+	}
+}
+
+void Scene::updatePlayerPosition1Sa(Player * p, Camera* cam) const{
 	float xState, yState;
 	p->getLeftControllerValues(xState, yState);
-
 	//Uppdatera riktningen
     p->setDirection(180.0f / 3.141592f * glm::atan(xState,-yState));
 
@@ -285,10 +215,12 @@ void Scene::updatePlayerPosition1Sa(Player * p) const{
     p->setVelocity(0.0f, 0.0f, 0.0f);
 }
 
-void Scene::updatePlayerPosition4Sa(Player * p) const{
-
+void Scene::updatePlayerPosition4Sa(Player * p, Camera* cam) const{
+	
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
+	if (cam != NULL)
+		state = getStateInCamSpace(state, p->getPosition(), cam);
 	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
 
 
@@ -335,20 +267,29 @@ void Scene::updatePlayerPosition4Sa(Player * p) const{
     p->setVelocity(0.0f, 0.0f, 0.0f);
 }
 
-void Scene::updatePlayerPosition5Sa(Player * p) const{
+
+void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
-	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
+	if (cam != NULL)
+		state = getStateInCamSpace(state, p->getPosition(), cam);
+
+	
 
 	//pre-compute
 	int halfHw = heightmapWidth/2;
 	int halfHh = heightmapHeight/2;
-	float r = p->getBaseRadius() * 0.2f;
+	float r = p->getBaseRadius() * 0.5f;
 
 
 	//Calculate X och Y coordinates for player's front in heightmap
-    glm::vec2 sn = (state.x || state.y) ? glm::normalize(state) : glm::vec2(0.0f, 0.0f);
+    glm::vec2 sn = glm::vec2(0.0f, 0.0f);
+    if(state.x || state.y){
+    	sn = glm::normalize(state);
+    	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
+    } 
+
     int imgX = halfHw + worldToHeightmapX * (p->getPosition().x + sn.x*r);
     int imgY = halfHh + worldToHeightmapZ * (p->getPosition().z - sn.y*r);
 
@@ -371,7 +312,6 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
     if (!atEdge){
 
 	    //Don't need X and P for player front anymore. now sample 4.
-
 	    imgX 	 	= halfHw + worldToHeightmapX * (p->getPosition().x);
 		imgY 		= halfHh + worldToHeightmapZ * (p->getPosition().z);
 
@@ -426,6 +366,20 @@ void Scene::updatePlayerPosition5Sa(Player * p) const{
     p->setVelocity(sn.x, 0.0f, -sn.y);
 
 }
+
+glm::vec2 Scene::getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera* cam) const{
+	glm::vec3 camToPlayerDirXYZ = cam->getLookAt() - cam->getPosition();// + playerPos;
+    glm::vec2 camDir = glm::vec2(-camToPlayerDirXYZ.z, -camToPlayerDirXYZ.x);
+    
+    if (camDir.x || camDir.y){
+    	camDir = glm::normalize(camDir);
+    	glm::mat2 T = glm::mat2(camDir, glm::vec2(-camDir.y, camDir.x));
+    	glm::vec2 tState = T * state;
+    	return tState;
+	}
+	else return state;
+}
+
 
 float Scene::getYPosition(float x, float z){
 	//Här kan man optimera genom att lagra uträkningen av heigtWidth/sceneDimensions.x osv

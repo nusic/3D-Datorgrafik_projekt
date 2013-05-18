@@ -23,6 +23,9 @@ public:
 	~Scene();
 
 	void initScene();
+	void initStaticObjects();
+	void initDynamicObjects();
+
 	void drawScene(glm::mat4 P, glm::mat4 V);
 	
 	virtual void renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix);
@@ -36,8 +39,9 @@ public:
     
 	std::vector<Player*> players;
 	FollowCamera* followCamera;
-	static std::vector<LightSource*> lightSources;
+	Camera* camera;
 
+	static std::vector<LightSource*> lightSources;
 	
 	float getYPosition(float x, float z);
     float* heightmap;
@@ -55,9 +59,12 @@ public:
 
 private:
 
-	void updatePlayerPosition1Sa(Player * p) const;
-	void updatePlayerPosition4Sa(Player * p) const;
-	void updatePlayerPosition5Sa(Player * p) const;
+	void updatePlayerPosition1Sa(Player * p, Camera* cam = NULL) const;
+	void updatePlayerPosition4Sa(Player * p, Camera* cam = NULL) const;
+	void updatePlayerPosition5Sa(Player * p, Camera* cam = NULL) const;
+	void updatePlayerHeadDirection(Player* p, Camera* cam = NULL) const;
+
+	glm::vec2 getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera* cam = NULL) const;
 	void readBMP(const char* filename);
 
 };

@@ -16,13 +16,13 @@ public:
 
     void updateUserInputs();
     void getLeftControllerValues(float &xState, float& yState) const;
+    void getRightControllerValues(float &xState, float& yState) const;
 
     void updateHeadDirection();
     virtual void update(float dt);
 
     static int numberOfPlayers;
 
-protected:
     GameObject head;
 
 private:

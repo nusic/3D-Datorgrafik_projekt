@@ -65,6 +65,13 @@ void Player::getLeftControllerValues(float &xState, float& yState) const{
     }
 }
 
+void Player::getRightControllerValues(float &xState, float& yState) const{
+    if(controller->validateRightStickValues()){
+        xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
+        yState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_Y_AXIS);
+    }
+}
+
 void Player::updateHeadDirection(){
     if (controller->validateRightStickValues()){
         float xState = controller->getAxisValue(Controller::CONTROLLER_RIGHT_X_AXIS);
@@ -98,11 +105,11 @@ Player(){
     head.rotationNode->addChildNode(pickaxe.getSceneGraphBranch());
 
     light = new LightSource(torch.modelNode);
-    light->setPosition(0,0,1.5f);
-	light->setDirection(0,-1,4);
+    light->setPosition(0,0,1.6f);
+	light->setDirection(0,-1,2);
 
     light->setColor(0.9f, 0.8f, 0.7f);
-    light->setIntensity(70);
+    light->setIntensity(50);
     light->setSpread(30);
     torch.update(0.0f);
     pickaxe.update(0.0f);
