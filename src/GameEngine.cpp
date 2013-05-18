@@ -57,15 +57,18 @@ void GameEngine::draw(){
 
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-	glViewport(0,0,640 * 2,360 * 2);
 
 	if(renderWireFrame){
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
-
-	scene->drawScene(scene->camera->getPerspectiveMatrix(), scene->camera->getViewMatrix());
+	for (int i = 0; i < 1; ++i){
+		glViewport(i * 640 * 2,0,640 * 2,360 * 2);
+		scene->drawScene(
+			scene->cameras[i]->getPerspectiveMatrix(),
+			scene->cameras[i]->getViewMatrix());
+	}
 
     glDisable(GL_CULL_FACE);
 

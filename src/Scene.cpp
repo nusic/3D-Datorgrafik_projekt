@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj", 5.0f, 1.0f, 2.0f), "Ground", "SimpleColor"){
+Model(new ModelMesh("data/meshes/bigscene.obj", 1.0f, 1.0f, 1.0f), "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -37,7 +37,7 @@ void Scene::initScene(){
 void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 5; ++i){
+	for (int i = 0; i < 30; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
@@ -84,15 +84,23 @@ void Scene::initDynamicObjects(){
 	*/
 
 
-	camera = new Camera(-30, 5, 15);
+
+	Camera* camera = new Camera(-30, 5, 15);
 	camera->setLookAt(0, 0, 0);
 	camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
+
+	FollowCamera* fc = new FollowCamera(players);
 
 	//Uncomment the two lines below to get simple static front view
 	//camera->setPosition(0, 20, -15);
 	//camera->setVelocity(0, 0, 0);
 
-	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
+	//FollowCamera* followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
+
+	cameras.push_back(fc);
+
+	cameras.push_back(camera);
+	//cameras.push_back(followCamera);
 
 }
 
@@ -107,21 +115,15 @@ void Scene::addPlayer(Player * p){
 
 void Scene::update(float dt){
 
-	camera->incrementPosition(dt);
-	camera->calcMatrices();
-
-	followCamera->updateLookAt();
-	followCamera->setPosition(
-		followCamera->target->getPosition().x,
-		followCamera->target->getPosition().y + 15,
-		followCamera->target->getPosition().z + 15);
-
-	followCamera->calcMatrices();
+	for (int i = 0; i < cameras.size(); ++i){
+		cameras[i]->update(dt);
+		cameras[i]->calcMatrices();
+	}
 
 	for (int i = 0; i < players.size(); ++i){
 		players[i]->updateUserInputs();
-		updatePlayerPosition5Sa(players[i], camera);
-		updatePlayerHeadDirection(players[i], camera);
+		updatePlayerPosition5Sa(players[i], cameras[0]);
+		updatePlayerHeadDirection(players[i], cameras[0]);
 		players[i]->update(dt);
 	}
 }
