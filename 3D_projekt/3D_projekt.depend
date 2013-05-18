@@ -996,10 +996,10 @@
 	"sgct.h"
 	<iostream>
 
-1368895806 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
+1368898216 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 
-1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
+1368898333 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
 	<math.h>
 	<new>
 	"Controller.h"
