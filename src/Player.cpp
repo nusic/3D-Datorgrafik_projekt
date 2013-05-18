@@ -8,6 +8,7 @@ int Player::numberOfPlayers = 0;
 
 Player::Player():
 GameObject("data/meshes/body.obj"){
+    alive = true;
     speed = 5.0f;
     controller = new Controller(numberOfPlayers);
 
@@ -47,6 +48,10 @@ GameObject("data/meshes/body.obj"){
 Player::~Player(){
     delete controller;
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
+}
+
+bool Player::isAlive() const{
+    return alive;
 }
 
 void Player::update(float dt){
@@ -91,6 +96,13 @@ LightSource* Player::getLightSource() const{
     return NULL;
 }
 
+void Player::kill(){
+    alive = false;
+    setVelocity(0.0f, 0.0f, 0.0f);
+    
+    LightSource* light = getLightSource();
+
+}
 
 
 

@@ -19,18 +19,32 @@ public:
     void getRightControllerValues(float &xState, float& yState) const;
 
     void updateHeadDirection();
+
     virtual void update(float dt);
     virtual LightSource* getLightSource() const;
+
+
+    void kill();
+    
+    bool isAlive() const;
+
 
     static int numberOfPlayers;
 
     GameObject head;
 
 private:
+    bool alive;
+
     Controller* controller;
     int playerIndex;
 
 };
+
+
+
+
+//SUBCLASS OF PLAYER: CHARACTER
 
 class Character : public Player{
 public:
