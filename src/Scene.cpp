@@ -20,14 +20,21 @@ Scene::~Scene(){
 
 void Scene::initScene(){
 	//First render the heightmap for the "ground mesh" only.
+	
+	bool renderToHeightMapSupported = true;
 	const int HEIGHT_MAP_RESOLUTION = 512;
-    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
+    if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
+    	renderToHeightMapSupported = false;
+    	std::string path = "data/heightmap/heightmap.bmp";
+    	readBMP(path.c_str());
+    }
 
     //Now we can use the previously rendered heightmap to place static objects
     initStaticObjects();
 
 	//Render to the heightmap again, now with static game objects added.
-    renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
+    if(renderToHeightMapSupported)
+    	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
 
 	initDynamicObjects();
 
@@ -57,11 +64,11 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-
+/*
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
-/*
+	
 	Player * body3 = new Player;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayer(body3);
@@ -524,7 +531,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glDeleteFramebuffers(1, &frameBufferObj);
 	glDeleteTextures(1, &depthTex);
 
-
+	return true;
 }
 
 
