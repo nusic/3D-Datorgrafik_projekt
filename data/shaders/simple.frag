@@ -52,7 +52,7 @@ void main()
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
 
-	vec3 materialAmbientColor = vec3(0.9,0.9,0.9) * materialDiffuseColor;
+	vec3 materialAmbientColor = vec3(0.5,0.5,0.5) * materialDiffuseColor;
 
 	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
 
@@ -118,6 +118,7 @@ void main()
 		else if (i == 12){ 	if(texture2D(shadowMap13, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
 		else if (i == 13){ 	if(texture2D(shadowMap14, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
 		else if (i == 14){ 	if(texture2D(shadowMap15, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
+
 
 		finalFragColor += visibility * (
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *

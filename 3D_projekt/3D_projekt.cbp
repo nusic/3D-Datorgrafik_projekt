@@ -53,8 +53,6 @@
 		<Unit filename="../src/GameEngine.h" />
 		<Unit filename="../src/GameObject.cpp" />
 		<Unit filename="../src/GameObject.h" />
-		<Unit filename="../src/LightObject.cpp" />
-		<Unit filename="../src/LightObject.h" />
 		<Unit filename="../src/LightSource.cpp" />
 		<Unit filename="../src/LightSource.h" />
 		<Unit filename="../src/Model.cpp" />
@@ -67,6 +65,8 @@
 		<Unit filename="../src/Player.h" />
 		<Unit filename="../src/Scene.cpp" />
 		<Unit filename="../src/Scene.h" />
+		<Unit filename="../src/StaticGameObject.cpp" />
+		<Unit filename="../src/StaticGameObject.h" />
 		<Unit filename="../src/Transformation.cpp" />
 		<Unit filename="../src/Transformation.h" />
 		<Unit filename="../src/main.cpp" />

@@ -1513,7 +1513,7 @@
 	"Node.h"
 	<iostream>
 
-1368804871 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
+1368811278 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
 1368641431 c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameengine.h
@@ -1551,10 +1551,10 @@
 	"GameObject.h"
 	"LightSource.h"
 
-1368810083 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
+1368810907 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
-1368794142 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.cpp
+1368810659 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\lightsource.cpp
 	"LightSource.h"
 
 1368620626 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\main.cpp
@@ -1569,7 +1569,7 @@
 	"ModelMesh.h"
 	<iostream>
 
-1368810255 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
+1368811032 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 
 1368810301 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\scene.cpp

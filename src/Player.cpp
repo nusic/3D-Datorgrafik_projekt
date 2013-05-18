@@ -90,7 +90,6 @@ Player(){
 
     torch = GameObject("data/meshes/flashlight.obj");
     torch.setPosition(1.2f, -0.5f, 0.0f);
-    torch.setAngleVel(3.0f);
 
     pickaxe = GameObject("data/meshes/flashlight.obj");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
@@ -124,7 +123,7 @@ void Character::updatePickaxeDirection(){
 void Character::update(float dt){
     Player::update(dt);
     torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-    updateTorch();
+    //updateTorch();
     torch.update(dt);
 //    pickaxe.update(dt);
 }

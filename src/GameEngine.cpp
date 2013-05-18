@@ -28,11 +28,11 @@ void GameEngine::draw(){
 
 	//RENDER TO THE DEPTH BUFFERS
 	//FRONT FACE CULLING IS ENABLED WHEN RENDERING TO DEPTH-BUFFER
-	
-	
+
+
 	int numOfLightSources = LightSource::getNumberOfLightSources();
 	for (int i = 0; i < numOfLightSources; ++i){
-				
+
 		//Bind the framebuffer used for shadow mapping
 		glBindFramebuffer(GL_FRAMEBUFFER_EXT, LightSource::FBO[i]);
 		glEnable(GL_CULL_FACE);
@@ -48,8 +48,8 @@ void GameEngine::draw(){
 		glDisable(GL_CULL_FACE);
 	}
 
-	
-	
+
+
 
 	//RENDER TO THE SCREEN
 
@@ -64,7 +64,7 @@ void GameEngine::draw(){
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
-    
+
 	scene->drawScene(camera->getPerspectiveMatrix(), camera->getViewMatrix());
 
     glDisable(GL_CULL_FACE);
@@ -144,7 +144,7 @@ void GameEngine::initOGL(){
 	camera2->setLookAt(0, 0, 0);
 
 
-	
+
 
 }
 

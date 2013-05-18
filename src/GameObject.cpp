@@ -11,6 +11,7 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 	setScale(s);
 	setDirection(phi, 0.0f);
 	setVelocity(0.0f, 0.0f, 0.0f);
+	setAngleVel(0.0f);
 
 	speed = 5.0f;
 	turnSpeed = 5.0f;
@@ -28,6 +29,7 @@ GameObject::GameObject(const char* modelPath){
 	setScale(1.0f);
 	setDirection(0, 0.0f);
 	setVelocity(0.0f, 0.0f, 0.0f);
+	setAngleVel(0.0f);
 
 	speed = 5.0f;
 	turnSpeed = 5.0f;
