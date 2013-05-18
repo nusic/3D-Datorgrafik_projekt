@@ -77,6 +77,14 @@ void Node::removeChildNode(Node* childNode){
 	}
 }
 
+void Node::removeFromParent(){
+	parent->removeChildNode(this);
+	if(parent != NULL){
+		printf("parent removed\n");
+	}
+	else printf("parent NOT removed\n");
+}
+
 Node* Node::getChild(int index) const{
 	return children[index];
 }

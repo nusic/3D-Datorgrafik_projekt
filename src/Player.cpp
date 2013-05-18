@@ -87,9 +87,18 @@ void Player::updateHeadDirection(){
     }
 }
 
-/*
-    CHARACTER
-*/
+LightSource* Player::getLightSource() const{
+    return NULL;
+}
+
+
+
+
+
+
+
+
+//SUBCLASS OF PLAYER: CHARACTER
 
 Character::Character():
 Player(){
@@ -113,18 +122,15 @@ Player(){
     light->setSpread(30);
     torch.update(0.0f);
     pickaxe.update(0.0f);
+    
 }
 
 Character::~Character(){
 
 }
 
-void Character::updateTorchDirection(){
-
-}
-
-void Character::updatePickaxeDirection(){
-
+LightSource* Character::getLightSource() const{
+    return light;
 }
 
 void Character::update(float dt){
@@ -133,6 +139,14 @@ void Character::update(float dt){
     //updateTorch();
     torch.update(dt);
 //    pickaxe.update(dt);
+}
+
+void Character::updateTorchDirection(){
+
+}
+
+void Character::updatePickaxeDirection(){
+
 }
 
 void Character::updateTorch(){

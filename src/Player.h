@@ -20,6 +20,7 @@ public:
 
     void updateHeadDirection();
     virtual void update(float dt);
+    virtual LightSource* getLightSource() const;
 
     static int numberOfPlayers;
 
@@ -36,13 +37,16 @@ public:
     Character();
     ~Character();
 
-    void update(float dt);
-    void updateTorch();
+    virtual void update(float dt);
+    virtual LightSource* getLightSource() const;
 
+
+private:
+    void updateTorch();
     void updateTorchDirection();
     void updatePickaxeDirection();
 
-private:
+
     GameObject torch;
     GameObject pickaxe;
 
