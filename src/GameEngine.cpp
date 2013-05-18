@@ -127,16 +127,7 @@ void GameEngine::initOGL(){
 	scene = new Scene();
 	scene->initScene();
 
-	camera = new Camera(-30, -5, 15);
-	camera->setLookAt(0, 0, 0);
-	camera->setVelocity(0.05, 0.02, -0.01);
 
-	//Uncomment the two lines below to get simple static front view
-	camera->setPosition(0, 25, 5);
-	camera->setVelocity(0, 0, 0);
-
-	camera2 = new Camera(0, 30, -30);
-	camera2->setLookAt(0, 0, 0);
 }
 
 int GameEngine::getDefaultFBOindex() const{

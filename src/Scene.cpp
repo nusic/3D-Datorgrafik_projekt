@@ -57,7 +57,7 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-	
+
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -140,7 +140,7 @@ void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
     sgct::MessageHandler::Instance()->print(
         "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
     sgct::MessageHandler::Instance()->print("\r");
-	*/  
+	*/
 	}
 }
 
@@ -216,7 +216,7 @@ void Scene::updatePlayerPosition1Sa(Player * p, Camera* cam) const{
 }
 
 void Scene::updatePlayerPosition4Sa(Player * p, Camera* cam) const{
-	
+
 	glm::vec2 state;
 	p->getLeftControllerValues(state.x, state.y);
 	if (cam != NULL)
@@ -275,7 +275,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	if (cam != NULL)
 		state = getStateInCamSpace(state, p->getPosition(), cam);
 
-	
+
 
 	//pre-compute
 	int halfHw = heightmapWidth/2;
@@ -288,7 +288,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
     if(state.x || state.y){
     	sn = glm::normalize(state);
     	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
-    } 
+    }
 
     int imgX = halfHw + worldToHeightmapX * (p->getPosition().x + sn.x*r);
     int imgY = halfHh + worldToHeightmapZ * (p->getPosition().z - sn.y*r);
@@ -370,7 +370,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 glm::vec2 Scene::getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera* cam) const{
 	glm::vec3 camToPlayerDirXYZ = cam->getLookAt() - cam->getPosition();// + playerPos;
     glm::vec2 camDir = glm::vec2(-camToPlayerDirXYZ.z, -camToPlayerDirXYZ.x);
-    
+
     if (camDir.x || camDir.y){
     	camDir = glm::normalize(camDir);
     	glm::mat2 T = glm::mat2(camDir, glm::vec2(-camDir.y, camDir.x));
