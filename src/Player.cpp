@@ -13,10 +13,16 @@ GameObject("data/meshes/body.obj"){
     controller = new Controller(numberOfPlayers);
 
     head = GameObject(0.0f, 5.0f, 0.0f);
+    
+
     translationNode->addChildNode(head.getSceneGraphBranch());
 
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
+    printf("children: %i\n", getSceneGraphBranch()->countChildNodes(true));
+    Translation * t = new Translation(1.0f, 0.0f, 0.0);
+    t->insertAfter(rotationNode);
+    printf("children: %i\n", getSceneGraphBranch()->countChildNodes(true));
 
     numberOfPlayers++;
 
@@ -99,7 +105,7 @@ LightSource* Player::getLightSource() const{
 void Player::kill(){
     alive = false;
     setVelocity(0.0f, 0.0f, 0.0f);
-    
+
     LightSource* light = getLightSource();
 
 }

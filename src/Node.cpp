@@ -85,6 +85,16 @@ void Node::removeFromParent(){
 	else printf("parent NOT removed\n");
 }
 
+void Node::insertAfter(Node* n){
+	Node * temp;
+	for(int i = 0; i < n->children.size(); ++i){
+		temp = n->children[i];
+		n->removeChildNode(temp);
+		addChildNode(temp);
+	}
+	n->addChildNode(this);
+}
+
 Node* Node::getChild(int index) const{
 	return children[index];
 }
