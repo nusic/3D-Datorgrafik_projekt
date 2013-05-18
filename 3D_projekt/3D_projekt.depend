@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1367694001 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
+1368894945 source:c:\users\martin\git\3d-datorgrafik_projekt\src\main.cpp
 	<iostream>
 	"sgct.h"
 	"GameEngine.h"
@@ -461,7 +461,7 @@
 
 1354652708 c:\program files\sgct\sgct_1.0.0_x86\include\sgct\utils\sgctdome.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct.h
 	<windows.h>
 	<winsock2.h>
 	"sgct/ogl_headers.h"
@@ -477,7 +477,7 @@
 	"sgct/utils/SGCTBox.h"
 	"sgct/utils/SGCTDome.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\ogl_headers.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\ogl_headers.h
 	<GL/glew.h>
 	<GL/wglew.h>
 	<OpenGL/glext.h>
@@ -485,7 +485,7 @@
 	<GL/glxew.h>
 	<GL/glfw.h>
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\glew.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\glew.h
 	<stddef.h>
 	<inttypes.h>
 	<stdint.h>
@@ -493,16 +493,16 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\wglew.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\wglew.h
 	<windows.h>
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\glxew.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\glxew.h
 	<X11/Xlib.h>
 	<X11/Xutil.h>
 	<X11/Xmd.h>
 	<GL/glew.h>
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\glfw.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\gl\glfw.h
 	<OpenGL/gl3.h>
 	<OpenGL/gl.h>
 	<OpenGL/glu.h>
@@ -510,31 +510,31 @@
 	<GL/gl.h>
 	<GL/glu.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\engine.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\engine.h
 	"ClusterManager.h"
 	"NetworkManager.h"
 	"Statistics.h"
 	"ReadConfig.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\clustermanager.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\clustermanager.h
 	"SGCTNode.h"
 	"SGCTUser.h"
 	"SGCTTrackingManager.h"
 	<string>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctnode.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctnode.h
 	"Viewport.h"
 	"SGCTWindow.h"
 	<string>
 	<vector>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\viewport.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\viewport.h
 	<glm/glm.hpp>
 	"Frustum.h"
 	"CorrectionMesh.h"
 	<stddef.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\glm.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\glm.hpp
 	"core/_fixes.hpp"
 	<cmath>
 	<climits>
@@ -556,24 +556,24 @@
 	"./core/func_noise.hpp"
 	"./core/_swizzle.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_fixes.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_fixes.hpp
 	<cmath>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\setup.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\setup.hpp
 	<immintrin.h>
 	<immintrin.h>
 	<smmintrin.h>
 	<pmmintrin.h>
 	<emmintrin.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_detail.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_detail.hpp
 	"setup.hpp"
 	<cassert>
 	<cstdint>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_vectorize.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_vectorize.hpp
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type.hpp
 	"type_half.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -592,28 +592,28 @@
 	"type_mat4x3.hpp"
 	"type_mat4x4.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_half.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_half.hpp
 	<cstdlib>
 	"type_half.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_half.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_half.inl
 	"_detail.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_float.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_float.hpp
 	"type_half.hpp"
 	"setup.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_int.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_int.hpp
 	"setup.hpp"
 	"_detail.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_gentype.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_gentype.hpp
 	"type_size.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_size.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_size.hpp
 	<cstdlib>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec1.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec1.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -621,17 +621,17 @@
 	"_swizzle.hpp"
 	"type_vec1.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec.hpp
 	"type_gentype.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_swizzle.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_swizzle.hpp
 	"_swizzle_func.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_swizzle_func.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\_swizzle_func.hpp
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec1.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec1.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec2.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec2.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -639,9 +639,9 @@
 	"_swizzle.hpp"
 	"type_vec2.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec2.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec2.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec3.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec3.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -649,9 +649,9 @@
 	"_swizzle.hpp"
 	"type_vec3.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec3.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec3.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec4.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec4.hpp
 	"type_vec.hpp"
 	"type_float.hpp"
 	"type_int.hpp"
@@ -659,233 +659,233 @@
 	"_swizzle.hpp"
 	"type_vec4.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec4.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_vec4.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x2.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x2.hpp
 	"type_mat.hpp"
 	"type_mat2x2.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat.hpp
 	"type_gentype.hpp"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x2.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x2.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x3.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x3.hpp
 	"type_mat.hpp"
 	"type_mat2x3.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x3.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x3.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x4.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x4.hpp
 	"type_mat.hpp"
 	"type_mat2x4.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x4.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat2x4.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x2.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x2.hpp
 	"type_mat.hpp"
 	"type_mat3x2.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x2.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x2.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x3.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x3.hpp
 	"type_mat.hpp"
 	"type_mat3x3.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x3.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x3.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x4.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x4.hpp
 	"type_mat.hpp"
 	"type_mat3x4.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x4.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat3x4.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x2.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x2.hpp
 	"type_mat.hpp"
 	"type_mat4x2.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x2.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x2.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x3.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x3.hpp
 	"type_mat.hpp"
 	"type_mat4x3.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x3.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x3.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x4.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x4.hpp
 	"type_mat.hpp"
 	"type_mat4x4.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x4.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\type_mat4x4.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_trigonometric.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_trigonometric.hpp
 	"func_trigonometric.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_trigonometric.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_trigonometric.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_exponential.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_exponential.hpp
 	"func_exponential.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_exponential.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_exponential.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_common.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_common.hpp
 	"_fixes.hpp"
 	"func_common.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_common.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_common.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_packing.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_packing.hpp
 	"func_packing.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_packing.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_packing.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_geometric.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_geometric.hpp
 	"func_geometric.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_geometric.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_geometric.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_matrix.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_matrix.hpp
 	"func_matrix.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_matrix.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_matrix.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_vector_relational.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_vector_relational.hpp
 	"_detail.hpp"
 	"func_vector_relational.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_vector_relational.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_vector_relational.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_integer.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_integer.hpp
 	"func_integer.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_integer.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_integer.inl
 	<intrin.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_noise.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_noise.hpp
 	"func_noise.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_noise.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\core\func_noise.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\frustum.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\frustum.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\correctionmesh.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\correctionmesh.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctwindow.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctwindow.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctuser.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctuser.h
 	<glm/glm.hpp>
 	<glm/gtc/type_ptr.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<string>
 	"Frustum.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\type_ptr.hpp
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\type_ptr.hpp
 	"../glm.hpp"
 	"../gtc/half_float.hpp"
 	"../gtc/quaternion.hpp"
 	<cstring>
 	"type_ptr.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\half_float.hpp
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\half_float.hpp
 	"../glm.hpp"
 	"half_float.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\half_float.inl
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\half_float.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\quaternion.hpp
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\quaternion.hpp
 	"../glm.hpp"
 	"../gtc/half_float.hpp"
 	"quaternion.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\quaternion.inl
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\quaternion.inl
 	<limits>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\type_ptr.inl
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\type_ptr.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\matrix_transform.hpp
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\matrix_transform.hpp
 	"../glm.hpp"
 	"matrix_transform.inl"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\matrix_transform.inl
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\glm\gtc\matrix_transform.inl
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgcttrackingmanager.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgcttrackingmanager.h
 	<vector>
 	<set>
 	"SGCTTracker.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgcttracker.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgcttracker.h
 	<vector>
 	"SGCTTrackingDevice.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgcttrackingdevice.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgcttrackingdevice.h
 	<string>
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/quaternion.hpp>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\networkmanager.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\networkmanager.h
 	"SGCTNetwork.h"
 	<vector>
 	<string>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctnetwork.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctnetwork.h
 	<string>
 	<vector>
 	<functional>
 	<tr1/functional>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\statistics.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\statistics.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\readconfig.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\readconfig.h
 	<string>
 	<vector>
 	<glm/glm.hpp>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shareddata.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shareddata.h
 	<stddef.h>
 	<vector>
 	<string>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\texturemanager.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\texturemanager.h
 	<vector>
 	<string>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\fontmanager.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\fontmanager.h
 	<string>
 	<set>
 	<map>
 	<external/ft2build.h>
 	"Font.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\ft2build.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\ft2build.h
 	"freetype/config/ftheader.h"
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\config\ftheader.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\config\ftheader.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\font.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\font.h
 	<external/freetype/ftglyph.h>
 	<vector>
 	<string>
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\ftglyph.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\ftglyph.h
 	<external/ft2build.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\messagehandler.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\messagehandler.h
 	<stddef.h>
 	<stdarg.h>
 	<vector>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shadermanager.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shadermanager.h
 	<string>
 	<vector>
 	"ShaderProgram.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shaderprogram.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shaderprogram.h
 	"Shader.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shader.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\shader.h
 	<string>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\freetype.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\freetype.h
 	"external/ft2build.h"
 	"external/freetype/freetype.h"
 	"external/freetype/ftglyph.h"
@@ -896,38 +896,40 @@
 	<vector>
 	<stdexcept>
 
-1367690480 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\freetype.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\freetype.h
 	<external/ft2build.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\ftoutln.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\ftoutln.h
 	<external/ft2build.h>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\fttrigon.h
+1368894939 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\external\freetype\fttrigon.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctversion.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\sgctversion.h
 	<stdio.h>
 	<string>
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctsphere.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctsphere.h
 	"../helpers/SGCTVertexData.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\helpers\sgctvertexdata.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\helpers\sgctvertexdata.h
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctbox.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctbox.h
 	"../helpers/SGCTVertexData.h"
 
-1367690481 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctdome.h
+1368894940 c:\users\martin\git\3d-datorgrafik_projekt\3d_projekt\sgct_1_0_0\include\sgct\utils\sgctdome.h
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\model.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\model.h
 	<vector>
 	<iostream>
 	<string>
 	<cassert>
 	"ModelMesh.h"
+	"Node.h"
 	"LightSource.h"
 	"sgct.h"
+	"Camera.h"
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.h
 	<vector>
 	<string>
 	<stdio.h>
@@ -935,15 +937,14 @@
 	<glm/glm.hpp>
 	<sgct.h>
 
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\model.cpp
 	"Model.h"
-	"Scene.h"
 
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\modelmesh.cpp
 	"ModelMesh.h"
 	<iostream>
 
-1367694001 c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.h
 	<vector>
 	<ctime>
 	"sgct.h"
@@ -952,47 +953,58 @@
 	"GameObject.h"
 	"Player.h"
 
-1367696140 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameengine.cpp
 	"GameEngine.h"
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
+1368894945 c:\users\martin\git\3d-datorgrafik_projekt\src\scene.h
+	<vector>
+	<stdlib.h>
+	<time.h>
+	<new>
 	"sgct.h"
 	"Model.h"
 	"GameObject.h"
+	"StaticGameObject.h"
 	"LightSource.h"
 	"Player.h"
-	<vector>
+	"Node.h"
+	"Transformation.h"
+	"FollowCamera.h"
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.h
+	"Node.h"
+	"Transformation.h"
 	"Model.h"
 	"sgct.h"
 
-1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\camera.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\camera.h
 	"sgct.h"
 
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\camera.cpp
+1368894943 source:c:\users\martin\git\3d-datorgrafik_projekt\src\camera.cpp
 	"Camera.h"
 
-1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\gameobject.cpp
 	"GameObject.h"
 
-1367698308 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
-1367697556 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
 	"Controller.h"
 
-1367697296 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
 	"sgct.h"
 	<iostream>
 
-1367697970 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
+1368895806 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
-	<new>
 
-1367696626 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h
+	<math.h>
+	<new>
 	"Controller.h"
-	"DynamicGameObject.h"
+	"GameObject.h"
+	"Transformation.h"
 
 1367690484 c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.h
 	"GameObject.h"
@@ -1000,11 +1012,12 @@
 1367690484 source:c:\users\martin\git\3d-datorgrafik_projekt\src\dynamicgameobject.cpp
 	"DynamicGameObject.h"
 
-1367694001 c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.h
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.h
 	"sgct.h"
+	"Node.h"
 	<iostream>
 
-1367694001 source:c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.cpp
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\lightsource.cpp
 	"LightSource.h"
 
 1368887720 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\camera.cpp
@@ -1609,4 +1622,36 @@
 
 1368887720 source:c:\users\oa\documents\utveckling\3d-datorgrafik_projekt\src\staticgameobject.cpp
 	"StaticGameObject.h"
+
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\followcamera.cpp
+	"FollowCamera.h"
+
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\followcamera.h
+	"sgct.h"
+	"Camera.h"
+	"GameObject.h"
+
+1368894944 c:\users\martin\git\3d-datorgrafik_projekt\src\node.h
+	<vector>
+	<string>
+	<cassert>
+	"sgct.h"
+
+1368894945 c:\users\martin\git\3d-datorgrafik_projekt\src\transformation.h
+	"Node.h"
+	"sgct.h"
+
+1368894945 c:\users\martin\git\3d-datorgrafik_projekt\src\staticgameobject.h
+	"Node.h"
+	"Transformation.h"
+	"Model.h"
+
+1368894944 source:c:\users\martin\git\3d-datorgrafik_projekt\src\node.cpp
+	"Node.h"
+
+1368894945 source:c:\users\martin\git\3d-datorgrafik_projekt\src\staticgameobject.cpp
+	"StaticGameObject.h"
+
+1368894945 source:c:\users\martin\git\3d-datorgrafik_projekt\src\transformation.cpp
+	"Transformation.h"
 
