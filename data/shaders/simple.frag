@@ -46,7 +46,7 @@ uniform sampler2D shadowMap13;
 uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
-const float ambientBrightness = 0.5f;
+const float ambientBrightness = 0.3f;
 
 void main()
 {
@@ -64,6 +64,9 @@ void main()
 	vec4 finalFragColor = vec4(materialAmbientColor, 1); //Ambient
 
 
+	//Förallokering av variabler för att slippa omdeklarera dem i for-loopen.
+	//GLSL kompilatorn kanske gör något sånt här automatiskt(?), hur som helst
+	//borde vi inte förlora på det iaf.
 	float directionalIntensity;
 	float cosTheta;
 	vec3 l;
@@ -73,6 +76,7 @@ void main()
 	float distanceToLight;
 	float distanceSquare;
 	float invDistSquare;
+	float visibility;
 
 	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i){
 
@@ -99,26 +103,26 @@ void main()
 		invDistSquare = 1.0f/(distanceSquare);
 
 
-		float visibility = 0.0;
+		visibility = 0.0f;
 
 		// Detta skulle ha varit en for-loop men eftersom det inte verkar gå att skapa arrayer av sampler2D görs det på detta sätt.
 		// Här skulle man även kunna göra så kallat Poisson sampling för att få skuggorna mjukare. Det visar sig dock att beräkningarna
 		// blir alldeles för många och det laggar alldeles för mycket.
-		if 		(i == 0) { 	if(texture2D(shadowMap01, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 1) { 	if(texture2D(shadowMap02, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 2) { 	if(texture2D(shadowMap03, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 3) { 	if(texture2D(shadowMap04, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 4) { 	if(texture2D(shadowMap05, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 5) { 	if(texture2D(shadowMap06, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 6) { 	if(texture2D(shadowMap07, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 7) { 	if(texture2D(shadowMap08, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 8) { 	if(texture2D(shadowMap09, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 9) { 	if(texture2D(shadowMap10, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 10){ 	if(texture2D(shadowMap11, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 11){ 	if(texture2D(shadowMap12, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 12){ 	if(texture2D(shadowMap13, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 13){ 	if(texture2D(shadowMap14, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
-		else if (i == 14){ 	if(texture2D(shadowMap15, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility += 1;}
+		if 		(i == 0) { 	if(texture2D(shadowMap01, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 1) { 	if(texture2D(shadowMap02, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 2) { 	if(texture2D(shadowMap03, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 3) { 	if(texture2D(shadowMap04, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 4) { 	if(texture2D(shadowMap05, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 5) { 	if(texture2D(shadowMap06, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 6) { 	if(texture2D(shadowMap07, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 7) { 	if(texture2D(shadowMap08, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 8) { 	if(texture2D(shadowMap09, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 9) { 	if(texture2D(shadowMap10, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 10){ 	if(texture2D(shadowMap11, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 11){ 	if(texture2D(shadowMap12, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 12){ 	if(texture2D(shadowMap13, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 13){ 	if(texture2D(shadowMap14, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
+		else if (i == 14){ 	if(texture2D(shadowMap15, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
 
 		finalFragColor += visibility * (
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *

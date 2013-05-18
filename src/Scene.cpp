@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj", 2.0f, 1.0f, 2.0f), "Ground", "SimpleColor"){
+Model(new ModelMesh("data/meshes/plane.obj", 5.0f, 1.0f, 2.0f), "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -129,19 +129,19 @@ void Scene::update(float dt){
 void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
 	glm::vec2 state;
 	p->getRightControllerValues(state.x, state.y);
-	
+
 	if (cam != NULL){
 		state = getStateInCamSpace(state, p->getPosition(), cam);
 
     float phiTarget = 180.0f / 3.141592 * glm::atan(state.x,-state.y);
     float phiDiff = fmod(phiTarget - p->head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
     p->head.setAngleVel(phiDiff);
-/*
+	/*
     sgct::MessageHandler::Instance()->print(
         "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
     sgct::MessageHandler::Instance()->print("\r");
-*/    
-    }
+	*/  
+	}
 }
 
 void Scene::updatePlayerPosition1Sa(Player * p, Camera* cam) const{
@@ -312,7 +312,6 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
     if (!atEdge){
 
 	    //Don't need X and P for player front anymore. now sample 4.
-
 	    imgX 	 	= halfHw + worldToHeightmapX * (p->getPosition().x);
 		imgY 		= halfHh + worldToHeightmapZ * (p->getPosition().z);
 
@@ -372,8 +371,7 @@ glm::vec2 Scene::getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera
 	glm::vec3 camToPlayerDirXYZ = cam->getLookAt() - cam->getPosition();// + playerPos;
     glm::vec2 camDir = glm::vec2(-camToPlayerDirXYZ.z, -camToPlayerDirXYZ.x);
     
-    if (glm::length(camDir) != 0.0f)
-    {
+    if (camDir.x || camDir.y){
     	camDir = glm::normalize(camDir);
     	glm::mat2 T = glm::mat2(camDir, glm::vec2(-camDir.y, camDir.x));
     	glm::vec2 tState = T * state;
