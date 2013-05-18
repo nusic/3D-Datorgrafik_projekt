@@ -98,7 +98,7 @@ Player(){
     torch = GameObject("data/meshes/flashlight.obj");
     torch.setPosition(1.2f, -0.5f, 0.0f);
 
-    pickaxe = GameObject("data/meshes/flashlight.obj");
+    pickaxe = GameObject("data/meshes/arm_pickaxe.obj");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
 
     head.rotationNode->addChildNode(torch.getSceneGraphBranch());
