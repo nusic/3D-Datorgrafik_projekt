@@ -94,11 +94,12 @@ void Player::updateHeadDirection(){
 Character::Character():
 Player(){
     animationIndex = 0;
+    animationPickaxeIndex = 0;
 
     torch = GameObject("data/meshes/flashlight.obj");
     torch.setPosition(1.2f, -0.5f, 0.0f);
 
-    pickaxe = GameObject("data/meshes/flashlight.obj");
+    pickaxe = GameObject("data/meshes/arm_pickaxe.obj");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
 
     head.rotationNode->addChildNode(torch.getSceneGraphBranch());
@@ -129,10 +130,12 @@ void Character::updatePickaxeDirection(){
 
 void Character::update(float dt){
     Player::update(dt);
-    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-    //updateTorch();
+//    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+//    updateTorch();
+    pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+    updatePickaxe();
     torch.update(dt);
-//    pickaxe.update(dt);
+    pickaxe.update(dt);
 }
 
 void Character::updateTorch(){
@@ -147,4 +150,14 @@ void Character::updateTorch(){
     }
 }
 
+void Character::updatePickaxe(){
+    animationPickaxeIndex+=2;
 
+    if(animationPickaxeIndex < 60){
+        pickaxe.setDirection(-animationPickaxeIndex);
+    }
+    else{
+        animationPickaxeIndex = -60;
+        pickaxe.setDirection(-animationPickaxeIndex);
+    }
+}

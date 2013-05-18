@@ -38,6 +38,7 @@ public:
 
     void update(float dt);
     void updateTorch();
+    void updatePickaxe();
 
     void updateTorchDirection();
     void updatePickaxeDirection();
@@ -49,6 +50,7 @@ private:
     LightSource* light;
 
     int animationIndex;
+    int animationPickaxeIndex;
 };
 
 #endif // PLAYER_H
