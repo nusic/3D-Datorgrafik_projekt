@@ -65,6 +65,9 @@ public:
     virtual void update(float dt);
     virtual LightSource* getLightSource() const;
 
+    void updateTorch();
+    void updatePickaxe();
+
 
 private:
     void updateTorch();
@@ -78,6 +81,7 @@ private:
     LightSource* light;
 
     int animationIndex;
+    int animationPickaxeIndex;
 };
 
 #endif // PLAYER_H

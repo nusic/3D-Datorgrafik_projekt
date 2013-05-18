@@ -159,6 +159,7 @@ void Player::kill(){
 Character::Character():
 Player(){
     animationIndex = 0;
+    animationPickaxeIndex = 0;
 
     torch = GameObject("data/meshes/flashlight.obj");
     torch.setPosition(1.2f, -0.5f, 0.0f);
@@ -191,10 +192,12 @@ LightSource* Character::getLightSource() const{
 
 void Character::update(float dt){
     Player::update(dt);
-    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-    //updateTorch();
+//    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+//    updateTorch();
+    pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+    updatePickaxe();
     torch.update(dt);
-//    pickaxe.update(dt);
+    pickaxe.update(dt);
 }
 
 void Character::updateTorchDirection(){
@@ -217,4 +220,14 @@ void Character::updateTorch(){
     }
 }
 
+void Character::updatePickaxe(){
+    animationPickaxeIndex+=2;
 
+    if(animationPickaxeIndex < 60){
+        pickaxe.setDirection(-animationPickaxeIndex);
+    }
+    else{
+        animationPickaxeIndex = -60;
+        pickaxe.setDirection(-animationPickaxeIndex);
+    }
+}
