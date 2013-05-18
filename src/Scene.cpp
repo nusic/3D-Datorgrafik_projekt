@@ -130,8 +130,8 @@ void Scene::update(float dt){
 			players[i]->updateUserInputs();
 			updatePlayerPosition5Sa(players[i], camera);
 			updatePlayerHeadDirection(players[i], camera);
-			players[i]->update(dt);
 		}
+		players[i]->update(dt);
 	}
 }
 

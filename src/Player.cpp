@@ -18,11 +18,16 @@ GameObject("data/meshes/body.obj"){
     head = GameObject(0.0f, 5.0f, 0.0f);
     playerRotationNode->addChildNode(head.getSceneGraphBranch());
 
+
+    dyingLightTranslationNode = new Translation(translationNode, 0.0f, 0.0f, 0.0f);
+    dyingLightRotationNode = new Rotation(dyingLightTranslationNode, 89.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+    //dyingLightRotationNode->addChildNode(new Model(new ModelMesh("data/meshes/flashlight.obj")));
+    dyingLightSpeed = 3.0f;
+
+
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
     
-
-    numberOfPlayers++;
 
     /*
     En player skapar en ScenGraphBranch som ser ut så här
@@ -31,24 +36,38 @@ GameObject("data/meshes/body.obj"){
 
         GameObject (body)
         ------------------
-        |   Translation  |
-        |         |      
-        |         |  <- iserted playerRotationNode
-        |         |
-        |         |------------------------    GameObject (head)
-        |         |               ------  |  ------
-        |      Rotation  |        |   Translation |
-        |         |      |        |       |       |
-        |      Scaling   |        |   Rotation    |
-        |         |      |        |       |       |
-        |       Model    |        |   Scaling     |
-        ------------------        |       |       |
-                                  |     Model     |
-                                  ------  |  ------
-                                          |
-                                     LightSource
+        |   Translation |
+        |        |      |
+        |        |                (for dying light)
+        |        |------------------------
+        |        |                       |
+        |        |      |           Translation
+        |        |      |                |
+        |        |      |             Rotation
+        |        |      |                |
+        |        |      |          (Lightsource goes
+        |        |      |           here when dying)
+        |        |      |
+        |        |      
+        |        |  <- iserted playerRotationNode
+        |        |
+        |        |      |
+        |        |
+        |        |------------------------    GameObject (head)
+        |        |               ------  |  ------
+        |     Rotation  |        |   Translation |
+        |        |      |        |       |       |
+        |     Scaling   |        |    Rotation   |
+        |        |      |        |       |       |
+        |      Model    |        |    Scaling    |
+        -----------------        |       |       |
+                                 |     Model     |
+                                 ------  |  ------
+                                         |
+                                    LightSource
 
     */
+    numberOfPlayers++;
 }
 
 Player::~Player(){
@@ -61,8 +80,14 @@ bool Player::isAlive() const{
 }
 
 void Player::update(float dt){
-    GameObject::update(dt);
-    head.update(dt);
+    if(alive){
+        GameObject::update(dt);
+        head.update(dt);
+    }
+    else{
+        dyingLightPosition += dyingLightSpeed * dt;
+        dyingLightTranslationNode->setTranslation(0.0f, dyingLightPosition, 0.0f);
+    }
 }
 
 void Player::updateUserInputs(){
@@ -103,13 +128,23 @@ LightSource* Player::getLightSource() const{
 }
 
 void Player::kill(){
+    if(!alive)
+        return;
     alive = false;
-    setVelocity(0.0f, 0.0f, 0.0f);
     playerRotationNode->setRotation(90.0f);
-    setYPosition(getPosition().y+1.0f);
+    setVelocity(0.0f, 0.0f, 0.0f);
+    setAngleVel(0.0f);
+    setDirection(0.0f);
+    setYPosition(getPosition().y+0.3f);
+    head.setVelocity(0.0f, 0.0f, 0.0f);
+    head.setAngleVel(0.0f);
+    head.setDirection(0.0f);
+    update(0.0f);
 
     LightSource* light = getLightSource();
-
+    light->removeFromParent();
+    dyingLightRotationNode->addChildNode(light);
+    dyingLightPosition = 3.0f;
 
 }
 
@@ -136,7 +171,7 @@ Player(){
 
     light = new LightSource(torch.modelNode);
     light->setPosition(0,0,1.6f);
-	light->setDirection(0,-1,2);
+	light->setDirection(0,0,1);
 
     light->setColor(0.9f, 0.8f, 0.7f);
     light->setIntensity(50);

@@ -13,6 +13,8 @@ void GameEngine::keyboardCallback(int key, int action){
 	switch(key){
 		case 'm':
 		case 'M': if(action == SGCT_PRESS) toggleRenderMode(); break;
+		case 'k':
+		case 'K': scene->players[0]->kill();
 	}
 }
 

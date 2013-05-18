@@ -36,11 +36,19 @@ public:
 protected:
     Rotation* playerRotationNode;
 
+
+    Translation* dyingLightTranslationNode;
+    Rotation* dyingLightRotationNode;
+    float dyingLightSpeed;
+    float dyingLightPosition;
+
 private:
     bool alive;
 
     Controller* controller;
     int playerIndex;
+
+
 
 };
 
