@@ -20,7 +20,7 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 
 GameObject::GameObject(const char* modelPath){
 
-	translationNode = new Translation(0,0,0);
+	translationNode = new Translation(0.0f, 0.0f, 0.0f);
 	rotationNode = new Rotation(translationNode, phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode = new Scaling(rotationNode, 1.0f, 1.0f, 1.0f);
 	modelNode = new Model(scaleNode, new ModelMesh(modelPath), "SimpleTexture2", "SimpleColor");

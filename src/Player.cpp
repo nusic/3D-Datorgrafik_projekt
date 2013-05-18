@@ -11,18 +11,16 @@ GameObject("data/meshes/body.obj"){
     alive = true;
     speed = 5.0f;
     controller = new Controller(numberOfPlayers);
+    
+    playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+    playerRotationNode->insertAfter(translationNode);
 
     head = GameObject(0.0f, 5.0f, 0.0f);
-    
-
-    translationNode->addChildNode(head.getSceneGraphBranch());
+    playerRotationNode->addChildNode(head.getSceneGraphBranch());
 
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
-    printf("children: %i\n", getSceneGraphBranch()->countChildNodes(true));
-    Translation * t = new Translation(1.0f, 0.0f, 0.0);
-    t->insertAfter(rotationNode);
-    printf("children: %i\n", getSceneGraphBranch()->countChildNodes(true));
+    
 
     numberOfPlayers++;
 
@@ -34,6 +32,8 @@ GameObject("data/meshes/body.obj"){
         GameObject (body)
         ------------------
         |   Translation  |
+        |         |      
+        |         |  <- iserted playerRotationNode
         |         |
         |         |------------------------    GameObject (head)
         |         |               ------  |  ------
@@ -90,11 +90,11 @@ void Player::updateHeadDirection(){
         float phiTarget = 180.0f / 3.141592 * glm::atan(xState,-yState);
         float phiDiff = fmod(phiTarget - head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
         head.setAngleVel(phiDiff);
-/*
+
         sgct::MessageHandler::Instance()->print(
             "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
         sgct::MessageHandler::Instance()->print("\r");
-*/
+
     }
 }
 
@@ -105,8 +105,11 @@ LightSource* Player::getLightSource() const{
 void Player::kill(){
     alive = false;
     setVelocity(0.0f, 0.0f, 0.0f);
+    playerRotationNode->setRotation(90.0f);
+    setYPosition(getPosition().y+1.0f);
 
     LightSource* light = getLightSource();
+
 
 }
 

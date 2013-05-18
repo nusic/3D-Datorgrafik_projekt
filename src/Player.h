@@ -25,13 +25,16 @@ public:
 
 
     void kill();
-    
+
     bool isAlive() const;
 
 
     static int numberOfPlayers;
 
     GameObject head;
+
+protected:
+    Rotation* playerRotationNode;
 
 private:
     bool alive;
