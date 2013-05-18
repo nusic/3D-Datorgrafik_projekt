@@ -90,11 +90,11 @@ void Player::updateHeadDirection(){
         float phiTarget = 180.0f / 3.141592 * glm::atan(xState,-yState);
         float phiDiff = fmod(phiTarget - head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
         head.setAngleVel(phiDiff);
-
+/*
         sgct::MessageHandler::Instance()->print(
             "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
         sgct::MessageHandler::Instance()->print("\r");
-
+*/
     }
 }
 
