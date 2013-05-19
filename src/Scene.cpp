@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/plane.obj", 5.0f, 1.0f, 2.0f), "Ground", "SimpleColor"){
+Model(new ModelMesh("data/meshes/bigscene2.obj", 1.0f, 1.0f, 1.0f), "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -22,7 +22,7 @@ void Scene::initScene(){
 	//First render the heightmap for the "ground mesh" only.
 	
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 512;
+	const int HEIGHT_MAP_RESOLUTION = 1024;
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
     	std::string path = "data/heightmap/heightmap.bmp";
@@ -44,14 +44,14 @@ void Scene::initScene(){
 void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 5; ++i){
+	for (int i = 0; i < 10; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float size = (rand()/(float)RAND_MAX) + 1.0f;
+		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
-		sgo = new StaticGameObject("data/meshes/tree.obj");
+		sgo = new StaticGameObject("data/meshes/tree2.obj");
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);
 		sgo->setRotation(phi);
@@ -68,38 +68,46 @@ void Scene::initDynamicObjects(){
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
-
-	Player * body3 = new Player;
+/*	
+	Player * body3 = new Character;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayer(body3);
 
-	Player * body4 = new Player;
+	Player * body4 = new Character;
 	body4->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayer(body4);
-
-	Player * body5 = new Player;
+/*
+	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, 0.0f);
 	addPlayer(body5);
 
-	Player * body6 = new Player;
+	Player * body6 = new Character;
 	body6->setPosition(5.0f, 0.0f, -5.0f);
 	addPlayer(body6);
 
-	Player * body7 = new Player;
+	Player * body7 = new Character;
 	body7->setPosition(-5.0f, 0.0f, 5.0f);
 	addPlayer(body7);
 	*/
 
 
-	camera = new Camera(-30, 5, 15);
+
+	Camera* camera = new Camera(-30, 5, 15);
 	camera->setLookAt(0, 0, 0);
 	camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
+
+	FollowCamera* fc = new FollowCamera(players);
 
 	//Uncomment the two lines below to get simple static front view
 	//camera->setPosition(0, 20, -15);
 	//camera->setVelocity(0, 0, 0);
 
-	followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
+	//FollowCamera* followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
+
+	cameras.push_back(fc);
+
+	cameras.push_back(camera);
+	//cameras.push_back(followCamera);
 
 }
 
@@ -114,22 +122,16 @@ void Scene::addPlayer(Player * p){
 
 void Scene::update(float dt){
 
-	camera->incrementPosition(dt);
-	camera->calcMatrices();
-
-	followCamera->updateLookAt();
-	followCamera->setPosition(
-		followCamera->target->getPosition().x,
-		followCamera->target->getPosition().y + 15,
-		followCamera->target->getPosition().z + 15);
-
-	followCamera->calcMatrices();
+	for (int i = 0; i < cameras.size(); ++i){
+		cameras[i]->update(dt);
+		cameras[i]->calcMatrices();
+	}
 
 	for (int i = 0; i < players.size(); ++i){
 		if(players[i]->isAlive()){
 			players[i]->updateUserInputs();
-			updatePlayerPosition5Sa(players[i], camera);
-			updatePlayerHeadDirection(players[i], camera);
+			updatePlayerPosition5Sa(players[i], cameras[0]);
+			updatePlayerHeadDirection(players[i], cameras[0]);
 		}
 		players[i]->update(dt);
 	}

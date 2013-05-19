@@ -18,6 +18,8 @@ public:
 	void incrementPosition(float dt);
 	void incrementPosition(double dx, double dy, double dz, float dt);
 
+	virtual void update(float dt);
+
 	void calcMatrices();
 
 	glm::mat4 getViewMatrix() const;
@@ -26,14 +28,14 @@ public:
 	glm::vec3 getLookAt();
 	glm::vec3 getPosition();
 
-private:
-
+protected:
 	glm::vec3 position;
 	glm::vec3 velocity;
 	glm::vec3 lookAt;
 	glm::vec3 up;
-
 	float fov;
+
+private:
 	float aspect;
 	float zNearClipping;
 	float zFarClipping;

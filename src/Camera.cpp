@@ -10,7 +10,7 @@ Camera::Camera(double x, double y, double z){
 	fov = 45.0f;
 	aspect = 4.0f / 3.0f;
 	zNearClipping = 0.1f;
-	zFarClipping = 100.0f;
+	zFarClipping = 250.0f;
 
 	up.x = 0;
 	up.y = 1;
@@ -50,6 +50,10 @@ void Camera::incrementPosition(double dx, double dy, double dz, float dt){
 	position.x += dx * dt * FRAME_SPEED;
 	position.y += dy * dt * FRAME_SPEED;
 	position.z += dz * dt * FRAME_SPEED;
+}
+
+void Camera::update(float dt){
+	incrementPosition(dt);
 }
 
 void Camera::calcMatrices(){

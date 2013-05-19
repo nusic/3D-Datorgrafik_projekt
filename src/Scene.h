@@ -38,8 +38,7 @@ public:
 
     
 	std::vector<Player*> players;
-	FollowCamera* followCamera;
-	Camera* camera;
+	std::vector<Camera*> cameras;
 
 	static std::vector<LightSource*> lightSources;
 	

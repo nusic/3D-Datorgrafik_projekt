@@ -53,9 +53,9 @@ void main()
 
 	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
 
-	vec3 materialAmbientColor = vec3(0.2,0.4,0.6) * materialDiffuseColor * ambientBrightness;
+	vec3 materialAmbientColor = vec3(0.4,0.4,0.8) * materialDiffuseColor * ambientBrightness;
 
-	vec3 materialSpecularColor = vec3(0.7,0.7,0.7);
+	vec3 materialSpecularColor = vec3(0.3,0.3,0.3);
 
 	vec3 n = normalize(normal_viewSpace);
 	// Eye vector (away from the camera)
