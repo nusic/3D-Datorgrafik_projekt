@@ -77,15 +77,15 @@ void Scene::initDynamicObjects(){
 	body4->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayer(body4);
 /*
-	Player * body5 = new Player;
+	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, 0.0f);
 	addPlayer(body5);
 
-	Player * body6 = new Player;
+	Player * body6 = new Character;
 	body6->setPosition(5.0f, 0.0f, -5.0f);
 	addPlayer(body6);
 
-	Player * body7 = new Player;
+	Player * body7 = new Character;
 	body7->setPosition(-5.0f, 0.0f, 5.0f);
 	addPlayer(body7);
 	*/
@@ -128,9 +128,11 @@ void Scene::update(float dt){
 	}
 
 	for (int i = 0; i < players.size(); ++i){
-		players[i]->updateUserInputs();
-		updatePlayerPosition5Sa(players[i], cameras[0]);
-		updatePlayerHeadDirection(players[i], cameras[0]);
+		if(players[i]->isAlive()){
+			players[i]->updateUserInputs();
+			updatePlayerPosition5Sa(players[i], cameras[0]);
+			updatePlayerHeadDirection(players[i], cameras[0]);
+		}
 		players[i]->update(dt);
 	}
 }

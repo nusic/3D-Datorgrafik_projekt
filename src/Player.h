@@ -19,31 +19,61 @@ public:
     void getRightControllerValues(float &xState, float& yState) const;
 
     void updateHeadDirection();
+
     virtual void update(float dt);
+    virtual LightSource* getLightSource() const;
+
+
+    void kill();
+
+    bool isAlive() const;
+
 
     static int numberOfPlayers;
 
     GameObject head;
 
+protected:
+    Rotation* playerRotationNode;
+
+
+    Translation* dyingLightTranslationNode;
+    Rotation* dyingLightRotationNode;
+    float dyingLightSpeed;
+    float dyingLightPosition;
+
 private:
+    bool alive;
+
     Controller* controller;
     int playerIndex;
 
+
+
 };
+
+
+
+
+//SUBCLASS OF PLAYER: CHARACTER
 
 class Character : public Player{
 public:
     Character();
     ~Character();
 
-    void update(float dt);
+    virtual void update(float dt);
+    virtual LightSource* getLightSource() const;
+
     void updateTorch();
     void updatePickaxe();
 
+
+private:
     void updateTorchDirection();
     void updatePickaxeDirection();
 
-private:
+
     GameObject torch;
     GameObject pickaxe;
 

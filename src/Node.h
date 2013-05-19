@@ -26,6 +26,8 @@ public:
 
 	void addChildNode(Node* child);
 	void removeChildNode(Node* child);
+	void removeFromParent();
+	void insertAfter(Node* node);
 
 	std::string getNodeName() const;
 	int countChildNodes(const bool &recursiveCount) const;

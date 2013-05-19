@@ -61,8 +61,8 @@ private:
 
 class Translation : public Transformation{
 public:
-	Translation(float x, float y, float z);
-	Translation(Node * _parent, float x, float y, float z);
+	Translation(float x = 0.0f, float y = 0.0f, float z = 0.0f);
+	Translation(Node * _parent, float x = 0.0f, float y = 0.0f, float z = 0.0f);
 	virtual ~Translation();
 
 	void setTranslation(float x, float y, float z);
