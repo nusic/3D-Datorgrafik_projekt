@@ -21,7 +21,6 @@ GameObject("data/meshes/body.obj"){
 
     dyingLightTranslationNode = new Translation(translationNode, 0.0f, 0.0f, 0.0f);
     dyingLightRotationNode = new Rotation(dyingLightTranslationNode, 89.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-    //dyingLightRotationNode->addChildNode(new Model(new ModelMesh("data/meshes/flashlight.obj")));
     dyingLightSpeed = 3.0f;
 
 
@@ -135,7 +134,7 @@ void Player::kill(){
     setVelocity(0.0f, 0.0f, 0.0f);
     setAngleVel(0.0f);
     setDirection(0.0f);
-    setYPosition(getPosition().y+0.5f);
+    setYPosition(getPosition().y+1.0f);
     head.setVelocity(0.0f, 0.0f, 0.0f);
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
@@ -176,10 +175,10 @@ Player(){
 
     light = new LightSource(torch.modelNode);
     light->setPosition(0,0,1.6f);
-	light->setDirection(0,0,1);
+	light->setDirection(0,-0.2f,1);
 
     light->setColor(0.9f, 0.8f, 0.7f);
-    light->setIntensity(30);
+    light->setIntensity(256);
     light->setSpread(16);
     torch.update(0.0f);
     pickaxe.update(0.0f);

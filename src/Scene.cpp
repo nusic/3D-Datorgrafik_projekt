@@ -63,19 +63,20 @@ void Scene::initStaticObjects(){
 void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
-	addPlayer(body1);
+	addPlayerToTeam1(body1);
+
 
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
-	addPlayer(body2);
-/*	
+	addPlayerToTeam2(body2);
+/*
 	Player * body3 = new Character;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
-	addPlayer(body3);
+	addPlayerToTeam2(body3);
 
 	Player * body4 = new Character;
 	body4->setPosition(0.0f, 0.0f, -5.0f);
-	addPlayer(body4);
+	addPlayerToTeam2(body4);
 /*
 	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, 0.0f);
@@ -92,11 +93,13 @@ void Scene::initDynamicObjects(){
 
 
 
-	Camera* camera = new Camera(-30, 5, 15);
-	camera->setLookAt(0, 0, 0);
-	camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
+	//Camera* camera = new Camera(-30, 5, 15);
+	//camera->setLookAt(0, 0, 0);
+	//camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
 
-	FollowCamera* fc = new FollowCamera(players);
+	FollowCamera* fc1 = new FollowCamera(team1);
+	FollowCamera* fc2 = new FollowCamera(team2);
+	fc2->setAngle(3.14159f);
 
 	//Uncomment the two lines below to get simple static front view
 	//camera->setPosition(0, 20, -15);
@@ -104,21 +107,35 @@ void Scene::initDynamicObjects(){
 
 	//FollowCamera* followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
 
-	cameras.push_back(fc);
+	cameras.push_back(fc1);
+	cameras.push_back(fc2);
 
-	cameras.push_back(camera);
+	//cameras.push_back(camera);
 	//cameras.push_back(followCamera);
 
 }
 
-
+/*
 void Scene::addPlayer(Player * p){
 	//Put player on the ground
 	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
 	addChildNode(p->getSceneGraphBranch());
 	players.push_back(p);
 }
+*/
+void Scene::addPlayerToTeam1(Player * p){
+	//Put player on the ground
+	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
+	addChildNode(p->getSceneGraphBranch());
+	team1.push_back(p);
+}
 
+void Scene::addPlayerToTeam2(Player * p){
+	//Put player on the ground
+	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
+	addChildNode(p->getSceneGraphBranch());
+	team2.push_back(p);
+}
 
 void Scene::update(float dt){
 
@@ -126,7 +143,7 @@ void Scene::update(float dt){
 		cameras[i]->update(dt);
 		cameras[i]->calcMatrices();
 	}
-
+	/*
 	for (int i = 0; i < players.size(); ++i){
 		if(players[i]->isAlive()){
 			players[i]->updateUserInputs();
@@ -134,6 +151,23 @@ void Scene::update(float dt){
 			updatePlayerHeadDirection(players[i], cameras[0]);
 		}
 		players[i]->update(dt);
+	}
+	*/
+	for (int i = 0; i < team1.size(); ++i){
+		if(team1[i]->isAlive()){
+			team1[i]->updateUserInputs();
+			updatePlayerPosition5Sa(team1[i], cameras[0]);
+			updatePlayerHeadDirection(team1[i], cameras[0]);
+		}
+		team1[i]->update(dt);
+	}
+	for (int i = 0; i < team2.size(); ++i){
+		if(team2[i]->isAlive()){
+			team2[i]->updateUserInputs();
+			updatePlayerPosition5Sa(team2[i], cameras[1]);
+			updatePlayerHeadDirection(team2[i], cameras[1]);
+		}
+		team2[i]->update(dt);
 	}
 }
 
@@ -307,11 +341,11 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 		    	//Remove or decrease velocity along positive grad
 
-		    	//eState.x -= 0.5f*steep;
-		    	eState.x = 0;
+		    	eState.x -= 0.5f*steep;
+		    	//eState.x = 0;
 
 		    	//Back to world coordinates.
-		    	//T^t = T^-1 since normalized base(?)
+		    	//T^t = T^-1 since ON base
 		    	state = glm::transpose(T) * eState;
 	    	}
 	    }
@@ -341,7 +375,6 @@ glm::vec2 Scene::getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera
 
 
 float Scene::getYPosition(float x, float z){
-	//Här kan man optimera genom att lagra uträkningen av heigtWidth/sceneDimensions.x osv
 	int imgX = heightmapWidth /2 + worldToHeightmapX * x;
 	int imgY = heightmapHeight/2 + worldToHeightmapZ * z;
 

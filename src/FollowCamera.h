@@ -16,6 +16,12 @@ public:
 
 	~FollowCamera();
 
+	void setTargets(std::vector<Player*> _targets);
+	void setTheta(float _theta);
+	void setFollowSpeed(float _followSpeed);
+	void sitRotationSpeed(float _rotationSpeed);
+	void setAngle(float _angle);
+
 	virtual void update(float dt);
 
 private:
