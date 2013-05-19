@@ -44,7 +44,7 @@ void Scene::initScene(){
 void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 10; ++i){
+	for (int i = 0; i < 30; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
@@ -64,7 +64,7 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayer(body1);
-/*
+
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
@@ -226,59 +226,6 @@ void Scene::updatePlayerPosition1Sa(Player * p, Camera* cam) const{
     p->setVelocity(0.0f, 0.0f, 0.0f);
 }
 
-void Scene::updatePlayerPosition4Sa(Player * p, Camera* cam) const{
-
-	glm::vec2 state;
-	p->getLeftControllerValues(state.x, state.y);
-	if (cam != NULL)
-		state = getStateInCamSpace(state, p->getPosition(), cam);
-	p->setDirection(180.0f / 3.141592f * glm::atan(state.x,-state.y));
-
-
-
-	//pre-compute
-	int halfHw = heightmapWidth/2;
-	int halfHh = heightmapHeight/2;
-	float r = p->getBaseRadius();
-
-    int imgX 	= halfHw + worldToHeightmapX * (p->getPosition().x);
-	int imgY 	= halfHh + worldToHeightmapZ * (p->getPosition().z);
-    int imgXmax = halfHw + worldToHeightmapX * (p->getPosition().x + r);
-    int imgXmin = halfHw + worldToHeightmapX * (p->getPosition().x - r);
-    int imgYmax = halfHh + worldToHeightmapZ * (p->getPosition().z - r);
-    int imgYmin = halfHh + worldToHeightmapZ * (p->getPosition().z + r);
-
-
-    //Test if max/min values are inside map
-    if (0 < imgXmin && imgXmax < heightmapWidth &&
-    	0 < imgYmin && imgYmax < heightmapHeight){
-
-    	float maxStep = 0.5f;
-    	float yXmax = heightmap[ (imgXmax + heightmapWidth*imgY) ];
-    	float yXmin = heightmap[ (imgXmin + heightmapWidth*imgY) ];
-    	float yYmax = heightmap[ (imgX + heightmapWidth*imgYmax) ];
-    	float yYmin = heightmap[ (imgX + heightmapWidth*imgYmin) ];
-
-    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, (yYmax-yYmin)/r);
-    	float steep = glm::length(grad);
-    	if(steep > maxStep){
-	    	grad = glm::normalize(grad);
-	    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
-	    	glm::vec2 eState = T * state;
-	    	eState[0] = -0.5f * steep * steep;
-	    	state = glm::transpose(T) * eState;
-    	}
-
-    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/4.0f);
-    	p->setVelocity(state.x, 0.0f, -state.y);
-    	return;
-
-    }
-
-    p->setVelocity(0.0f, 0.0f, 0.0f);
-}
-
-
 void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 	glm::vec2 state;
@@ -347,8 +294,8 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
-	    	float steep = glm::length(grad);
-	    	float maxStep = 0.5f;
+	    	float steep = glm::sign(grad.x+grad.y) * glm::length(grad);
+	    	float maxStep = 1.0f;
 	    	if(steep > maxStep){
 
 	    		//Define new ON-base from grad and a vector orthogonal to grad
@@ -360,7 +307,8 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 		    	//Remove or decrease velocity along positive grad
 
-		    	eState.x -= 0.5f*steep;
+		    	//eState.x -= 0.5f*steep;
+		    	eState.x = 0;
 
 		    	//Back to world coordinates.
 		    	//T^t = T^-1 since normalized base(?)

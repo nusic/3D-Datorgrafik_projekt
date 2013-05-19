@@ -59,7 +59,6 @@ public:
 private:
 
 	void updatePlayerPosition1Sa(Player * p, Camera* cam = NULL) const;
-	void updatePlayerPosition4Sa(Player * p, Camera* cam = NULL) const;
 	void updatePlayerPosition5Sa(Player * p, Camera* cam = NULL) const;
 	void updatePlayerHeadDirection(Player* p, Camera* cam = NULL) const;
 

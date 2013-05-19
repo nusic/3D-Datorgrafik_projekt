@@ -9,7 +9,7 @@ int Player::numberOfPlayers = 0;
 Player::Player():
 GameObject("data/meshes/body.obj"){
     alive = true;
-    speed = 5.0f;
+    speed = 10.0f;
     controller = new Controller(numberOfPlayers);
     
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -144,7 +144,7 @@ void Player::kill(){
     LightSource* light = getLightSource();
     light->removeFromParent();
     dyingLightRotationNode->addChildNode(light);
-    dyingLightPosition = 3.0f;
+    dyingLightPosition = 6.0f;
 
     dyingLightRotationNode->addChildNode(new Model(new ModelMesh("data/meshes/suzanne.obj")));
 
