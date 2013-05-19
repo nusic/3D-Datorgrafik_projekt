@@ -135,7 +135,7 @@ void Player::kill(){
     setVelocity(0.0f, 0.0f, 0.0f);
     setAngleVel(0.0f);
     setDirection(0.0f);
-    setYPosition(getPosition().y+0.3f);
+    setYPosition(getPosition().y+0.5f);
     head.setVelocity(0.0f, 0.0f, 0.0f);
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
@@ -145,6 +145,8 @@ void Player::kill(){
     light->removeFromParent();
     dyingLightRotationNode->addChildNode(light);
     dyingLightPosition = 3.0f;
+
+    dyingLightRotationNode->addChildNode(new Model(new ModelMesh("data/meshes/suzanne.obj")));
 
 }
 
@@ -163,9 +165,11 @@ Player(){
 
     torch = GameObject("data/meshes/flashlight.obj");
     torch.setPosition(1.2f, -0.5f, 0.0f);
+    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
 
     pickaxe = GameObject("data/meshes/arm_pickaxe.obj");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
+    pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
 
     head.rotationNode->addChildNode(torch.getSceneGraphBranch());
     head.rotationNode->addChildNode(pickaxe.getSceneGraphBranch());
@@ -192,12 +196,12 @@ LightSource* Character::getLightSource() const{
 
 void Character::update(float dt){
     Player::update(dt);
-//    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-//    updateTorch();
-    pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-    updatePickaxe();
-    torch.update(dt);
-    pickaxe.update(dt);
+    //updateTorch();
+    if(isAlive()){
+        updatePickaxe();
+        torch.update(dt);
+        pickaxe.update(dt);
+    }
 }
 
 void Character::updateTorchDirection(){
