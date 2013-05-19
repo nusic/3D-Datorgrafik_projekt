@@ -98,14 +98,14 @@ const glm::vec3& LightSource::getDirection() const{
 
 const glm::mat4 LightSource::getVP() const{
 	glm::mat4 V = glm::lookAt(worldPosition[index], worldPosition[index] + worldDirection[index], glm::vec3(0,1,0));
-	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 30.0f);
+	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 50.0f);
 
 	return P * V;
 }
 
 glm::mat4 LightSource::getVPFromIndex(int _index){
 	glm::mat4 V = glm::lookAt(worldPosition[_index], worldPosition[_index] + worldDirection[_index], glm::vec3(0,1,0));
-	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 30.0f);
+	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 50.0f);
 
 	return P * V;
 }

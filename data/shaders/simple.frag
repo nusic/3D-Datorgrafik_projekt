@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 1;
+const int MAX_NUMBER_OF_LIGHTS = 4;
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
@@ -46,7 +46,7 @@ uniform sampler2D shadowMap13;
 uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
-const float ambientBrightness = 0.9f;
+const float ambientBrightness = 0.2f;
 
 void main()
 {
@@ -97,7 +97,7 @@ void main()
 		//else
 		//	directionalIntensity = 1;
 		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
-		distanceSquare = distanceToLight;// * distanceToLight;
+		distanceSquare = distanceToLight * distanceToLight;
 
 //		float invDistSquare = clamp(1 - 0.2 * distanceToLight[i], 0, 1);
 		invDistSquare = 1.0f/(distanceSquare);

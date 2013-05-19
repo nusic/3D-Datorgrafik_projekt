@@ -8,8 +8,27 @@ FollowCamera::FollowCamera(
 		_targets[0]->getPosition().y,
 		_targets[0]->getPosition().z),
 	targets(_targets), theta(_theta), followSpeed(_followSpeed),
-	rotationSpeed(_rotationSpeed), angle(_angle){
-	}
+	rotationSpeed(_rotationSpeed), angle(_angle){}
+
+void FollowCamera::setTargets(std::vector<Player*> _targets){
+	targets = _targets;
+}
+
+void FollowCamera::setTheta(float _theta){
+	theta = _theta;
+}
+
+void FollowCamera::setFollowSpeed(float _followSpeed){
+	followSpeed = _followSpeed;
+}
+
+void FollowCamera::sitRotationSpeed(float _rotationSpeed){
+	rotationSpeed = _rotationSpeed;
+}
+
+void FollowCamera::setAngle(float _angle){
+	angle = _angle;
+}
 
 void FollowCamera::update(float dt){
 	angle -= rotationSpeed * 0.0005;

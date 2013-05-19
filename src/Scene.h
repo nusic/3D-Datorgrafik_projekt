@@ -34,10 +34,14 @@ public:
 	void update(float dt);
 
 	void addPlayer(Player * player);
+	void addPlayerToTeam1(Player * player);
+	void addPlayerToTeam2(Player * player);
 	void addGenerations(Model* mother, int n);
 
     
-	std::vector<Player*> players;
+	//std::vector<Player*> players;
+	std::vector<Player*> team1;
+	std::vector<Player*> team2;
 	std::vector<Camera*> cameras;
 
 	static std::vector<LightSource*> lightSources;

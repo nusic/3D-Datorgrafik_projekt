@@ -172,10 +172,10 @@ Player(){
 
     light = new LightSource(torch.modelNode);
     light->setPosition(0,0,1.6f);
-	light->setDirection(0,0,1);
+	light->setDirection(0,-0.2f,1);
 
     light->setColor(0.9f, 0.8f, 0.7f);
-    light->setIntensity(30);
+    light->setIntensity(256);
     light->setSpread(16);
     torch.update(0.0f);
     pickaxe.update(0.0f);
