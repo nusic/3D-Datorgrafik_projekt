@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/bigscene.obj", 1.0f, 1.0f, 1.0f), "Ground", "SimpleColor"){
+Model(new ModelMesh("data/meshes/bigscene2.obj", 1.0f, 1.0f, 1.0f), "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -22,7 +22,7 @@ void Scene::initScene(){
 	//First render the heightmap for the "ground mesh" only.
 	
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 512;
+	const int HEIGHT_MAP_RESOLUTION = 1024;
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
     	std::string path = "data/heightmap/heightmap.bmp";
@@ -44,14 +44,14 @@ void Scene::initScene(){
 void Scene::initStaticObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 30; ++i){
+	for (int i = 0; i < 10; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float size = (rand()/(float)RAND_MAX) + 1.0f;
+		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
-		sgo = new StaticGameObject("data/meshes/tree.obj");
+		sgo = new StaticGameObject("data/meshes/tree2.obj");
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);
 		sgo->setRotation(phi);
@@ -68,15 +68,15 @@ void Scene::initDynamicObjects(){
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayer(body2);
-	
-	Player * body3 = new Player;
+/*	
+	Player * body3 = new Character;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayer(body3);
 
-	Player * body4 = new Player;
+	Player * body4 = new Character;
 	body4->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayer(body4);
-
+/*
 	Player * body5 = new Player;
 	body5->setPosition(0.0f, 0.0f, 0.0f);
 	addPlayer(body5);

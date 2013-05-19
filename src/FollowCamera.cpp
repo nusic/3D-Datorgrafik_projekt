@@ -17,7 +17,7 @@ void FollowCamera::update(float dt){
 	glm::vec3 targetCenterGlobal = ((getTargetsMaxPos() + getTargetsMinPos()) * 0.5f);
 	float maxTargetDistance = glm::length(getTargetsMaxPos() - getTargetsMinPos());
 	float alpha = fov/2;
-	float distance = glm::tan(alpha/360 * 2*3.1415) * maxTargetDistance / 2 * 8 + 20;
+	float distance = glm::tan(alpha/180 * 3.1415) * maxTargetDistance / 2 * 5 + 40;
 	float height = glm::sin(theta) * distance;
 
 	float l = glm::sqrt(abs(distance*distance - height*height));
