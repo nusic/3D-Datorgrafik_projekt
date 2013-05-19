@@ -67,8 +67,8 @@ void Scene::initDynamicObjects(){
 
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
-	addPlayerToTeam1(body2);
-
+	addPlayerToTeam2(body2);
+/*
 	Player * body3 = new Character;
 	body3->setPosition(5.0f, 0.0f, 0.0f);
 	addPlayerToTeam2(body3);
