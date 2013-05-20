@@ -12,8 +12,8 @@
 
 class ModelMesh{
 public:
-	ModelMesh(const char* path, float scale = 1.0f);
-	ModelMesh(const char* path, float sx, float sy, float sz);
+	ModelMesh(const std::string &path, float scale = 1.0f);
+	ModelMesh(const std::string &path, float sx, float sy, float sz);
 	~ModelMesh();
 
 	

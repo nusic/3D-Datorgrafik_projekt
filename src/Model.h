@@ -19,13 +19,19 @@
 
 class Model : public Node{
 public:
-	Model(ModelMesh* _mesh = NULL,
+	Model(const std::string &meshName = "data/meshes/tree2.obj",
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
-	Model(Node* _parent = NULL, ModelMesh* _mesh = NULL,
+	Model(Node* _parent = NULL, const std::string &meshName = "data/meshes/tree2.obj",
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
-
+	/*Model(std::string meshName,
+		  std::string _textureName = "SimpleTexture",
+		  std::string _shaderName = "SimpleColor");
+	Model(Node* _parent, std::string meshName,
+		  std::string _textureName = "SimpleTexture",
+		  std::string _shaderName = "SimpleColor");
+*/
 	virtual ~Model();
 
 	void setShader(std::string _shaderName);

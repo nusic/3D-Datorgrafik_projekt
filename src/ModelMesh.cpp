@@ -2,16 +2,16 @@
 #include <iostream>
 
 
-ModelMesh::ModelMesh(const char* path, float scale){ 
-	if(loadOBJ(path, scale, scale, scale)){
+ModelMesh::ModelMesh(const std::string &path, float scale){ 
+	if(loadOBJ(path.c_str(), scale, scale, scale)){
 		generateGLBuffers();
 		calcRadiusXZ();
 	}
 	else printf("ERROR: COULDN'T READ OBJECT\n");
 }
 
-ModelMesh::ModelMesh(const char* path, float sx, float sy, float sz){ 
-	if(loadOBJ(path, sx, sy, sz)){
+ModelMesh::ModelMesh(const std::string &path, float sx, float sy, float sz){ 
+	if(loadOBJ(path.c_str(), sx, sy, sz)){
 		generateGLBuffers();
 		calcRadiusXZ();
 	}

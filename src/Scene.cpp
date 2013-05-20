@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model(new ModelMesh("data/meshes/bigscene2.obj", 1.0f, 1.0f, 1.0f), "Ground", "SimpleColor"){
+Model("data/meshes/bigscene2.obj", "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -63,7 +63,7 @@ void Scene::initStaticPhysicalObjects(){
 }
 
 void Scene::initStaticNonPhysicalObjects(){
-	
+
 }
 
 void Scene::initDynamicObjects(){

@@ -145,7 +145,7 @@ void Player::kill(){
     dyingLightRotationNode->addChildNode(light);
     dyingLightPosition = 6.0f;
 
-    dyingLightRotationNode->addChildNode(new Model(new ModelMesh("data/meshes/suzanne.obj")));
+    dyingLightRotationNode->addChildNode(new Model("data/meshes/suzanne.obj"));
 
 }
 
