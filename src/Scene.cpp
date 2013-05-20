@@ -3,6 +3,11 @@
 Scene::Scene():
 Model("bigscene2", "Ground", "SimpleColor"){
 
+	
+	team.push_back(new Team());
+	team.push_back(new Team());
+	team[1]->camera->setAngle(3.14f);
+
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
 	sceneDimensions = maxVertexValues - minVertexValues;
@@ -28,6 +33,7 @@ void Scene::initScene(){
     	std::string path = "data/heightmap/heightmap.bmp";
     	readBMP(path.c_str());
     }
+    printf("Rendered hightmap without any objects.\n");
 
     //Now we can use the previously rendered heightmap to place static objects
     initStaticPhysicalObjects();
@@ -35,6 +41,7 @@ void Scene::initScene(){
 	//Render to the heightmap again, now with static game objects added.
     if(renderToHeightMapSupported)
     	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
+    printf("Rendered hightmap with static physical objects.\n");
 
     initStaticNonPhysicalObjects();
 	initDynamicObjects();
@@ -70,109 +77,43 @@ void Scene::initStaticNonPhysicalObjects(){
 }
 
 void Scene::initDynamicObjects(){
+
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
-	addPlayerToTeam1(body1);
+	addPlayerToTeam(0, body1);
 
 	Player * body3 = new Character;
-	body1->setPosition(0.0f, 0.0f, 5.0f);
-	addPlayerToTeam1(body3);
+	body1->setPosition(0.0f, 0.0f, 10.0f);
+	addPlayerToTeam(1, body3);
 
-	Player * body2 = new Character;
+	/*Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
-	addPlayerToTeam2(body2);
-/*
-	Player * body3 = new Character;
-	body3->setPosition(5.0f, 0.0f, 0.0f);
-	addPlayerToTeam2(body3);
-
-	Player * body4 = new Character;
-	body4->setPosition(0.0f, 0.0f, -5.0f);
-	addPlayerToTeam2(body4);
-/*
-	Player * body5 = new Character;
-	body5->setPosition(0.0f, 0.0f, 0.0f);
-	addPlayer(body5);
-
-	Player * body6 = new Character;
-	body6->setPosition(5.0f, 0.0f, -5.0f);
-	addPlayer(body6);
-
-	Player * body7 = new Character;
-	body7->setPosition(-5.0f, 0.0f, 5.0f);
-	addPlayer(body7);
-	*/
-
-
-
-	//Camera* camera = new Camera(-30, 5, 15);
-	//camera->setLookAt(0, 0, 0);
-	//camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
-
-	FollowCamera* fc1 = new FollowCamera(team1);
-	FollowCamera* fc2 = new FollowCamera(team2);
-	fc2->setAngle(3.14159f);
-
-	//Uncomment the two lines below to get simple static front view
-	//camera->setPosition(0, 20, -15);
-	//camera->setVelocity(0, 0, 0);
-
-	//FollowCamera* followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
-
-	cameras.push_back(fc1);
-	cameras.push_back(fc2);
-
-	//cameras.push_back(camera);
-	//cameras.push_back(followCamera);
-
+	addPlayerToTeam(0, body2);
+*/
 }
 
 
-void Scene::addPlayerToTeam1(Player * p){
+void Scene::addPlayerToTeam(int index, Player * p){
 	//Put player on the ground
 	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
 	addChildNode(p->getSceneGraphBranch());
-	team1.push_back(p);
-}
-
-void Scene::addPlayerToTeam2(Player * p){
-	//Put player on the ground
-	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
-	addChildNode(p->getSceneGraphBranch());
-	team2.push_back(p);
+	team[index]->addPlayer(p);
 }
 
 void Scene::update(float dt){
 
-	for (int i = 0; i < cameras.size(); ++i){
-		cameras[i]->update(dt);
-		cameras[i]->calcMatrices();
-	}
-	/*
-	for (int i = 0; i < players.size(); ++i){
-		if(players[i]->isAlive()){
-			players[i]->updateUserInputs();
-			updatePlayerPosition5Sa(players[i], cameras[0]);
-			updatePlayerHeadDirection(players[i], cameras[0]);
+	for (int i = 0; i < team.size(); ++i){
+		team[i]->camera->update(dt);
+		team[i]->camera->calcMatrices();
+
+		for (int j = 0; j < team[i]->players.size(); ++j){
+			if(team[i]->players[j]->isAlive()){
+				team[i]->players[j]->updateUserInputs();
+				updatePlayerPosition5Sa(team[i]->players[j], team[i]->camera);
+				updatePlayerHeadDirection(team[i]->players[j], team[i]->camera);
+			}
+			team[i]->players[j]->update(dt);
 		}
-		players[i]->update(dt);
-	}
-	*/
-	for (int i = 0; i < team1.size(); ++i){
-		if(team1[i]->isAlive()){
-			team1[i]->updateUserInputs();
-			updatePlayerPosition5Sa(team1[i], cameras[0]);
-			updatePlayerHeadDirection(team1[i], cameras[0]);
-		}
-		team1[i]->update(dt);
-	}
-	for (int i = 0; i < team2.size(); ++i){
-		if(team2[i]->isAlive()){
-			team2[i]->updateUserInputs();
-			updatePlayerPosition5Sa(team2[i], cameras[1]);
-			updatePlayerHeadDirection(team2[i], cameras[1]);
-		}
-		team2[i]->update(dt);
 	}
 }
 

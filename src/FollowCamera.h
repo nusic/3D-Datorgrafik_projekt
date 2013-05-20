@@ -7,16 +7,11 @@
 
 class FollowCamera : public Camera{
 public:
-	FollowCamera(
-		std::vector<Player*> _targets,
-		float _theta = 1.0f,
-		float _followSpeed = 1,
-		float _rotationSpeed = 1,
-		float _angle = 0);
+	FollowCamera(std::vector<Player*>& _targets);
 
 	~FollowCamera();
 
-	void setTargets(std::vector<Player*> _targets);
+	void setTargets(std::vector<Player*>& _targets);
 	void setTheta(float _theta);
 	void setFollowSpeed(float _followSpeed);
 	void sitRotationSpeed(float _rotationSpeed);
@@ -25,11 +20,12 @@ public:
 	virtual void update(float dt);
 
 private:
-	std::vector<Player*> targets;	
+	std::vector<Player*>& targets;
 	float theta;
 	float rotationSpeed;
 	float followSpeed;
-	float angle; 
+	float angle;
+	float height;
 
 	glm::vec3 getTargetsMinPos();
 	glm::vec3 getTargetsMaxPos();

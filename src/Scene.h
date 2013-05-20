@@ -15,7 +15,7 @@
 #include "Node.h"
 #include "Transformation.h"
 #include "FollowCamera.h"
-
+#include "Team.h"
 
 class Scene : public Model{
 public:
@@ -35,14 +35,12 @@ public:
 	void update(float dt);
 
 	void addPlayer(Player * player);
-	void addPlayerToTeam1(Player * player);
-	void addPlayerToTeam2(Player * player);
+	void addPlayerToTeam(int index, Player * player);
+	
 	void addGenerations(Model* mother, int n);
 
     
-	std::vector<Player*> team1;
-	std::vector<Player*> team2;
-	std::vector<Camera*> cameras;
+	std::vector<Team*> team;
 
 	static std::vector<LightSource*> lightSources;
 	
