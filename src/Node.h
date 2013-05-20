@@ -12,7 +12,7 @@
 class Node{
 
 public:
-	Node(Node * _parent = NULL, std::string _name = "");
+	Node(Node * _parent = NULL, const std::string &_name = "");
 	virtual ~Node();
 
 
@@ -42,7 +42,7 @@ private:
 	void addNodesToVectorByName(std::vector<Node*> * v, const std::string &searchName) const;
 
 	Node * parent;
-	std::string name;
+	const std::string name;
 	std::vector<Node*> children;
 	
 };

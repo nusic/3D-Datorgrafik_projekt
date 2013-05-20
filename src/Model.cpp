@@ -1,14 +1,15 @@
 #include "Model.h"
 
 
-Model::Model(const std::string &meshName, std::string _textureName, std::string _shaderName){
+Model::Model(const std::string &meshName, std::string _textureName, std::string _shaderName):
+Node(NULL, meshName){
 	setMesh(new ModelMesh(meshName));
 	setShader(_shaderName);
 	setTexture(_textureName);
 }
 
 Model::Model(Node* _parent, const std::string &meshName, std::string _textureName, std::string _shaderName):
-Node(_parent){
+Node(_parent, meshName){
 	setMesh(new ModelMesh(meshName));
 	setShader(_shaderName);
 	setTexture(_textureName);

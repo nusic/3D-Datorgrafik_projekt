@@ -63,7 +63,11 @@ void Scene::initStaticPhysicalObjects(){
 }
 
 void Scene::initStaticNonPhysicalObjects(){
-
+	std::vector<Node*> stems = getNodesByName("tree2");
+	for (int i = 0; i < stems.size(); ++i){
+		stems[i]->addChildNode(new Model("arm_pickaxe"));
+	}
+	
 }
 
 void Scene::initDynamicObjects(){

@@ -1,7 +1,8 @@
 #include "Node.h"
 
-Node::Node(Node * _parent, std::string _name){
-	name = _name;
+Node::Node(Node * _parent, const std::string &_name):
+name(_name){
+	
 	parent = NULL;
 
 	if(_parent != NULL){

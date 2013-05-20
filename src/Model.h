@@ -25,13 +25,7 @@ public:
 	Model(Node* _parent = NULL, const std::string &meshName = "tree2",
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
-	/*Model(std::string meshName,
-		  std::string _textureName = "SimpleTexture",
-		  std::string _shaderName = "SimpleColor");
-	Model(Node* _parent, std::string meshName,
-		  std::string _textureName = "SimpleTexture",
-		  std::string _shaderName = "SimpleColor");
-*/
+	
 	virtual ~Model();
 
 	void setShader(std::string _shaderName);
