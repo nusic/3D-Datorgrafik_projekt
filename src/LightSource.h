@@ -35,6 +35,7 @@ public:
 	const glm::vec3& getDirection() const;
 	const glm::vec3& getWorldPosition() const;
 	const glm::vec3& getWorldDirection() const;
+	float getIntensity() const;
 
 	const glm::mat4 getVP() const;
 	static glm::mat4 getVPFromIndex(int index);

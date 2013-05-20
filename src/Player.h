@@ -24,7 +24,6 @@ public:
 
 
     void kill();
-
     bool isAlive() const;
 
 
@@ -36,11 +35,13 @@ protected:
     Rotation* playerRotationNode;
 
     LightSource* light;
+    float originalLightIntensity;
 
     Translation* dyingLightTranslationNode;
     Rotation* dyingLightRotationNode;
     float dyingLightSpeed;
     float dyingLightPosition;
+    float originalDyingLightPosition;
 
 
 

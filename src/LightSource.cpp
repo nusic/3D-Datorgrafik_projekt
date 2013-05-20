@@ -118,6 +118,11 @@ const glm::vec3& LightSource::getWorldDirection() const{
 	return LightSource::worldDirection[index];
 }
 
+float LightSource::getIntensity() const{
+	return LightSource::intensity[index];
+}
+
+
 void LightSource::setWorldPosition(double x, double y, double z){
 	LightSource::worldPosition[index] = glm::vec3(x, y, z);
 }
@@ -141,6 +146,7 @@ void LightSource::setSpread(float s){
 void LightSource::setDirectional(bool d){
 	LightSource::directional[index] = d;
 }
+
 
 
 float* LightSource::getPositionArray(){
