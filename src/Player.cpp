@@ -165,6 +165,7 @@ Player(){
     torch = GameObject("flashlight");
     torch.setPosition(1.2f, -0.5f, 0.0f);
     torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+    torch.setDirection(0.0f);
 
     pickaxe = GameObject("arm_pickaxe");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);

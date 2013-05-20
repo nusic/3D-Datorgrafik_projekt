@@ -20,6 +20,10 @@ ModelMesh::ModelMesh(const std::string &meshName, float sx, float sy, float sz){
 
 ModelMesh::~ModelMesh(){
 	deleteGLBuffers();
+	vertices.clear();
+	normals.clear();
+	uvs.clear();
+
 }
 
 float ModelMesh::getRadius() const{

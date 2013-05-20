@@ -47,7 +47,7 @@ uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
 
-const float ambientBrightness = 0.2f;
+const float ambientBrightness = 0.0f;
 
 
 void main()
@@ -97,10 +97,10 @@ void main()
 		directionalIntensity = pow(cosPhi, lightSpread[i]);
 		
 		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
-		distanceSquare = distanceToLight * distanceToLight;
+		distanceSquare = distanceToLight;
 
 
-		invDistSquare = 1.0f/(distanceSquare);
+		invDistSquare = 0.3f*1.0f/(distanceSquare);
 
 		visibility = 0.0f;
 

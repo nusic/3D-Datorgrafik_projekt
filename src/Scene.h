@@ -40,7 +40,6 @@ public:
 	void addGenerations(Model* mother, int n);
 
     
-	//std::vector<Player*> players;
 	std::vector<Player*> team1;
 	std::vector<Player*> team2;
 	std::vector<Camera*> cameras;

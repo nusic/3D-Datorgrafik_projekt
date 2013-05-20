@@ -67,7 +67,6 @@ void Scene::initStaticNonPhysicalObjects(){
 	for (int i = 0; i < stems.size(); ++i){
 		stems[i]->addChildNode(new Model("arm_pickaxe"));
 	}
-	
 }
 
 void Scene::initDynamicObjects(){
@@ -75,6 +74,9 @@ void Scene::initDynamicObjects(){
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayerToTeam1(body1);
 
+	Player * body3 = new Character;
+	body1->setPosition(0.0f, 0.0f, 5.0f);
+	addPlayerToTeam1(body3);
 
 	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
@@ -125,14 +127,7 @@ void Scene::initDynamicObjects(){
 
 }
 
-/*
-void Scene::addPlayer(Player * p){
-	//Put player on the ground
-	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
-	addChildNode(p->getSceneGraphBranch());
-	players.push_back(p);
-}
-*/
+
 void Scene::addPlayerToTeam1(Player * p){
 	//Put player on the ground
 	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
@@ -342,7 +337,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	float maxStep = 0.6f;
 	    	if(steep > maxStep){
 
-	    		//Define new ON-base from grad and a vector orthogonal to grad
+				//Define new ON-base from grad and a vector orthogonal to grad
 		    	grad = glm::normalize(grad);
 		    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
 
