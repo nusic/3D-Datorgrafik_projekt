@@ -137,6 +137,7 @@ void Player::kill(){
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
     
+    originalLightParent = light->getParentNode();
     light->removeFromParent();
     originalLightIntensity = light->getIntensity();
 
@@ -147,6 +148,20 @@ void Player::kill(){
     update(0.0f);
 }
 
+void Player::revive(){
+    if(alive)
+        return;
+    alive = true;
+    playerRotationNode->setRotation(0.0f);
+
+    light->removeFromParent();
+    light->setIntensity(originalLightIntensity);
+    originalLightParent->addChildNode(light);
+    Node * soul = dyingLightRotationNode->getChildByName("suzanne");
+    dyingLightRotationNode->removeChildNode(soul);
+
+    update(0.0f);
+}
 
 
 

@@ -14,7 +14,9 @@ void GameEngine::keyboardCallback(int key, int action){
 		case 'm':
 		case 'M': if(action == SGCT_PRESS) toggleRenderMode(); break;
 		case 'k':
-		case 'K': scene->team[0]->players[0]->kill();
+		case 'K': scene->team[0]->players[0]->kill(); break;
+		case 'r':
+		case 'R': scene->team[0]->players[0]->revive(); break;
 	}
 }
 

@@ -24,6 +24,7 @@ public:
 
 
     void kill();
+    void revive();
     bool isAlive() const;
 
 
@@ -36,6 +37,7 @@ protected:
 
     LightSource* light;
     float originalLightIntensity;
+    Node* originalLightParent;
 
     Translation* dyingLightTranslationNode;
     Rotation* dyingLightRotationNode;
