@@ -34,9 +34,12 @@ public:
 
 	Node* getChild(int index) const;
 	Node* getChildByName(const std::string &searchName) const;
+	std::vector<Node*>& getNodesByName(const std::string &searchName) const;
 
 
 private:
+
+	void addNodesToVectorByName(std::vector<Node*> * v, const std::string &searchName) const;
 
 	Node * parent;
 	std::string name;

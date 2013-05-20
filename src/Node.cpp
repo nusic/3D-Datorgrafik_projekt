@@ -79,10 +79,6 @@ void Node::removeChildNode(Node* childNode){
 
 void Node::removeFromParent(){
 	parent->removeChildNode(this);
-	if(parent != NULL){
-		printf("parent removed\n");
-	}
-	else printf("parent NOT removed\n");
 }
 
 void Node::insertAfter(Node* n){
@@ -106,6 +102,20 @@ Node* Node::getChildByName(const std::string &searchName) const{
 		}
 	}
 	return NULL;
+}
+
+std::vector<Node*>& Node::getNodesByName(const std::string &searchName) const{
+	std::vector<Node*>* v = new std::vector<Node*>;
+	addNodesToVectorByName(v, searchName);
+	return *v;
+}
+
+void Node::addNodesToVectorByName(std::vector<Node*> * v, const std::string &searchName) const{
+	for (int i = 0; i < children.size(); ++i){
+		if(children[i]->name == searchName)
+			v->push_back(children[i]);
+		children[i]->addNodesToVectorByName(v, searchName);
+	}
 }
 
 int Node::countChildNodes(const bool &recursiveCount) const{

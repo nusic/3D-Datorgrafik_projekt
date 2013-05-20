@@ -329,7 +329,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
 	    	float steep = glm::sign(grad.x+grad.y) * glm::length(grad);
-	    	float maxStep = 1.0f;
+	    	float maxStep = 0.6f;
 	    	if(steep > maxStep){
 
 	    		//Define new ON-base from grad and a vector orthogonal to grad
