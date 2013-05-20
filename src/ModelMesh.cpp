@@ -1,17 +1,17 @@
 #include "ModelMesh.h"
-#include <iostream>
 
 
-ModelMesh::ModelMesh(const std::string &path, float scale){ 
-	if(loadOBJ(path.c_str(), scale, scale, scale)){
+
+ModelMesh::ModelMesh(const std::string &meshName, float scale){ 
+	if(loadOBJ(meshName, scale, scale, scale)){
 		generateGLBuffers();
 		calcRadiusXZ();
 	}
 	else printf("ERROR: COULDN'T READ OBJECT\n");
 }
 
-ModelMesh::ModelMesh(const std::string &path, float sx, float sy, float sz){ 
-	if(loadOBJ(path.c_str(), sx, sy, sz)){
+ModelMesh::ModelMesh(const std::string &meshName, float sx, float sy, float sz){ 
+	if(loadOBJ(meshName, sx, sy, sz)){
 		generateGLBuffers();
 		calcRadiusXZ();
 	}
@@ -60,14 +60,21 @@ void ModelMesh::calcRadiusXZ(){
 }
 
 
-bool ModelMesh::loadOBJ(const char * path, float sx, float sy, float sz){
-	printf("Loading OBJ file %s... ", path);
+bool ModelMesh::loadOBJ(const std::string &meshName, float sx, float sy, float sz){
+	printf("Loading mesh %s... ", meshName.c_str());
+
+	std::string builder = "";
+	builder += "data/meshes/";
+	builder += meshName;
+	builder += ".obj";
+	const char* path = builder.c_str();
 
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> temp_vertices; 
 	std::vector<glm::vec2> temp_uvs;
 	std::vector<glm::vec3> temp_normals;
 
+	
 
 	FILE * file = fopen(path, "r");
 	if( file == NULL ){

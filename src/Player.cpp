@@ -7,7 +7,7 @@
 int Player::numberOfPlayers = 0;
 
 Player::Player():
-GameObject("data/meshes/body.obj"){
+GameObject("body"){
     alive = true;
     speed = 10.0f;
     controller = new Controller(numberOfPlayers);
@@ -145,7 +145,7 @@ void Player::kill(){
     dyingLightRotationNode->addChildNode(light);
     dyingLightPosition = 6.0f;
 
-    dyingLightRotationNode->addChildNode(new Model("data/meshes/suzanne.obj"));
+    dyingLightRotationNode->addChildNode(new Model("suzanne"));
 
 }
 
@@ -162,11 +162,11 @@ Player(){
     animationIndex = 0;
     animationPickaxeIndex = 0;
 
-    torch = GameObject("data/meshes/flashlight.obj");
+    torch = GameObject("flashlight");
     torch.setPosition(1.2f, -0.5f, 0.0f);
     torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
 
-    pickaxe = GameObject("data/meshes/arm_pickaxe.obj");
+    pickaxe = GameObject("arm_pickaxe");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
     pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
 

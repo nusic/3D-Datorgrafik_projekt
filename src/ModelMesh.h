@@ -2,7 +2,7 @@
 #include <string>
 #include <stdio.h>
 #include <cstring>
-
+#include <iostream>
 #include <glm/glm.hpp>
 
 #include <sgct.h>
@@ -12,8 +12,8 @@
 
 class ModelMesh{
 public:
-	ModelMesh(const std::string &path, float scale = 1.0f);
-	ModelMesh(const std::string &path, float sx, float sy, float sz);
+	ModelMesh(const std::string &meshName, float scale = 1.0f);
+	ModelMesh(const std::string &meshName, float sx, float sy, float sz);
 	~ModelMesh();
 
 	
@@ -33,7 +33,7 @@ public:
 private:
 	float vertexRadiusXZ;
 
-	bool loadOBJ(const char* path, float sx = 1.0f, float sy = 1.0f, float sz = 1.0f);
+	bool loadOBJ(const std::string &meshName, float sx = 1.0f, float sy = 1.0f, float sz = 1.0f);
 
 	void generateGLBuffers();
 	void deleteGLBuffers();

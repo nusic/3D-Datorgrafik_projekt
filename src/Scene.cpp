@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model("data/meshes/bigscene2.obj", "Ground", "SimpleColor"){
+Model("bigscene2", "Ground", "SimpleColor"){
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
@@ -52,7 +52,7 @@ void Scene::initStaticPhysicalObjects(){
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
 		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
-		sgo = new StaticGameObject("data/meshes/tree2.obj");
+		sgo = new StaticGameObject("tree2");
 		
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);

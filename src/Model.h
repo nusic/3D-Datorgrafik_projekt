@@ -19,10 +19,10 @@
 
 class Model : public Node{
 public:
-	Model(const std::string &meshName = "data/meshes/tree2.obj",
+	Model(const std::string &meshName = "tree2",
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
-	Model(Node* _parent = NULL, const std::string &meshName = "data/meshes/tree2.obj",
+	Model(Node* _parent = NULL, const std::string &meshName = "tree2",
 		  std::string _textureName = "SimpleTexture",
 		  std::string _shaderName = "SimpleColor");
 	/*Model(std::string meshName,

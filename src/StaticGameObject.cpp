@@ -6,7 +6,7 @@ StaticGameObject::StaticGameObject(float x, float y, float z, float scale, float
 	setSize(scale, scale, scale);
 	setRotation(phi, theta);
 
-	modelNode = new Model(transformationNode, "data/meshes/suzanne.obj", "SimpleTexture2", "SimpleColor");
+	modelNode = new Model(transformationNode, "suzanne", "SimpleTexture2", "SimpleColor");
 }
 
 StaticGameObject::StaticGameObject(std::string objfile, std::string texture, std::string shader){
