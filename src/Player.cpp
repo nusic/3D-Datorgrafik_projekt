@@ -122,10 +122,6 @@ void Player::updateHeadDirection(){
     }
 }
 
-LightSource* Player::getLightSource() const{
-    return NULL;
-}
-
 void Player::kill(){
     if(!alive)
         return;
@@ -140,7 +136,7 @@ void Player::kill(){
     head.setDirection(0.0f);
     update(0.0f);
 
-    LightSource* light = getLightSource();
+    
     light->removeFromParent();
     dyingLightRotationNode->addChildNode(light);
     dyingLightPosition = 6.0f;
@@ -190,14 +186,10 @@ Character::~Character(){
 
 }
 
-LightSource* Character::getLightSource() const{
-    return light;
-}
-
 void Character::update(float dt){
     Player::update(dt);
-    //updateTorch();
     if(isAlive()){
+        //updateTorch();
         updatePickaxe();
         torch.update(dt);
         pickaxe.update(dt);
