@@ -23,7 +23,8 @@ public:
 	~Scene();
 
 	void initScene();
-	void initStaticObjects();
+	void initStaticPhysicalObjects();
+	void initStaticNonPhysicalObjects();
 	void initDynamicObjects();
 
 	void drawScene(glm::mat4 P, glm::mat4 V);

@@ -30,18 +30,19 @@ void Scene::initScene(){
     }
 
     //Now we can use the previously rendered heightmap to place static objects
-    initStaticObjects();
+    initStaticPhysicalObjects();
 
 	//Render to the heightmap again, now with static game objects added.
     if(renderToHeightMapSupported)
     	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
 
+    initStaticNonPhysicalObjects();
 	initDynamicObjects();
 
 	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
 }
 
-void Scene::initStaticObjects(){
+void Scene::initStaticPhysicalObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
 	for (int i = 0; i < 30; ++i){
@@ -52,12 +53,17 @@ void Scene::initStaticObjects(){
 		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
 		sgo = new StaticGameObject("data/meshes/tree2.obj");
+		
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);
 		sgo->setRotation(phi);
 
 		addChildNode(sgo->getSceneGraphBranch());
 	}
+}
+
+void Scene::initStaticNonPhysicalObjects(){
+	
 }
 
 void Scene::initDynamicObjects(){
