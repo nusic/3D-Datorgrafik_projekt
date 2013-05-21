@@ -6,7 +6,7 @@ Camera(0.0f, 0.0f, 0.0f), targets(_targets){
 	followSpeed = 1.0f;
 	rotationSpeed = 1.0f;
 	angle = 0.0f;
-	height = 40.0f;
+	height = 60.0f;
 }
 
 void FollowCamera::setTargets(std::vector<Player*>& _targets){

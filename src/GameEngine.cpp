@@ -92,6 +92,8 @@ void GameEngine::preSync(float dt){
 
 
 void GameEngine::initOGL(){
+	printf("\ninit GameEngine\n");
+	
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 

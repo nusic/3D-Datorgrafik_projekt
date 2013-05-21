@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <new>
+#include <iostream>
+#include <iomanip>
+
 
 #include "sgct.h"
 #include "Model.h"
@@ -67,6 +70,11 @@ private:
 	glm::vec2 getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera* cam = NULL) const;
 	void readBMP(const char* filename);
 
+
+	void printLoadingStats();
+
+	int nodes;
+	int verts;
 };
 
 #endif

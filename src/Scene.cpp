@@ -2,8 +2,7 @@
 
 Scene::Scene():
 Model("bigscene2", "Ground", "SimpleColor"){
-
-	
+	team.push_back(new Team());
 	team.push_back(new Team());
 	team.push_back(new Team());
 	team[1]->camera->setAngle(3.14f);
@@ -13,6 +12,9 @@ Model("bigscene2", "Ground", "SimpleColor"){
 	sceneDimensions = maxVertexValues - minVertexValues;
 	printf("sceneDimensions: x = %f,  y = %f,  z = %f\n",
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
+
+	nodes = 0;
+	verts = 0;
 }
 
 std::vector<LightSource*> Scene::lightSources;
@@ -24,8 +26,11 @@ Scene::~Scene(){
 
 
 void Scene::initScene(){
+	printf("\ninit Scene\n");
 	//First render the heightmap for the "ground mesh" only.
-	
+	int w = 50;
+	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
+	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
 	const int HEIGHT_MAP_RESOLUTION = 1024;
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
@@ -33,20 +38,47 @@ void Scene::initScene(){
     	std::string path = "data/heightmap/heightmap.bmp";
     	readBMP(path.c_str());
     }
-    printf("Rendered hightmap without any objects.\n");
+  
 
-    //Now we can use the previously rendered heightmap to place static objects
+
+
+    
+    std::cout << std::setw(w) << std::left << "Adding static physical objects ... ";
     initStaticPhysicalObjects();
+  	printLoadingStats();
 
-	//Render to the heightmap again, now with static game objects added.
+	printf("Rendering hightmap ...\n");
     if(renderToHeightMapSupported)
-    	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
-    printf("Rendered hightmap with static physical objects.\n");
+    	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);    
 
+
+
+    std::cout << std::setw(w) << std::left << "Adding static non-physical objects ... ";
     initStaticNonPhysicalObjects();
-	initDynamicObjects();
+	printLoadingStats();
 
-	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
+
+
+    std::cout << std::setw(w) << std::left << "Adding dynamic objects ... ";
+	initDynamicObjects();
+	printLoadingStats();
+	nodes = verts = 0;
+
+	std::cout << std::setw(w) << " " << "=============" << std::endl;
+	std::cout << std::setw(w) << "TOTAL:";
+	printLoadingStats();
+	printf("\n");
+	
+}
+
+void Scene::printLoadingStats(){
+	int nodesTot = countChildNodes(true);
+    int vertsTot = getNumberOfVertices();
+    std::cout << std::setw(5) << std::right << nodesTot-nodes << " | ";
+    std::cout << std::setw(5) << std::left << vertsTot-verts << std::endl;
+    
+    nodes = nodesTot;
+	verts = vertsTot;
 }
 
 void Scene::initStaticPhysicalObjects(){
@@ -439,7 +471,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
     }
 
     float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
-    printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
+    //printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
 
     float minSceneY = minVertexValues.y;

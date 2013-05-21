@@ -12,6 +12,3 @@ Team::~Team(){
 void Team::addPlayer(Player * p){
 	players.push_back(p);
 }
-
-
-
