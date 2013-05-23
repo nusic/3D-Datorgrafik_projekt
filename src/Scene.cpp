@@ -65,7 +65,7 @@ void Scene::initStaticPhysicalObjects(){
 void Scene::initStaticNonPhysicalObjects(){
 	std::vector<Node*> stems = getNodesByName("stem2");
 	for (int i = 0; i < stems.size(); ++i){
-		stems[i]->addChildNode(new Model("tree2"));
+		stems[i]->addChildNode(new Model("branches2"));
 	}
 	
 }
