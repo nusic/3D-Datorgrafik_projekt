@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model("bigscene2", "Ground", "SimpleColor"){
+Model("bigscene", "Ground", "SimpleColor"){
 	team.push_back(new Team());
 	team.push_back(new Team());
 	team.push_back(new Team());
@@ -431,13 +431,21 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glm::vec3 maxVertexValues = getMesh()->getMaxVertexValues();
 
 	// Create the box where the orthogonal projection takes place
-	glm::mat4 P = glm::ortho(
+	glm::mat4 P = glm::frustum(
 		minVertexValues.x, // left
 		maxVertexValues.x, // right
 		minVertexValues.z, // bottom
 		maxVertexValues.z, // top
 		-maxVertexValues.y, // zNear
 		-minVertexValues.y); // zFar ---- z is y since we look from above
+
+	printf("minx = %f\n maxx = %f\n miny = %f\n maxy = %f\n minz = %f\n maxz = %f\n",
+		minVertexValues.x,
+		maxVertexValues.x,
+		minVertexValues.y,
+		maxVertexValues.y,
+		minVertexValues.z,
+		maxVertexValues.z);
 
 	//First model matrix is just a enhetsmatrisnångångnudå
 	glm::mat4 M(1.0);
@@ -474,7 +482,6 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
  		GL_FLOAT,
  		&heightmap[0]);
 
-    float scale = sceneDimensions.y;// / ( (float)(maxDepth - minDepth));
     //printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
 
@@ -490,7 +497,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
    		//scene vertices. That makes the heighmap place the player correctly
    		//according to the actual mesh.
 
-        heightmap[i] = (float)(heightmap[i])*scale + minSceneY;
+        heightmap[i] = (float)(heightmap[i])*sceneDimensions.y + minSceneY;
 
     }
 
