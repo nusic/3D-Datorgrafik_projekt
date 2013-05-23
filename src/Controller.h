@@ -3,10 +3,10 @@
 
 #include "sgct.h"
 #include <iostream>
-
+class Player;
 class Controller{
 public:
-    Controller(int index);
+    Controller(int index, Player* const _owner);
     ~Controller();
     void controllerLoader();
     void inputLoader();
@@ -64,6 +64,13 @@ private:
     int numberOfButtons;
     int joystickPresent;
     int controllerIndex;
+    static const int LARGEST_BUTTON_INDEX = 15;
+    bool buttonAlreadyPressed[LARGEST_BUTTON_INDEX];
+    Player* const owner;
+
+
+    void checkButtons();
+
 };
 
 #endif // CONTROLLER_H

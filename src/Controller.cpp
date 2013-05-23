@@ -1,11 +1,15 @@
 #include "Controller.h"
+#include "Player.h"
 
-
-Controller::Controller(int index){
+Controller::Controller(int index, Player* const _owner): owner(_owner){
     joystickPresent = GL_FALSE;
     numberOfAxes = 0;
     numberOfButtons = 0;
     controllerIndex = index;
+
+    for(int i=0; i<LARGEST_BUTTON_INDEX; ++i){
+        buttonAlreadyPressed[i] = false;
+    }
 
     controllerLoader();
     if(joystickPresent)
@@ -51,12 +55,12 @@ void Controller::inputLoader(){
     if(joystickPresent == GL_TRUE){
 		sgct::Engine::getJoystickAxes(controllerIndex, axes, numberOfAxes);
 		sgct::Engine::getJoystickButtons(controllerIndex, buttons, numberOfButtons);
-
-        for(int i=0; i<numberOfAxes; i++)
-            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
-        for(int i=0; i<numberOfButtons; i++)
-            sgct::MessageHandler::Instance()->print("%i", buttons[i]);
-        sgct::MessageHandler::Instance()->print("\r");
+        checkButtons();
+//        for(int i=0; i<numberOfAxes; i++)
+//            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
+//        for(int i=0; i<numberOfButtons; i++)
+//            sgct::MessageHandler::Instance()->print("%i", buttons[i]);
+//        sgct::MessageHandler::Instance()->print("\r");
 
 	}
 }
@@ -109,4 +113,19 @@ bool Controller::validateRightStickValues(){
         }
     }
     return true;
+}
+
+void Controller::checkButtons(){
+
+    if(buttons[CONTROLLER_BUTTON_X]){
+        if(!buttonAlreadyPressed[CONTROLLER_BUTTON_X]){
+            owner->kill();
+            printf("x-button is pressed. %i\n", buttons[CONTROLLER_BUTTON_X]);
+            buttonAlreadyPressed[CONTROLLER_BUTTON_X] = true;
+        }
+    }
+    else
+        buttonAlreadyPressed[CONTROLLER_BUTTON_X] = false;
+
+
 }

@@ -992,14 +992,15 @@
 1369322454 source:c:\users\martin\git\3d-datorgrafik_projekt\src\scene.cpp
 	"Scene.h"
 
-1369323983 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
+1369341280 source:c:\users\martin\git\3d-datorgrafik_projekt\src\controller.cpp
 	"Controller.h"
+	"Player.h"
 
-1369324826 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
+1369342933 c:\users\martin\git\3d-datorgrafik_projekt\src\controller.h
 	"sgct.h"
 	<iostream>
 
-1369322454 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
+1369340748 source:c:\users\martin\git\3d-datorgrafik_projekt\src\player.cpp
 	"Player.h"
 
 1369322454 c:\users\martin\git\3d-datorgrafik_projekt\src\player.h

@@ -10,8 +10,8 @@ Player::Player():
 GameObject("body"){
     alive = true;
     speed = 10.0f;
-    controller = new Controller(numberOfPlayers);
-    
+    controller = new Controller(numberOfPlayers, this);
+
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     playerRotationNode->insertAfter(translationNode);
 
@@ -27,7 +27,7 @@ GameObject("body"){
 
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
-    
+
 
     /*
     En player skapar en ScenGraphBranch som ser ut så här
@@ -48,7 +48,7 @@ GameObject("body"){
         |        |      |          (Lightsource goes
         |        |      |           here when dying)
         |        |      |
-        |        |      
+        |        |
         |        |  <- iserted playerRotationNode
         |        |
         |        |      |
@@ -136,7 +136,7 @@ void Player::kill(){
     head.setVelocity(0.0f, 0.0f, 0.0f);
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
-    
+
     originalLightParent = light->getParentNode();
     light->removeFromParent();
     originalLightIntensity = light->getIntensity();
@@ -197,7 +197,7 @@ Player(){
     light->setSpread(16);
     torch.update(0.0f);
     pickaxe.update(0.0f);
-    
+
 }
 
 Character::~Character(){
