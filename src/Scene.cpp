@@ -52,7 +52,7 @@ void Scene::initStaticPhysicalObjects(){
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
 		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
-		sgo = new StaticGameObject("tree2");
+		sgo = new StaticGameObject("stem2");
 		
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);
@@ -63,9 +63,9 @@ void Scene::initStaticPhysicalObjects(){
 }
 
 void Scene::initStaticNonPhysicalObjects(){
-	std::vector<Node*> stems = getNodesByName("tree2");
+	std::vector<Node*> stems = getNodesByName("stem2");
 	for (int i = 0; i < stems.size(); ++i){
-		stems[i]->addChildNode(new Model("arm_pickaxe"));
+		stems[i]->addChildNode(new Model("tree2"));
 	}
 	
 }
@@ -418,7 +418,6 @@ void Scene::renderToScreen(glm::mat4 P, glm::mat4 V, glm::mat4 parentModelMatrix
 	Model::renderToScreen(P, V, parentModelMatrix);
 }
 
-int _n = 0;
 bool Scene::renderToHeightMap(int xRes, int yRes){
 
 	// The FBO that will be used when rendering the heightmap

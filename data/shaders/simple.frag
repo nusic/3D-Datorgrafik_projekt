@@ -47,7 +47,7 @@ uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
 
-const float ambientBrightness = 0.2f;
+const float ambientBrightness = 1.0f;
 
 
 void main()

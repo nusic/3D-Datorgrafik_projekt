@@ -9,7 +9,7 @@ int Player::numberOfPlayers = 0;
 Player::Player():
 GameObject("body"){
     alive = true;
-    speed = 10.0f;
+    speed = 5.0f;
     controller = new Controller(numberOfPlayers);
     
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
