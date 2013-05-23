@@ -20,6 +20,10 @@ ModelMesh::ModelMesh(const std::string &meshName, float sx, float sy, float sz){
 
 ModelMesh::~ModelMesh(){
 	deleteGLBuffers();
+	vertices.clear();
+	normals.clear();
+	uvs.clear();
+
 }
 
 float ModelMesh::getRadius() const{
@@ -61,7 +65,7 @@ void ModelMesh::calcRadiusXZ(){
 
 
 bool ModelMesh::loadOBJ(const std::string &meshName, float sx, float sy, float sz){
-	printf("Loading mesh %s... ", meshName.c_str());
+	//printf("Loading mesh %s... ", meshName.c_str());
 
 	std::string builder = "";
 	builder += "data/meshes/";
@@ -154,7 +158,7 @@ bool ModelMesh::loadOBJ(const std::string &meshName, float sx, float sy, float s
 		normals .push_back(normal);
 	
 	}
-	printf("verts: %i\n", (int)vertices.size());
+	//printf("verts: %i\n", (int)vertices.size());
 	return true;
 }
 

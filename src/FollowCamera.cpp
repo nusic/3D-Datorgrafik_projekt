@@ -1,16 +1,15 @@
 #include "FollowCamera.h"
 
-FollowCamera::FollowCamera(
-	std::vector<Player*> _targets, float _theta ,
-	float _followSpeed, float _rotationSpeed, float _angle) :
-	Camera(
-		_targets[0]->getPosition().x,
-		_targets[0]->getPosition().y,
-		_targets[0]->getPosition().z),
-	targets(_targets), theta(_theta), followSpeed(_followSpeed),
-	rotationSpeed(_rotationSpeed), angle(_angle){}
+FollowCamera::FollowCamera(std::vector<Player*>& _targets):
+Camera(0.0f, 0.0f, 0.0f), targets(_targets){
+	theta = 1.0f;
+	followSpeed = 1.0f;
+	rotationSpeed = 1.0f;
+	angle = 0.0f;
+	height = 60.0f;
+}
 
-void FollowCamera::setTargets(std::vector<Player*> _targets){
+void FollowCamera::setTargets(std::vector<Player*>& _targets){
 	targets = _targets;
 }
 
@@ -31,12 +30,15 @@ void FollowCamera::setAngle(float _angle){
 }
 
 void FollowCamera::update(float dt){
+	if(targets.size() == 0)
+		return;
+
 	angle -= rotationSpeed * 0.0005;
 
 	glm::vec3 targetCenterGlobal = ((getTargetsMaxPos() + getTargetsMinPos()) * 0.5f);
 	float maxTargetDistance = glm::length(getTargetsMaxPos() - getTargetsMinPos());
 	float alpha = fov/2;
-	float distance = glm::tan(alpha/180 * 3.1415) * maxTargetDistance / 2 * 5 + 40;
+	float distance = glm::tan(alpha/180 * 3.1415) * maxTargetDistance / 2 * 5 + height;
 	float height = glm::sin(theta) * distance;
 
 	float l = glm::sqrt(abs(distance*distance - height*height));

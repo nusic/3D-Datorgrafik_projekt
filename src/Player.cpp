@@ -9,7 +9,7 @@ int Player::numberOfPlayers = 0;
 Player::Player():
 GameObject("body"){
     alive = true;
-    speed = 5.0f;
+    speed = 10.0f;
     controller = new Controller(numberOfPlayers);
     
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -22,6 +22,7 @@ GameObject("body"){
     dyingLightTranslationNode = new Translation(translationNode, 0.0f, 0.0f, 0.0f);
     dyingLightRotationNode = new Rotation(dyingLightTranslationNode, 89.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     dyingLightSpeed = 3.0f;
+    originalDyingLightPosition = 6.0f;
 
 
     //int n = numberOfPlayers;
@@ -86,6 +87,7 @@ void Player::update(float dt){
     else{
         dyingLightPosition += dyingLightSpeed * dt;
         dyingLightTranslationNode->setTranslation(0.0f, dyingLightPosition, 0.0f);
+        light->setIntensity(originalLightIntensity*originalDyingLightPosition/dyingLightPosition);
     }
 }
 
@@ -122,10 +124,6 @@ void Player::updateHeadDirection(){
     }
 }
 
-LightSource* Player::getLightSource() const{
-    return NULL;
-}
-
 void Player::kill(){
     if(!alive)
         return;
@@ -138,17 +136,32 @@ void Player::kill(){
     head.setVelocity(0.0f, 0.0f, 0.0f);
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
-    update(0.0f);
-
-    LightSource* light = getLightSource();
+    
+    originalLightParent = light->getParentNode();
     light->removeFromParent();
-    dyingLightRotationNode->addChildNode(light);
-    dyingLightPosition = 6.0f;
+    originalLightIntensity = light->getIntensity();
 
+    dyingLightRotationNode->addChildNode(light);
+    dyingLightPosition = originalDyingLightPosition;
     dyingLightRotationNode->addChildNode(new Model("suzanne"));
 
+    update(0.0f);
 }
 
+void Player::revive(){
+    if(alive)
+        return;
+    alive = true;
+    playerRotationNode->setRotation(0.0f);
+
+    light->removeFromParent();
+    light->setIntensity(originalLightIntensity);
+    originalLightParent->addChildNode(light);
+    Node * soul = dyingLightRotationNode->getChildByName("suzanne");
+    dyingLightRotationNode->removeChildNode(soul);
+
+    update(0.0f);
+}
 
 
 
@@ -165,6 +178,7 @@ Player(){
     torch = GameObject("flashlight");
     torch.setPosition(1.2f, -0.5f, 0.0f);
     torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+    torch.setDirection(0.0f);
 
     pickaxe = GameObject("arm_pickaxe");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
@@ -179,6 +193,7 @@ Player(){
 
     light->setColor(0.9f, 0.8f, 0.7f);
     light->setIntensity(256);
+
     light->setSpread(16);
     torch.update(0.0f);
     pickaxe.update(0.0f);
@@ -189,14 +204,10 @@ Character::~Character(){
 
 }
 
-LightSource* Character::getLightSource() const{
-    return light;
-}
-
 void Character::update(float dt){
     Player::update(dt);
-    //updateTorch();
     if(isAlive()){
+        //updateTorch();
         updatePickaxe();
         torch.update(dt);
         pickaxe.update(dt);

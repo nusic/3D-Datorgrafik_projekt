@@ -4,7 +4,6 @@
 #include <cstring>
 #include <iostream>
 #include <glm/glm.hpp>
-
 #include <sgct.h>
 
 #ifndef MODEL_MESH_H

@@ -98,14 +98,14 @@ const glm::vec3& LightSource::getDirection() const{
 
 const glm::mat4 LightSource::getVP() const{
 	glm::mat4 V = glm::lookAt(worldPosition[index], worldPosition[index] + worldDirection[index], glm::vec3(0,1,0));
-	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 50.0f);
+	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 200.0f);
 
 	return P * V;
 }
 
 glm::mat4 LightSource::getVPFromIndex(int _index){
 	glm::mat4 V = glm::lookAt(worldPosition[_index], worldPosition[_index] + worldDirection[_index], glm::vec3(0,1,0));
-	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 50.0f);
+	glm::mat4 P = glm::perspective(90.0f, 1.0f, 1.0f, 200.0f);
 
 	return P * V;
 }
@@ -117,6 +117,11 @@ const glm::vec3& LightSource::getWorldPosition() const{
 const glm::vec3& LightSource::getWorldDirection() const{
 	return LightSource::worldDirection[index];
 }
+
+float LightSource::getIntensity() const{
+	return LightSource::intensity[index];
+}
+
 
 void LightSource::setWorldPosition(double x, double y, double z){
 	LightSource::worldPosition[index] = glm::vec3(x, y, z);
@@ -141,6 +146,7 @@ void LightSource::setSpread(float s){
 void LightSource::setDirectional(bool d){
 	LightSource::directional[index] = d;
 }
+
 
 
 float* LightSource::getPositionArray(){

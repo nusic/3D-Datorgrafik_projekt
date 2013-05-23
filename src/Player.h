@@ -21,11 +21,10 @@ public:
     void updateHeadDirection();
 
     virtual void update(float dt);
-    virtual LightSource* getLightSource() const;
 
 
     void kill();
-
+    void revive();
     bool isAlive() const;
 
 
@@ -36,11 +35,17 @@ public:
 protected:
     Rotation* playerRotationNode;
 
+    LightSource* light;
+    float originalLightIntensity;
+    Node* originalLightParent;
 
     Translation* dyingLightTranslationNode;
     Rotation* dyingLightRotationNode;
     float dyingLightSpeed;
     float dyingLightPosition;
+    float originalDyingLightPosition;
+
+
 
 private:
     bool alive;
@@ -63,7 +68,6 @@ public:
     ~Character();
 
     virtual void update(float dt);
-    virtual LightSource* getLightSource() const;
 
     void updateTorch();
     void updatePickaxe();
@@ -77,7 +81,7 @@ private:
     GameObject torch;
     GameObject pickaxe;
 
-    LightSource* light;
+    
 
     int animationIndex;
     int animationPickaxeIndex;

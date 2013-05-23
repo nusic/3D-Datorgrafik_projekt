@@ -51,7 +51,6 @@ int main(int argc, char* argv[]){
 }
 
 void myInitOGLFun(){
-	printf("\ninit GameEngine ... \n");
 	gameEngine->initOGL();
 }
 

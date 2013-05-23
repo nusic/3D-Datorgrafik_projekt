@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 2;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
@@ -97,10 +97,10 @@ void main()
 		directionalIntensity = pow(cosPhi, lightSpread[i]);
 		
 		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
-		distanceSquare = distanceToLight * distanceToLight;
+		distanceSquare = distanceToLight;
 
 
-		invDistSquare = 1.0f/(distanceSquare);
+		invDistSquare = 0.3f*1.0f/(distanceSquare);
 
 		visibility = 0.0f;
 

@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <new>
+#include <iostream>
+#include <iomanip>
+
 
 #include "sgct.h"
 #include "Model.h"
@@ -15,7 +18,7 @@
 #include "Node.h"
 #include "Transformation.h"
 #include "FollowCamera.h"
-
+#include "Team.h"
 
 class Scene : public Model{
 public:
@@ -35,15 +38,12 @@ public:
 	void update(float dt);
 
 	void addPlayer(Player * player);
-	void addPlayerToTeam1(Player * player);
-	void addPlayerToTeam2(Player * player);
+	void addPlayerToTeam(int index, Player * player);
+	
 	void addGenerations(Model* mother, int n);
 
     
-	//std::vector<Player*> players;
-	std::vector<Player*> team1;
-	std::vector<Player*> team2;
-	std::vector<Camera*> cameras;
+	std::vector<Team*> team;
 
 	static std::vector<LightSource*> lightSources;
 	
@@ -70,6 +70,11 @@ private:
 	glm::vec2 getStateInCamSpace(glm::vec2 state, glm::vec3 playerPos, Camera* cam = NULL) const;
 	void readBMP(const char* filename);
 
+
+	void printLoadingStats();
+
+	int nodes;
+	int verts;
 };
 
 #endif

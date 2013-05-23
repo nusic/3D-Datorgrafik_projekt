@@ -2,12 +2,19 @@
 
 Scene::Scene():
 Model("bigscene2", "Ground", "SimpleColor"){
+	team.push_back(new Team());
+	team.push_back(new Team());
+	team.push_back(new Team());
+	team[1]->camera->setAngle(3.14f);
 
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
 	sceneDimensions = maxVertexValues - minVertexValues;
 	printf("sceneDimensions: x = %f,  y = %f,  z = %f\n",
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
+
+	nodes = 0;
+	verts = 0;
 }
 
 std::vector<LightSource*> Scene::lightSources;
@@ -19,27 +26,59 @@ Scene::~Scene(){
 
 
 void Scene::initScene(){
+	printf("\ninit Scene\n");
 	//First render the heightmap for the "ground mesh" only.
-	
+	int w = 50;
+	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
+	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 1024;
+	const int HEIGHT_MAP_RESOLUTION = 512;
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
     	std::string path = "data/heightmap/heightmap.bmp";
     	readBMP(path.c_str());
     }
+  
 
-    //Now we can use the previously rendered heightmap to place static objects
+
+
+    
+    std::cout << std::setw(w) << std::left << "Adding static physical objects ... ";
     initStaticPhysicalObjects();
+  	printLoadingStats();
 
-	//Render to the heightmap again, now with static game objects added.
+	printf("Rendering hightmap ...\n");
     if(renderToHeightMapSupported)
-    	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);
+    	renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION);    
 
+
+
+    std::cout << std::setw(w) << std::left << "Adding static non-physical objects ... ";
     initStaticNonPhysicalObjects();
-	initDynamicObjects();
+	printLoadingStats();
 
-	printf("TOTAL NUMBER OF VERTICES: %i\n", getNumberOfVertices());
+
+
+    std::cout << std::setw(w) << std::left << "Adding dynamic objects ... ";
+	initDynamicObjects();
+	printLoadingStats();
+	nodes = verts = 0;
+
+	std::cout << std::setw(w) << " " << "=============" << std::endl;
+	std::cout << std::setw(w) << "TOTAL:";
+	printLoadingStats();
+	printf("\n");
+	
+}
+
+void Scene::printLoadingStats(){
+	int nodesTot = countChildNodes(true);
+    int vertsTot = getNumberOfVertices();
+    std::cout << std::setw(5) << std::right << nodesTot-nodes << " | ";
+    std::cout << std::setw(5) << std::left << vertsTot-verts << std::endl;
+    
+    nodes = nodesTot;
+	verts = vertsTot;
 }
 
 void Scene::initStaticPhysicalObjects(){
@@ -67,117 +106,60 @@ void Scene::initStaticNonPhysicalObjects(){
 	for (int i = 0; i < stems.size(); ++i){
 		stems[i]->addChildNode(new Model("branches2"));
 	}
-	
 }
 
 void Scene::initDynamicObjects(){
+
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
-	addPlayerToTeam1(body1);
-
-
-	Player * body2 = new Character;
-	body2->setPosition(-5.0f, 0.0f, 0.0f);
-	addPlayerToTeam2(body2);
+	addPlayerToTeam(0, body1);
 /*
+	Player * body2 = new Character;
+	body2->setPosition(0.0f, 0.0f, 15.0f);
+	addPlayerToTeam(0, body2);
+
 	Player * body3 = new Character;
-	body3->setPosition(5.0f, 0.0f, 0.0f);
-	addPlayerToTeam2(body3);
+	body1->setPosition(0.0f, 0.0f, 10.0f);
+	addPlayerToTeam(0, body3);
 
 	Player * body4 = new Character;
-	body4->setPosition(0.0f, 0.0f, -5.0f);
-	addPlayerToTeam2(body4);
-/*
+	body4->setPosition(0.0f, 0.0f, 25.0f);
+	addPlayerToTeam(0, body4);
+
 	Player * body5 = new Character;
-	body5->setPosition(0.0f, 0.0f, 0.0f);
-	addPlayer(body5);
+	body5->setPosition(0.0f, 0.0f, -5.0f);
+	addPlayerToTeam(1, body5);
 
-	Player * body6 = new Character;
-	body6->setPosition(5.0f, 0.0f, -5.0f);
-	addPlayer(body6);
+	
 
-	Player * body7 = new Character;
-	body7->setPosition(-5.0f, 0.0f, 5.0f);
-	addPlayer(body7);
-	*/
-
-
-
-	//Camera* camera = new Camera(-30, 5, 15);
-	//camera->setLookAt(0, 0, 0);
-	//camera->setVelocity(0.05/2, 0.02/2, 0.01/2);
-
-	FollowCamera* fc1 = new FollowCamera(team1);
-	FollowCamera* fc2 = new FollowCamera(team2);
-	fc2->setAngle(3.14159f);
-
-	//Uncomment the two lines below to get simple static front view
-	//camera->setPosition(0, 20, -15);
-	//camera->setVelocity(0, 0, 0);
-
-	//FollowCamera* followCamera = new FollowCamera(body1, 0.0f, 30.0f, 30.0f);
-
-	cameras.push_back(fc1);
-	cameras.push_back(fc2);
-
-	//cameras.push_back(camera);
-	//cameras.push_back(followCamera);
-
-}
-
-/*
-void Scene::addPlayer(Player * p){
-	//Put player on the ground
-	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
-	addChildNode(p->getSceneGraphBranch());
-	players.push_back(p);
-}
+	/*Player * body2 = new Character;
+	body2->setPosition(-5.0f, 0.0f, 0.0f);
+	addPlayerToTeam(0, body2);
 */
-void Scene::addPlayerToTeam1(Player * p){
-	//Put player on the ground
-	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
-	addChildNode(p->getSceneGraphBranch());
-	team1.push_back(p);
 }
 
-void Scene::addPlayerToTeam2(Player * p){
+
+void Scene::addPlayerToTeam(int index, Player * p){
 	//Put player on the ground
 	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
 	addChildNode(p->getSceneGraphBranch());
-	team2.push_back(p);
+	team[index]->addPlayer(p);
 }
 
 void Scene::update(float dt){
 
-	for (int i = 0; i < cameras.size(); ++i){
-		cameras[i]->update(dt);
-		cameras[i]->calcMatrices();
-	}
-	/*
-	for (int i = 0; i < players.size(); ++i){
-		if(players[i]->isAlive()){
-			players[i]->updateUserInputs();
-			updatePlayerPosition5Sa(players[i], cameras[0]);
-			updatePlayerHeadDirection(players[i], cameras[0]);
+	for (int i = 0; i < team.size(); ++i){
+		team[i]->camera->update(dt);
+		team[i]->camera->calcMatrices();
+
+		for (int j = 0; j < team[i]->players.size(); ++j){
+			if(team[i]->players[j]->isAlive()){
+				team[i]->players[j]->updateUserInputs();
+				updatePlayerPosition5Sa(team[i]->players[j], team[i]->camera);
+				updatePlayerHeadDirection(team[i]->players[j], team[i]->camera);
+			}
+			team[i]->players[j]->update(dt);
 		}
-		players[i]->update(dt);
-	}
-	*/
-	for (int i = 0; i < team1.size(); ++i){
-		if(team1[i]->isAlive()){
-			team1[i]->updateUserInputs();
-			updatePlayerPosition5Sa(team1[i], cameras[0]);
-			updatePlayerHeadDirection(team1[i], cameras[0]);
-		}
-		team1[i]->update(dt);
-	}
-	for (int i = 0; i < team2.size(); ++i){
-		if(team2[i]->isAlive()){
-			team2[i]->updateUserInputs();
-			updatePlayerPosition5Sa(team2[i], cameras[1]);
-			updatePlayerHeadDirection(team2[i], cameras[1]);
-		}
-		team2[i]->update(dt);
 	}
 }
 
@@ -338,11 +320,11 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
-	    	float steep = glm::sign(grad.x+grad.y) * glm::length(grad);
+	    	float steep = glm::length(grad);
 	    	float maxStep = 0.6f;
-	    	if(steep > maxStep){
+	    	if(glm::abs(steep) > maxStep){
 
-	    		//Define new ON-base from grad and a vector orthogonal to grad
+				//Define new ON-base from grad and a vector orthogonal to grad
 		    	grad = glm::normalize(grad);
 		    	glm::mat2 T = glm::mat2(grad, glm::vec2(-grad.y, grad.x));
 
@@ -430,7 +412,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj); //bind it to the framebuffer target
 	glBindTexture(GL_TEXTURE_2D, depthTex);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, xRes, yRes, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, xRes, yRes, 0, GL_RED, GL_UNSIGNED_BYTE, NULL);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, depthTex, 0);
 
 	// Check that our framebuffer is ok
@@ -474,8 +456,6 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glDisable(GL_CULL_FACE);
 
 	//Och hänne ska vi använda glReadPixels..
-	// Actual RGB data
-    unsigned char* allData = new unsigned char [xRes * yRes * 3];
 	heightmap = new float[xRes * yRes];
 
     heightmapWidth = xRes;
@@ -490,23 +470,16 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
  		0,
  		xRes,
  		yRes,
- 		GL_RGB,
- 		GL_UNSIGNED_BYTE,
- 		allData);
+ 		GL_RED,
+ 		GL_FLOAT,
+ 		&heightmap[0]);
 
-	int maxDepth = allData[0];
-    int minDepth = allData[0];
-    for(int i = 3; i < xRes * yRes * 3; i+=3){
-    	if(allData[i] > maxDepth) maxDepth = allData[i];
-    	if(allData[i] < minDepth) minDepth = allData[i];
-    }
-
-    float scale = sceneDimensions.y / ( (float)(maxDepth - minDepth));
-    printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
+    float scale = sceneDimensions.y;// / ( (float)(maxDepth - minDepth));
+    //printf("  maxDepth = %i,  minDepth = %i,  scale = %f\n", maxDepth, minDepth, scale);
 
 
     float minSceneY = minVertexValues.y;
-    for(int i = 0; i < xRes * yRes * 3; i+=3){
+    for(int i = 0; i < xRes * yRes; i++){
    		//1. Before scaling the image, we need to have 0 in heightmap
    		//means 0 in world coordinates. Therefor reduce all pixels with
    		//minDepth. Now minimum depth will be 0.
@@ -517,11 +490,10 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
    		//scene vertices. That makes the heighmap place the player correctly
    		//according to the actual mesh.
 
-        heightmap[i/3] = (float)(allData[i] - minDepth)*scale + minSceneY;
+        heightmap[i] = (float)(heightmap[i])*scale + minSceneY;
 
     }
 
-	delete[] allData;
 	glDeleteFramebuffers(1, &frameBufferObj);
 	glDeleteTextures(1, &depthTex);
 
