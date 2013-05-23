@@ -114,9 +114,23 @@ void Scene::initDynamicObjects(){
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayerToTeam(0, body1);
 
+	Player * body2 = new Character;
+	body2->setPosition(0.0f, 0.0f, 15.0f);
+	addPlayerToTeam(0, body2);
+
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
-	addPlayerToTeam(1, body3);
+	addPlayerToTeam(0, body3);
+
+	Player * body4 = new Character;
+	body4->setPosition(0.0f, 0.0f, 25.0f);
+	addPlayerToTeam(0, body4);
+
+	Player * body5 = new Character;
+	body5->setPosition(0.0f, 0.0f, -5.0f);
+	addPlayerToTeam(1, body5);
+
+	
 
 	/*Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
@@ -306,9 +320,9 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
-	    	float steep = /*glm::sign(grad.x+grad.y) */ glm::length(grad);
+	    	float steep = glm::length(grad);
 	    	float maxStep = 0.6f;
-	    	if(steep > maxStep){
+	    	if(glm::abs(steep) > maxStep){
 
 				//Define new ON-base from grad and a vector orthogonal to grad
 		    	grad = glm::normalize(grad);
