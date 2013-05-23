@@ -90,12 +90,12 @@ void main()
 		cosAlpha = clamp( dot( e,-r ), 0,1 );
 
 
-		
+
 		vec3 ld = normalize(lightDirection_viewSpace[i]);
 		cosPhi = clamp(dot(l, ld), 0, 1);
 
 		directionalIntensity = pow(cosPhi, lightSpread[i]);
-		
+
 		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
 		distanceSquare = distanceToLight;
 

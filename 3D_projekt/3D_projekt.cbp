@@ -67,6 +67,8 @@
 		<Unit filename="../src/Scene.h" />
 		<Unit filename="../src/StaticGameObject.cpp" />
 		<Unit filename="../src/StaticGameObject.h" />
+		<Unit filename="../src/Team.cpp" />
+		<Unit filename="../src/Team.h" />
 		<Unit filename="../src/Transformation.cpp" />
 		<Unit filename="../src/Transformation.h" />
 		<Unit filename="../src/main.cpp" />

@@ -17,7 +17,7 @@ public:
     bool joystickIsPresent() const;
 
 
-    
+
 
 
     static const int CONTROLLER_LEFT_X_AXIS = 0;
@@ -41,6 +41,20 @@ public:
 #else
     static const int CONTROLLER_RIGHT_X_AXIS = 3;
     static const int CONTROLLER_RIGHT_Y_AXIS = 4;
+
+    static const int CONTROLLER_LT = 2;
+
+    static const int CONTROLLER_BUTTON_A = 0;
+    static const int CONTROLLER_BUTTON_B = 1;
+    static const int CONTROLLER_BUTTON_X = 2;
+    static const int CONTROLLER_BUTTON_Y = 3;
+    static const int CONTROLLER_BUTTON_LB = 4;
+    static const int CONTROLLER_BUTTON_RB = 5;
+    static const int CONTROLLER_BUTTON_START = 6;
+    static const int CONTROLLER_BUTTON_BACK = 7;
+    static const int CONTROLLER_BUTTON_LS = 8;
+    static const int CONTROLLER_BUTTON_RS = 9;
+
 #endif
 
 private:
