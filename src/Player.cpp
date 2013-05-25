@@ -181,7 +181,7 @@ void Player::revive(){
 Character::Character():
 Player(){
     animationIndex = 0;
-    animationPickaxeIndex = 0;
+    pickaxeAnimationIndex = 0;
     animatingPickaxe = false;
 
     torch = GameObject("flashlight");
@@ -209,6 +209,8 @@ Player(){
 
 }
 
+float Character::pickaxeAnimationValues[] = {-60.0f, -50.0f, -35.0f, -15.0f, 10.0f, 40.0f, 35.0f, 30.0f, 20.0f, 10.0f, 0.0f, -10.0f, -20.0f, -30.0f, -35.0f, -40.0f, -45.0f, -50.0f, -55.0f, -60.0f};
+
 Character::~Character(){
 
 }
@@ -225,8 +227,23 @@ void Character::update(float dt){
 
 void Character::attack(){
     animatingPickaxe = true;
-    animationPickaxeIndex = -60;
+    pickaxeAnimationIndex = 0;
 }
+
+void Character::updatePickaxe(){
+    if(animatingPickaxe){
+
+        if(pickaxeAnimationIndex < 20){
+            pickaxe.setDirection(pickaxeAnimationValues[pickaxeAnimationIndex]);
+            printf("pickaxeAnimationValues[%i] = %f\n", pickaxeAnimationIndex, pickaxeAnimationValues[pickaxeAnimationIndex]);
+            ++pickaxeAnimationIndex;
+        }
+        else{
+            animatingPickaxe = false;
+        }
+    }
+}
+
 
 void Character::updateTorch(){
     animationIndex++;
@@ -237,17 +254,5 @@ void Character::updateTorch(){
     else{
         animationIndex = 0;
         torch.setDirection(-animationIndex);
-    }
-}
-
-void Character::updatePickaxe(){
-    if(animatingPickaxe){
-        
-        animationPickaxeIndex+=3;
-
-        if(animationPickaxeIndex > 60){
-            animatingPickaxe = false;
-        }
-        pickaxe.setDirection(-animationPickaxeIndex);
     }
 }

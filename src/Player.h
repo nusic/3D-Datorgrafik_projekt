@@ -89,8 +89,8 @@ private:
     int animationIndex;
 
     bool animatingPickaxe;
-    int animationPickaxeIndex;
-    
+    int pickaxeAnimationIndex;
+    static float pickaxeAnimationValues[];
 };
 
 #endif // PLAYER_H
