@@ -63,7 +63,7 @@ void main()
 	// Eye vector (away from the camera)
 	vec3 e = normalize(viewDirectionToVertex_viewSpace);
 
-	vec4 finalFragColor = vec4(materialAmbientColor, 1); //Ambient
+	vec4 finalFragColor = vec4(materialAmbientColor, 1.0f); //Ambient
 
 
 	//Förallokering av variabler för att slippa omdeklarera dem i for-loopen.

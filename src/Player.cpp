@@ -235,7 +235,6 @@ void Character::updatePickaxe(){
 
         if(pickaxeAnimationIndex < 20){
             pickaxe.setDirection(pickaxeAnimationValues[pickaxeAnimationIndex]);
-            printf("pickaxeAnimationValues[%i] = %f\n", pickaxeAnimationIndex, pickaxeAnimationValues[pickaxeAnimationIndex]);
             ++pickaxeAnimationIndex;
         }
         else{

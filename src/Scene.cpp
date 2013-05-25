@@ -90,7 +90,7 @@ void Scene::initStaticPhysicalObjects(){
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
 		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
-		sgo = new StaticGameObject("tree2");
+		sgo = new StaticGameObject("wall");
 		
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);
@@ -101,10 +101,11 @@ void Scene::initStaticPhysicalObjects(){
 }
 
 void Scene::initStaticNonPhysicalObjects(){
-	std::vector<Node*> stems = getNodesByName("tree2");
+	/*std::vector<Node*> stems = getNodesByName("tree2");
 	for (int i = 0; i < stems.size(); ++i){
 		stems[i]->addChildNode(new Model("arm_pickaxe"));
 	}
+	*/
 }
 
 void Scene::initDynamicObjects(){
@@ -128,8 +129,6 @@ void Scene::initDynamicObjects(){
 	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayerToTeam(1, body5);
-
-	
 
 	/*Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
