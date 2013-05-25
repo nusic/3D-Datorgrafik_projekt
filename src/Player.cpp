@@ -10,8 +10,8 @@ Player::Player():
 GameObject("body"){
     alive = true;
     speed = 10.0f;
-    controller = new Controller(numberOfPlayers);
-    
+    controller = new Controller(numberOfPlayers, this);
+
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     playerRotationNode->insertAfter(translationNode);
 
@@ -27,7 +27,7 @@ GameObject("body"){
 
     //int n = numberOfPlayers;
 	//light->setColor(n/2, n%2, n/3);
-    
+
 
     /*
     En player skapar en ScenGraphBranch som ser ut så här
@@ -48,7 +48,7 @@ GameObject("body"){
         |        |      |          (Lightsource goes
         |        |      |           here when dying)
         |        |      |
-        |        |      
+        |        |
         |        |  <- iserted playerRotationNode
         |        |
         |        |      |
@@ -77,6 +77,10 @@ Player::~Player(){
 
 bool Player::isAlive() const{
     return alive;
+}
+
+const Controller * const Player::getController() const{
+    return controller;
 }
 
 void Player::update(float dt){
@@ -124,6 +128,10 @@ void Player::updateHeadDirection(){
     }
 }
 
+void Player::attack(){
+
+}
+
 void Player::kill(){
     if(!alive)
         return;
@@ -136,7 +144,7 @@ void Player::kill(){
     head.setVelocity(0.0f, 0.0f, 0.0f);
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
-    
+
     originalLightParent = light->getParentNode();
     light->removeFromParent();
     originalLightIntensity = light->getIntensity();
@@ -173,7 +181,8 @@ void Player::revive(){
 Character::Character():
 Player(){
     animationIndex = 0;
-    animationPickaxeIndex = 0;
+    pickaxeAnimationIndex = 0;
+    animatingPickaxe = false;
 
     torch = GameObject("flashlight");
     torch.setPosition(1.2f, -0.5f, 0.0f);
@@ -197,8 +206,10 @@ Player(){
     light->setSpread(16);
     torch.update(0.0f);
     pickaxe.update(0.0f);
-    
+
 }
+
+float Character::pickaxeAnimationValues[] = {-60.0f, -50.0f, -35.0f, -15.0f, 10.0f, 40.0f, 35.0f, 30.0f, 20.0f, 10.0f, 0.0f, -10.0f, -20.0f, -30.0f, -35.0f, -40.0f, -45.0f, -50.0f, -55.0f, -60.0f};
 
 Character::~Character(){
 
@@ -214,13 +225,25 @@ void Character::update(float dt){
     }
 }
 
-void Character::updateTorchDirection(){
-
+void Character::attack(){
+    animatingPickaxe = true;
+    pickaxeAnimationIndex = 0;
 }
 
-void Character::updatePickaxeDirection(){
+void Character::updatePickaxe(){
+    if(animatingPickaxe){
 
+        if(pickaxeAnimationIndex < 20){
+            pickaxe.setDirection(pickaxeAnimationValues[pickaxeAnimationIndex]);
+            printf("pickaxeAnimationValues[%i] = %f\n", pickaxeAnimationIndex, pickaxeAnimationValues[pickaxeAnimationIndex]);
+            ++pickaxeAnimationIndex;
+        }
+        else{
+            animatingPickaxe = false;
+        }
+    }
 }
+
 
 void Character::updateTorch(){
     animationIndex++;
@@ -231,17 +254,5 @@ void Character::updateTorch(){
     else{
         animationIndex = 0;
         torch.setDirection(-animationIndex);
-    }
-}
-
-void Character::updatePickaxe(){
-    animationPickaxeIndex+=2;
-
-    if(animationPickaxeIndex < 60){
-        pickaxe.setDirection(-animationPickaxeIndex);
-    }
-    else{
-        animationPickaxeIndex = -60;
-        pickaxe.setDirection(-animationPickaxeIndex);
     }
 }

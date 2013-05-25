@@ -8,6 +8,7 @@ uniform int numberOfLights;
 
 const int MAX_NUMBER_OF_LIGHTS = 1;
 
+
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
 uniform vec3 lightColor[MAX_NUMBER_OF_LIGHTS];
 uniform float lightIntensity[MAX_NUMBER_OF_LIGHTS];
@@ -90,12 +91,12 @@ void main()
 		cosAlpha = clamp( dot( e,-r ), 0,1 );
 
 
-		
+
 		vec3 ld = normalize(lightDirection_viewSpace[i]);
 		cosPhi = clamp(dot(l, ld), 0, 1);
 
 		directionalIntensity = pow(cosPhi, lightSpread[i]);
-		
+
 		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
 		distanceSquare = distanceToLight;
 

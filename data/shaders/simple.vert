@@ -2,6 +2,7 @@
 
 const int MAX_NUMBER_OF_LIGHTS = 1;
 
+
 // Input vertex data, different for all executions of this shader.
 attribute vec3 vertexPosition;
 attribute vec3 vertexNormal;

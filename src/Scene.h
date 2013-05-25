@@ -36,6 +36,8 @@ public:
 	bool renderToHeightMap(int xRes, int yRes);
 
 	void update(float dt);
+	void playerAttack(Player * p, int teamIndex);
+	void playerRevive(Player * p, int teamIndex);
 
 	void addPlayer(Player * player);
 	void addPlayerToTeam(int index, Player * player);

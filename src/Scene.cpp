@@ -1,8 +1,9 @@
 #include "Scene.h"
 
 Scene::Scene():
-Model("bigscene", "Ground", "SimpleColor"){
-	team.push_back(new Team());
+
+Model("bigscene2", "Ground", "SimpleColor"){
+	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
 	team[1]->camera->setAngle(3.14f);
@@ -10,7 +11,7 @@ Model("bigscene", "Ground", "SimpleColor"){
 	minVertexValues = getMesh()->getMinVertexValues();
 	maxVertexValues = getMesh()->getMaxVertexValues();
 	sceneDimensions = maxVertexValues - minVertexValues;
-	printf("sceneDimensions: x = %f,  y = %f,  z = %f\n",
+	printf("Dimensions from Scene mesh:\nx (length) = %f\ny (height) = %f\nz (width)  = %f\n\n",
 		sceneDimensions.x, sceneDimensions.y, sceneDimensions.z);
 
 	nodes = 0;
@@ -26,9 +27,8 @@ Scene::~Scene(){
 
 
 void Scene::initScene(){
-	printf("\ninit Scene\n");
 	//First render the heightmap for the "ground mesh" only.
-	int w = 50;
+	int w = 45;
 	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
 	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
@@ -117,7 +117,7 @@ void Scene::initDynamicObjects(){
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
 	addPlayerToTeam(0, body2);
-
+/*
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayerToTeam(0, body3);
@@ -146,22 +146,70 @@ void Scene::addPlayerToTeam(int index, Player * p){
 	team[index]->addPlayer(p);
 }
 
+
+
 void Scene::update(float dt){
-
+	Team * tp;
+	Player * pp;
 	for (int i = 0; i < team.size(); ++i){
-		team[i]->camera->update(dt);
-		team[i]->camera->calcMatrices();
+		tp = team[i];
+		tp->camera->update(dt);
+		tp->camera->calcMatrices();
 
-		for (int j = 0; j < team[i]->players.size(); ++j){
-			if(team[i]->players[j]->isAlive()){
-				team[i]->players[j]->updateUserInputs();
-				updatePlayerPosition5Sa(team[i]->players[j], team[i]->camera);
-				updatePlayerHeadDirection(team[i]->players[j], team[i]->camera);
+		for (int j = 0; j < tp->players.size(); ++j){
+			pp = tp->players[j];
+			if(pp->isAlive()){
+				pp->updateUserInputs();
+				updatePlayerPosition5Sa(pp, tp->camera);
+				updatePlayerHeadDirection(pp, tp->camera);
+
+				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_X)){
+					playerAttack(pp, i);
+				}
+
+				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_Y)){
+					playerRevive(pp, i);
+				}
+
 			}
-			team[i]->players[j]->update(dt);
+			pp->update(dt);
 		}
 	}
 }
+
+void Scene::playerAttack(Player * p, int teamIndex){
+	glm::vec3 hitPos = p->getPosition();
+	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+	//StaticGameObject * sgo = new StaticGameObject(hitPos.x, hitPos.y, hitPos.z);
+	//addChildNode(sgo->getSceneGraphBranch());
+
+	for (int i = 0; i < team.size(); ++i){
+		if(i != teamIndex){
+			for (int j = 0; j < team[i]->players.size(); ++j){
+				glm::vec3 diff = hitPos - team[i]->players[j]->getPosition();
+				if(glm::length(diff) < 2.0f){
+					team[i]->players[j]->kill();
+				}
+			}
+		}
+	}
+}
+
+void Scene::playerRevive(Player * p, int teamIndex){
+	glm::vec3 hitPos = p->getPosition();
+	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+
+	
+	for (int j = 0; j < team[teamIndex]->players.size(); ++j){
+		glm::vec3 diff = hitPos - team[teamIndex]->players[j]->getPosition();
+		if(glm::length(diff) < 2.0f){
+			team[teamIndex]->players[j]->revive();
+		}
+	}
+}
+
 
 void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
 	glm::vec2 state;
@@ -180,6 +228,7 @@ void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
 	*/
 	}
 }
+
 
 void Scene::updatePlayerPosition1Sa(Player * p, Camera* cam) const{
 	float xState, yState;
@@ -392,6 +441,10 @@ void Scene::addGenerations(Model* mother, int n){
 
 }
 
+
+
+
+
 void Scene::drawScene(glm::mat4 P, glm::mat4 V) {
 	renderToScreen(P, V, glm::mat4(1.0f));
 }
@@ -436,9 +489,9 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 		maxVertexValues.x, // right
 		minVertexValues.z, // bottom
 		maxVertexValues.z, // top
-		-maxVertexValues.y, // zNear
-		-minVertexValues.y); // zFar ---- z is y since we look from above
-
+		minVertexValues.y, // zNear
+		maxVertexValues.y); // zFar ---- z is y since we look from above
+	/*
 	printf("minx = %f\n maxx = %f\n miny = %f\n maxy = %f\n minz = %f\n maxz = %f\n",
 		minVertexValues.x,
 		maxVertexValues.x,
@@ -446,6 +499,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 		maxVertexValues.y,
 		minVertexValues.z,
 		maxVertexValues.z);
+	*/
 
 	//First model matrix is just a enhetsmatrisnångångnudå
 	glm::mat4 M(1.0);

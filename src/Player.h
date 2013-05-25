@@ -18,6 +18,8 @@ public:
     void getLeftControllerValues(float &xState, float& yState) const;
     void getRightControllerValues(float &xState, float& yState) const;
 
+    const Controller * const getController() const;
+
     void updateHeadDirection();
 
     virtual void update(float dt);
@@ -26,6 +28,8 @@ public:
     void kill();
     void revive();
     bool isAlive() const;
+
+    virtual void attack();
 
 
     static int numberOfPlayers;
@@ -68,14 +72,13 @@ public:
     ~Character();
 
     virtual void update(float dt);
-
-    void updateTorch();
-    void updatePickaxe();
+    
+    virtual void attack();
 
 
 private:
-    void updateTorchDirection();
-    void updatePickaxeDirection();
+    void updateTorch();
+    void updatePickaxe();
 
 
     GameObject torch;
@@ -84,7 +87,10 @@ private:
     
 
     int animationIndex;
-    int animationPickaxeIndex;
+
+    bool animatingPickaxe;
+    int pickaxeAnimationIndex;
+    static float pickaxeAnimationValues[];
 };
 
 #endif // PLAYER_H

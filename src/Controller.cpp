@@ -1,11 +1,16 @@
 #include "Controller.h"
+#include "Player.h"
 
-
-Controller::Controller(int index){
+Controller::Controller(int index, Player* const _owner): owner(_owner){
     joystickPresent = GL_FALSE;
     numberOfAxes = 0;
     numberOfButtons = 0;
     controllerIndex = index;
+
+    for(int i=0; i<LARGEST_BUTTON_INDEX; ++i){
+        buttonPressed[i] = false;
+        buttonTrigger[i] = false;
+    }
 
     controllerLoader();
     if(joystickPresent)
@@ -17,6 +22,14 @@ Controller::~Controller(){
 		delete [] axes;
 	if(numberOfButtons > 0)
 		delete [] buttons;
+}
+
+const bool Controller::buttonIsTrigged(const int buttonIndex) const{
+    return buttonTrigger[buttonIndex];
+}
+
+const bool Controller::buttonIsPressed(const int buttonIndex) const{
+    return buttonPressed[buttonIndex];
 }
 
 void Controller::controllerLoader(){
@@ -51,14 +64,16 @@ void Controller::inputLoader(){
     if(joystickPresent == GL_TRUE){
 		sgct::Engine::getJoystickAxes(controllerIndex, axes, numberOfAxes);
 		sgct::Engine::getJoystickButtons(controllerIndex, buttons, numberOfButtons);
-        
-        for(int i=0; i<numberOfAxes; i++)
-            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
-        //for(int i=0; i<numberOfButtons; i++)
-        //    sgct::MessageHandler::Instance()->print("%d ", i, buttons[i]);
-        sgct::MessageHandler::Instance()->print("\r");
-        
+    
+//        for(int i=0; i<numberOfAxes; i++)
+//            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
+//        for(int i=0; i<numberOfButtons; i++)
+//            sgct::MessageHandler::Instance()->print("%i", buttons[i]);
+//        sgct::MessageHandler::Instance()->print("\r");
+
 	}
+    checkButtons();
+
 }
 
 double Controller::getAxisValue(int axis_index){
@@ -109,4 +124,31 @@ bool Controller::validateRightStickValues(){
         }
     }
     return true;
+}
+
+void Controller::checkButtons(){
+    if(glfwGetKey('X') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_X] = 1;
+    else buttons[CONTROLLER_BUTTON_X] = 0;
+
+    if(glfwGetKey('Y') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_Y] = 1;
+    else buttons[CONTROLLER_BUTTON_Y] = 0;
+
+    updateButtonBools(CONTROLLER_BUTTON_X);
+    updateButtonBools(CONTROLLER_BUTTON_Y);
+
+    if(buttonTrigger[CONTROLLER_BUTTON_X])
+        owner->attack();
+}
+
+void Controller::updateButtonBools(const int buttonIndex){
+    if(buttons[buttonIndex]){
+        if(!buttonPressed[buttonIndex]){
+            buttonTrigger[buttonIndex] = true;
+            buttonPressed[buttonIndex] = true;
+        }
+        else
+            buttonTrigger[buttonIndex] = false;
+    }
+    else
+        buttonPressed[buttonIndex] = false;
 }
