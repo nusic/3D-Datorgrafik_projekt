@@ -29,6 +29,8 @@ public:
     void revive();
     bool isAlive() const;
 
+    virtual void attack();
+
 
     static int numberOfPlayers;
 
@@ -70,14 +72,13 @@ public:
     ~Character();
 
     virtual void update(float dt);
-
-    void updateTorch();
-    void updatePickaxe();
+    
+    virtual void attack();
 
 
 private:
-    void updateTorchDirection();
-    void updatePickaxeDirection();
+    void updateTorch();
+    void updatePickaxe();
 
 
     GameObject torch;
@@ -86,7 +87,10 @@ private:
     
 
     int animationIndex;
+
+    bool animatingPickaxe;
     int animationPickaxeIndex;
+    
 };
 
 #endif // PLAYER_H

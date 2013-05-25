@@ -128,6 +128,10 @@ void Player::updateHeadDirection(){
     }
 }
 
+void Player::attack(){
+
+}
+
 void Player::kill(){
     if(!alive)
         return;
@@ -178,6 +182,7 @@ Character::Character():
 Player(){
     animationIndex = 0;
     animationPickaxeIndex = 0;
+    animatingPickaxe = false;
 
     torch = GameObject("flashlight");
     torch.setPosition(1.2f, -0.5f, 0.0f);
@@ -218,12 +223,9 @@ void Character::update(float dt){
     }
 }
 
-void Character::updateTorchDirection(){
-
-}
-
-void Character::updatePickaxeDirection(){
-
+void Character::attack(){
+    animatingPickaxe = true;
+    animationPickaxeIndex = -60;
 }
 
 void Character::updateTorch(){
@@ -239,13 +241,13 @@ void Character::updateTorch(){
 }
 
 void Character::updatePickaxe(){
-    animationPickaxeIndex+=2;
+    if(animatingPickaxe){
+        
+        animationPickaxeIndex+=3;
 
-    if(animationPickaxeIndex < 60){
-        pickaxe.setDirection(-animationPickaxeIndex);
-    }
-    else{
-        animationPickaxeIndex = -60;
+        if(animationPickaxeIndex > 60){
+            animatingPickaxe = false;
+        }
         pickaxe.setDirection(-animationPickaxeIndex);
     }
 }

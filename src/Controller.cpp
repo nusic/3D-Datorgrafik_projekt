@@ -136,6 +136,8 @@ void Controller::checkButtons(){
     updateButtonBools(CONTROLLER_BUTTON_X);
     updateButtonBools(CONTROLLER_BUTTON_Y);
 
+    if(buttonTrigger[CONTROLLER_BUTTON_X])
+        owner->attack();
 }
 
 void Controller::updateButtonBools(const int buttonIndex){

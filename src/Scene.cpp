@@ -2,7 +2,7 @@
 
 Scene::Scene():
 Model("bigscene2", "Ground", "SimpleColor"){
-	printf("\nCreated Scene object \n");
+	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
 	team[1]->camera->setAngle(3.14f);
