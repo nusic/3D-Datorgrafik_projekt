@@ -130,16 +130,23 @@ void Controller::checkButtons(){
     if(glfwGetKey('X') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_X] = 1;
     else buttons[CONTROLLER_BUTTON_X] = 0;
 
-    if(buttons[CONTROLLER_BUTTON_X]){
-        if(!buttonPressed[CONTROLLER_BUTTON_X]){
-            buttonTrigger[CONTROLLER_BUTTON_X] = true;
-            buttonPressed[CONTROLLER_BUTTON_X] = true;
+    if(glfwGetKey('Y') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_Y] = 1;
+    else buttons[CONTROLLER_BUTTON_Y] = 0;
+
+    updateButtonBools(CONTROLLER_BUTTON_X);
+    updateButtonBools(CONTROLLER_BUTTON_Y);
+
+}
+
+void Controller::updateButtonBools(const int buttonIndex){
+    if(buttons[buttonIndex]){
+        if(!buttonPressed[buttonIndex]){
+            buttonTrigger[buttonIndex] = true;
+            buttonPressed[buttonIndex] = true;
         }
         else
-            buttonTrigger[CONTROLLER_BUTTON_X] = false;
+            buttonTrigger[buttonIndex] = false;
     }
     else
-        buttonPressed[CONTROLLER_BUTTON_X] = false;
-
-
+        buttonPressed[buttonIndex] = false;
 }

@@ -115,7 +115,7 @@ void Scene::initDynamicObjects(){
 
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
-	addPlayerToTeam(1, body2);
+	addPlayerToTeam(0, body2);
 /*
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
@@ -166,6 +166,10 @@ void Scene::update(float dt){
 					playerAttack(pp, i);
 				}
 
+				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_Y)){
+					playerRevive(pp, i);
+				}
+
 			}
 			pp->update(dt);
 		}
@@ -176,8 +180,8 @@ void Scene::playerAttack(Player * p, int teamIndex){
 	glm::vec3 hitPos = p->getPosition();
 	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
 	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
-	StaticGameObject * sgo = new StaticGameObject(hitPos.x, hitPos.y, hitPos.z);
-	addChildNode(sgo->getSceneGraphBranch());
+	//StaticGameObject * sgo = new StaticGameObject(hitPos.x, hitPos.y, hitPos.z);
+	//addChildNode(sgo->getSceneGraphBranch());
 
 	for (int i = 0; i < team.size(); ++i){
 		if(i != teamIndex){
@@ -190,6 +194,21 @@ void Scene::playerAttack(Player * p, int teamIndex){
 		}
 	}
 }
+
+void Scene::playerRevive(Player * p, int teamIndex){
+	glm::vec3 hitPos = p->getPosition();
+	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+
+	
+	for (int j = 0; j < team[teamIndex]->players.size(); ++j){
+		glm::vec3 diff = hitPos - team[teamIndex]->players[j]->getPosition();
+		if(glm::length(diff) < 2.0f){
+			team[teamIndex]->players[j]->revive();
+		}
+	}
+}
+
 
 void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
 	glm::vec2 state;

@@ -82,6 +82,7 @@ private:
 
 
     void checkButtons();
+    void updateButtonBools(int buttonIndex);
 
 };
 
