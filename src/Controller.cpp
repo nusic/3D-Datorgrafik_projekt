@@ -8,7 +8,8 @@ Controller::Controller(int index, Player* const _owner): owner(_owner){
     controllerIndex = index;
 
     for(int i=0; i<LARGEST_BUTTON_INDEX; ++i){
-        buttonAlreadyPressed[i] = false;
+        buttonPressed[i] = false;
+        buttonTrigger[i] = false;
     }
 
     controllerLoader();
@@ -21,6 +22,14 @@ Controller::~Controller(){
 		delete [] axes;
 	if(numberOfButtons > 0)
 		delete [] buttons;
+}
+
+const bool Controller::buttonIsTrigged(const int buttonIndex) const{
+    return buttonTrigger[buttonIndex];
+}
+
+const bool Controller::buttonIsPressed(const int buttonIndex) const{
+    return buttonPressed[buttonIndex];
 }
 
 void Controller::controllerLoader(){
@@ -55,7 +64,7 @@ void Controller::inputLoader(){
     if(joystickPresent == GL_TRUE){
 		sgct::Engine::getJoystickAxes(controllerIndex, axes, numberOfAxes);
 		sgct::Engine::getJoystickButtons(controllerIndex, buttons, numberOfButtons);
-        checkButtons();
+    
 //        for(int i=0; i<numberOfAxes; i++)
 //            sgct::MessageHandler::Instance()->print("%.3f ", axes[i]);
 //        for(int i=0; i<numberOfButtons; i++)
@@ -63,6 +72,8 @@ void Controller::inputLoader(){
 //        sgct::MessageHandler::Instance()->print("\r");
 
 	}
+    checkButtons();
+
 }
 
 double Controller::getAxisValue(int axis_index){
@@ -116,16 +127,19 @@ bool Controller::validateRightStickValues(){
 }
 
 void Controller::checkButtons(){
+    if(glfwGetKey('X') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_X] = 1;
+    else buttons[CONTROLLER_BUTTON_X] = 0;
 
     if(buttons[CONTROLLER_BUTTON_X]){
-        if(!buttonAlreadyPressed[CONTROLLER_BUTTON_X]){
-            owner->kill();
-            printf("x-button is pressed. %i\n", buttons[CONTROLLER_BUTTON_X]);
-            buttonAlreadyPressed[CONTROLLER_BUTTON_X] = true;
+        if(!buttonPressed[CONTROLLER_BUTTON_X]){
+            buttonTrigger[CONTROLLER_BUTTON_X] = true;
+            buttonPressed[CONTROLLER_BUTTON_X] = true;
         }
+        else
+            buttonTrigger[CONTROLLER_BUTTON_X] = false;
     }
     else
-        buttonAlreadyPressed[CONTROLLER_BUTTON_X] = false;
+        buttonPressed[CONTROLLER_BUTTON_X] = false;
 
 
 }

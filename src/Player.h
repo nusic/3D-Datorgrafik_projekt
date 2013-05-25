@@ -18,6 +18,8 @@ public:
     void getLeftControllerValues(float &xState, float& yState) const;
     void getRightControllerValues(float &xState, float& yState) const;
 
+    const Controller * const getController() const;
+
     void updateHeadDirection();
 
     virtual void update(float dt);

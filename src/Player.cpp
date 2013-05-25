@@ -79,6 +79,10 @@ bool Player::isAlive() const{
     return alive;
 }
 
+const Controller * const Player::getController() const{
+    return controller;
+}
+
 void Player::update(float dt){
     if(alive){
         GameObject::update(dt);
