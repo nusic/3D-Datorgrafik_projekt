@@ -53,6 +53,9 @@ void main(){
 
 		vec3 lightPosition_viewSpace = ( V * vec4(lightPosition_worldSpace[i],1)).xyz;
 		lightDirectionToVertex_viewSpace[i] = viewDirectionToVertex_viewSpace - lightPosition_viewSpace;
+
+		//Shadow
+		shadowCoord[i] = depthBiasMVP[i] * vec4(vertexPosition, 1.0);
 	}
 
 
@@ -63,9 +66,6 @@ void main(){
 	//normal = vertexNormal;
 	UV = vertexUV;
 
-	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i){
-		shadowCoord[i] = depthBiasMVP[i] * vec4(vertexPosition, 1.0);
-	}
 }
 
 

@@ -14,9 +14,9 @@ void GameEngine::keyboardCallback(int key, int action){
 		case 'm':
 		case 'M': if(action == SGCT_PRESS) toggleRenderMode(); break;
 		case 'k':
-		case 'K': scene->team[0]->players[0]->kill(); break;
+		case 'K': if(action == SGCT_PRESS) scene->team[0]->players[0]->kill(); break;
 		case 'r':
-		case 'R': scene->team[0]->players[0]->revive(); break;
+		case 'R': if(action == SGCT_PRESS) scene->team[0]->players[0]->revive(); break;
 	}
 }
 
@@ -33,7 +33,6 @@ void GameEngine::draw(){
 	//RENDER TO THE DEPTH BUFFERS
 	//FRONT FACE CULLING IS ENABLED WHEN RENDERING TO DEPTH-BUFFER
 
-
 	int numOfLightSources = LightSource::getNumberOfLightSources();
 	for (int i = 0; i < numOfLightSources; ++i){
 
@@ -41,14 +40,17 @@ void GameEngine::draw(){
 		glBindFramebuffer(GL_FRAMEBUFFER_EXT, LightSource::FBO[i]);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_FRONT);
+		
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		// Render on the whole framebuffer
 		glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
 		glm::mat4 VP = LightSource::getVPFromIndex(i);
 		glm::mat4 M(1.0f);
 
 		scene->renderToDepthBuffer(VP, M);
+
 		glDisable(GL_CULL_FACE);
 	}
 

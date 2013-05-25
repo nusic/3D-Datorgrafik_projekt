@@ -92,6 +92,7 @@ void Scene::initStaticPhysicalObjects(){
 		float size = (rand()/(float)RAND_MAX) + 3.0f;
 
 		sgo = new StaticGameObject("stem2");
+
 		
 		sgo->setPosition(x, y, z);
 		sgo->setSize(size);
@@ -103,6 +104,7 @@ void Scene::initStaticPhysicalObjects(){
 
 void Scene::initStaticNonPhysicalObjects(){
 	std::vector<Node*> stems = getNodesByName("stem2");
+
 	for (int i = 0; i < stems.size(); ++i){
 		stems[i]->addChildNode(new Model("branches2"));
 	}
@@ -129,8 +131,6 @@ void Scene::initDynamicObjects(){
 	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayerToTeam(1, body5);
-
-	
 
 	/*Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
