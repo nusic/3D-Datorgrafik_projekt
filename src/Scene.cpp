@@ -32,7 +32,7 @@ void Scene::initScene(){
 	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
 	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 512;
+	const int HEIGHT_MAP_RESOLUTION = 4096;
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
     	std::string path = "data/heightmap/heightmap.bmp";
@@ -465,7 +465,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBufferObj); //bind it to the framebuffer target
 	glBindTexture(GL_TEXTURE_2D, depthTex);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, xRes, yRes, 0, GL_RED, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, xRes, yRes, 0, GL_RED, GL_FLOAT, NULL);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, depthTex, 0);
 
 	// Check that our framebuffer is ok
@@ -484,13 +484,13 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 	glm::vec3 maxVertexValues = getMesh()->getMaxVertexValues();
 
 	// Create the box where the orthogonal projection takes place
-	glm::mat4 P = glm::frustum(
+	glm::mat4 P = glm::ortho(
 		minVertexValues.x, // left
 		maxVertexValues.x, // right
 		minVertexValues.z, // bottom
 		maxVertexValues.z, // top
-		minVertexValues.y, // zNear
-		maxVertexValues.y); // zFar ---- z is y since we look from above
+		-maxVertexValues.y, // zNear
+		-minVertexValues.y); // zFar ---- z is y since we look from above
 	/*
 	printf("minx = %f\n maxx = %f\n miny = %f\n maxy = %f\n minz = %f\n maxz = %f\n",
 		minVertexValues.x,
@@ -540,7 +540,7 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 
 
     float minSceneY = minVertexValues.y;
-    for(int i = 0; i < xRes * yRes; i++){
+    for(int i = 0; i < xRes * yRes; ++i){
    		//1. Before scaling the image, we need to have 0 in heightmap
    		//means 0 in world coordinates. Therefor reduce all pixels with
    		//minDepth. Now minimum depth will be 0.
@@ -560,7 +560,6 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 
 	return true;
 }
-
 
 void Scene::readBMP(const char* filename)
 {
