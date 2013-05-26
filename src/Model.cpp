@@ -75,13 +75,7 @@ int Model::getNumberOfVertices() const{
 	return mesh->vertices.size() + Node::getNumberOfVertices();
 }
 
-void Model::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
-	drawModel(P, V, M);
-	Node::renderToScreen(P, V, M);
-}
-
-void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
-	
+void Model::renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &M){
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//Use the shader
@@ -214,9 +208,11 @@ void Model::drawModel(glm::mat4 P, glm::mat4 V, glm::mat4 M){
 	sgct::ShaderManager::Instance()->unBindShader();
 
 	delete [] depthBiasMVP;
+	Node::renderToScreen(P, V, M);
 }
 
-void Model::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
+
+void Model::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
 	
 	// Use our shader
 	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));

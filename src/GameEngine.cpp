@@ -51,7 +51,29 @@ void GameEngine::draw(){
 
 		scene->renderToDepthBuffer(VP, M);
 
+
 		glDisable(GL_CULL_FACE);
+
+
+		if(i == -1){
+			//Bind the framebuffer used for shadow mapping
+			glBindFramebuffer(GL_FRAMEBUFFER_EXT, LightSource::FBO[i]);
+			glEnable(GL_CULL_FACE);
+			glCullFace(GL_FRONT);
+			
+			// Clear the screen
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			// Render on the whole framebuffer
+			glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
+			glm::mat4 VP = LightSource::getVPFromIndex(i);
+			//glm::mat4 M(1.0f);
+
+			scene->renderToDepthBuffer(VP, M);
+
+
+			glDisable(GL_CULL_FACE);
+		}
 	}
 
 
@@ -89,7 +111,6 @@ void GameEngine::preSync(float dt){
 	globalRandom = sin(0.3f+rand()/(float)RAND_MAX);
 
 	scene->update(dt);
-
 }
 
 

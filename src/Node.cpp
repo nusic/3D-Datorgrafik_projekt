@@ -33,7 +33,7 @@ int Node::getNumberOfVertices() const{
 	return sum;
 }
 
-void Node::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+void Node::renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &M){
 	for (unsigned int i = 0; i < children.size(); ++i){
 		if (children[i] != NULL){
 			children[i]->renderToScreen(P, V, M);
@@ -41,7 +41,7 @@ void Node::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	}
 }
 
-void Node::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
+void Node::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
 	for (unsigned int i = 0; i < children.size(); ++i){
 		if (children[i] != NULL){
 			children[i]->renderToDepthBuffer(VP, M);

@@ -179,7 +179,7 @@ unsigned short LightSource::getNumberOfLightSources(){
 
 
 
-void LightSource::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
+void LightSource::renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &M){
 
 	glm::vec4 worldPos = M * glm::vec4(position, 1);
 	glm::vec4 worldDir = M * glm::vec4(direction, 0);
@@ -190,7 +190,7 @@ void LightSource::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &M){
 	Node::renderToScreen(P, V, M);
 }
 
-void LightSource::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M){
+void LightSource::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
 	glm::vec4 worldPos = M * glm::vec4(position, 1);
 	glm::vec4 worldDir = M * glm::vec4(direction, 0);
 	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);

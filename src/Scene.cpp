@@ -115,10 +115,10 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayerToTeam(0, body1);
-/*
+
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
-	addPlayerToTeam(0, body2);
+	addPlayerToTeam(1, body2);
 /*
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
@@ -371,7 +371,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
 	    	float steep = glm::length(grad);
 	    	float maxStep = 0.6f;
-	    	if(glm::abs(steep) > maxStep){
+	    	if(steep > maxStep){
 
 				//Define new ON-base from grad and a vector orthogonal to grad
 		    	grad = glm::normalize(grad);
@@ -382,7 +382,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 		    	//Remove or decrease velocity along positive grad
 
-		    	eState.x -= 0.5f*steep;
+		    	eState.x -= 0.5f*(steep - maxStep);
 		    	//eState.x = 0;
 
 		    	//Back to world coordinates.

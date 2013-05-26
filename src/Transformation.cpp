@@ -16,12 +16,12 @@ const glm::mat4& Transformation::getMatrix() const{
 	return matrix;
 }
 
-void Transformation::renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix){
+void Transformation::renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &parentModelMatrix){
 	glm::mat4 M = parentModelMatrix * matrix;
 	Node::renderToScreen(P, V, M);
 }
 
-void Transformation::renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &parentModelMatrix){
+void Transformation::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &parentModelMatrix){
 	glm::mat4 M = parentModelMatrix * matrix;
 	Node::renderToDepthBuffer(VP, M);
 }

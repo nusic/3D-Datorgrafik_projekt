@@ -11,8 +11,8 @@ public:
 
 	const glm::mat4& getMatrix() const;
 
-	virtual void renderToScreen(glm::mat4 &P, glm::mat4 &V, glm::mat4 &parentModelMatrix);
-	virtual void renderToDepthBuffer(glm::mat4 &VP, glm::mat4 &M);
+	virtual void renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &parentModelMatrix);
+	virtual void renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M);
 
 protected:
 	friend class StaticGameObject;
