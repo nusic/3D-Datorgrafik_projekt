@@ -26,6 +26,9 @@ void Transformation::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &p
 	Node::renderToDepthBuffer(VP, M);
 }
 
+const glm::vec4& Transformation::backtraceToWorldSpace(const glm::vec4& v) const{
+	return Node::backtraceToWorldSpace(matrix * v);
+}
 
 
 

@@ -49,6 +49,10 @@ void Node::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
 	}
 }
 
+const glm::vec4& Node::backtraceToWorldSpace(const glm::vec4& v) const{
+	return (parent == NULL) ? v : parent->backtraceToWorldSpace(v);
+}
+
 Node* Node::getParentNode() const{
 	return parent;
 }

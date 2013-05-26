@@ -93,6 +93,7 @@ void Player::update(float dt){
         dyingLightTranslationNode->setTranslation(0.0f, dyingLightPosition, 0.0f);
         light->setIntensity(originalLightIntensity*originalDyingLightPosition/dyingLightPosition);
     }
+    light->update();
 }
 
 void Player::updateUserInputs(){

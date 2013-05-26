@@ -19,6 +19,7 @@ public:
 	virtual int getNumberOfVertices() const;
 	virtual void renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &M);
 	virtual void renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M);
+	virtual const glm::vec4& backtraceToWorldSpace(const glm::vec4& M) const;
 	void update(float dt);
 
 	Node* getParentNode() const;

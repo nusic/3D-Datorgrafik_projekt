@@ -177,27 +177,17 @@ unsigned short LightSource::getNumberOfLightSources(){
 	return worldPosition.size();
 }
 
-
-
-void LightSource::renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::mat4 &M){
-
-	glm::vec4 worldPos = M * glm::vec4(position, 1);
-	glm::vec4 worldDir = M * glm::vec4(direction, 0);
-	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
+void LightSource::update(){
+	const glm::vec4 worldPos = Node::backtraceToWorldSpace(glm::vec4(position, 1));
+	const glm::vec4 worldDir = Node::backtraceToWorldSpace(glm::vec4(direction, 0));
 	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
 	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
-
-	Node::renderToScreen(P, V, M);
-}
-
-void LightSource::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
-	glm::vec4 worldPos = M * glm::vec4(position, 1);
-	glm::vec4 worldDir = M * glm::vec4(direction, 0);
-	//printf("worldDir:  x=%f y=%f z=%f  \n", worldDir.x, worldDir.y, worldDir.z);
-	setWorldPosition(worldPos.x, worldPos.y, worldPos.z);
-	setWorldDirection(worldDir.x, worldDir.y, worldDir.z);
-
-	Node::renderToDepthBuffer(VP, M);
+/*
+	printf("LocalPosition   : x = %f, y = %f, z = %f\n", position.x, position.y, position.z);
+	printf("getWorldPosition: x = %f, y = %f, z = %f\n", getWorldPosition().x, getWorldPosition().y, getWorldPosition().z);
+	printf("backtraceToWorld: x = %f, y = %f, z = %f\n", worldPos.x, worldPos.y, worldPos.z);
+	printf("---\n");
+	*/
 }
 
 
