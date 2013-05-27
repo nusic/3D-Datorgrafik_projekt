@@ -2,7 +2,7 @@
 
 Scene::Scene():
 
-Model("bigscene2", "Ground", "SimpleColor"){
+Model("bigscene3", "Ground", "SimpleColor"){
 	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
@@ -32,7 +32,7 @@ void Scene::initScene(){
 	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
 	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 512;
+	const int HEIGHT_MAP_RESOLUTION = 1024;
 
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
@@ -85,12 +85,12 @@ void Scene::printLoadingStats(){
 void Scene::initStaticPhysicalObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 30; ++i){
+	for (int i = 0; i < 70; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float size = (rand()/(float)RAND_MAX) + 3.0f;
+		float size = (rand()/(float)RAND_MAX) + 7.0f;
 
 		sgo = new StaticGameObject("stem2");
 
@@ -116,11 +116,11 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayerToTeam(0, body1);
-
+/*
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
-	addPlayerToTeam(1, body2);
-
+	addPlayerToTeam(0, body2);
+/*
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayerToTeam(0, body3);
