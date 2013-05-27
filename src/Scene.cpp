@@ -107,7 +107,7 @@ void Scene::initStaticNonPhysicalObjects(){
 	std::vector<Node*> stems = getNodesByName("stem2");
 
 	for (int i = 0; i < stems.size(); ++i){
-		stems[i]->addChildNode(new Model("branches2"));
+		stems[i]->addChildNode(new Model("branches2", "SimpleTexture2"));
 	}
 }
 
@@ -120,7 +120,7 @@ void Scene::initDynamicObjects(){
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
 	addPlayerToTeam(1, body2);
-/*
+
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayerToTeam(0, body3);
