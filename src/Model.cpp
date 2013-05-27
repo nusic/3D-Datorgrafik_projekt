@@ -213,9 +213,6 @@ void Model::renderToScreen(const glm::mat4 &P, const glm::mat4 &V, const glm::ma
 
 
 void Model::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
-	
-	// Use our shader
-	assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 
 	// Compute the MVP matrix from the light's point of view
 	glm::mat4 depthMVP = VP * M;
@@ -240,9 +237,6 @@ void Model::renderToDepthBuffer(const glm::mat4 &VP, const glm::mat4 &M){
 	glDrawArrays(GL_TRIANGLES, 0, mesh->vertices.size());
 
 	glDisableVertexAttribArray(vertexPositionID);
-
-	//Don't use the currently bound shader anymore
-	sgct::ShaderManager::Instance()->unBindShader();
 
 	//RENDER ALL CHILD NODES.
 	Node::renderToDepthBuffer(VP, M);

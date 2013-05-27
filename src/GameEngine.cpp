@@ -49,12 +49,15 @@ void GameEngine::draw(){
 		glm::mat4 VP = LightSource::getVPFromIndex(i);
 		glm::mat4 M(1.0f);
 
+		// Use our shader
+		assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 		scene->renderToDepthBuffer(VP, M);
-
+		//Don't use the currently bound shader anymore
+		sgct::ShaderManager::Instance()->unBindShader();
 
 		glDisable(GL_CULL_FACE);
 
-
+/*
 		if(i == -1){
 			//Bind the framebuffer used for shadow mapping
 			glBindFramebuffer(GL_FRAMEBUFFER_EXT, LightSource::FBO[i]);
@@ -68,12 +71,14 @@ void GameEngine::draw(){
 			glViewport(0,0,LightSource::SHADOW_MAP_RESOLUTION,LightSource::SHADOW_MAP_RESOLUTION);
 			glm::mat4 VP = LightSource::getVPFromIndex(i);
 			//glm::mat4 M(1.0f);
-
+			// Use our shader
+			assert(sgct::ShaderManager::Instance()->bindShader("depthProgram"));
 			scene->renderToDepthBuffer(VP, M);
 
 
 			glDisable(GL_CULL_FACE);
 		}
+		*/
 	}
 
 
@@ -150,6 +155,10 @@ void GameEngine::initOGL(){
 	//Creating the shader "depthProgram"
 	sgct::ShaderManager::Instance()->addShader(
 		"depthProgram", "data/shaders/depthRRT.vert", "data/shaders/depthRRT.frag");
+
+	//Creating the shader "heightProgram"
+	sgct::ShaderManager::Instance()->addShader(
+		"heightProgram", "data/shaders/depthRRT.vert", "data/shaders/height.frag");
 
 	assert(sgct::ShaderManager::Instance()->bindShader( "SimpleColor" ));
 	currentTimeId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "currentTime" );

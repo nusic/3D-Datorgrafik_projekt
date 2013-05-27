@@ -101,7 +101,7 @@ void main()
 		distanceSquare = distanceToLight;
 
 
-		invDistSquare =  0.03 * clamp(1 - distanceToLight/60, 0, 1); //0.3f*1.0f/(distanceSquare);
+		invDistSquare =  0.05 * clamp(1 - distanceToLight/60, 0, 1); //0.3f*1.0f/(distanceSquare);
 
 		visibility = 0.0f;
 

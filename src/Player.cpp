@@ -204,7 +204,7 @@ Player(){
     light->setColor(0.9f, 0.8f, 0.7f);
     light->setIntensity(256);
 
-    light->setSpread(16);
+    light->setSpread(32);
     torch.update(0.0f);
     pickaxe.update(0.0f);
 

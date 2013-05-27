@@ -33,6 +33,7 @@ void Scene::initScene(){
 	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
 	const int HEIGHT_MAP_RESOLUTION = 4096;
+
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
     	std::string path = "data/heightmap/heightmap.bmp";
@@ -513,9 +514,13 @@ bool Scene::renderToHeightMap(int xRes, int yRes){
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// Use our shader
+	assert(sgct::ShaderManager::Instance()->bindShader("heightProgram"));
 	// Render to the FBO
 	renderToDepthBuffer(VP, M);
 	glDisable(GL_CULL_FACE);
+	//Don't use the currently bound shader anymore
+	sgct::ShaderManager::Instance()->unBindShader();
 
 	//Och hänne ska vi använda glReadPixels..
 	heightmap = new float[xRes * yRes];
