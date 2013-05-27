@@ -3,9 +3,9 @@
 	<Node ip="127.0.0.1" port="20401">
 		<Window fullscreen="false" numberOfSamples="4">
 			<Stereo type="none" />
-			<Pos x="0" y="300" />
+			<Pos x="0" y="0" />
 			<!-- 16:9 aspect ratio -->
-			<Size x="1280" y="360" />
+			<Size x="1280" y="720" />
 		</Window>
 		<Viewport>
 			<Pos x="0.0" y="0.0" />

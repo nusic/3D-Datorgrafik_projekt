@@ -55,8 +55,8 @@ public:
     int heightmapHeight;
     int heightmapArrayLength;
 
-    int worldToHeightmapX;
-    int worldToHeightmapZ;
+    float worldToHeightmapX;
+    float worldToHeightmapZ;
 
     glm::vec3 sceneDimensions;
     glm::vec3 minVertexValues;

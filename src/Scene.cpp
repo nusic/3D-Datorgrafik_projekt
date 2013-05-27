@@ -32,7 +32,7 @@ void Scene::initScene(){
 	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
 	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 4096;
+	const int HEIGHT_MAP_RESOLUTION = 512;
 
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
