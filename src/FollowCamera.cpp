@@ -57,6 +57,7 @@ void FollowCamera::update(float dt){
 	incrementPosition(dt);
 	lookAt += lookAtDiff;
 
+	Camera::update(dt);
 }
 
 glm::vec3 FollowCamera::getTargetsMinPos(){

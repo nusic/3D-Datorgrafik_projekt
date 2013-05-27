@@ -155,7 +155,6 @@ void Scene::update(float dt){
 	for (int i = 0; i < team.size(); ++i){
 		tp = team[i];
 		tp->camera->update(dt);
-		tp->camera->calcMatrices();
 
 		for (int j = 0; j < tp->players.size(); ++j){
 			pp = tp->players[j];

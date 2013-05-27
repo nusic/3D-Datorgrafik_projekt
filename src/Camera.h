@@ -20,7 +20,7 @@ public:
 
 	virtual void update(float dt);
 
-	void calcMatrices();
+	
 
 	glm::mat4 getViewMatrix() const;
 	glm::mat4 getPerspectiveMatrix() const;
@@ -36,6 +36,8 @@ protected:
 	float fov;
 
 private:
+	void calcMatrices();
+	
 	float aspect;
 	float zNearClipping;
 	float zFarClipping;
