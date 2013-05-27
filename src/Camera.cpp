@@ -53,7 +53,7 @@ void Camera::incrementPosition(double dx, double dy, double dz, float dt){
 }
 
 void Camera::update(float dt){
-	incrementPosition(dt);
+	calcMatrices();
 }
 
 void Camera::calcMatrices(){

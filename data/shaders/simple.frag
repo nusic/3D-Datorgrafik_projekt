@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 2;
+const int MAX_NUMBER_OF_LIGHTS = 5;
 
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -83,25 +83,6 @@ void main()
 
 	for (int i = 0; i < MAX_NUMBER_OF_LIGHTS; ++i){
 
-		l = normalize(lightDirectionToVertex_viewSpace[i]);
-		cosTheta = clamp(dot(-n, l), 0, 1);
-
-		// Direction in which the triangle reflects the light
-		r = reflect(l,n);
-		cosAlpha = clamp( dot( e,-r ), 0,1 );
-
-
-
-		vec3 ld = normalize(lightDirection_viewSpace[i]);
-		cosPhi = clamp(dot(l, ld), 0, 1);
-
-		directionalIntensity = pow(cosPhi, lightSpread[i]);
-
-		distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
-		distanceSquare = distanceToLight;
-
-
-		invDistSquare =  0.05 * clamp(1 - distanceToLight/60, 0, 1); //0.3f*1.0f/(distanceSquare);
 
 		visibility = 0.0f;
 
@@ -125,12 +106,33 @@ void main()
 		else if (i == 14){ 	if(texture2D(shadowMap15, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
 
 		if (visibility == 1){
-		finalFragColor +=
-			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * cosTheta * (invDistSquare) + //Diffuse
+			//Diffuse light 
+			l = normalize(lightDirectionToVertex_viewSpace[i]);
+			cosTheta = clamp(dot(-n, l), 0, 1);
 
-			vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * pow(cosAlpha, 5) * (invDistSquare); //Specular
+			//Specular light
+			r = reflect(l,n);
+			cosAlpha = clamp( dot( e,-r ), 0,1 );
+
+
+
+			vec3 ld = normalize(lightDirection_viewSpace[i]);
+			cosPhi = clamp(dot(l, ld), 0, 1);
+
+			directionalIntensity = pow(cosPhi, lightSpread[i]);
+
+			distanceToLight = length(lightPosition_worldSpace[i] - position_worldSpace);
+			distanceSquare = distanceToLight;
+
+
+			invDistSquare =  0.05 * clamp(1 - distanceToLight/60, 0, 1); //0.3f*1.0f/(distanceSquare);
+
+			finalFragColor +=
+				vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
+				lightIntensity[i] * cosTheta * (invDistSquare) + //Diffuse
+
+				vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
+				lightIntensity[i] * pow(cosAlpha, 5) * (invDistSquare); //Specular
 		}
 	}
 
