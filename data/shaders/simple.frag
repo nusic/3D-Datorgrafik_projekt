@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 5;
+const int MAX_NUMBER_OF_LIGHTS = 2;
 
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -101,7 +101,7 @@ void main()
 		distanceSquare = distanceToLight;
 
 
-		invDistSquare = 0.3f*1.0f/(distanceSquare);
+		invDistSquare =  0.03 * clamp(1 - distanceToLight/60, 0, 1); //0.3f*1.0f/(distanceSquare);
 
 		visibility = 0.0f;
 
@@ -124,13 +124,14 @@ void main()
 		else if (i == 13){ 	if(texture2D(shadowMap14, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
 		else if (i == 14){ 	if(texture2D(shadowMap15, ((shadowCoord[i].xy) / shadowCoord[i].w) + vec2(0, 0)).r >= shadowCoord[i].z / shadowCoord[i].w) visibility = 1;}
 
-
-		finalFragColor += visibility * (
+		if (visibility == 1){
+		finalFragColor +=
 			vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
 			lightIntensity[i] * cosTheta * (invDistSquare) + //Diffuse
 
 			vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
-			lightIntensity[i] * pow(cosAlpha, 5) * (invDistSquare)); //Specular
+			lightIntensity[i] * pow(cosAlpha, 5) * (invDistSquare); //Specular
+		}
 	}
 
 	gl_FragColor = finalFragColor;
