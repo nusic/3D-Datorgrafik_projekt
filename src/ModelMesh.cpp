@@ -67,6 +67,9 @@ void ModelMesh::calcRadiusXZ(){
 bool ModelMesh::loadOBJ(const std::string &meshName, float sx, float sy, float sz){
 	//printf("Loading mesh %s... ", meshName.c_str());
 
+	if(meshName == "bigscene2")
+		sy = 0.1f;
+
 	std::string builder = "";
 	builder += "data/meshes/";
 	builder += meshName;

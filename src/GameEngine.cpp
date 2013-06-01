@@ -142,7 +142,7 @@ void GameEngine::initOGL(){
 		"SimpleTexture2", "data/textures/texture2.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(
-		"Sublime", "data/textures/sublime.png", true);
+		"moon_texture", "data/textures/moon_texture.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(
 		"Ground", "data/textures/ground.png", true);
