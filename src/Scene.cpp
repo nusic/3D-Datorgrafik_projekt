@@ -2,7 +2,7 @@
 
 Scene::Scene():
 
-Model("moon", "moon_texture", "SimpleColor"){
+Model("tp4", "Ground", "SimpleColor"){
 	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
@@ -85,14 +85,14 @@ void Scene::printLoadingStats(){
 void Scene::initStaticPhysicalObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 0; ++i){
+	for (int i = 0; i < 10; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float size = (rand()/(float)RAND_MAX) + 7.0f;
+		float size = (rand()/(float)RAND_MAX) + 2.0f;
 
-		sgo = new StaticGameObject("stem2");
+		sgo = new StaticGameObject("stone1");
 
 		
 		sgo->setPosition(x, y, z);
