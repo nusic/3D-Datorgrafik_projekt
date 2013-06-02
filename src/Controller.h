@@ -85,6 +85,7 @@ private:
     void checkButtons();
     void updateButtonBools(int buttonIndex);
 
+
 };
 
 #endif // CONTROLLER_H

@@ -190,28 +190,38 @@ Player(){
     pickaxeAnimationIndex = 0;
     animatingPickaxe = false;
 
-    torch = GameObject("ghost_arm_left", "ghost_arm_right_texture");
-    torch.setPosition(1.2f, -0.5f, 0.0f);
-    torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-    torch.setDirection(0.0f);
+    leftArm = GameObject("ghost_arm_left", "ghost_arm_right_texture");
+    leftArm.setPosition(1.2f, -0.5f, 0.0f);
+    leftArm.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+    leftArm.setDirection(0.0f);
 
-    pickaxe = GameObject("ghost_arm_right", "ghost_arm_right_texture");
-    pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
-    pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
+    StaticGameObject flashLight("flash_light", "flash_light_texture");
+    flashLight.setPosition(0.8f, -0.7f, 1.8f);
+    leftArm.rotationNode->addChildNode(flashLight.getSceneGraphBranch());
 
-    head.rotationNode->addChildNode(torch.getSceneGraphBranch());
-    head.rotationNode->addChildNode(pickaxe.getSceneGraphBranch());
+    rightArm = GameObject("ghost_arm_right", "ghost_arm_right_texture");
+    rightArm.setPosition(-1.2f, -0.5f, 0.0f);
+    rightArm.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
 
-    light = new LightSource(torch.modelNode);
-    light->setPosition(0,0,1.6f);
-	light->setDirection(0,-0.2f,1);
+    StaticGameObject pickAxe("pick_axe", "pick_axe_texture");
+    pickAxe.setPosition(-0.6f, 0.0f, 1.8f);
+    pickAxe.setRotation(0.0f, 20.0f);
+    rightArm.rotationNode->addChildNode(pickAxe.getSceneGraphBranch());
+
+    head.rotationNode->addChildNode(leftArm.getSceneGraphBranch());
+    head.rotationNode->addChildNode(rightArm.getSceneGraphBranch());
+
+    light = new LightSource(flashLight.modelNode);
+    light->setPosition(0,0,1.0f);
+	//light->setDirection(0,-0.2f,1);
 
     light->setColor(0.9f, 0.8f, 0.7f);
     light->setIntensity(256);
 
     light->setSpread(32);
-    torch.update(0.0f);
-    pickaxe.update(0.0f);
+    leftArm.update(0.0f);
+    rightArm.update(0.0f);
+    //pickAxe.update(0.0f);
 
 }
 
@@ -224,10 +234,10 @@ Character::~Character(){
 void Character::update(float dt){
     Player::update(dt);
     if(isAlive()){
-        //updateTorch();
+        //updateleftArm();
         updatePickaxe();
-        torch.update(dt);
-        pickaxe.update(dt);
+        leftArm.update(dt);
+        rightArm.update(dt);
     }
 }
 
@@ -240,7 +250,7 @@ void Character::updatePickaxe(){
     if(animatingPickaxe){
 
         if(pickaxeAnimationIndex < 20){
-            pickaxe.setDirection(pickaxeAnimationValues[pickaxeAnimationIndex]);
+            rightArm.setDirection(pickaxeAnimationValues[pickaxeAnimationIndex]);
             ++pickaxeAnimationIndex;
         }
         else{
@@ -249,15 +259,16 @@ void Character::updatePickaxe(){
     }
 }
 
-
-void Character::updateTorch(){
+/*
+void Character::updateleftArm(){
     animationIndex++;
 
     if(animationIndex < 60){
-        torch.setDirection(-animationIndex);
+        leftArm.setDirection(-animationIndex);
     }
     else{
         animationIndex = 0;
-        torch.setDirection(-animationIndex);
+        leftArm.setDirection(-animationIndex);
     }
 }
+*/
