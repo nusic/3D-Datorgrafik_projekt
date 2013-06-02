@@ -151,6 +151,12 @@ void GameEngine::initOGL(){
 		"ghost_arm_right_texture", "data/textures/ghost_arm_right_texture.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(
+		"pick_axe_texture", "data/textures/pick_axe_texture.png", true);
+
+	sgct::TextureManager::Instance()->loadTexure(
+		"flash_light_texture", "data/textures/flash_light_texture.png", true);
+
+	sgct::TextureManager::Instance()->loadTexure(
 		"moon_texture", "data/textures/moon_texture.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(

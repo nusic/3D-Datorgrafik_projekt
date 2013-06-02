@@ -6,6 +6,7 @@
 
 #include "Controller.h"
 #include "GameObject.h"
+#include "StaticGameObject.h"
 #include "Transformation.h"
 
 
@@ -81,8 +82,8 @@ private:
     void updatePickaxe();
 
 
-    GameObject torch;
-    GameObject pickaxe;
+    GameObject leftArm;
+    GameObject rightArm;
 
     
 
