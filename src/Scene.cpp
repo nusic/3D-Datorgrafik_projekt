@@ -120,11 +120,11 @@ void Scene::initDynamicObjects(){
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
 	addPlayerToTeam(0, body2);
-/*
+
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
-	addPlayerToTeam(0, body3);
-
+	addPlayerToTeam(1, body3);
+/*
 	Player * body4 = new Character;
 	body4->setPosition(0.0f, 0.0f, 25.0f);
 	addPlayerToTeam(0, body4);
