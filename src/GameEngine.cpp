@@ -16,7 +16,14 @@ void GameEngine::keyboardCallback(int key, int action){
 		case 'k':
 		case 'K': if(action == SGCT_PRESS) scene->team[0]->players[0]->kill(); break;
 		case 'r':
-		case 'R': if(action == SGCT_PRESS) scene->team[0]->players[0]->revive(); break;
+		case 'R': if(action == SGCT_PRESS){
+			for (int i = 0; i < scene->team.size(); ++i){
+				for (int j = 0; j < scene->team[i]->players.size(); ++j){
+					scene->team[i]->players[j]->revive();
+				}
+			}
+			break;
+		}
 	}
 }
 
@@ -96,8 +103,12 @@ void GameEngine::draw(){
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
+
+	float scale = 1.15f;
+	const int xSize = scale * 640;
+	const int ySize = scale * 360;
 	for (int i = 0; i < scene->team.size(); ++i){
-		glViewport(i * 640 * 2,0,640 * 2,360 * 2);
+		glViewport(i * xSize, 0, xSize, ySize);
 		scene->drawScene(
 			scene->team[i]->camera->getPerspectiveMatrix(),
 			scene->team[i]->camera->getViewMatrix());
