@@ -2,11 +2,11 @@
 
 FollowCamera::FollowCamera(std::vector<Player*>& _targets):
 Camera(0.0f, 0.0f, 0.0f), targets(_targets){
-	theta = 1.0f;
+	theta = 0.8f;
 	followSpeed = 1.0f;
 	rotationSpeed = 1.0f;
 	angle = 0.0f;
-	height = 60.0f;
+	height = 50.0f;
 }
 
 void FollowCamera::setTargets(std::vector<Player*>& _targets){
