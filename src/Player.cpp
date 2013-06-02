@@ -146,7 +146,7 @@ void Player::kill(){
     setVelocity(0.0f, 0.0f, 0.0f);
     setAngleVel(0.0f);
     setDirection(0.0f);
-    setYPosition(getPosition().y+1.0f);
+    setYPosition(getPosition().y-1.0f);
     head.setVelocity(0.0f, 0.0f, 0.0f);
     head.setAngleVel(0.0f);
     head.setDirection(0.0f);
@@ -193,7 +193,7 @@ Player(){
     leftArm = GameObject("ghost_arm_left", "ghost_arm_right_texture");
     leftArm.setPosition(1.2f, -0.5f, 0.0f);
     leftArm.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
-    leftArm.setDirection(0.0f);
+    leftArm.setDirection(10.0f);
 
     StaticGameObject flashLight("flash_light", "flash_light_texture");
     flashLight.setPosition(0.8f, -0.7f, 1.8f);

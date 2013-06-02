@@ -138,6 +138,7 @@ void GameEngine::initOGL(){
 	//Loading textures
 	sgct::TextureManager::Instance()->loadTexure("SimpleTexture", 			"data/textures/texture1.png", true);
 	sgct::TextureManager::Instance()->loadTexure("SimpleTexture2", 			"data/textures/texture2.png", true);
+	sgct::TextureManager::Instance()->loadTexure("tp4_texture", "data/textures/tp4_texture.png", true);
 	sgct::TextureManager::Instance()->loadTexure("ghost_head_texture", 		"data/textures/ghost_head_texture.png", true);
 	sgct::TextureManager::Instance()->loadTexure("ghost_body_texture", 		"data/textures/ghost_body_texture.png", true);
 	sgct::TextureManager::Instance()->loadTexure("ghost_arm_right_texture",	"data/textures/ghost_arm_right_texture.png", true);
