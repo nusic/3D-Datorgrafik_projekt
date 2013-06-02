@@ -142,6 +142,15 @@ void GameEngine::initOGL(){
 		"SimpleTexture2", "data/textures/texture2.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(
+		"ghost_head_texture", "data/textures/ghost_head_texture.png", true);
+
+	sgct::TextureManager::Instance()->loadTexure(
+		"ghost_body_texture", "data/textures/ghost_body_texture.png", true);
+
+	sgct::TextureManager::Instance()->loadTexure(
+		"ghost_arm_right_texture", "data/textures/ghost_arm_right_texture.png", true);
+
+	sgct::TextureManager::Instance()->loadTexure(
 		"moon_texture", "data/textures/moon_texture.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(

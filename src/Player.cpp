@@ -7,7 +7,7 @@
 int Player::numberOfPlayers = 0;
 
 Player::Player():
-GameObject("body"){
+GameObject("ghost_body", "ghost_body_texture"){
     alive = true;
     speed = 10.0f;
     controller = new Controller(numberOfPlayers, this);
@@ -15,7 +15,9 @@ GameObject("body"){
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     playerRotationNode->insertAfter(translationNode);
 
-    head = GameObject(0.0f, 5.0f, 0.0f);
+    head = GameObject("ghost_head", "ghost_head_texture");
+    head.setPosition(0.0f, 2.2f, 0.0f);
+    head.update(0.0f);
     playerRotationNode->addChildNode(head.getSceneGraphBranch());
 
 
@@ -152,7 +154,7 @@ void Player::kill(){
 
     dyingLightRotationNode->addChildNode(light);
     dyingLightPosition = originalDyingLightPosition;
-    dyingLightRotationNode->addChildNode(new Model("suzanne"));
+    dyingLightRotationNode->addChildNode(new Model("ghost_head", "ghost_head_texture"));
 
     update(0.0f);
 }
@@ -166,7 +168,7 @@ void Player::revive(){
     light->removeFromParent();
     light->setIntensity(originalLightIntensity);
     originalLightParent->addChildNode(light);
-    Node * soul = dyingLightRotationNode->getChildByName("suzanne");
+    Node * soul = dyingLightRotationNode->getChildByName("ghost_head");
     dyingLightRotationNode->removeChildNode(soul);
 
     update(0.0f);
@@ -185,12 +187,12 @@ Player(){
     pickaxeAnimationIndex = 0;
     animatingPickaxe = false;
 
-    torch = GameObject("flashlight");
+    torch = GameObject("ghost_arm_left", "ghost_arm_right_texture");
     torch.setPosition(1.2f, -0.5f, 0.0f);
     torch.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
     torch.setDirection(0.0f);
 
-    pickaxe = GameObject("arm_pickaxe");
+    pickaxe = GameObject("ghost_arm_right", "ghost_arm_right_texture");
     pickaxe.setPosition(-1.2f, -0.5f, 0.0f);
     pickaxe.rotationNode->setAxis(glm::vec3(1.0f, 0.0f, 0.0f));
 

@@ -8,8 +8,8 @@
 
 class GameObject{
 public:
-	GameObject(double x = 0, double y = 0, double z = 0, float scale = 1.0f, float _phi = 0);
-	GameObject(const char* modelPath);
+	//GameObject(double x = 0, double y = 0, double z = 0, float scale = 1.0f, float _phi = 0);
+	GameObject(const char* modelPath = "suzanne", const char* texture = "SimpleTexture2", const char* shaderName = "SimpleColor");
 	~GameObject();
 
 	void setPosition(double x, double y, double z);

@@ -1,5 +1,5 @@
 #include "GameObject.h"
-
+/*
 GameObject::GameObject(double x, double y, double z, float s, float phi){
 
 	translationNode = new Translation(x,y,z);
@@ -17,13 +17,13 @@ GameObject::GameObject(double x, double y, double z, float s, float phi){
 	turnSpeed = 5.0f;
 
 }
-
-GameObject::GameObject(const char* modelPath){
+*/
+GameObject::GameObject(const char* modelPath, const char* texture, const char* shaderName){
 
 	translationNode = new Translation(0.0f, 0.0f, 0.0f);
 	rotationNode = new Rotation(translationNode, phi, glm::vec3(0.0f, 1.0f, 0.0f));
 	scaleNode = new Scaling(rotationNode, 1.0f, 1.0f, 1.0f);
-	modelNode = new Model(scaleNode, modelPath, "SimpleTexture2", "SimpleColor");
+	modelNode = new Model(scaleNode, modelPath, texture, shaderName);
 
 	setPosition(0, 0, 0);
 	setScale(1.0f);

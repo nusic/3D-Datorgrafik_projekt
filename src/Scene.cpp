@@ -392,7 +392,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	}
 	    }
 
-    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples);
+    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples + 4.0f);
     	p->setVelocity(state.x, 0.0f, -state.y);
 
     	return;
@@ -428,6 +428,7 @@ float Scene::getYPosition(float x, float z){
 	return -1.0f;
 }
 
+/*
 void Scene::addGenerations(Model* mother, int n){
 	if(n<=0)
 		return;
@@ -441,7 +442,7 @@ void Scene::addGenerations(Model* mother, int n){
 	addGenerations(child2->getMainModel(), n-1);
 
 }
-
+*/
 
 
 
