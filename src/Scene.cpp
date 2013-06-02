@@ -2,7 +2,7 @@
 
 Scene::Scene():
 
-Model("bigscene3", "Ground", "SimpleColor"){
+Model("tp4", "Ground", "SimpleColor"){
 	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
@@ -32,7 +32,7 @@ void Scene::initScene(){
 	std::cout << std::setw(w) << " " << "NODES | VERTICES" << std::endl;
 	printf("Rendering hightmap ...\n");
 	bool renderToHeightMapSupported = true;
-	const int HEIGHT_MAP_RESOLUTION = 1024;
+	const int HEIGHT_MAP_RESOLUTION = 2048;
 
     if(!renderToHeightMap(HEIGHT_MAP_RESOLUTION, HEIGHT_MAP_RESOLUTION)){
     	renderToHeightMapSupported = false;
@@ -85,14 +85,14 @@ void Scene::printLoadingStats(){
 void Scene::initStaticPhysicalObjects(){
 	StaticGameObject* sgo;
 	srand(time(NULL));
-	for (int i = 0; i < 70; ++i){
+	for (int i = 0; i < 10; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
 		float z = sceneDimensions.z * (rand()/(float)RAND_MAX) + minVertexValues.z;
 		float y = getYPosition(x, z);
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
-		float size = (rand()/(float)RAND_MAX) + 7.0f;
+		float size = (rand()/(float)RAND_MAX) + 2.0f;
 
-		sgo = new StaticGameObject("stem2");
+		sgo = new StaticGameObject("stone1");
 
 		
 		sgo->setPosition(x, y, z);
@@ -116,7 +116,7 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, 5.0f);
 	addPlayerToTeam(0, body1);
-/*
+
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
 	addPlayerToTeam(0, body2);
@@ -370,7 +370,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	//Calc gradient based on the 4 height samples
 	    	glm::vec2 grad = glm::vec2((yXmax-yXmin)/r, -(yYmax-yYmin)/r);
 	    	float steep = glm::length(grad);
-	    	float maxStep = 0.6f;
+	    	float maxStep = 1.0f;
 	    	if(steep > maxStep){
 
 				//Define new ON-base from grad and a vector orthogonal to grad
@@ -382,8 +382,9 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 
 		    	//Remove or decrease velocity along positive grad
 
-		    	eState.x -= 0.5f*(steep - maxStep);
-		    	//eState.x = 0;
+		    	//eState.x -= 0.5f*(steep - maxStep);
+		    	if(eState.x > 0)
+		    		eState.x = 0;
 
 		    	//Back to world coordinates.
 		    	//T^t = T^-1 since ON base

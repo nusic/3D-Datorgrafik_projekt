@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 1;
+const int MAX_NUMBER_OF_LIGHTS = 2;
 
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -48,7 +48,7 @@ uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
 
-const float ambientBrightness = 0.0f;
+const float ambientBrightness = 0.4f;
 
 
 void main()
@@ -64,7 +64,7 @@ void main()
 	// Eye vector (away from the camera)
 	vec3 e = normalize(viewDirectionToVertex_viewSpace);
 
-	vec4 finalFragColor = vec4(materialAmbientColor, 1.0f); //Ambient
+	vec3 finalFragColor = materialAmbientColor; //Ambient
 
 
 	//Förallokering av variabler för att slippa omdeklarera dem i for-loopen.
@@ -128,14 +128,14 @@ void main()
 			invDistSquare =  0.05 * clamp(1 - distanceToLight/60, 0, 1); //0.3f*1.0f/(distanceSquare);
 
 			finalFragColor +=
-				vec4(materialDiffuseColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
+				materialDiffuseColor * lightColor[i] * directionalIntensity *
 				lightIntensity[i] * cosTheta * (invDistSquare) + //Diffuse
 
-				vec4(materialSpecularColor, 1) * vec4(lightColor[i], 1) * directionalIntensity *
+				materialSpecularColor * lightColor[i] * directionalIntensity *
 				lightIntensity[i] * pow(cosAlpha, 5) * (invDistSquare); //Specular
 		}
 	}
 
-	gl_FragColor = finalFragColor;
+	gl_FragColor = vec4(finalFragColor * (1 - pow(gl_FragCoord.z, 16384) ), 1);
 
 }
