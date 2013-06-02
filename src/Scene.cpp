@@ -392,7 +392,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	}
 	    }
 
-    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples + 4.0f);
+    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples + 3.7f +  0.7 * glm::sin(4 * sgct::Engine::getTime()));
     	p->setVelocity(state.x, 0.0f, -state.y);
 
     	return;
