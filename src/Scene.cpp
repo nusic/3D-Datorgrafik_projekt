@@ -204,7 +204,7 @@ void Scene::playerRevive(Player * p, int teamIndex){
 	
 	for (int j = 0; j < team[teamIndex]->players.size(); ++j){
 		glm::vec3 diff = hitPos - team[teamIndex]->players[j]->getPosition();
-		if(glm::length(diff) < 2.0f){
+		if(glm::length(diff) < 4.0f){
 			team[teamIndex]->players[j]->revive();
 		}
 	}
