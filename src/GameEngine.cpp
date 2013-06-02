@@ -135,45 +135,24 @@ void GameEngine::initOGL(){
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-	sgct::TextureManager::Instance()->loadTexure(
-		"SimpleTexture", "data/textures/texture1.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"SimpleTexture2", "data/textures/texture2.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"ghost_head_texture", "data/textures/ghost_head_texture.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"ghost_body_texture", "data/textures/ghost_body_texture.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"ghost_arm_right_texture", "data/textures/ghost_arm_right_texture.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"pick_axe_texture", "data/textures/pick_axe_texture.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"flash_light_texture", "data/textures/flash_light_texture.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"moon_texture", "data/textures/moon_texture.png", true);
-
-	sgct::TextureManager::Instance()->loadTexure(
-		"Ground", "data/textures/ground.png", true);
+	//Loading textures
+	sgct::TextureManager::Instance()->loadTexure("SimpleTexture", 			"data/textures/texture1.png", true);
+	sgct::TextureManager::Instance()->loadTexure("SimpleTexture2", 			"data/textures/texture2.png", true);
+	sgct::TextureManager::Instance()->loadTexure("ghost_head_texture", 		"data/textures/ghost_head_texture.png", true);
+	sgct::TextureManager::Instance()->loadTexure("ghost_body_texture", 		"data/textures/ghost_body_texture.png", true);
+	sgct::TextureManager::Instance()->loadTexure("ghost_arm_right_texture",	"data/textures/ghost_arm_right_texture.png", true);
+	sgct::TextureManager::Instance()->loadTexure("pick_axe_texture", 		"data/textures/pick_axe_texture.png", true);
+	sgct::TextureManager::Instance()->loadTexure("flash_light_texture", 	"data/textures/flash_light_texture.png", true);
+	sgct::TextureManager::Instance()->loadTexure("moon_texture", 			"data/textures/moon_texture.png", true);
+	sgct::TextureManager::Instance()->loadTexure("Ground", 					"data/textures/ground.png", true);
+	sgct::TextureManager::Instance()->loadTexure("Table", 					"data/textures/table_texture2.png", true);
 
 
-	//Creating the shader "SimpleColor"
-	sgct::ShaderManager::Instance()->addShader(
-		"SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
+	//Add shaders
+	sgct::ShaderManager::Instance()->addShader("SimpleColor", "data/shaders/simple.vert", "data/shaders/simple.frag");
+	sgct::ShaderManager::Instance()->addShader("depthProgram", "data/shaders/depthRRT.vert", "data/shaders/depthRRT.frag");
+	sgct::ShaderManager::Instance()->addShader("heightProgram", "data/shaders/depthRRT.vert", "data/shaders/height.frag");
 
-	//Creating the shader "depthProgram"
-	sgct::ShaderManager::Instance()->addShader(
-		"depthProgram", "data/shaders/depthRRT.vert", "data/shaders/depthRRT.frag");
-
-	//Creating the shader "heightProgram"
-	sgct::ShaderManager::Instance()->addShader(
-		"heightProgram", "data/shaders/depthRRT.vert", "data/shaders/height.frag");
 
 	assert(sgct::ShaderManager::Instance()->bindShader( "SimpleColor" ));
 	currentTimeId = sgct::ShaderManager::Instance()->getShader( "SimpleColor").getUniformLocation( "currentTime" );
