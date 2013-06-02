@@ -96,6 +96,11 @@ bool Controller::validateLeftStickValues(){
         if (glfwGetKey('A') == GLFW_PRESS) axes[CONTROLLER_LEFT_X_AXIS] = -1;
         else if (glfwGetKey('D') == GLFW_PRESS) axes[CONTROLLER_LEFT_X_AXIS] = 1;
         else axes[CONTROLLER_LEFT_X_AXIS] = 0;
+
+        if(axes[CONTROLLER_LEFT_X_AXIS] && axes[CONTROLLER_LEFT_Y_AXIS]){
+            axes[CONTROLLER_LEFT_X_AXIS] *= 0.70710678f;
+            axes[CONTROLLER_LEFT_Y_AXIS] *= 0.70710678f;
+        }
     }
     return true;
 }
