@@ -29,7 +29,7 @@ public:
     void revive();
     bool isAlive() const;
 
-    virtual void attack();
+    virtual void startAttackAnimation();
 
 
     static int numberOfPlayers;
@@ -57,8 +57,6 @@ private:
     Controller* controller;
     int playerIndex;
 
-
-
 };
 
 
@@ -72,8 +70,7 @@ public:
     ~Character();
 
     virtual void update(float dt);
-    
-    virtual void attack();
+    virtual void startAttackAnimation();
 
 
 private:

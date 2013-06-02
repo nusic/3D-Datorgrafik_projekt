@@ -96,7 +96,6 @@ bool Controller::validateLeftStickValues(){
         if (glfwGetKey('A') == GLFW_PRESS) axes[CONTROLLER_LEFT_X_AXIS] = -1;
         else if (glfwGetKey('D') == GLFW_PRESS) axes[CONTROLLER_LEFT_X_AXIS] = 1;
         else axes[CONTROLLER_LEFT_X_AXIS] = 0;
-
     }
     return true;
 }
@@ -127,17 +126,20 @@ bool Controller::validateRightStickValues(){
 }
 
 void Controller::checkButtons(){
-    if(glfwGetKey('X') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_X] = 1;
-    else buttons[CONTROLLER_BUTTON_X] = 0;
+    if(joystickPresent != GL_TRUE){
+        if(glfwGetKey('X') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_X] = 1;
+        else buttons[CONTROLLER_BUTTON_X] = 0;
 
-    if(glfwGetKey('Y') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_Y] = 1;
-    else buttons[CONTROLLER_BUTTON_Y] = 0;
+        if(glfwGetKey('Y') == GLFW_PRESS) buttons[CONTROLLER_BUTTON_Y] = 1;
+        else buttons[CONTROLLER_BUTTON_Y] = 0;
+    }
 
-    updateButtonBools(CONTROLLER_BUTTON_X);
-    updateButtonBools(CONTROLLER_BUTTON_Y);
+    updateButtonBools(CONTROLLER_BUTTON_RB);
+    updateButtonBools(CONTROLLER_BUTTON_LB);
 
-    if(buttonTrigger[CONTROLLER_BUTTON_X])
-        owner->attack();
+    if(buttonTrigger[CONTROLLER_BUTTON_RB])
+        owner->startAttackAnimation();
+
 }
 
 void Controller::updateButtonBools(const int buttonIndex){

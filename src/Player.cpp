@@ -87,6 +87,9 @@ const Controller * const Player::getController() const{
 
 void Player::update(float dt){
     if(alive){
+        float yTeabag = 0.0f;
+        if((yTeabag = controller->getAxisValue(Controller::CONTROLLER_RT)) >= 0)
+            setYPosition(getPosition().y + yTeabag);
         GameObject::update(dt);
         head.update(dt);
     }
@@ -131,7 +134,7 @@ void Player::updateHeadDirection(){
     }
 }
 
-void Player::attack(){
+void Player::startAttackAnimation(){
 
 }
 
@@ -228,7 +231,7 @@ void Character::update(float dt){
     }
 }
 
-void Character::attack(){
+void Character::startAttackAnimation(){
     animatingPickaxe = true;
     pickaxeAnimationIndex = 0;
 }
