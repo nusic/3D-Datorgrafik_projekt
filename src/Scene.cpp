@@ -163,11 +163,11 @@ void Scene::update(float dt){
 				updatePlayerPosition5Sa(pp, tp->camera);
 				updatePlayerHeadDirection(pp, tp->camera);
 
-				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_X)){
+				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_RB)){
 					playerAttack(pp, i);
 				}
 
-				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_Y)){
+				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_LB)){
 					playerRevive(pp, i);
 				}
 
@@ -190,6 +190,7 @@ void Scene::playerAttack(Player * p, int teamIndex){
 				glm::vec3 diff = hitPos - team[i]->players[j]->getPosition();
 				if(glm::length(diff) < 2.0f){
 					team[i]->players[j]->kill();
+					return;
 				}
 			}
 		}
