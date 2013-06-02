@@ -54,17 +54,22 @@ const float ambientBrightness = 0.9f;
 void main()
 {
 
-	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
-
-	vec3 materialAmbientColor = vec3(0.4,0.4,0.8) * materialDiffuseColor * ambientBrightness;
-
-	vec3 materialSpecularColor = vec3(0.3,0.3,0.3);
-
 	vec3 n = normalize(normal_viewSpace);
 	// Eye vector (away from the camera)
 	vec3 e = normalize(viewDirectionToVertex_viewSpace);
 
-	vec3 finalFragColor = materialAmbientColor; //Ambient
+
+	
+	
+	vec3 materialDiffuseColor = texture2D( textureSampler, UV ).rgb;
+	vec3 materialAmbientColor = vec3(0.4,0.4,0.8) * materialDiffuseColor * ambientBrightness;
+	vec3 materialMoonColor = materialAmbientColor * abs(n.y);//, 0.0, 1.0);
+	vec3 materialSpecularColor = vec3(0.3,0.3,0.3);
+
+
+
+	//vec3 finalFragColor = materialAmbientColor; //Ambient
+	vec3 finalFragColor = materialMoonColor; //moon light
 
 
 	//Förallokering av variabler för att slippa omdeklarera dem i for-loopen.
