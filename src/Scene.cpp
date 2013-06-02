@@ -2,7 +2,7 @@
 
 Scene::Scene():
 
-Model("tp4", "Ground", "SimpleColor"){
+Model("tp4", "tp4_texture", "SimpleColor"){
 	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
@@ -119,21 +119,22 @@ void Scene::initDynamicObjects(){
 
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
-	addPlayerToTeam(0, body2);
-
+	addPlayerToTeam(1, body2);
+/*
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayerToTeam(1, body3);
-/*
+
 	Player * body4 = new Character;
 	body4->setPosition(0.0f, 0.0f, 25.0f);
-	addPlayerToTeam(0, body4);
+	addPlayerToTeam(1, body4);
 
 	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayerToTeam(1, body5);
 
-	/*Player * body2 = new Character;
+/*	
+	Player * body2 = new Character;
 	body2->setPosition(-5.0f, 0.0f, 0.0f);
 	addPlayerToTeam(0, body2);
 */
@@ -161,6 +162,7 @@ void Scene::update(float dt){
 			if(pp->isAlive()){
 				pp->updateUserInputs();
 				updatePlayerPosition5Sa(pp, tp->camera);
+				pp->setYPosition(pp->getPosition().y + 3.7f +  0.7 * glm::sin(4 * sgct::Engine::getTime()));
 				updatePlayerHeadDirection(pp, tp->camera);
 
 				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_RB)){
@@ -393,7 +395,7 @@ void Scene::updatePlayerPosition5Sa(Player * p, Camera* cam) const{
 	    	}
 	    }
 
-    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples + 3.7f +  0.7 * glm::sin(4 * sgct::Engine::getTime()));
+    	p->setYPosition((yXmax+yXmin+yYmax+yYmin)/validSamples);
     	p->setVelocity(state.x, 0.0f, -state.y);
 
     	return;

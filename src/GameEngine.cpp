@@ -142,6 +142,9 @@ void GameEngine::initOGL(){
 		"SimpleTexture2", "data/textures/texture2.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(
+		"tp4_texture", "data/textures/tp4_texture.png", true);
+
+	sgct::TextureManager::Instance()->loadTexure(
 		"ghost_head_texture", "data/textures/ghost_head_texture.png", true);
 
 	sgct::TextureManager::Instance()->loadTexure(
