@@ -167,7 +167,7 @@ void Scene::update(float dt){
 					playerAttack(pp, i);
 				}
 
-				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_LR)){
+				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_LB)){
 					playerRevive(pp, i);
 				}
 
