@@ -2,7 +2,7 @@
 
 Scene::Scene():
 
-Model("demo_map", "ground_texture", "SimpleColor"){
+Model("tp4", "tp4_texture", "SimpleColor"){
 	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
