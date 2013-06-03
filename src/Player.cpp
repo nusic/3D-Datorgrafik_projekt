@@ -24,7 +24,7 @@ GameObject("ghost_body", "ghost_body_texture"){
     dyingLightTranslationNode = new Translation(translationNode, 0.0f, 0.0f, 0.0f);
     dyingLightRotationNode = new Rotation(dyingLightTranslationNode, 89.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     dyingLightSpeed = 3.0f;
-    originalDyingLightPosition = 6.0f;
+    originalDyingLightPosition = 1.0f;
 
 
     //int n = numberOfPlayers;
@@ -155,9 +155,14 @@ void Player::kill(){
     light->removeFromParent();
     originalLightIntensity = light->getIntensity();
 
-    dyingLightRotationNode->addChildNode(light);
+    Translation* lightTranslationNode = new Translation(dyingLightRotationNode, 0.0f, 0.0f, 3.0f);
+
+    lightTranslationNode->addChildNode(light);
     dyingLightPosition = originalDyingLightPosition;
-    dyingLightRotationNode->addChildNode(new Model("ghost_head", "ghost_head_texture"));
+    Model* cross = new Model("cross", "cross_texture");
+    
+    Rotation* rotationNode = new Rotation(dyingLightRotationNode, -90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+    rotationNode->addChildNode(cross);
 
     update(0.0f);
 }
@@ -171,7 +176,7 @@ void Player::revive(){
     light->removeFromParent();
     light->setIntensity(originalLightIntensity);
     originalLightParent->addChildNode(light);
-    Node * soul = dyingLightRotationNode->getChildByName("ghost_head");
+    Node * soul = dyingLightRotationNode->getChildByName("cross");
     dyingLightRotationNode->removeChildNode(soul);
 
     update(0.0f);
