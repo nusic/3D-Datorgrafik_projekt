@@ -29,8 +29,9 @@ public:
     void kill();
     void revive();
     bool isAlive() const;
+    void toggleLight();
 
-    virtual void startAttackAnimation();
+    void startAttackAnimation();
 
 
     static int numberOfPlayers;
@@ -50,6 +51,9 @@ protected:
     float dyingLightPosition;
     float originalDyingLightPosition;
 
+
+    bool animatingAttack;
+    int attackAnimationIndex;
 
 
 private:
@@ -71,7 +75,7 @@ public:
     ~Character();
 
     virtual void update(float dt);
-    virtual void startAttackAnimation();
+    void startAttackAnimation();
 
 
 private:
@@ -86,9 +90,9 @@ private:
 
     int animationIndex;
 
-    bool animatingPickaxe;
-    int pickaxeAnimationIndex;
+    
     static float pickaxeAnimationValues[];
+    static const int ATTACK_ANIMATION_LENGTH = 20;
 };
 
 #endif // PLAYER_H

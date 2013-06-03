@@ -10,6 +10,9 @@ Player::Player():
 GameObject("ghost_body", "ghost_body_texture"){
     alive = true;
     speed = 10.0f;
+    attackAnimationIndex = 0;
+    animatingAttack = false;
+
     controller = new Controller(numberOfPlayers, this);
 
     playerRotationNode = new Rotation(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -25,6 +28,7 @@ GameObject("ghost_body", "ghost_body_texture"){
     dyingLightRotationNode = new Rotation(dyingLightTranslationNode, 89.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     dyingLightSpeed = 3.0f;
     originalDyingLightPosition = 1.0f;
+    originalLightIntensity = 170.0f;
 
 
     //int n = numberOfPlayers;
@@ -96,7 +100,7 @@ void Player::update(float dt){
     else{
         dyingLightPosition += dyingLightSpeed * dt;
         dyingLightTranslationNode->setTranslation(0.0f, dyingLightPosition, 0.0f);
-        light->setIntensity(originalLightIntensity*originalDyingLightPosition/dyingLightPosition);
+        //light->setIntensity(originalLightIntensity*originalDyingLightPosition/dyingLightPosition);
     }
     light->update();
 }
@@ -153,7 +157,6 @@ void Player::kill(){
 
     originalLightParent = light->getParentNode();
     light->removeFromParent();
-    originalLightIntensity = light->getIntensity();
 
     Translation* lightTranslationNode = new Translation(dyingLightRotationNode, 0.0f, 0.0f, 3.0f);
 
@@ -182,6 +185,9 @@ void Player::revive(){
     update(0.0f);
 }
 
+void Player::toggleLight(){
+    light->setIntensity( (light->getIntensity() == 0) ? originalLightIntensity : 0.0f );
+}
 
 
 
@@ -192,8 +198,7 @@ void Player::revive(){
 Character::Character():
 Player(){
     animationIndex = 0;
-    pickaxeAnimationIndex = 0;
-    animatingPickaxe = false;
+    
 
     leftArm = GameObject("ghost_arm_left", "ghost_arm_right_texture");
     leftArm.setPosition(1.2f, -0.5f, 0.0f);
@@ -247,19 +252,19 @@ void Character::update(float dt){
 }
 
 void Character::startAttackAnimation(){
-    animatingPickaxe = true;
-    pickaxeAnimationIndex = 0;
+    animatingAttack = true;
+    attackAnimationIndex = 0;
 }
 
 void Character::updatePickaxe(){
-    if(animatingPickaxe){
+    if(animatingAttack){
 
-        if(pickaxeAnimationIndex < 20){
-            rightArm.setDirection(pickaxeAnimationValues[pickaxeAnimationIndex]);
-            ++pickaxeAnimationIndex;
+        if(attackAnimationIndex < ATTACK_ANIMATION_LENGTH){
+            rightArm.setDirection(pickaxeAnimationValues[attackAnimationIndex]);
+            ++attackAnimationIndex;
         }
         else{
-            animatingPickaxe = false;
+            animatingAttack = false;
         }
     }
 }

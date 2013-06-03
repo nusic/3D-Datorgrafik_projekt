@@ -141,10 +141,13 @@ void Controller::checkButtons(){
 
     updateButtonBools(CONTROLLER_BUTTON_RB);
     updateButtonBools(CONTROLLER_BUTTON_LB);
+    updateButtonBools(CONTROLLER_BUTTON_A);
 
     if(buttonTrigger[CONTROLLER_BUTTON_RB])
         owner->startAttackAnimation();
 
+    if(buttonTrigger[CONTROLLER_BUTTON_A] && owner->isAlive())
+        owner->toggleLight();
 }
 
 void Controller::updateButtonBools(const int buttonIndex){
