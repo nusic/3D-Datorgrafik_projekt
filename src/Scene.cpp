@@ -86,9 +86,11 @@ void Scene::initStaticPhysicalObjects(){
 	StaticGameObject* sgo;
 	sgo = new StaticGameObject("table", "table_texture");
 	
+	float x = 0;
+	float z = 0;
 	float y = getYPosition(x, z);
-	sgo->setPosition(0, y, 0);
-	sgo->setSize(20);
+	sgo->setPosition(x, y, z);
+	sgo->setSize(1);
 	addChildNode(sgo->getSceneGraphBranch());
 
 	/*
