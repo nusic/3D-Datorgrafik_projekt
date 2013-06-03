@@ -186,8 +186,8 @@ void Scene::update(float dt){
 
 void Scene::playerAttack(Player * p, int teamIndex){
 	glm::vec3 hitPos = p->getPosition();
-	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
-	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 2;
+	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 2;
 	//StaticGameObject * sgo = new StaticGameObject(hitPos.x, hitPos.y, hitPos.z);
 	//addChildNode(sgo->getSceneGraphBranch());
 
@@ -195,7 +195,7 @@ void Scene::playerAttack(Player * p, int teamIndex){
 		if(i != teamIndex){
 			for (int j = 0; j < team[i]->players.size(); ++j){
 				glm::vec3 diff = hitPos - team[i]->players[j]->getPosition();
-				if(glm::length(diff) < 4.0f){
+				if(glm::length(diff) < 3.0f){
 					team[i]->players[j]->kill();
 					return;
 				}
@@ -206,8 +206,8 @@ void Scene::playerAttack(Player * p, int teamIndex){
 
 void Scene::playerRevive(Player * p, int teamIndex){
 	glm::vec3 hitPos = p->getPosition();
-	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
-	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 3;
+	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 2;
+	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 2;
 
 	
 	for (int j = 0; j < team[teamIndex]->players.size(); ++j){
