@@ -45,7 +45,7 @@ protected:
     Rotation* playerRotationNode;
 
     LightSource* light;
-    float originalLightIntensity;
+    static const float originalLightIntensity = 170;
     Node* originalLightParent;
 
     Translation* dyingLightTranslationNode;
