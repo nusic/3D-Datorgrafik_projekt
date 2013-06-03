@@ -28,8 +28,9 @@ public:
 
     void kill();
     void revive();
-    bool isAlive() const;
     void toggleLight();
+    bool isAlive() const;
+    bool isAttacking() const;
 
     void startAttackAnimation();
 

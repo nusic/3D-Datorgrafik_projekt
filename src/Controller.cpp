@@ -73,7 +73,6 @@ void Controller::inputLoader(){
 
 	}
     checkButtons();
-
 }
 
 double Controller::getAxisValue(int axis_index){
@@ -143,7 +142,7 @@ void Controller::checkButtons(){
     updateButtonBools(CONTROLLER_BUTTON_LB);
     updateButtonBools(CONTROLLER_BUTTON_A);
 
-    if(buttonTrigger[CONTROLLER_BUTTON_RB])
+    if(buttonTrigger[CONTROLLER_BUTTON_RB] && !owner->isAttacking())
         owner->startAttackAnimation();
 
     if(buttonTrigger[CONTROLLER_BUTTON_A] && owner->isAlive())

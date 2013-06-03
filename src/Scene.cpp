@@ -262,11 +262,13 @@ void Scene::updatePlayerHeadDirection(Player* p, Camera* cam) const{
     float phiTarget = 180.0f / 3.141592 * glm::atan(state.x,-state.y);
     float phiDiff = fmod(phiTarget - p->head.getPhi() + 3*180.0f, 360.0f) - 180.0f;
     p->head.setAngleVel(phiDiff);
+	
 	/*
     sgct::MessageHandler::Instance()->print(
         "phi = %f, phiTarget = %f, phiDiff = %f", head.getPhi(), phiTarget, phiDiff);
     sgct::MessageHandler::Instance()->print("\r");
 	*/
+	
 	}
 }
 

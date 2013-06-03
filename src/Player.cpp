@@ -85,6 +85,10 @@ bool Player::isAlive() const{
     return alive;
 }
 
+bool Player::isAttacking() const{
+    return animatingAttack;
+}
+
 const Controller * const Player::getController() const{
     return controller;
 }
