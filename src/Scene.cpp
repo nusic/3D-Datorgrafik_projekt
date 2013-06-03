@@ -2,7 +2,7 @@
 
 Scene::Scene():
 
-Model("tp4", "tp4_texture", "SimpleColor"){
+Model("demo_map", "tp4_texture", "SimpleColor"){
 	printf("\nScene object created\n");
 	team.push_back(new Team());
 	team.push_back(new Team());
@@ -82,7 +82,7 @@ void Scene::printLoadingStats(){
 	verts = vertsTot;
 }
 
-void Scene::initStaticPhysicalObjects(){/*
+void Scene::initStaticPhysicalObjects(){
 	std::vector<glm::vec2> tablePositions;
 	tablePositions.push_back(glm::vec2(-69, -6));
 	tablePositions.push_back(glm::vec2(-55, -6));
@@ -151,7 +151,7 @@ void Scene::initDynamicObjects(){
 	Player * body1 = new Character;
 	body1->setPosition(0.0f, 0.0f, -50.0f);
 	addPlayerToTeam(0, body1);
-/*
+
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, -50.0f);
 	addPlayerToTeam(0, body2);
@@ -167,7 +167,7 @@ void Scene::initDynamicObjects(){
 	Player * body5 = new Character;
 	body5->setPosition(0.0f, 0.0f, 50.0f);
 	addPlayerToTeam(1, body5);
-*/
+
 }
 
 
