@@ -196,7 +196,7 @@ void Scene::playerAttack(Player * p, int teamIndex){
 		if(i != teamIndex){
 			for (int j = 0; j < team[i]->players.size(); ++j){
 				glm::vec3 diff = hitPos - team[i]->players[j]->getPosition();
-				if(glm::length(diff) < 2.0f){
+				if(glm::length(diff) < 4.0f){
 					team[i]->players[j]->kill();
 					return;
 				}
