@@ -84,6 +84,14 @@ void Scene::printLoadingStats(){
 
 void Scene::initStaticPhysicalObjects(){
 	StaticGameObject* sgo;
+	sgo = new StaticGameObject("table", "table_texture");
+	
+	float y = getYPosition(x, z);
+	sgo->setPosition(0, y, 0);
+	sgo->setSize(20);
+	addChildNode(sgo->getSceneGraphBranch());
+
+	/*
 	srand(time(NULL));
 	for (int i = 0; i < 10; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
@@ -92,7 +100,7 @@ void Scene::initStaticPhysicalObjects(){
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
 		float size = (rand()/(float)RAND_MAX) + 2.0f;
 
-		sgo = new StaticGameObject("table", "Table");
+		sgo = new StaticGameObject("table", "table_texture");
 
 		
 		sgo->setPosition(x, y, z);
@@ -101,6 +109,7 @@ void Scene::initStaticPhysicalObjects(){
 
 		addChildNode(sgo->getSceneGraphBranch());
 	}
+	*/
 }
 
 void Scene::initStaticNonPhysicalObjects(){
