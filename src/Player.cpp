@@ -28,7 +28,6 @@ GameObject("ghost_body", "ghost_body_texture"){
     dyingLightRotationNode = new Rotation(dyingLightTranslationNode, 89.0f, glm::vec3(1.0f, 0.0f, 0.0f));
     dyingLightSpeed = 3.0f;
     originalDyingLightPosition = 1.0f;
-    originalLightIntensity = 170.0f;
 
 
     //int n = numberOfPlayers;
@@ -198,7 +197,7 @@ void Player::revive(){
 }
 
 void Player::toggleLight(){
-    light->setIntensity( (light->getIntensity() == 0) ? originalLightIntensity : 0.0f );
+    light->setIntensity( (light->getIntensity() == 0.0f) ? originalLightIntensity : 0.0f );
 }
 
 
