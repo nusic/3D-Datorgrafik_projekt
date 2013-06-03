@@ -201,7 +201,6 @@ void Scene::update(float dt){
 			if(pp->isAlive()){
 				pp->updateUserInputs();
 				updatePlayerPosition5Sa(pp, tp->camera);
-				pp->setYPosition(pp->getPosition().y + 1.7f +  0.7 * glm::sin(4 * sgct::Engine::getTime()));
 				updatePlayerHeadDirection(pp, tp->camera);
 
 				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_RB)){

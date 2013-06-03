@@ -91,9 +91,11 @@ const Controller * const Player::getController() const{
 
 void Player::update(float dt){
     if(alive){
-        float yTeabag = 0.0f;
-        if((yTeabag = controller->getAxisValue(Controller::CONTROLLER_RT)) >= 0)
-            setYPosition(getPosition().y + yTeabag);
+        
+        float yTeabag = controller->getAxisValue(Controller::CONTROLLER_RT);
+        setYPosition(getPosition().y + 1.7f + 0.7 * glm::sin(4 * sgct::Engine::getTime()));
+        setYPosition(getPosition().y + yTeabag);
+
         GameObject::update(dt);
         head.update(dt);
     }
