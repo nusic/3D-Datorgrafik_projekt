@@ -63,7 +63,14 @@ void Controller::controllerLoader(){
 	}
     else{
         axes = new float[6]; //Maximum number of axes
+        for (int i = 0; i < 6; ++i){
+            axes[i] = 0.0f;
+        }
+
         buttons = new unsigned char[14]; //Maximum number of buttons
+        for (int i = 0; i < 6; ++i){
+            buttons[i] = 0;
+        }
 	}
 }
 
@@ -158,6 +165,7 @@ void Controller::checkButtons(){
 
     if(buttonTrigger[CONTROLLER_BUTTON_A] && owner->isAlive())
         owner->toggleLight();
+
 }
 
 void Controller::updateButtonBools(const int buttonIndex){
