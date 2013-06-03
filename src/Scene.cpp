@@ -148,35 +148,24 @@ void Scene::initStaticNonPhysicalObjects(){
 void Scene::initDynamicObjects(){
 
 	Player * body1 = new Character;
-	body1->setPosition(0.0f, 0.0f, -5.0f);
+	body1->setPosition(0.0f, 0.0f, -50.0f);
 	addPlayerToTeam(0, body1);
 
 	Player * body2 = new Character;
-	body2->setPosition(0.0f, 0.0f, 15.0f);
-	addPlayerToTeam(1, body2);
-/*
-	Player * body3 = new Character;
-	body1->setPosition(0.0f, 0.0f, 10.0f);
-	addPlayerToTeam(1, body3);
+	body2->setPosition(0.0f, 0.0f, -50.0f);
+	addPlayerToTeam(0, body2);
 
-/*
 	Player * body3 = new Character;
-	body1->setPosition(0.0f, 0.0f, 10.0f);
-	addPlayerToTeam(1, body3);
+	body3->setPosition(0.0f, 0.0f, -50.0f);
+	addPlayerToTeam(0, body3);
 
 	Player * body4 = new Character;
-	body4->setPosition(0.0f, 0.0f, 25.0f);
+	body4->setPosition(0.0f, 0.0f, 50.0f);
 	addPlayerToTeam(1, body4);
 
 	Player * body5 = new Character;
-	body5->setPosition(0.0f, 0.0f, -5.0f);
+	body5->setPosition(0.0f, 0.0f, 50.0f);
 	addPlayerToTeam(1, body5);
-
-/*	
-	Player * body2 = new Character;
-	body2->setPosition(-5.0f, 0.0f, 0.0f);
-	addPlayerToTeam(0, body2);
-*/
 }
 
 
