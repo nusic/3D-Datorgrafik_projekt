@@ -104,7 +104,7 @@ void GameEngine::draw(){
 		glDisable(GL_CULL_FACE);
 	}
 
-	float scale = 1.15f;
+	float scale = 2.30f;
 	const int xSize = scale * 640;
 	const int ySize = scale * 360;
 	for (int i = 0; i < scene->team.size(); ++i){
