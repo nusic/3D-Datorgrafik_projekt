@@ -83,7 +83,40 @@ void Scene::printLoadingStats(){
 }
 
 void Scene::initStaticPhysicalObjects(){
+	std::vector<glm::vec2> tablePositions;
+	tablePositions.push_back(glm::vec2(-69, -6));
+	tablePositions.push_back(glm::vec2(-55, -6));
+	tablePositions.push_back(glm::vec2(-26, -6));
+	tablePositions.push_back(glm::vec2(-10, -6));
+
+	tablePositions.push_back(glm::vec2(51, -3));
+	tablePositions.push_back(glm::vec2(35, -3));
+
+	tablePositions.push_back(glm::vec2(98, -6));
+
+	tablePositions.push_back(glm::vec2(58, 73));
+	tablePositions.push_back(glm::vec2(15, 73));
+
+	tablePositions.push_back(glm::vec2(-26, -65));
+	tablePositions.push_back(glm::vec2(-10, -65));
+	tablePositions.push_back(glm::vec2(56, -65));
+	tablePositions.push_back(glm::vec2(40, -65));
+
+
 	StaticGameObject* sgo;
+
+
+	for (int i = 0; i < tablePositions.size(); ++i){
+		sgo = new StaticGameObject("table", "table_texture");
+		float x = tablePositions[i].x;
+		float z = tablePositions[i].y;
+		float y = getYPosition(x, z);
+		sgo->setPosition(x, y, z);
+		sgo->setSize(1.5);
+		addChildNode(sgo->getSceneGraphBranch());
+	}
+
+	/*
 	srand(time(NULL));
 	for (int i = 0; i < 10; ++i){
 		float x = sceneDimensions.x * (rand()/(float)RAND_MAX) + minVertexValues.x;
@@ -92,7 +125,7 @@ void Scene::initStaticPhysicalObjects(){
 		float phi 	= 360.0f*(rand()/(float)RAND_MAX);
 		float size = (rand()/(float)RAND_MAX) + 2.0f;
 
-		sgo = new StaticGameObject("table", "Table");
+		sgo = new StaticGameObject("table", "table_texture");
 
 		
 		sgo->setPosition(x, y, z);
@@ -101,6 +134,7 @@ void Scene::initStaticPhysicalObjects(){
 
 		addChildNode(sgo->getSceneGraphBranch());
 	}
+	*/
 }
 
 void Scene::initStaticNonPhysicalObjects(){

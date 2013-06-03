@@ -156,8 +156,8 @@ void GameEngine::initOGL(){
 	sgct::TextureManager::Instance()->loadTexure("pick_axe_texture", 		"data/textures/pick_axe_texture.png", true);
 	sgct::TextureManager::Instance()->loadTexure("flash_light_texture", 	"data/textures/flash_light_texture.png", true);
 	sgct::TextureManager::Instance()->loadTexure("moon_texture", 			"data/textures/moon_texture.png", true);
-	sgct::TextureManager::Instance()->loadTexure("Ground", 					"data/textures/ground.png", true);
-	sgct::TextureManager::Instance()->loadTexure("Table", 					"data/textures/table_texture2.png", true);
+	sgct::TextureManager::Instance()->loadTexure("ground_texture", 					"data/textures/ground.png", true);
+	sgct::TextureManager::Instance()->loadTexure("table_texture", 			"data/textures/table_texture2.png", true);
 
 
 	//Add shaders
