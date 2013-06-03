@@ -161,14 +161,15 @@ void Player::kill(){
     originalLightParent = light->getParentNode();
     light->removeFromParent();
 
-    Translation* lightTranslationNode = new Translation(dyingLightRotationNode, 0.0f, 0.0f, 3.0f);
+    Translation* lightTranslationNode = new Translation(dyingLightRotationNode, 0.0f, 0.0f, -1.0f);
 
     lightTranslationNode->addChildNode(light);
+    light->setIntensity(originalLightIntensity/2);
     dyingLightPosition = originalDyingLightPosition;
-    Model* cross = new Model("cross", "cross_texture");
+    //Model* cross = new Model("cross", "cross_texture");
     
     Rotation* rotationNode = new Rotation(dyingLightRotationNode, -90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-    rotationNode->addChildNode(cross);
+    //rotationNode->addChildNode(cross);
 
     update(0.0f);
 }
@@ -182,8 +183,8 @@ void Player::revive(){
     light->removeFromParent();
     light->setIntensity(originalLightIntensity);
     originalLightParent->addChildNode(light);
-    Node * soul = dyingLightRotationNode->getChildByName("cross");
-    dyingLightRotationNode->removeChildNode(soul);
+    //Node * soul = dyingLightRotationNode->getChildByName("cross");
+    //dyingLightRotationNode->removeChildNode(soul);
 
     update(0.0f);
 }
