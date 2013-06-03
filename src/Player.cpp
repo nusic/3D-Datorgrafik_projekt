@@ -139,7 +139,8 @@ void Player::updateHeadDirection(){
 }
 
 void Player::startAttackAnimation(){
-
+    animatingAttack = true;
+    attackAnimationIndex = 0;
 }
 
 void Player::kill(){
@@ -251,10 +252,6 @@ void Character::update(float dt){
     }
 }
 
-void Character::startAttackAnimation(){
-    animatingAttack = true;
-    attackAnimationIndex = 0;
-}
 
 void Character::updatePickaxe(){
     if(animatingAttack){

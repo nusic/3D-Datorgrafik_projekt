@@ -75,7 +75,6 @@ public:
     ~Character();
 
     virtual void update(float dt);
-    void startAttackAnimation();
 
 
 private:
