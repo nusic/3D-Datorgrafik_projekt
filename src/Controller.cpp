@@ -13,8 +13,11 @@ Controller::Controller(int index, Player* const _owner): owner(_owner){
     }
 
     controllerLoader();
-    if(joystickPresent)
+    if(joystickPresent){
         inputLoader();
+        printf("controller loaded\n");
+    }
+
 }
 
 Controller::~Controller(){
@@ -44,11 +47,19 @@ void Controller::controllerLoader(){
 		//	numberOfAxes,
 		//	numberOfButtons);
 
-		if(numberOfAxes > 0)
+		if(numberOfAxes > 0){
 			axes = new float[numberOfAxes];
+            for (int i = 0; i < numberOfAxes; ++i){
+                axes[i] = 0.0f;
+            }
+        }
 
-		if(numberOfButtons > 0)
+		if(numberOfButtons > 0){
 			buttons = new unsigned char[numberOfButtons];
+            for (int i = 0; i < numberOfButtons; ++i){
+                buttons[i] = 0;
+            }
+        }
 	}
     else{
         axes = new float[6]; //Maximum number of axes
