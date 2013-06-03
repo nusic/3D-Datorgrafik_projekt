@@ -1,6 +1,6 @@
 #version 120
 
-const int MAX_NUMBER_OF_LIGHTS = 3;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 
 
 // Input vertex data, different for all executions of this shader.

@@ -6,7 +6,7 @@ uniform sampler2D textureSampler;
 //Light data
 uniform int numberOfLights;
 
-const int MAX_NUMBER_OF_LIGHTS = 3;
+const int MAX_NUMBER_OF_LIGHTS = 1;
 
 
 uniform vec3 lightPosition_worldSpace[MAX_NUMBER_OF_LIGHTS];
@@ -48,7 +48,7 @@ uniform sampler2D shadowMap14;
 uniform sampler2D shadowMap15;
 
 
-const float ambientBrightness = 0.30f;
+const float ambientBrightness = 0.8f;
 
 
 
