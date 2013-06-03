@@ -114,14 +114,13 @@ void Scene::initStaticNonPhysicalObjects(){
 void Scene::initDynamicObjects(){
 
 	Player * body1 = new Character;
-	body1->setPosition(0.0f, 0.0f, 5.0f);
+	body1->setPosition(0.0f, 0.0f, -5.0f);
 	addPlayerToTeam(0, body1);
 
 	Player * body2 = new Character;
 	body2->setPosition(0.0f, 0.0f, 15.0f);
-
-	addPlayerToTeam(0, body2);
-
+	addPlayerToTeam(1, body2);
+/*
 	Player * body3 = new Character;
 	body1->setPosition(0.0f, 0.0f, 10.0f);
 	addPlayerToTeam(1, body3);
@@ -168,7 +167,7 @@ void Scene::update(float dt){
 			if(pp->isAlive()){
 				pp->updateUserInputs();
 				updatePlayerPosition5Sa(pp, tp->camera);
-				pp->setYPosition(pp->getPosition().y + 3.7f +  0.7 * glm::sin(4 * sgct::Engine::getTime()));
+				pp->setYPosition(pp->getPosition().y + 1.7f +  0.7 * glm::sin(4 * sgct::Engine::getTime()));
 				updatePlayerHeadDirection(pp, tp->camera);
 
 				if(pp->getController()->buttonIsTrigged(Controller::CONTROLLER_BUTTON_RB)){
