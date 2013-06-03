@@ -34,6 +34,8 @@ public:
 
     void startAttackAnimation();
 
+    void setLightColor(float r, float g, float b);
+
 
     static int numberOfPlayers;
 

@@ -185,6 +185,12 @@ void Scene::addPlayerToTeam(int index, Player * p){
 	p->setYPosition(getYPosition(p->getPosition().x, p->getPosition().z));
 	addChildNode(p->getSceneGraphBranch());
 	team[index]->addPlayer(p);
+	switch(index){
+		case 0: p->setLightColor(0.9f, 0.6f, 0.6f); break;
+		case 1: p->setLightColor(0.6f, 0.9f, 0.6f); break;
+		case 2: p->setLightColor(0.6f, 0.6f, 0.9f); break;
+		default: p->setLightColor(0.9f, 0.8f, 0.8f);break;
+	}
 }
 
 

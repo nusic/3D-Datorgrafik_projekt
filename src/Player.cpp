@@ -81,6 +81,10 @@ Player::~Player(){
     //Väntar med att deletea lightSource då en del måsta fixas i den destruktorn
 }
 
+void Player::setLightColor(float r, float g, float b){
+    light->setColor(r,g,b);
+}
+
 bool Player::isAlive() const{
     return alive;
 }
