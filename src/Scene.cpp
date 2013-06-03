@@ -186,8 +186,8 @@ void Scene::update(float dt){
 
 void Scene::playerAttack(Player * p, int teamIndex){
 	glm::vec3 hitPos = p->getPosition();
-	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 2;
-	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 2;
+	hitPos.x += glm::sin(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 1;
+	hitPos.z += glm::cos(3.141592f / 180.0f * p->head.getPhi()) * p->getBaseRadius() * 1;
 	//StaticGameObject * sgo = new StaticGameObject(hitPos.x, hitPos.y, hitPos.z);
 	//addChildNode(sgo->getSceneGraphBranch());
 
